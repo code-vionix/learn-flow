@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -7,17 +9,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Bell, GraduationCap, Heart, Search, ShoppingCart } from "lucide-react";
+import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav
+      className={`w-full z-50 transition-all duration-300 ${
+        isSticky
+          ? "fixed top-0 bg-white shadow-md py-3"
+          : "relative bg-transparent py-5"
+      }`}
+    >
+      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <h3 className=" text-2xl font-semibold flex items-center">
-              <span className="mr-2 text-orange-500 text-4xl">📚</span> Learn
-              Flow
+            <h3 className="text-2xl font-semibold flex items-center">
+              <span className="mr-2">
+                <Image
+                  src="/images/logo.png"
+                  alt="Logo"
+                  width={40}
+                  height={40}
+                />
+              </span>
+              E-tutor
             </h3>
             <div className="ml-10">
               <Select>
@@ -37,7 +65,7 @@ export default function Navigation() {
                 <Input
                   type="text"
                   placeholder="What do you want to learn..."
-                  className="w-64 pl-10  py-2"
+                  className="w-64 pl-10 py-2"
                 />
               </div>
             </div>
