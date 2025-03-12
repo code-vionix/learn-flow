@@ -255,3 +255,59 @@ export const recentCourses = [
     ],
   },
 ];
+export const reviews = [
+  {
+    id: "1",
+    author: "Guy Hawkins",
+    avatar: "https://i.pravatar.cc/150?img=1",
+    rating: 5,
+    content:
+      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
+    timeAgo: "1 week ago",
+  },
+  {
+    id: "2",
+    author: "Dianne Russell",
+    avatar: "https://i.pravatar.cc/150?img=2",
+    rating: 5,
+    content:
+      "This course is just amazing! has great course content, the best practices, and a lot of real-world knowledge. I love the way of giving examples, the best tips by the instructor which are pretty interesting, fun and knowledgeable and I was never getting bored throughout the course. This course meets more than my expectation and, I made the best investment of time to learn and practice what I am passionate about. Thank you so much to our excellent instructor Vako!! Highly recommend this course! Take the next step.",
+    timeAgo: "51 mins ago",
+  },
+  {
+    id: "3",
+    author: "Bessie Cooper",
+    avatar: "https://i.pravatar.cc/150?img=3",
+    rating: 5,
+    content:
+      "Webflow course was good, it coves design secrtes, and to build responsive web pages, blog, and some more tricks and tips about webflow. I enjoyed the course and it helped me to add web development skills related to webflow in my toolbox. Thank you Vako.",
+    timeAgo: "6 hours ago",
+  },
+  {
+    id: "4",
+    author: "Eleanor Pena",
+    avatar: "https://i.pravatar.cc/150?img=4",
+    rating: 5,
+    content:
+      "I appreciate the precise short videos (10 mins or less each) because overly long videos tend to make me lose focus. The instructor is very knowledgeable in Web Design and it shows as he shares his knowledge. These were my best 6 months of training. Thanks, Vako.",
+    timeAgo: "1 days ago",
+  },
+  {
+    id: "5",
+    author: "Ralph Edwards",
+    avatar: "https://i.pravatar.cc/150?img=5",
+    rating: 5,
+    content:
+      "GREAT Course! Instructor was very descriptive and professional. I learned a TON that is going to apply immediately to real life work. Thanks so much, cant wait for the next one!",
+    timeAgo: "2 days ago",
+  },
+  {
+    id: "6",
+    author: "Arlene McCoy",
+    avatar: "https://i.pravatar.cc/150?img=6",
+    rating: 5,
+    content:
+      "This should be one of the best course I ever made about UXUI in Udemy. Highly recommend to those who is new to UXUI and want to become UXUI freelancer!",
+    timeAgo: "1 week ago",
+  },
+];
