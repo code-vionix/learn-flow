@@ -8,9 +8,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
 import Apple from "@/public/images/app-store.png";
 import Google from "@/public/images/google-play.png";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -19,7 +19,7 @@ export default function Footer() {
         {/* Footer Content (Flex Row) */}
         <div className="flex justify-between mt-12">
           {/* E-tutor Section - 1/5 width */}
-          <div className="w-1/5">
+          <div className="w-2/6  ">
             <h3 className="text-white text-lg font-semibold flex items-center">
               <span className="mr-2 text-orange-500 text-2xl">📚</span> Learn
               Flow
@@ -58,7 +58,7 @@ export default function Footer() {
           </div>
 
           {/* Other Sections - 4/5 width */}
-          <div className="w-4/5 flex justify-between">
+          <div className="w-4/6 flex justify-between">
             {/* Top Categories */}
             <div>
               <h4 className="text-white font-semibold">TOP 4 CATEGORY</h4>
