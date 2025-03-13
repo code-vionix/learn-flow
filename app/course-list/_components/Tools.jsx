@@ -2,80 +2,88 @@
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import { course } from "@/data/dummyFilterData";
-
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Star } from "lucide-react";
 
-const Tools = () => {
-  const [selectedOption, setSelectedOption] = useState([]); // for selected toots item
+const FilterCard = ({ title, items }) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  // Get the selected filters from URL
+  const selectedOptions = searchParams.get(title)?.split(",") || [];
 
   const toggleOption = (item) => {
-    setSelectedTools((prev) =>
-      prev.includes(item) ? prev.filter((t) => t !== item) : [...prev, item]
-    );
+    const newSelectedOptions = selectedOptions.includes(item)
+      ? selectedOptions.filter((opt) => opt !== item)
+      : [...selectedOptions, item];
+
+    const params = new URLSearchParams(searchParams);
+    if (newSelectedOptions.length > 0) {
+      params.set(title, newSelectedOptions.join(","));
+    } else {
+      params.delete(title);
+    }
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (
-    <>
-      {course.categorys.map((category) => (
-        <div key={category.id} className="p-4 mt-6 border rounded-sm w-full">
-          {/* <h1 className="text-2xl text-black mb-2 pb-6 uppercase font-semibold border-b">
-            Category
-          </h1> */}
-          <Accordion
-            className="text-2xl text-black mb-2 pb-6 uppercase font-semibold"
-            key={category.id}
-            type="single"
-            collapsible
-          >
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="hover:no-underline text-base uppercase data-[state=open]:text-primary-500">
-                {category.title}
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="">
-                  {category?.subCategory?.map((item) => (
-                    <div
-                      key={item.name}
-                      className={`flex items-center justify-between  py-2 hover:bg-gray-50`}
+    <div className="p-4 mt-6 border rounded-sm w-full">
+      <Accordion
+        className="text-2xl text-black mb-2 pb-6 uppercase font-semibold"
+        type="single"
+        collapsible
+      >
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="hover:no-underline text-base uppercase data-[state=open]:text-primary-500">
+            {title}
+          </AccordionTrigger>
+          <AccordionContent>
+            <div>
+              {items?.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center justify-between py-2 hover:bg-gray-50"
+                >
+                  <div className="flex items-center">
+                    <Checkbox
+                      id={item}
+                      checked={selectedOptions.includes(item.toString())}
+                      onCheckedChange={() => toggleOption(item.toString())}
+                      className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
+                    />
+                    <Label
+                      htmlFor={item.toString()}
+                      className={`${
+                        selectedOptions.includes(item.toString())
+                          ? "text-primary-500"
+                          : "text-gray-700"
+                      } ml-2 text-sm cursor-pointer`}
                     >
-                      <div className="flex items-center">
-                        <Checkbox
-                          id={item.name}
-                          checked={selectedOption.includes(item.name)}
-                          onCheckedChange={() => toggleOption(item.name)}
-                          className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
-                        />
-                        <Label
-                          htmlFor={item.name}
-                          className={`${
-                            selectedOption.includes(item.name)
-                              ? "text-primary-500"
-                              : "text-gray-700"
-                          } ml-2 text-sm cursor-pointer`}
-                        >
-                          {item.name}
-                        </Label>
-                      </div>
-                      <span className="text-sm text-gray-400">
-                        {item.count}
-                      </span>
-                    </div>
-                  ))}
+                      {title.toLowerCase() === "rating" ? (
+                        <span>
+                          <Star className="h-4 w-4 inline-block text-yellow-400 fill-current" />
+                          {`    ${item}  Star`}
+                        </span>
+                      ) : (
+                        item
+                      )}
+                    </Label>
+                  </div>
                 </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      ))}
-    </>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
   );
 };
 
-export default Tools;
+export default FilterCard;
