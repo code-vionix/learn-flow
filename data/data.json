@@ -20,6 +20,22 @@
           "students": 238560,
           "courses": 20,
           "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Vako Shvili",
+          "role": "Web Designer & Best-Selling Instructor",
+          "rating": 4.9,
+          "students": 238560,
+          "courses": 20,
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Vako Shvili",
+          "role": "Web Designer & Best-Selling Instructor",
+          "rating": 4.9,
+          "students": 238560,
+          "courses": 20,
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "what_you_will_learn": [
@@ -151,6 +167,14 @@
           "students": 175000,
           "courses": 15,
           "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Jake Thompson",
+          "role": "Webflow Expert & Digital Designer",
+          "rating": 4.8,
+          "students": 175000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "what_you_will_learn": [
@@ -239,6 +263,15 @@
       "level": "Beginner",
       "duration": "9 hour",
       "instructors": [
+        {
+          "id": "1",
+          "name": "Sophia Lee",
+          "role": "UI/UX Designer & Product Consultant",
+          "rating": 4.9,
+          "students": 320450,
+          "courses": 25,
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
         {
           "id": "1",
           "name": "Sophia Lee",
@@ -370,6 +403,22 @@
           "students": 210345,
           "courses": 18,
           "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David Kim",
+          "role": "Frontend Developer & Coding Instructor",
+          "rating": 4.7,
+          "students": 210345,
+          "courses": 18,
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David Kim",
+          "role": "Frontend Developer & Coding Instructor",
+          "rating": 4.7,
+          "students": 210345,
+          "courses": 18,
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "what_you_will_learn": [
@@ -485,6 +534,14 @@
           "students": 285740,
           "courses": 22,
           "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Jessica Brown",
+          "role": "UI Designer & Figma Expert",
+          "rating": 4.9,
+          "students": 285740,
+          "courses": 22,
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "what_you_will_learn": [
@@ -577,6 +634,22 @@
           "students": 198230,
           "courses": 12,
           "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Daniel Carter",
+          "role": "No-Code Expert & Startup Founder",
+          "rating": 4.8,
+          "students": 198230,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Daniel Carter",
+          "role": "No-Code Expert & Startup Founder",
+          "rating": 4.8,
+          "students": 198230,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "user_reviews": [
@@ -622,6 +695,14 @@
       "level": "Beginner",
       "duration": "7 hour",
       "instructors": [
+        {
+          "name": "John Doe",
+          "role": "Senior JavaScript Developer",
+          "rating": 4.8,
+          "students": 500000,
+          "courses": 25,
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
         {
           "name": "John Doe",
           "role": "Senior JavaScript Developer",
@@ -745,6 +826,22 @@
           "students": 600000,
           "courses": 15,
           "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sarah Lee",
+          "role": "Python Developer & Data Scientist",
+          "rating": 4.9,
+          "students": 600000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sarah Lee",
+          "role": "Python Developer & Data Scientist",
+          "rating": 4.9,
+          "students": 600000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "what_you_will_learn": [
@@ -849,6 +946,14 @@
           "students": 150000,
           "courses": 18,
           "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Alex Chen",
+          "role": "Mobile Development Expert",
+          "rating": 4.7,
+          "students": 150000,
+          "courses": 18,
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         }
       ],
       "what_you_will_learn": [
@@ -946,6 +1051,14 @@
       "level": "Beginner",
       "duration": "8 hour",
       "instructors": [
+        {
+          "name": "Dr. Emily Zhang",
+          "role": "Data Science Researcher",
+          "rating": 4.9,
+          "students": 300000,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
         {
           "name": "Dr. Emily Zhang",
           "role": "Data Science Researcher",

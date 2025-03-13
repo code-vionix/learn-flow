@@ -7,8 +7,8 @@ export default function BestSellingSection({ courses }) {
         Best selling courses
       </h2>
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-        {courses.map((course, index) => (
-          <CourseCard key={index} {...course} />
+        {courses.map((course) => (
+          <CourseCard key={course.id} {...course} />
         ))}
       </div>
     </div>
