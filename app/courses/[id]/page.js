@@ -14,6 +14,7 @@ import CourseTabs from "../_component/CourseTabs";
 import CourseDescription from "../_component/CourseDescription";
 import CourseInfo from "../_component/CourseInfo";
 import CourseTitle from "../_component/CourseTitle";
+import Curriculum from "../_component/Curriculum";
 import { StudentFeedback } from "../_component/StudentFeedback";
 import { reviews } from "./../../../data/index";
 
@@ -28,11 +29,12 @@ export default async function Home({ params }) {
           <Breadcrumb />
           <CourseTitle title={course.title} subtitle={course.subtitle} />
           <CourseInfo course={course} />
-          <CoursePreview />
+          <CoursePreview course={course} />
           <CourseTabs />
           <CourseDescription />
           <CourseLearning />
           <CourseDetails />
+          <Curriculum />
           <CourseInstructor />
           <CourseRating />
           <StudentFeedback reviews={reviews} />
