@@ -1,8 +1,10 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import FilterCategoryLists from "./FilterCategoryLists";
-import FilterCard from "./Tools";
+
 import { getCategoryFromCourses, getToolsFormCoures } from "@/utils/category";
+import FilterWithPrice from "./FilterWithPrice";
+import FilterCard from "./FilterCard";
 
 const FilterLeftSideBar = ({ showFilters, courses }) => {
   const searchParams = useSearchParams();
@@ -13,7 +15,7 @@ const FilterLeftSideBar = ({ showFilters, courses }) => {
   const selectedDuration = searchParams.get("Duration")?.split(",") || [];
   const selectedCourseLevel = searchParams.get("CourseLevel")?.split(",") || [];
   const selectedCategories = searchParams.get("category")?.split(",") || [];
-  console.log(selectedTools);
+  console.log(selectedRatings);
 
   const tools = getToolsFormCoures(courses, "tools");
   const ratings = getToolsFormCoures(courses, "rating");
@@ -39,10 +41,11 @@ const FilterLeftSideBar = ({ showFilters, courses }) => {
           <FilterCard title="Tools" items={tools} />
           {/* rating  */}
           <FilterCard title="Rating" items={ratings} />
-          {/* price  */}
-          {/* <FilterCard title = "Tools" tools= {tools} /> */}
+
           {/* courseLevel  */}
           <FilterCard title="CourseLevel" items={courseLevel} />
+          {/* price  */}
+          <FilterWithPrice />
           {/* duration  */}
           <FilterCard title="Duration" items={duration} />
         </div>
