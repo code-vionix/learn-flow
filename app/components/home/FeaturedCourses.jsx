@@ -130,6 +130,7 @@ export default function FeaturedCourses() {
               <div className="flex justify-between items-center">
                 {/* Instructor */}
                 <div className="flex items-center space-x-2 mt-1">
+
                   <Avatar>
                     <AvatarImage
                       src="https://github.com/shadcn.png"
@@ -137,6 +138,9 @@ export default function FeaturedCourses() {
                     />
                     <AvatarFallback>{course.instructor}</AvatarFallback>
                   </Avatar>
+
+
+
                   <p className="text-gray-500 text-xs">{course.instructor}</p>
                 </div>
                 <div className="flex items-center space-x-1">
@@ -150,18 +154,18 @@ export default function FeaturedCourses() {
               {/* Rating, Students, Level, Duration */}
               <div className="flex items-center justify-between mt-2 text-xs   font-semibold">
                 <span className="flex items-center space-x-1 gap-2 text-primary">
-                  <User className="size-5 text-secondary-500" />{" "}
+                  <User className="w-5 h-5 text-secondary-500" />{" "}
                   <p>
                     {course.students}{" "}
                     <span className="text-gray-500">Students</span>
                   </p>
                 </span>
                 <span className="flex items-center space-x-1 gap-2 ">
-                  <LineChart className="size-5 text-red-500" />
+                  <LineChart className="w-5 h-5 text-red-500" />
                   {course.level}
                 </span>
                 <span className="flex items-center space-x-1 gap-2">
-                  <Clock className="size-5 text-success-500" />{" "}
+                  <Clock className="w-5 h-5 text-success-500" />{" "}
                   {course.duration}
                 </span>
               </div>
