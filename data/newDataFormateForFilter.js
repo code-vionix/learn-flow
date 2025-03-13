@@ -48,7 +48,7 @@ const courses = [
     rating: 4.9,
     students: "120K",
     image:
-      "https://images.unsplash.com/photo-1532619187601-cf02870f8d72?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 4,
@@ -82,7 +82,7 @@ const courses = [
     rating: 4.6,
     students: "80K",
     image:
-      "https://images.unsplash.com/photo-1517142089942-ba376ce32a2c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 6,
@@ -133,7 +133,7 @@ const courses = [
     rating: 4.8,
     students: "50K",
     image:
-      "https://images.unsplash.com/photo-1628744449575-6bd1c3b3be4d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 9,
@@ -167,7 +167,7 @@ const courses = [
     rating: 4.6,
     students: "78K",
     image:
-      "https://images.unsplash.com/photo-1539922980492-38f667aa1d5e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
   },
 ];
 
