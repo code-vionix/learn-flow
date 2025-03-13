@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ProfilePage() {
+export default function ProfilePage({ children }) {
   return (
     <>
       <div className="w-full h-40 bg-[#FFEEE8] relative">
@@ -81,6 +81,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+      {children}
     </>
   );
 }
