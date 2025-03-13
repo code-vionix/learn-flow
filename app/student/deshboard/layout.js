@@ -37,43 +37,43 @@ export default function ProfilePage() {
             <nav className="flex w-full justify-between overflow-x-auto border-t">
               <Link
                 href="/dashboard"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Dashboard
               </Link>
               <Link
                 href="/courses"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Courses
               </Link>
               <Link
                 href="/teachers"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Teachers
               </Link>
               <Link
                 href="/message"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Message
               </Link>
               <Link
                 href="/wishlist"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Wishlist
               </Link>
               <Link
                 href="/purchase-history"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Purchase History
               </Link>
               <Link
                 href="/settings"
-                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-gray-900"
+                className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
               >
                 Settings
               </Link>
