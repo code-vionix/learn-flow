@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Star } from "lucide-react";
+import { useState } from "react";
 
 const FilterCard = ({ title, items }) => {
   const searchParams = useSearchParams();
@@ -18,6 +19,10 @@ const FilterCard = ({ title, items }) => {
 
   // Get the selected filters from URL
   const selectedOptions = searchParams.get(title)?.split(",") || [];
+
+  // State to control "See More"
+  const [showAll, setShowAll] = useState(false);
+  const displayedItems = showAll ? items : items.slice(0, 5);
 
   const toggleOption = (item) => {
     const newSelectedOptions = selectedOptions.includes(item)
@@ -46,7 +51,7 @@ const FilterCard = ({ title, items }) => {
           </AccordionTrigger>
           <AccordionContent>
             <div>
-              {items?.map((item) => (
+              {displayedItems?.map((item) => (
                 <div
                   key={item}
                   className="flex items-center justify-between py-2 hover:bg-gray-50"
@@ -78,6 +83,16 @@ const FilterCard = ({ title, items }) => {
                   </div>
                 </div>
               ))}
+
+              {/* See More / See Less Button */}
+              {items.length > 5 && (
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  className="mt-2 text-sm text-primary-500 hover:underline"
+                >
+                  {showAll ? "See Less" : "See More"}
+                </button>
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>
