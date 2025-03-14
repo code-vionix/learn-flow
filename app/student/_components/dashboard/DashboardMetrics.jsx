@@ -43,12 +43,21 @@ export default function DashboardMetrics() {
               key={index}
               className={`${metric.className} p-6  transition-transform hover:scale-105`}
             >
-              <Icon className={`w-6 h-6 ${metric.iconClassName} mb-4`} />
-              <div className="space-y-1">
-                <h2 className="text-3xl font-bold text-gray-900">
-                  {metric.value}
-                </h2>
-                <p className="text-sm text-gray-600">{metric.label}</p>
+              <div className="flex justify-start items-center">
+                <div className="w-1/4 ">
+                  <div className=" w-10 h-10 bg-white">
+                    <Icon
+                      className={`w-8 h-8 ${metric.iconClassName} mb-4 bg-white `}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1 flex flex-col items-center">
+                  <h2 className="text-3xl font-bold text-gray-900 w-3/4">
+                    {metric.value}
+                  </h2>
+                  <p className="text-sm text-gray-600">{metric.label}</p>
+                </div>
               </div>
             </div>
           );
