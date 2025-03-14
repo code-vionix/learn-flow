@@ -1,8 +1,7 @@
 import React from 'react';
 import WatchingCourseWrapper from './_components/WatchingCourseWrapper';
 import WatchingCourseHeader from './_components/WatchingCourseHeader';
-import WatchingCourseContent from './_components/WatchingCourseContent';
-import WatchingCoursePreview from './_components/WatchingCoursePreview';
+import CourseContent from './_components/CourseContent';
 
 const CourseWatchingPage = () => {
 
@@ -10,14 +9,7 @@ const CourseWatchingPage = () => {
         <div className='bg-white'>
             <WatchingCourseHeader />
             <WatchingCourseWrapper>
-                <div className="mt-3 lg:flex grid-cols-3 gap-4">
-                    <div className="col-span-2 md:p-2 lg:w-[65%] w-full">
-                        <WatchingCoursePreview />
-                    </div>
-                    <div className="md:block hidden lg:w-[35%] w-full">
-                        <WatchingCourseContent />
-                    </div>
-                </div>
+                <CourseContent />
             </WatchingCourseWrapper>
             <br /> <br />
         </div>
