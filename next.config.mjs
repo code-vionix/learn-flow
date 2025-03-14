@@ -9,6 +9,8 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "xsgames.co",
+        hostname: "plus.unsplash.com",
+
       },
     ],
   },
