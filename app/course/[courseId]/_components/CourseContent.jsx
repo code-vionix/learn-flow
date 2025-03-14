@@ -3,7 +3,7 @@ import WatchingCoursePreview from "./WatchingCoursePreview";
 
 const CourseContent = () => {
     return (
-        <div className="mt-3 lg:flex grid-cols-3 gap-4">
+        <div id="comments" className="mt-3 lg:flex grid-cols-3 gap-4">
             <div className="col-span-2 md:p-2 lg:w-[65%] w-full">
                 <WatchingCoursePreview />
             </div>

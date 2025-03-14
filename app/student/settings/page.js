@@ -4,8 +4,7 @@ import PasswordSetting from './_components/PasswordSetting';
 
 const SettingPage = () => {
     return (
-        <div className='w-[1320px] m-auto'>
-            <div className="md:p-6 p-0">
+         <div className="">
                 <div className="mb-12">
                 <h1 className="basic-title mb-6">Account settings</h1>
                 <AccountSetting />
@@ -17,7 +16,6 @@ const SettingPage = () => {
                     
                 </div>
            </div>
-        </div>
     );
 };
 

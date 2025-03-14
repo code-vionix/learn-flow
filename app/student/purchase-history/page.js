@@ -8,10 +8,9 @@ const PurchaseHistory = () => {
     const [viewAll, setViewAll] = useState(false)
     const publishedData = viewAll ? purchaseData : purchaseData.slice(0, 4);
     return (
-        <div className=' p-5'>
-            <div className=" w-[1320px] m-auto">
+        <>
+          <div>
                 <h2 className="basic-title">Purchase History</h2>
-
                 <PurchesAccordion defaultValue={`course-${publishedData[0]?.id}`} className='space-y-4 mt-4' type="single" collapsible>
                     {publishedData?.map((data, index) => <PurchaseCard purchase={data} key={data?.id} />)}
                 </PurchesAccordion>
@@ -20,8 +19,8 @@ const PurchaseHistory = () => {
                 <button onClick={() => setViewAll(!viewAll)} className='mt-12 duration-300 hover:bg-primary-100 px-4 m-auto py-2 mb-6 text-center'>
                     {viewAll ? 'Show Less' : 'Yay! You have seen all your purchase history.😎'}
                 </button>
-            </div>
         </div>
+        </>
     );
 };
 
