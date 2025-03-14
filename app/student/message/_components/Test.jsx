@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { Send } from "lucide-react";
 
 const dummyResponse = {
-  status: "success",
   messages: [
     {
       id: "65f2d1b0a9b14c0012a3e123",
@@ -24,7 +23,6 @@ const dummyResponse = {
       },
       text: "Yeah sure, tell me Zafor",
       timestamp: "2025-03-14T10:15:30Z",
-      type: "received",
       status: "read",
     },
     {
@@ -40,7 +38,6 @@ const dummyResponse = {
       },
       text: "I only have a small doubt about your lecture. Can you give me some time for this?",
       timestamp: "2025-03-14T10:16:00Z",
-      type: "sent",
       status: "delivered",
     },
   ],

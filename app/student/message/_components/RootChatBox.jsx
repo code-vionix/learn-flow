@@ -1,12 +1,6 @@
-"use client";
-import { useState, useEffect, useRef } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Avatar } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
-import { Send, Search } from "lucide-react";
 import { format } from "date-fns"; // For formatting timestamps
+import LeftStudentBar from "./LeftStudentBar";
+import MainChatBox from "./MainChatBox";
 
 const currentUserId = "user_456"; // Assuming the logged-in user is "Zafor"
 
@@ -16,7 +10,21 @@ const messages = [
     sender: {
       id: "user_123",
       name: "Jane Cooper",
-      avatar: "https://example.com/avatars/jane.jpg",
+      avatar:
+        "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+    },
+    receiver: { id: "user_456", name: "Zafor" },
+    text: "Yeah sure, tellah sure, tellah sure, tellah sure, tell me Zafor",
+    timestamp: "2025-03-14T10:15:30Z",
+    status: "read",
+  },
+  {
+    id: "65f2d1b0a9b14c0012a3e123",
+    sender: {
+      id: "user_123",
+      name: "Jane Cooper",
+      avatar:
+        "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
     },
     receiver: { id: "user_456", name: "Zafor" },
     text: "Yeah sure, tellah sure, tellah sure, tellah sure, tell me Zafor",
@@ -28,143 +36,133 @@ const messages = [
     sender: {
       id: "user_456",
       name: "Zafor",
-      avatar: "https://example.com/avatars/zafor.jpg",
+      avatar:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
     },
     receiver: { id: "user_123", name: "Jane Cooper" },
     text: "I only have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lectubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lectubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lectubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time for this?",
     timestamp: "2025-03-14T10:16:00Z",
     status: "delivered",
   },
+  {
+    id: "65f2d1b0a9b14c0012a3e123",
+    sender: {
+      id: "user_123",
+      name: "Jane Cooper",
+      avatar:
+        "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+    },
+    receiver: { id: "user_456", name: "Zafor" },
+    text: "Yeah sure, tellah sure, tellah sure, tellah sure, tell me Zafor",
+    timestamp: "2025-03-14T10:15:30Z",
+    status: "read",
+  },
+  {
+    id: "65f2d1b0a9b14c0012a3e124",
+    sender: {
+      id: "user_456",
+      name: "Zafor",
+      avatar:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D",
+    },
+    receiver: { id: "user_123", name: "Jane Cooper" },
+    text: "I only have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your lecture. Can you give me some time fonly have a small doubt about your ve me some time for this?",
+    timestamp: "2025-03-14T10:16:00Z",
+    status: "delivered",
+  },
+];
+const students = [
+  {
+    id: 1,
+    name: "Jane Cooper",
+    lastContent: "Yeah sure, tell me Zafor",
+    isActive: false,
+    avatar:
+      "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 2,
+    name: "Devon Lane",
+    lastContent: "Let's catch up later!",
+    isActive: true,
+    avatar:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 3,
+    name: "Floyd Miles",
+    lastContent: "Did you check the new update?",
+    isActive: false,
+    avatar:
+      "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 4,
+    name: "Courtney Henry",
+    lastContent: "I'll send you the details soon.",
+    isActive: true,
+    avatar:
+      "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 5,
+    name: "Guy Hawkins",
+    lastContent: "Good morning! How's your day?",
+    isActive: false,
+    avatar:
+      "https://images.unsplash.com/photo-1549351236-caca0f174515?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 6,
+    name: "Eleanor Pena",
+    lastContent: "See you at the meeting.",
+    isActive: true,
+    avatar:
+      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 7,
+    name: "Darlene Robertson",
+    lastContent: "Thanks for your help!",
+    isActive: false,
+    avatar:
+      "https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 8,
+    name: "Esther Howard",
+    lastContent: "I'll call you later.",
+    isActive: true,
+    avatar:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 9,
+    name: "Cameron Williamson",
+    lastContent: "Are we still on for tonight?",
+    isActive: true,
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 10,
+    name: "Brooklyn Simmons",
+    lastContent: "Can you send me the document?",
+    isActive: false,
+    avatar:
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=60",
+  },
 ];
 
 const RootChatBox = () => {
-  const [input, setInput] = useState("");
-  const messagesEndRef = useRef(null);
-
-  // Auto-scroll to the bottom when messages change
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
   return (
     <div className="grid grid-cols-3 gap-x-5 mt-5 ">
       {/* Sidebar */}
-      <aside className="border p-4 bg-white h-full">
-        <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-lg">Messages</h2>
-          <Button className="mt-2 text-secondary-500 bg-secondary-100 hover:bg-secondary-200">
-            + Compose
-          </Button>
-        </div>
-        <div className="relative">
-          <Input placeholder="Search" className="mt-4 px-8 py-3" />
-          <Search className="absolute top-[12px] opacity-70 left-2" />
-        </div>
 
-        {/* Scrollable Sidebar */}
-        <div className="mt-4 space-y-2 overflow-y-auto h-[80%]">
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className="flex items-center space-x-3 p-2 rounded-md cursor-pointer hover:bg-gray-200"
-            >
-              <Avatar className="w-10 h-10">
-                <img
-                  src={msg.sender.avatar}
-                  alt={msg.sender.name}
-                  className="w-full h-full rounded-full"
-                />
-              </Avatar>
-              <div>
-                <p className="font-medium">{msg.sender.name}</p>
-                <p className="text-sm text-gray-500 truncate w-40">
-                  {msg.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </aside>
+      <LeftStudentBar students={students} />
 
       {/* Chat Window */}
-      <main className="col-span-2 flex flex-col border bg-white h-[600px] overflow-hidden">
-        {/* Chat Header */}
-        <div className="p-4 border-b flex items-center space-x-3">
-          <Avatar className="w-10 h-10">
-            <img
-              src="https://example.com/avatars/jane.jpg"
-              alt="Jane Cooper"
-              className="w-full h-full rounded-full"
-            />
-          </Avatar>
-          <div>
-            <p className="font-medium">Jane Cooper</p>
-            <p className="text-sm text-green-500">Active Now</p>
-          </div>
-        </div>
-
-        {/* Chat Messages (Scrollable) */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.map((msg) => {
-            const isSentByCurrentUser = msg.sender.id === currentUserId;
-            return (
-              <div
-                key={msg.id}
-                className={cn(
-                  "flex items-end",
-                  isSentByCurrentUser ? "justify-end" : "justify-start"
-                )}
-              >
-                {!isSentByCurrentUser && (
-                  <Avatar className="w-8 h-8 mr-2">
-                    <img
-                      src={msg.sender.avatar}
-                      alt={msg.sender.name}
-                      className="w-full h-full rounded-full"
-                    />
-                  </Avatar>
-                )}
-
-                <div className="flex flex-col max-w-xs">
-                  <Card
-                    className={cn(
-                      "p-3 break-words",
-                      isSentByCurrentUser
-                        ? "bg-orange-500 text-white"
-                        : "bg-gray-200"
-                    )}
-                  >
-                    <CardContent className="p-0">{msg.text}</CardContent>
-                  </Card>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {format(new Date(msg.timestamp), "hh:mm a")}{" "}
-                    {/* Format time */}
-                    {isSentByCurrentUser &&
-                      msg.status === "delivered" &&
-                      " ✓"}{" "}
-                    {/* Show status for sent messages */}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-          {/* Scroll to bottom ref */}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Fixed Message Input */}
-        <div className="p-4 border-t flex items-center space-x-2 bg-white">
-          <Input
-            placeholder="Type your message"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="flex-1"
-          />
-          <Button>
-            Send <Send className="ml-1" size={16} />
-          </Button>
-        </div>
-      </main>
+      <MainChatBox messages={messages} />
     </div>
   );
 };
