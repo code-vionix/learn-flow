@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { nameToColor } from "@/lib/utils";
 import { Star, User } from "lucide-react";
 import { useState } from "react";
 import CourseHoverCard from "./CourseHoverCard";
@@ -24,15 +25,12 @@ const CourseCard = ({ course }) => {
           <div className="flex justify-between items-center">
             <span
               className="text-xs font-medium px-2 py-1 rounded"
-              style={{
-                backgroundColor: course.category.bgColor,
-                color: course.category.color,
-              }}
+              style={{ backgroundColor: nameToColor(course.category) }}
             >
-              {course.category.name.toUpperCase()}
+              {course.category.toUpperCase()}
             </span>
             <span className="text-lg font-medium text-[#FF6636]">
-              ${course.price}.00
+              ${course.price}
             </span>
           </div>
 
@@ -49,7 +47,7 @@ const CourseCard = ({ course }) => {
               <div className="flex items-center gap-1">
                 <User className="w-5 h-5 text-[#564FFD]" />
                 <span className="text-sm text-gray-700">
-                  {(course.students / 1000).toFixed(1)}K students
+                  {(course.students / 10).toFixed(1)}K students
                 </span>
               </div>
             </div>

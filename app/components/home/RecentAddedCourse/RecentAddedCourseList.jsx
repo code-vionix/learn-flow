@@ -1,7 +1,7 @@
-import { recentCourses } from "@/data";
 import CourseCard from "./CourseCard";
 
-export default function CourseList() {
+export default function CourseList({ courses }) {
+  const RecentAddedCourses = courses.slice(0, 3);
   return (
     <div className=" bg-gray-100 py-20">
       <div className="container mx-auto px-4">
@@ -10,7 +10,7 @@ export default function CourseList() {
         </h2>
 
         <div className="flex justify-center gap-6 flex-wrap">
-          {recentCourses.map((course) => (
+          {RecentAddedCourses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
         </div>

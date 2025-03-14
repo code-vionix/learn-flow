@@ -1,3 +1,4 @@
+import { fetchCourses, getInstructors } from "@/lib/fetchData";
 import BestSellingSection from "./components/home/BestSellingSection";
 import CategoriesSection from "./components/home/CategoriesSection";
 import FeaturedCourses from "./components/home/FeaturedCourses";
@@ -7,18 +8,19 @@ import RecentAddedCourseList from "./components/home/RecentAddedCourse/RecentAdd
 import TopInstructors from "./components/home/TopInstructors ";
 import TrustedCompanies from "./components/home/TrustedCompanies";
 import JoinCourse from "./components/shared/JoinCourse";
-import Navigation from "./components/shared/Navigation";
-export default function Home() {
+export default async function Home() {
+  const courses = await fetchCourses();
+  const instructors = await getInstructors();
+  console.log(instructors);
   return (
     <div className="bg-background text-primary">
-      <Navigation />
       <Hero />
       <CategoriesSection />
-      <BestSellingSection />
-      <FeaturedCourses />
-      <RecentAddedCourseList />
+      <BestSellingSection courses={courses} />
+      <FeaturedCourses courses={courses} />
+      <RecentAddedCourseList courses={courses} />
       <InstructorCard />
-      <TopInstructors />
+      <TopInstructors instructors={instructors} />
       <TrustedCompanies />
       <JoinCourse />
     </div>
