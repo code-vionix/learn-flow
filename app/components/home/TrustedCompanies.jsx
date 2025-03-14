@@ -67,7 +67,7 @@ export default function TrustedCompanies() {
           {companies.map((company) => (
             <div
               key={company.id}
-              className="w-[160px] h-[80px] bg-white shadow-md flex items-center justify-center p-4 rounded-lg"
+              className="w-[160px] h-[80px] bg-white shadow-md flex items-center justify-center p-4 gap-4"
             >
               <img
                 src={company.imageUrl}

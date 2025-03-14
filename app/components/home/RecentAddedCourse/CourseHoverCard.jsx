@@ -10,8 +10,8 @@ const CourseHoverCard = ({ course }) => {
   const offerPrice = course.offer_price;
   const discountPercentage = calculateDiscount(originalPrice, offerPrice);
   return (
-    <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 z-10">
-      <div className="bg-white border border-gray-200 shadow-lg rounded-sm w-[424px] p-5">
+    <div className="z-10">
+      <div className="bg-white border border-gray-200 shadow-lg  w-[424px] p-5">
         <div className="flex flex-col gap-4">
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
