@@ -50,12 +50,12 @@ const MainChatBox = ({ messages }) => {
                 </Avatar>
               )}
 
-              <div className="flex flex-col max-w-xs">
+              <div className="flex flex-col max-w-[70%]">
                 <Card
                   className={cn(
-                    "p-3 break-words",
+                    "p-3",
                     isSentByCurrentUser
-                      ? "bg-orange-500 text-white"
+                      ? "bg-primary-500 text-white"
                       : "bg-primary-100"
                   )}
                 >
