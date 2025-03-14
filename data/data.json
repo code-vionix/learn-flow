@@ -1,0 +1,1153 @@
+{
+  "courses": [
+    {
+      "id": "1",
+      "title": "Complete Website Responsive Designs from Figma to Webflow",
+      "subtitle": "UI to UX course: Learn to design websites with Figma, build with Webflow, and master UI/UX principles.",
+      "image": "https://plus.unsplash.com/premium_photo-1682787494977-d013bb5a8773?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Development",
+      "rating": 4.8,
+      "reviews": 1298,
+      "students": 28456,
+      "price": 99.99,
+      "offer_price": 49.99,
+      "paid": true,
+      "instructors": [
+        {
+          "name": "Vako Shvili",
+          "role": "Web Designer & Best-Selling Instructor",
+          "rating": 4.9,
+          "students": 238560,
+          "courses": 20,
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Vako Shvili",
+          "role": "Web Designer & Best-Selling Instructor",
+          "rating": 4.9,
+          "students": 238560,
+          "courses": 20,
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Vako Shvili",
+          "role": "Web Designer & Best-Selling Instructor",
+          "rating": 4.9,
+          "students": 238560,
+          "courses": 20,
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "id": "1",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "2",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "3",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "4",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "5",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "6",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "7",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "8",
+          "name": "Anushka T.",
+          "rating": 5,
+          "comment": "Incredible course! Very well structured and easy to follow.",
+          "image": "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+
+    {
+      "id": "2",
+      "title": "Mastering Webflow: Build Responsive Websites Without Code",
+      "subtitle": "Learn to create stunning, responsive websites using Webflow without any coding experience.",
+      "image": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Web Design",
+      "rating": 4.7,
+      "reviews": 987,
+      "students": 21432,
+      "price": 79.99,
+      "offer_price": 39.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "6 hour",
+      "instructors": [
+        {
+          "name": "Jake Thompson",
+          "role": "Webflow Expert & Digital Designer",
+          "rating": 4.8,
+          "students": 175000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Jake Thompson",
+          "role": "Webflow Expert & Digital Designer",
+          "rating": 4.8,
+          "students": 175000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "id": "1",
+          "name": "Michael R.",
+          "rating": 5,
+          "comment": "Great course! Helped me build my first Webflow site.",
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "2",
+          "name": "Michael R.",
+          "rating": 5,
+          "comment": "Great course! Helped me build my first Webflow site.",
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "3",
+          "name": "Michael R.",
+          "rating": 5,
+          "comment": "Great course! Helped me build my first Webflow site.",
+          "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "UI/UX Design Bootcamp: From Beginner to Advanced",
+      "subtitle": "Master UI/UX principles, prototyping, and user research with this comprehensive bootcamp.",
+      "image": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "UI/UX Design",
+      "rating": 4.9,
+      "reviews": 1543,
+      "students": 37890,
+      "price": 129.99,
+      "offer_price": 64.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "9 hour",
+      "instructors": [
+        {
+          "id": "1",
+          "name": "Sophia Lee",
+          "role": "UI/UX Designer & Product Consultant",
+          "rating": 4.9,
+          "students": 320450,
+          "courses": 25,
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "1",
+          "name": "Sophia Lee",
+          "role": "UI/UX Designer & Product Consultant",
+          "rating": 4.9,
+          "students": 320450,
+          "courses": 25,
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "id": "1",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "2",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "3",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "4",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "5",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "6",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "7",
+          "name": "Emma W.",
+          "rating": 5,
+          "comment": "Best UI/UX course out there! Clear and insightful lessons.",
+          "image": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "The Complete HTML & CSS Web Design Course",
+      "subtitle": "Learn HTML & CSS from scratch and build beautiful, responsive websites.",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Web Development",
+      "rating": 4.6,
+      "reviews": 846,
+      "students": 19230,
+      "price": 69.99,
+      "offer_price": 34.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "10 hour",
+      "instructors": [
+        {
+          "name": "David Kim",
+          "role": "Frontend Developer & Coding Instructor",
+          "rating": 4.7,
+          "students": 210345,
+          "courses": 18,
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David Kim",
+          "role": "Frontend Developer & Coding Instructor",
+          "rating": 4.7,
+          "students": 210345,
+          "courses": 18,
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David Kim",
+          "role": "Frontend Developer & Coding Instructor",
+          "rating": 4.7,
+          "students": 210345,
+          "courses": 18,
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "Lucas M.",
+          "rating": 4.5,
+          "comment": "Perfect for beginners, but could use more advanced topics.",
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "1",
+          "name": "Lucas M.",
+          "rating": 4.5,
+          "comment": "Perfect for beginners, but could use more advanced topics.",
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "2",
+          "name": "Lucas M.",
+          "rating": 4.5,
+          "comment": "Perfect for beginners, but could use more advanced topics.",
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "3",
+          "name": "Lucas M.",
+          "rating": 4.5,
+          "comment": "Perfect for beginners, but could use more advanced topics.",
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "4",
+          "name": "Lucas M.",
+          "rating": 4.5,
+          "comment": "Perfect for beginners, but could use more advanced topics.",
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "id": "5",
+          "name": "Lucas M.",
+          "rating": 4.5,
+          "comment": "Perfect for beginners, but could use more advanced topics.",
+          "image": "https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Figma for Beginners: Learn UI Design from Scratch",
+      "subtitle": "Master Figma and design beautiful, user-friendly interfaces with ease.",
+      "image": "https://plus.unsplash.com/premium_photo-1681248156500-8f209e8e466e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "UI Design",
+      "rating": 4.8,
+      "reviews": 1125,
+      "students": 25487,
+      "price": 89.99,
+      "offer_price": 44.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "11 hour",
+      "instructors": [
+        {
+          "name": "Jessica Brown",
+          "role": "UI Designer & Figma Expert",
+          "rating": 4.9,
+          "students": 285740,
+          "courses": 22,
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Jessica Brown",
+          "role": "UI Designer & Figma Expert",
+          "rating": 4.9,
+          "students": 285740,
+          "courses": 22,
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Loved this course! Super easy to follow and hands-on.",
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Loved this course! Super easy to follow and hands-on.",
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Loved this course! Super easy to follow and hands-on.",
+          "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "No-Code App Development: Build Apps Without Coding",
+      "subtitle": "Learn to create mobile and web applications using no-code tools like Bubble and Adalo.",
+      "image": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "App Development",
+      "rating": 4.7,
+      "reviews": 980,
+      "students": 18934,
+      "price": 119.99,
+      "offer_price": 59.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "4 hour",
+      "instructors": [
+        {
+          "name": "Daniel Carter",
+          "role": "No-Code Expert & Startup Founder",
+          "rating": 4.8,
+          "students": 198230,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Daniel Carter",
+          "role": "No-Code Expert & Startup Founder",
+          "rating": 4.8,
+          "students": 198230,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Daniel Carter",
+          "role": "No-Code Expert & Startup Founder",
+          "rating": 4.8,
+          "students": 198230,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "Ethan J.",
+          "rating": 4.8,
+          "comment": "Amazing course! Now I can build apps without coding!",
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Ethan J.",
+          "rating": 4.8,
+          "comment": "Amazing course! Now I can build apps without coding!",
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Ethan J.",
+          "rating": 4.8,
+          "comment": "Amazing course! Now I can build apps without coding!",
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Ethan J.",
+          "rating": 4.8,
+          "comment": "Amazing course! Now I can build apps without coding!",
+          "image": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+
+    {
+      "id": "7",
+      "title": "JavaScript Mastery: From Basics to Advanced",
+      "subtitle": "Learn JavaScript from scratch and become a pro developer.",
+      "image": "https://images.unsplash.com/photo-1503428593586-e225b39bddfe?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Programming",
+      "rating": 4.7,
+      "reviews": 2300,
+      "students": 45678,
+      "price": 89.99,
+      "offer_price": 39.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "7 hour",
+      "instructors": [
+        {
+          "name": "John Doe",
+          "role": "Senior JavaScript Developer",
+          "rating": 4.8,
+          "students": 500000,
+          "courses": 25,
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "John Doe",
+          "role": "Senior JavaScript Developer",
+          "rating": 4.8,
+          "students": 500000,
+          "courses": 25,
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Emily R.",
+          "rating": 5,
+          "comment": "Loved the real-world projects and explanations!",
+          "image": "https://plus.unsplash.com/premium_photo-1664541336896-b3d5f7dec9a3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "The Complete Python Bootcamp",
+      "subtitle": "Master Python programming with hands-on exercises and projects.",
+      "image": "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Programming",
+      "rating": 4.9,
+      "reviews": 3200,
+      "students": 67890,
+      "price": 109.99,
+      "offer_price": 54.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "9 hour",
+      "instructors": [
+        {
+          "name": "Sarah Lee",
+          "role": "Python Developer & Data Scientist",
+          "rating": 4.9,
+          "students": 600000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sarah Lee",
+          "role": "Python Developer & Data Scientist",
+          "rating": 4.9,
+          "students": 600000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sarah Lee",
+          "role": "Python Developer & Data Scientist",
+          "rating": 4.9,
+          "students": 600000,
+          "courses": 15,
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "Michael K.",
+          "rating": 5,
+          "comment": "One of the best Python courses I've ever taken!",
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Michael K.",
+          "rating": 5,
+          "comment": "One of the best Python courses I've ever taken!",
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Michael K.",
+          "rating": 5,
+          "comment": "One of the best Python courses I've ever taken!",
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Michael K.",
+          "rating": 5,
+          "comment": "One of the best Python courses I've ever taken!",
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Michael K.",
+          "rating": 5,
+          "comment": "One of the best Python courses I've ever taken!",
+          "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Mobile App Development with React Native",
+      "subtitle": "Build cross-platform mobile apps using React Native and JavaScript.",
+      "image": "https://plus.unsplash.com/premium_photo-1682284352941-58dceb6cd601?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Mobile Development",
+      "rating": 4.6,
+      "reviews": 1450,
+      "students": 32500,
+      "price": 79.99,
+      "offer_price": 29.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "6 hour",
+      "instructors": [
+        {
+          "name": "Alex Chen",
+          "role": "Mobile Development Expert",
+          "rating": 4.7,
+          "students": 150000,
+          "courses": 18,
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Alex Chen",
+          "role": "Mobile Development Expert",
+          "rating": 4.7,
+          "students": 150000,
+          "courses": 18,
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "David P.",
+          "rating": 4,
+          "comment": "Good content, but needs more advanced examples.",
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David P.",
+          "rating": 4,
+          "comment": "Good content, but needs more advanced examples.",
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David P.",
+          "rating": 4,
+          "comment": "Good content, but needs more advanced examples.",
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David P.",
+          "rating": 4,
+          "comment": "Good content, but needs more advanced examples.",
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "David P.",
+          "rating": 4,
+          "comment": "Good content, but needs more advanced examples.",
+          "image": "https://images.unsplash.com/photo-1546961329-78bef0414d7c?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Machine Learning Fundamentals",
+      "subtitle": "Introduction to machine learning with Python and scikit-learn.",
+      "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "category": "Data Science",
+      "rating": 4.8,
+      "reviews": 2780,
+      "students": 45210,
+      "price": 149.99,
+      "offer_price": 89.99,
+      "paid": true,
+      "level": "Beginner",
+      "duration": "8 hour",
+      "instructors": [
+        {
+          "name": "Dr. Emily Zhang",
+          "role": "Data Science Researcher",
+          "rating": 4.9,
+          "students": 300000,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Dr. Emily Zhang",
+          "role": "Data Science Researcher",
+          "rating": 4.9,
+          "students": 300000,
+          "courses": 12,
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ],
+
+      "what_you_will_learn": [
+        "Design beautiful websites using Figma",
+        "Convert designs into functional Webflow websites",
+        "Understand the principles of UI/UX and responsive design",
+        "Learn secrets from professional web designers",
+        "Master both Python 2 and Python 3",
+        "Create CLI tools in Jupyter Notebook"
+      ],
+      "target_audience": [
+        "Beginners who want to learn web design",
+        "Developers looking to enhance their UI/UX skills",
+        "Freelancers who want to create stunning websites",
+        "Anyone interested in professional web design"
+      ],
+      "course_content": [
+        {
+          "section": "Getting Started",
+          "lectures": 4,
+          "duration": "6m",
+          "topics": [
+            { "title": "What is Webflow?", "length": "7:31" },
+            { "title": "Signing into Webflow", "length": "5:11" },
+            { "title": "Webflow Terms & Conditions", "length": "5:38" },
+            { "title": "Practice Project", "length": "6m" }
+          ]
+        },
+        {
+          "section": "Secret of Good Design",
+          "lectures": 57,
+          "duration": "5h"
+        },
+        {
+          "section": "Practice Design Like an Artist",
+          "lectures": 41,
+          "duration": "5h"
+        },
+        {
+          "section": "Web Development (Webflow)",
+          "lectures": 157,
+          "duration": "19h"
+        },
+        {
+          "section": "Secrets of Making Money Freelancing",
+          "lectures": 72,
+          "duration": "8h"
+        }
+      ],
+      "user_reviews": [
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Excellent introduction to ML concepts!",
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Excellent introduction to ML concepts!",
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Excellent introduction to ML concepts!",
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Excellent introduction to ML concepts!",
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        },
+        {
+          "name": "Sophia L.",
+          "rating": 5,
+          "comment": "Excellent introduction to ML concepts!",
+          "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        }
+      ]
+    }
+  ]
+}

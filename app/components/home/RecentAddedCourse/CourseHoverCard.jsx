@@ -2,6 +2,13 @@
 import { BarChart, Check, Clock, ShoppingCart } from "lucide-react";
 
 const CourseHoverCard = ({ course }) => {
+  const calculateDiscount = (originalPrice, offerPrice) => {
+    return ((originalPrice - offerPrice) / originalPrice) * 100;
+  };
+
+  const originalPrice = course.price;
+  const offerPrice = course.offer_price;
+  const discountPercentage = calculateDiscount(originalPrice, offerPrice);
   return (
     <div className="absolute left-full top-1/2 -translate-y-1/2 ml-4 z-10">
       <div className="bg-white border border-gray-200 shadow-lg rounded-sm w-[424px] p-5">
@@ -9,14 +16,14 @@ const CourseHoverCard = ({ course }) => {
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
             <img
-              src={course.instructor.image}
-              alt={course.instructor.name}
+              src={course.instructors[0].image}
+              alt={course.instructors[0].name}
               className="w-12 h-12 rounded-full"
             />
             <div>
               <p className="text-sm text-gray-500">Course by</p>
               <p className="text-sm text-gray-900 font-medium">
-                {course.instructor.name}
+                {course.instructors[0].name}
               </p>
             </div>
           </div>
@@ -36,13 +43,13 @@ const CourseHoverCard = ({ course }) => {
           {/* Pricing Section */}
           <div className="flex items-center gap-2">
             <span className="text-xl font-semibold text-gray-900">
-              ${course.discountedPrice}
+              ${course.offer_price}
             </span>
             <span className="text-sm text-gray-500 line-through">
-              ${course.originalPrice}
+              ${course.price}
             </span>
             <span className="text-xs text-white bg-[#FF6636] px-2 py-1 rounded">
-              {course.discount}% OFF
+              {`${discountPercentage.toFixed(1)}`}% OFF
             </span>
           </div>
 
@@ -52,7 +59,7 @@ const CourseHoverCard = ({ course }) => {
               What you will learn
             </h4>
             <ul className="space-y-2">
-              {course.description.map((item, index) => (
+              {course.target_audience.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <Check className="w-6 h-6 text-[#23BD33] flex-shrink-0" />
                   <p className="text-sm text-gray-600">{item}</p>

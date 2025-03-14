@@ -6,6 +6,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "xsgames.co",
+        hostname: "plus.unsplash.com",
+
+      },
     ],
   },
 };
