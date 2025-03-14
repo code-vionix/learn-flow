@@ -1,6 +1,6 @@
 import { fetchCourses } from "@/lib/fetchData";
-import Heading from "../components/courses/Heading";
-import CourseCard from "../components/shared/CourseCard";
+import Heading from "../_components/courses/Heading";
+import CourseCard from "../_components/shared/CourseCard";
 
 export default async function CoursesPage() {
   const courses = await fetchCourses();
