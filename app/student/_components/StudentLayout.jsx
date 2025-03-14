@@ -33,7 +33,7 @@ const StudentLayout = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <nav className="flex w-full justify-between overflow-x-auto border-t border-primary-200">
+          <nav className="flex w-full justify-between overflow-x-auto border-t border-primary-200 font-bold">
             <Link
               href="/student"
               className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-primary-500"

@@ -10,11 +10,12 @@ const CourseCard = ({ course }) => {
 
   return (
     <div
-      className="relative"
+      className="relative w-[312px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="w-[312px] bg-white border border-gray-200 flex flex-col">
+      {/* Course Card */}
+      <div className="bg-white border border-gray-200 flex flex-col">
         <img
           src={course.image}
           alt={course.title}
@@ -55,7 +56,12 @@ const CourseCard = ({ course }) => {
         </div>
       </div>
 
-      {isHovered && <CourseHoverCard course={course} />}
+      {/* Hover Card (Fixed Position in Course Card) */}
+      {isHovered && (
+        <div className="absolute -top-16 -left-16  mt-0 z-10">
+          <CourseHoverCard course={course} />
+        </div>
+      )}
     </div>
   );
 };
