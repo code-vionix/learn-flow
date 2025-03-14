@@ -5,7 +5,7 @@ import React from "react";
 const ChatBoxHeader = () => {
   return (
     <div className="p-4 border-b flex items-center space-x-3">
-      <Avatar className="w-10 h-10">
+      <Avatar className="w-10 h-10 ">
         <Image
           width={40}
           height={40}
@@ -13,7 +13,11 @@ const ChatBoxHeader = () => {
           alt="Jane Cooper"
           className="w-full h-full rounded-ful object-fill"
         />
+        {/* <div
+            className={`absolute left-6 top-10 bg-green-500 border-3 border-white w-3 h-3 rounded-full`}
+          ></div> */}
       </Avatar>
+
       <div>
         <p className="font-medium">Jane Cooper</p>
         <p className="text-sm text-green-500">Active Now</p>

@@ -10,7 +10,7 @@ const StudentList = ({ students }) => {
           key={student.id}
           className="flex items-center space-x-3 p-2 rounded-md cursor-pointer hover:bg-gray-200"
         >
-          <Avatar className="w-10 h-10">
+          <Avatar className="w-10 h-10 relative overflow-visible ">
             <Image
               width={20}
               height={20}
@@ -18,6 +18,13 @@ const StudentList = ({ students }) => {
               alt={student.name}
               className="w-full h-full rounded-full"
             />
+            <div
+              className={`absolute bottom-[10px] ${
+                student.isActive
+                  ? "bg-green-500 border-2 border-white"
+                  : "bg-transparent"
+              } -right-1 w-3 h-3 rounded-full`}
+            ></div>
           </Avatar>
           <div className="flex justify-between w-full items-center">
             <div>
@@ -27,16 +34,12 @@ const StudentList = ({ students }) => {
               </p>
             </div>
             <div className="flex flex-col justify-center items-center gap-1">
-              <p
-                className={`text-xs ${
-                  student.isActive ? "text-green-500" : "text-primary-500"
-                }`}
-              >
-                {student.isActive ? "Online" : "Ofline"}
+              <p className={`text-xs text-gray-500 capitalize`}>
+                {student.lastActive}
               </p>
               <p
                 className={`w-2 h-2 ${
-                  student.isActive ? "bg-green-500" : "bg-primary-500"
+                  student.isActive ? "bg-transparent" : "bg-primary-500"
                 } rounded-full`}
               ></p>
             </div>
