@@ -2,10 +2,14 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import React from "react";
+
+
 const StudentLayout = () => {
   return (
     <div className="w-full h-40 bg-[#FFEEE8] relative">
       <div className="container mx-auto absolute top-3/4  bg-white left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+
         <div className="border-b border-primary-200">
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center gap-4">
@@ -35,7 +39,9 @@ const StudentLayout = () => {
           </div>
           <nav className="flex w-full justify-between overflow-x-auto border-t border-primary-200">
             <Link
+
               href="/student"
+
               className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-primary-500"
             >
               Dashboard
