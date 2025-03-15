@@ -24,7 +24,7 @@ const InstructorCard = () => {
           </div>
           <div className="relative w-2/5 h-full overflow-hidden">
             <Image
-              src="/images/download.png"
+              src="https://s3-alpha-sig.figma.com/img/29bd/96c4/72eab052ddcd508f02e69e7f0166dd61?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=k5anUZX--3TaSVJsixxvTolwYzFwB1OrFZz~Fhar2EjrE8pwju8TdDIRppvrXOEcfQnPi6W9WEHE14I3MeqRwiph-k-Yl2ThXeTwmUa8Y93sJbLR4FOXnV7KGpxGKxeyWMm4TSwH-YizswyTfUbib14uGmXDyDN1dCpo5zZ3mOkCQMGKWgApiLCd3OJZ~r~7XL6stuLU1yXEYjcyt5UA2dcdzNnavwJXouIJrbw7Qo1~Zp28Ay1oEOVcTlYrt1QwDhMe9coY2N9WiwtvZGa--S2Fe2CnuKp3iCPBzUoScQFquj5OfKndZ809PpSRu2vI~EwEcTZI3ar~VeSMFsthcA__"
               alt="Promotion Image"
               width={1200}
               height={1250}
