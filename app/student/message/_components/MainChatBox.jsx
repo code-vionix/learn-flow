@@ -11,21 +11,24 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ChatBoxHeader from "./ChatBoxHeader";
 
-const currentUserId = "user_456"; //let this is current user
+const currentUserId = "420"; //let this is current user
 const MainChatBox = ({ messages }) => {
-  console.log(messages);
-
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
 
   // Auto-scroll to the bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      inline: "nearest",
+    });
   }, [messages]);
-  return (
-    <main className="col-span-2 flex flex-col border bg-white h-[600px] overflow-hidden">
-      <ChatBoxHeader />
 
+  return (
+    <main
+      ref={messagesEndRef}
+      className="col-span-2 flex flex-col border bg-white h-[600px] overflow-hidden"
+    >
       {/* Chat Messages (Scrollable) */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages?.map((msg) => {
@@ -64,17 +67,15 @@ const MainChatBox = ({ messages }) => {
                 <p className="text-xs text-gray-500 mt-1">
                   {format(new Date(msg.timestamp), "hh:mm a")}{" "}
                   {/* Format time */}
-                  {isSentByCurrentUser &&
-                    msg.status === "delivered" &&
-                    " ✓"}{" "}
+                  {isSentByCurrentUser && msg.status === "delivered"
+                    ? " ✓✓"
+                    : isSentByCurrentUser && msg.status === "read" && "seen"}
                   {/* Show status for sent messages */}
                 </p>
               </div>
             </div>
           );
         })}
-        {/* Scroll to bottom ref */}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Fixed Message Input */}
