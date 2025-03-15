@@ -15,7 +15,7 @@ export default function CourseCard({
 }) {
   return (
     <Link href={`/courses/${id}`}>
-      <Card className="w-60">
+      <Card className="w-60 p-0">
         {/* Top Image */}
         <div className="relative">
           <Image
@@ -28,8 +28,8 @@ export default function CourseCard({
         </div>
 
         {/* Details Section */}
-        <div className="p-3">
-          <div className="flex items-center justify-between mb-2">
+        <div>
+          <div className="flex items-center justify-between mb-2 p-3">
             <span
               className="text-primary px-2 py-1 rounded-sm text-xs font-semibold "
               style={{ backgroundColor: nameToColor(category) }}
@@ -44,10 +44,10 @@ export default function CourseCard({
           <h3 className="font-semibold text-sm mt-2 mb-2 p-2 h-16 ">{title}</h3>
 
           {/* Separator Line */}
-          <hr className="border-gray-200 my-2" />
+          <div className="border-b w-full  border-gray-200 my-2" />
 
           {/* Rating & Review Section */}
-          <div className="flex items-center justify-between p-2">
+          <div className="flex items-center justify-between px-3 gap-4 py-3">
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4 text-yellow-400 fill-current" />
               <span className="text-sm font-medium">{rating.toFixed(2)}</span>
