@@ -6,7 +6,10 @@ export default async function HomePage() {
   const courses = await fetchCourses();
   return (
     <div className="container mx-auto">
-      <DashboardMetrics />
+      <div className="flex items-center justify-between mx-auto w-[1530px]">
+        <DashboardMetrics />
+      </div>
+
       <CourseCarousel courses={courses} />
     </div>
   );
