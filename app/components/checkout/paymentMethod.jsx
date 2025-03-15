@@ -4,9 +4,14 @@ import { cn } from "@/lib/utils";
 import { Check, CreditCard } from "lucide-react";
 import { useState } from "react";
 
-export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
-  const [selectedMethod, setSelectedMethod] = useState("new-card");
-  const [rememberCard, setRememberCard] = useState(false);
+export default function PaymentMethodSelector({
+  onPaymentChange,
+  paymentData,
+  onSelectedMethod,
+  onSaveChange,
+  isSave
+}) {
+ 
 
   const savedCards = [
     {
@@ -27,7 +32,7 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
 
   const handlePaymentChange = (field, value) => {
     const updatedpayment = { ...paymentData.cardDetails, [field]: value };
-   onPaymentChange(updatedpayment)
+    onPaymentChange(updatedpayment);
   };
 
   return (
@@ -39,27 +44,27 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
           <div
             key={card.id}
             className="flex items-center justify-between border p-4  cursor-pointer"
-            onClick={() => setSelectedMethod(card.id)}
+            onClick={() => onSelectedMethod(card.type)}
           >
             <div className="flex items-center space-x-4">
               {card.type === "visa" ? (
                 <div className="text-blue-700 font-bold text-lg">VISA</div>
               ) : (
                 <div className="flex">
-                  <div className="h-8 w-8 rounded-full bg-red-500"></div>
-                  <div className="h-8 w-8 rounded-full bg-yellow-500 -ml-4"></div>
+                  <div className="h-6 w-8 rounded-full bg-red-500"></div>
+                  <div className="h-6 w-8 rounded-full bg-yellow-500 -ml-4"></div>
                 </div>
               )}
               <div>
                 <span className="text-gray-700">
-                  {card.type === "visa" ? "4855 " : "5795 "}
+                  {card.type === "visa" ? "4855" : "5795 "}
                   {card.last4} {card.last4} {card.last4}
                 </span>
                 <span className="ml-4 text-gray-700">{card.expiry}</span>
                 <span className="ml-4 text-gray-700">{card.name}</span>
               </div>
             </div>
-            {selectedMethod === card.id && (
+            {paymentData.selectedPaymentMethod === card.type && (
               <Check className="h-5 w-5 text-green-500" />
             )}
           </div>
@@ -68,7 +73,7 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
         {/* PayPal Option */}
         <div
           className="flex items-center justify-between border p-4  cursor-pointer"
-          onClick={() => setSelectedMethod("paypal")}
+          onClick={() => onSelectedMethod("paypal")}
         >
           <div className="flex items-center space-x-4">
             <div className="flex items-center">
@@ -80,7 +85,7 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
               order.
             </span>
           </div>
-          {selectedMethod === "paypal" && (
+          {paymentData.selectedPaymentMethod === "paypal" && (
             <Check className="h-5 w-5 text-green-500" />
           )}
         </div>
@@ -89,22 +94,24 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
         <div
           className={cn(
             "flex items-center justify-between border p-4  cursor-pointer",
-            selectedMethod === "new-card" ? "border-green-500" : ""
+            paymentData.selectedPaymentMethod === "new-card"
+              ? "border-green-500"
+              : ""
           )}
-          onClick={() => setSelectedMethod("new-card")}
+          onClick={() => onSelectedMethod("new-card")}
         >
           <div className="flex items-center space-x-4">
             <CreditCard className="h-5 w-5 text-gray-500" />
             <span className="text-gray-700">New Payment Cards</span>
           </div>
-          {selectedMethod === "new-card" && (
+          {paymentData.selectedPaymentMethod === "new-card" && (
             <Check className="h-5 w-5 text-green-500" />
           )}
         </div>
       </div>
 
       {/* New Card Form */}
-      {selectedMethod === "new-card" && (
+      {paymentData.selectedPaymentMethod === "new-card" && (
         <div className="mt-6 space-y-4">
           <div>
             <label
@@ -137,10 +144,12 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
               <input
                 type="text"
                 id="cardNumber"
-                placeholder="Label"
+                placeholder="Card Number"
                 className="w-full border border-gray-300  pl-10 pr-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={paymentData.cardDetails.cardNumber}
-                onChange={(e) => handlePaymentChange("cardNumber", e.target.value)}
+                onChange={(e) =>
+                  handlePaymentChange("cardNumber", e.target.value)
+                }
               />
             </div>
           </div>
@@ -158,8 +167,8 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
                 id="expiry"
                 placeholder="MM / YY"
                 className="w-full border border-gray-300  px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={paymentData.cardDetails.expiry}
-                onChange={(e) => handlePaymentChange("expiry", e.target.value)}
+                value={paymentData.cardDetails.expairy}
+                onChange={(e) => handlePaymentChange("expairy", e.target.value)}
               />
             </div>
             <div>
@@ -175,26 +184,35 @@ export default function PaymentMethodSelector({onPaymentChange,paymentData}) {
                 placeholder="Security Code"
                 className="w-full border border-gray-300  px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={paymentData.cardDetails.securityCode}
-                onChange={(e) => handlePaymentChange("securityCode", e.target.value)}
+                onChange={(e) =>
+                  handlePaymentChange("securityCode", e.target.value)
+                }
               />
             </div>
           </div>
 
-          <div className="flex items-center mt-4">
+          <div
+            className="flex items-center mt-4"
+            id="isSave"
+            value={paymentData.cardDetails.isSave}
+            onChange={(e) =>
+              handlePaymentChange("rememberCard", e.target.value)
+            }
+          >
             <div
               className={cn(
                 "h-5 w-5 border  mr-2 flex items-center justify-center cursor-pointer",
-                rememberCard
+                isSave
                   ? "bg-orange-500 border-orange-500"
                   : "border-gray-300"
               )}
-              onClick={() => setRememberCard(!rememberCard)}
+              onClick={() => onSaveChange(!isSave)}
             >
-              {rememberCard && <Check className="h-4 w-4 text-white" />}
+              {isSave && <Check className="h-4 w-4 text-white" />}
             </div>
             <label
               className="text-sm text-gray-700 cursor-pointer"
-              onClick={() => setRememberCard(!rememberCard)}
+              onClick={() => onSaveChange(!isSave)}
             >
               Remember this card, save it on my card list
             </label>
