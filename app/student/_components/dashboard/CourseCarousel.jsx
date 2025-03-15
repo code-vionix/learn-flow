@@ -29,7 +29,7 @@ export function CourseCarousel({ courses }) {
           <CarouselNext className="hidden md:flex" />
         </div>
 
-        <CarouselContent className="-ml-2 md:-ml-4 mb-20">
+        <CarouselContent className="-ml-2 px-0 py-0 mt-0 md:-ml-4 mb-20 p-0">
           {courses.map((course, index) => (
             <CarouselItem
               key={index}
