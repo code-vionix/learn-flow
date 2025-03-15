@@ -15,8 +15,8 @@ import CourseDescription from "../_component/CourseDescription";
 import CourseInfo from "../_component/CourseInfo";
 import CourseTitle from "../_component/CourseTitle";
 import Curriculum from "../_component/Curriculum";
+import RelatedCourses from "../_component/RelatedCourses";
 import { StudentFeedback } from "../_component/StudentFeedback";
-import { reviews } from "./../../../data/index";
 
 export default async function Home({ params }) {
   const { id } = params;
@@ -34,13 +34,24 @@ export default async function Home({ params }) {
           <CourseDescription />
           <CourseLearning />
           <CourseDetails />
-          <Curriculum />
-          <CourseInstructor />
-          <CourseRating />
-          <StudentFeedback reviews={reviews} />
+
+          {/* Ensure the ID matches the tab name */}
+          <section id="curriculum">
+            <Curriculum />
+          </section>
+
+          <section id="instructor">
+            <CourseInstructor instructors={course.instructors} />
+          </section>
+
+          <section id="review">
+            <CourseRating />
+            <StudentFeedback reviews={course.user_reviews} />
+          </section>
         </div>
         <CourseSidebar course={course} />
       </main>
+      <RelatedCourses course={course} />
     </div>
   );
 }
