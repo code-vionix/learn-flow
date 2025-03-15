@@ -12,14 +12,14 @@ export default function CourseInfo({ course }) {
             alt={instructors[0].name}
             width={50}
             height={50}
-            className="rounded-full"
+            className="rounded-full w-[50px] h-[50px] border-2 border-white"
           />
           <Image
             src={instructors[1].image}
             alt={instructors[1].name}
             width={50}
             height={50}
-            className="rounded-full absolute -right-6 top-0 border-2 border-white"
+            className="rounded-full absolute -right-6 top-0 border-2  border-white w-[50px] h-[50px]"
           />
         </div>
         <div className="ml-8">

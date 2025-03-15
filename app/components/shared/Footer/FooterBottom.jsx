@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function FooterBottom() {
   return (
@@ -14,18 +14,16 @@ export default function FooterBottom() {
         <span className="text-white">Lws-Coders</span>. All rights reserved.
       </p>
       <div>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button className="w-36 bg-primary-500 hover:bg-primary-600 text-white">
-              Language
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>English</DropdownMenuItem>
-            <DropdownMenuItem>Bangla</DropdownMenuItem>
-            <DropdownMenuItem>System</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Select>
+          <SelectTrigger className="w-36 border-gray-600">
+            <SelectValue placeholder="Lenguage" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="option1">English</SelectItem>
+            <SelectItem value="option2">Bangla</SelectItem>
+            <SelectItem value="option3">Arabic</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

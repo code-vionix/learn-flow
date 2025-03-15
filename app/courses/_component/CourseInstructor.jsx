@@ -15,7 +15,7 @@ const CourseInstructor = ({ instructors }) => {
             alt={instructor.name}
             width={80}
             height={80}
-            className="rounded-full object-cover border-4 border-white shadow-md"
+            className="rounded-full object-cover border-4 border-white shadow-md w-[136px] h-[136px]"
           />
 
           {/* Instructor Details */}
