@@ -39,7 +39,7 @@ const CourseRating = () => {
               </span>
               <Progress
                 value={rating.percentage}
-                className="w-full bg-gray-200 [&>div]:bg-[#FD8E1F]"
+                className="w-full rounded-none bg-gray-200 h-2 [&>div]:bg-[#FD8E1F]"
                 style={{ "--progress-color": "#FD8E1F" }}
               />
               <span className="text-[#1D2026] text-sm ml-2">
