@@ -15,7 +15,7 @@ export default function CourseCard({
 }) {
   return (
     <Link href={`/courses/${id}`}>
-      <Card className="w-60 p-0">
+      <Card className="w-60 p-0 shadow-none transition duration-300 ease-in-out hover:shadow-lg hover:scale-105">
         {/* Top Image */}
         <div className="relative">
           <Image

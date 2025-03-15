@@ -8,7 +8,7 @@ export default async function RelatedCourses() {
   const courses = await fetchCourses();
 
   return (
-    <div className="w-full py-10 px-6">
+    <div className="w-[1320px] mx-auto py-10 px-6">
       {/* Section Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Related Courses</h2>
@@ -20,7 +20,7 @@ export default async function RelatedCourses() {
       </div>
 
       {/* Course List */}
-      <div className="flex flex-wrap justify-center lg:justify-between gap-2 overflow-x-auto">
+      <div className="flex  justify-center  gap-2">
         {courses.slice(0, 5).map((course) => (
           <div
             key={course.id}
