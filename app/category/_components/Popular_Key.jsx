@@ -1,18 +1,7 @@
 import { useState } from "react";
 
-export default function PopularKeyword() {
-  const keywords = [
-    "HTML 5",
-    "Web Development",
-    "Responsive Development",
-    "Developments",
-    "Programming",
-    "Website",
-    "Technology",
-    "WordPress",
-  ];
-
-  const [selectedKeyword, setSelectedKeyword] = useState(null);
+export default function PopularKeyword({ keywords, setSelectedKeyword }) {
+  const [selectedKeyword, setSelectedStateKeyword] = useState(null);
 
   return (
     <div className="pt-10 pb-20 flex items-center gap-6 flex-wrap">
@@ -23,7 +12,10 @@ export default function PopularKeyword() {
         {keywords.map((keyword, index) => (
           <span
             key={index}
-            onClick={() => setSelectedKeyword(keyword)}
+            onClick={() => {
+              setSelectedStateKeyword(keyword); 
+              setSelectedKeyword(keyword); 
+            }}
             className={`${
               selectedKeyword === keyword
                 ? "bg-primary-500 text-white"
