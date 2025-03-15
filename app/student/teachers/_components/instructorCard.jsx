@@ -5,7 +5,7 @@ export default function InstractorCards({ instructor }) {
   return (
     <div className="flex flex-col items-center w-[342px] h-[545px] border  bg-white ">
       <div
-        className="w-full h-[312px] bg-cover bg-center rounded-t-lg shadow-[inset_0_-1px_0_#E9EAF0]"
+        className="w-full h-[312px] bg-cover bg-center  shadow-[inset_0_-1px_0_#E9EAF0]"
         style={{
           backgroundImage: `url(${instructor.image || "/default-image.jpg"})`,
         }}
