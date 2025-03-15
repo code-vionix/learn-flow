@@ -3,11 +3,12 @@ import CourseCard from "../components/cards/CourseCard";
 
 import { getInstructors } from "@/lib/fetchData";
 import TopInstructors from "../components/home/TopInstructors ";
+import CourseListPage from "../course-list/page";
 import PopularToolsCarousel from "./_components/PopularTools";
 
 export default async function CategoryList() {
   const instructors = await getInstructors();
-    
+
   return (
     <>
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-gray-50">
@@ -20,9 +21,10 @@ export default async function CategoryList() {
           ))}
         </div>
       </div>
-      
+
       <PopularToolsCarousel />
-      <TopInstructors instructors={instructors}/>
+      <TopInstructors instructors={instructors} />
+      <CourseListPage />
     </>
   );
 }
