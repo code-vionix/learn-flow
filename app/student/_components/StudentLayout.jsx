@@ -1,11 +1,26 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const StudentLayout = () => {
+  const pathname = usePathname();
+
+  const navLinks = [
+    { href: "/student", label: "Dashboard" },
+    { href: "/student/courses", label: "Courses" },
+    { href: "/student/teachers", label: "Teachers" },
+    { href: "/student/message", label: "Message" },
+    { href: "/student/wishlist", label: "Wishlist" },
+    { href: "/student/purchase-history", label: "Purchase History" },
+    { href: "/student/settings", label: "Settings" },
+  ];
+
   return (
     <div className="w-full h-40 bg-[#FFEEE8] relative">
-      <div className="container mx-auto absolute top-3/4  bg-white left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <div className="container mx-auto absolute top-3/4 bg-white left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="border-b border-primary-200">
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center gap-4">
@@ -14,7 +29,7 @@ const StudentLayout = () => {
                 alt="Profile picture"
                 width={96}
                 height={96}
-                className="rounded-full w-20 h-20 object-cover "
+                className="rounded-full w-20 h-20 object-cover"
               />
               <div>
                 <h1 className="text-2xl font-semibold text-gray-900">
@@ -34,48 +49,19 @@ const StudentLayout = () => {
             </Link>
           </div>
           <nav className="flex w-full justify-between overflow-x-auto border-t border-primary-200 font-bold">
-            <Link
-              href="/student"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-primary-500"
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/student/courses"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
-            >
-              Courses
-            </Link>
-            <Link
-              href="/student/teachers"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
-            >
-              Teachers
-            </Link>
-            <Link
-              href="/student/message"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
-            >
-              Message
-            </Link>
-            <Link
-              href="/student/wishlist"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
-            >
-              Wishlist
-            </Link>
-            <Link
-              href="/student/purchase-history"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
-            >
-              Purchase History
-            </Link>
-            <Link
-              href="/student/settings"
-              className="px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 border-transparent hover:border-[#FF6636]"
-            >
-              Settings
-            </Link>
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 transition-all ${
+                  pathname === href
+                    ? "border-[#FF6636] text-gray-900"
+                    : "border-transparent"
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
         </div>
       </div>
