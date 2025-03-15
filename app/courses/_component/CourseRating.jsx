@@ -10,7 +10,7 @@ const ratings = [
 
 const CourseRating = () => {
   return (
-    <div className="bg-white w-full flex gap-4 mt-10">
+    <div className="bg-white w-full flex gap-4 ">
       {/* Rating Summary */}
       <div className="flex flex-col items-center border justify-center w-1/5 border-r pr-6 text-center">
         <h2 className="text-4xl font-bold">4.8</h2>
