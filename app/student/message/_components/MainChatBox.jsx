@@ -18,17 +18,12 @@ const MainChatBox = ({ messages }) => {
 
   // Auto-scroll to the bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: "smooth",
-      inline: "nearest",
-    });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
-
   return (
-    <main
-      ref={messagesEndRef}
-      className="col-span-2 flex flex-col border bg-white h-[600px] overflow-hidden"
-    >
+    <main className="col-span-2 flex flex-col border bg-white h-[600px] overflow-hidden">
+      <ChatBoxHeader />
+
       {/* Chat Messages (Scrollable) */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages?.map((msg) => {
@@ -76,6 +71,8 @@ const MainChatBox = ({ messages }) => {
             </div>
           );
         })}
+        {/* Scroll to bottom ref */}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Fixed Message Input */}
