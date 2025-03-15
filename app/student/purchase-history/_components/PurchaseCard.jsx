@@ -30,7 +30,7 @@ const PurchaseCard = ({ purchase }) => {
                     </div>
                 </PurchesAccordionTrigger>
                 <PurchesAccordionContent>
-                    <div className="flex flex-col md:flex-row gap-4 w-full mx-auto">
+                    <div className="flex flex-col md:flex-row gap-0 w-full mx-auto">
                         {/* Left side - Course listings */}
                         <div className="flex-1 border-r pr-0">
                             <div className="space-y-">
