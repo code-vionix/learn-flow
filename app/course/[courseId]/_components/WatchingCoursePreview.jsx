@@ -12,9 +12,9 @@ import WatchingCourseContent from "./WatchingCourseContent";
 import { useCourseContext } from "@/povider/CourseProvider";
 
 const WatchingCoursePreview = () => {
-    const moduleData = courseData[0]?.modules[0]
+    const moduleData = courseData[0]?.modules[0];
     const lectureData = courseData[0]?.modules[0]?.lectures[0];
-    const { currentPlay } = useCourseContext();
+    const { currentPlay, currentLecture } = useCourseContext();
 
     console.log("context........", currentPlay);
     return (
@@ -30,7 +30,7 @@ const WatchingCoursePreview = () => {
             </div>
 
             <div className="mt-2">
-                <h1 className="md:text-[32px] text-[25px] font-semibold">{lectureData?.lectureName}</h1>
+                <h1 className="md:text-[32px] text-[25px] font-semibold">{currentLecture?.lectureName}</h1>
 
                 <div className="md:flex items-center justify-between md:border-none md:mt-0 mt-4 border-t ">
                     <div className="md:flex items-center gap-3">
@@ -99,7 +99,10 @@ const WatchingCoursePreview = () => {
                 />
                 <AttachFiles data={lectureData?.attachments} />
 
-                <CourseComment />
+
+                <div id="comments">
+                    <CourseComment />
+                </div>
             </div>
         </div>
     );

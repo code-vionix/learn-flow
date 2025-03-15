@@ -3,10 +3,12 @@ import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { CheckCheck, Play, Pause, CirclePlay, FolderOpen } from "lucide-react";
 import { AccordionContent2, AccordionItem2, AccordionTrigger2 } from "@/components/ui/accordion2.";
+import { useCourseContext } from "@/povider/CourseProvider";
 
 const CourseModuleItem = ({ course }) => {
+    const { currentLecture } = useCourseContext()
     const [playingId, setPlayingId] = useState(null);
-
+    const { handleLectureClick } = useCourseContext();
     const calculateCompletionPercentage = (course) => {
         const totalModules = course?.lectures.length;
         const finishedModules = course?.lectures?.filter(mod => mod?.isFinished).length;
@@ -16,6 +18,8 @@ const CourseModuleItem = ({ course }) => {
     const handlePlayPause = (id) => {
         setPlayingId(prev => (prev === id ? null : id));
     };
+
+    // console.log("module.......", course);
 
     return (
         <AccordionItem2 className="border-b" value={course?.moduleName}>
@@ -47,8 +51,8 @@ const CourseModuleItem = ({ course }) => {
                     {course?.lectures?.map(module => (
                         <li
                             key={module?.id}
-                            onClick={() => handlePlayPause(module?.id)}
-                            className="flex items-center gap-2 px-4 py-2 duration-300 cursor-pointer hover:bg-warning-100"
+                            onClick={() => handleLectureClick(course?.moduleId, module?.lectureId)}
+                            className={`flex items-center gap-2 px-4 py-2 duration-300 cursor-pointer hover:bg-warning-100 ${currentLecture?.lectureId === module?.lectureId ? "bg-warning-100" : ""}`}
                         >
                             <div className="flex text-gray-500 hover:text-gray-800 duration-300 justify-between w-full items-center gap-2">
                                 <span className="text-sm flex items-center gap-1">

@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, CirclePlay, Clock, FolderOpen } from "lucide-react";
 import WatchingCourseWrapper from "./WatchingCourseWrapper";
 import ReviewModal from './ReviewModal';
+import { useCourseContext } from '@/povider/CourseProvider';
 
 const WatchingCourseHeader = ({ data }) => {
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-
+    const { handleNextClick } = useCourseContext();
     const handleReviewSubmit = (rating, feedback) => {
         console.log('Review submitted:', { rating, feedback });
     };
@@ -50,7 +51,7 @@ const WatchingCourseHeader = ({ data }) => {
                         >
                             Write a Review
                         </Button>
-                        <Button className="bg-primary-500 text-sm text-white px-6 duration-300 hover:bg-primary-400 shadow-none font-[400]">
+                        <Button onClick={handleNextClick} className="bg-primary-500 text-sm text-white px-6 duration-300 hover:bg-primary-400 shadow-none font-[400]">
                             Next lecture
                         </Button>
                     </div>
