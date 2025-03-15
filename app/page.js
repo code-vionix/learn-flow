@@ -23,8 +23,13 @@ export default async function Home() {
       </div>
 
       <RecentAddedCourseList courses={courses} />
-      <InstructorCard />
-      <TopInstructors instructors={instructors} />
+      <div className="relative ">
+        <InstructorCard />
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 mt-20 w-[1480px] bg-white px-10 py-10">
+          <TopInstructors instructors={instructors} />
+        </div>
+      </div>
+
       <TrustedCompanies />
       <JoinCourse />
     </div>

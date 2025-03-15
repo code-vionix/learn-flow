@@ -51,23 +51,23 @@ const companies = [
 
 export default function TrustedCompanies() {
   return (
-    <section className="w-full py-20 px-4 md:px-20 lg:px-[300px] bg-white">
-      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-24">
-        <div className="max-w-[424px] text-center lg:text-left">
+    <section className="w-full  bg-white mt-[550px] ">
+      <div className=" flex h-[384px] w-[1320px] mx-auto items-center justify-center gap-4 bg-white">
+        <div className="w-2/6 text-center ">
           <h3 className="text-2xl font-semibold text-[#1D2026] leading-tight tracking-tight mb-4">
             6.3k Trusted Companies
           </h3>
-          <p className="text-sm text-[#6E7485] max-w-[312px]">
+          <p className="text-sm text-[#6E7485] ">
             Nullam egestas tellus at enim ornare tristique. Class aptent taciti
             sociosqu ad litora torquent per conubia nostra.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="flex flex-wrap gap-4 w-4/6">
           {companies.map((company) => (
             <div
               key={company.id}
-              className="w-[160px] h-[80px] bg-white shadow-md flex items-center justify-center p-4 gap-4"
+              className="w-[calc(25%-12px)] h-[100px] bg-white shadow-md flex items-center justify-center p-4"
             >
               <img
                 src={company.imageUrl}
