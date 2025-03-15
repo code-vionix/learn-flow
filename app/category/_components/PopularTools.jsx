@@ -6,58 +6,84 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules"; // Corrected import for Navigation module
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PopularKeyword from "./Popular_Key";
 
+const categories = {
+  "Web Development": [
+    { name: "HTML 5", courses: "2,736 Courses" },
+    { name: "CSS 3", courses: "13,127 Courses" },
+    { name: "JavaScript", courses: "52,212 Courses" },
+    { name: "Sass", courses: "20,215 Courses" },
+    { name: "jQuery", courses: "18,900 Courses" },
+    { name: "Bootstrap", courses: "30,100 Courses" },
+    { name: "Web Accessibility", courses: "7,800 Courses" },
+  ],
+  "Backend Development": [
+    { name: "Node.js", courses: "15,000 Courses" },
+    { name: "Express.js", courses: "9,812 Courses" },
+    { name: "Django", courses: "22,829 Courses" },
+    { name: "Laravel", courses: "6,136 Courses" },
+    { name: "Ruby on Rails", courses: "8,000 Courses" },
+    { name: "Spring Boot", courses: "12,500 Courses" },
+    { name: "Flask", courses: "10,500 Courses" },
+  ],
+  "Frontend Frameworks": [
+    { name: "React", courses: "40,000 Courses" },
+    { name: "Vue.js", courses: "10,600 Courses" },
+    { name: "Angular", courses: "14,290 Courses" },
+    { name: "Svelte", courses: "5,412 Courses" },
+    { name: "Ember.js", courses: "4,300 Courses" },
+    { name: "Backbone.js", courses: "3,800 Courses" },
+    { name: "LitElement", courses: "2,500 Courses" },
+  ],
+  "Mobile Development": [
+    { name: "React Native", courses: "18,300 Courses" },
+    { name: "Flutter", courses: "25,000 Courses" },
+    { name: "Xamarin", courses: "9,700 Courses" },
+    { name: "Swift", courses: "12,600 Courses" },
+    { name: "Kotlin", courses: "11,900 Courses" },
+    { name: "Ionic", courses: "6,500 Courses" },
+  ],
+  "Database Technologies": [
+    { name: "MySQL", courses: "35,000 Courses" },
+    { name: "PostgreSQL", courses: "22,500 Courses" },
+    { name: "MongoDB", courses: "27,000 Courses" },
+    { name: "SQLite", courses: "6,200 Courses" },
+    { name: "Oracle DB", courses: "10,700 Courses" },
+    { name: "Redis", courses: "8,300 Courses" },
+  ],
+};
 
-const tools = [
-  { name: "HTML 5", courses: "2,736 Courses" },
-  { name: "CSS 3", courses: "13,127 Courses" },
-  { name: "Javascript", courses: "52,212 Courses" },
-  { name: "Saas", courses: "20,215 Courses" },
-  { name: "Laravel", courses: "6,136 Courses" },
-  { name: "Django", courses: "22,829 Courses" },
-  { name: "Django", courses: "22,829 Courses" },
-  { name: "Django", courses: "22,829 Courses" },
-  { name: "Django", courses: "22,829 Courses" },
-];
 
-const keywords = [
-  "HTML 5",
-  "Web Development",
-  "Responsive Development",
-  "Developments",
-  "Programming",
-  "Website",
-  "Technology",
-  "WordPress",
-];
+const keywords = Object.keys(categories);
 
 export default function PopularToolsCarousel() {
   const swiperRef = useRef(null);
+  const [selectedKeyword, setSelectedKeyword] = useState(null);
   const [isPrevActive, setIsPrevActive] = useState(false);
   const [isNextActive, setIsNextActive] = useState(false);
 
   useEffect(() => {
     if (swiperRef.current) {
       const swiperInstance = swiperRef.current.swiper;
-
-      // Set up event listeners to track when the next/prev buttons are active
       swiperInstance.on("slideChange", () => {
-        setIsPrevActive(swiperInstance.activeIndex > 0); // Check if there's a previous slide
+        setIsPrevActive(swiperInstance.activeIndex > 0);
         setIsNextActive(
           swiperInstance.activeIndex < swiperInstance.slides.length - 1
-        ); // Check if there's a next slide
+        );
       });
-
-      // Initialize the state for the first load
       setIsPrevActive(swiperInstance.activeIndex > 0);
       setIsNextActive(
         swiperInstance.activeIndex < swiperInstance.slides.length - 1
       );
     }
   }, []);
+
+  const filteredTools = selectedKeyword
+    ? categories[selectedKeyword]
+    : Object.values(categories).flat();
 
   return (
     <div className="max-w-7xl mx-auto py-8">
@@ -87,30 +113,31 @@ export default function PopularToolsCarousel() {
       <div className="relative">
         <Swiper
           ref={swiperRef}
-          modules={[Navigation]} // Using Navigation module here
+          modules={[Navigation]}
           spaceBetween={20}
           slidesPerView={6}
-          navigation={{
-            prevEl: ".swiper-prev", // Specify the previous button element
-            nextEl: ".swiper-next", // Specify the next button element
-          }}
+          navigation={{ prevEl: ".swiper-prev", nextEl: ".swiper-next" }}
           className="pb-4"
         >
-          {tools.map((tool, index) => (
+          {filteredTools.map((tool, index) => (
             <SwiperSlide key={index}>
-              <Card className="border hover:shadow-xl hover:scale-105 transition-transform duration-300 flex justify-center items-center w-48 h-24 gap-2 pt-6 pb-6 group">
-                <CardContent className="p-4 text-center">
-                  <h3 className="text-base group-hover:text-primary-500 font-medium">
-                    {tool.name}
-                  </h3>
-                  <p className="text-xs text-gray-500">{tool.courses}</p>
-                </CardContent>
-              </Card>
-            </SwiperSlide>
+            <Card className="border hover:border-gray-100 flex justify-center items-center w-48 h-24 gap-2 pt-6 pb-6 group hover:shadow-lg">
+              <CardContent className="p-4 text-center">
+                <h3 className="text-base group-hover:text-primary-500 font-medium">
+                  {tool.name}
+                </h3>
+                <p className="text-xs text-gray-500">{tool.courses}</p>
+              </CardContent>
+            </Card>
+          </SwiperSlide>
+          
           ))}
         </Swiper>
       </div>
-      <PopularKeyword />
+      <PopularKeyword
+        keywords={keywords}
+        setSelectedKeyword={setSelectedKeyword}
+      />
     </div>
   );
 }
