@@ -39,7 +39,7 @@ export default function InstractorCards({ instructor }) {
         {/* Send Message Button */}
         <Button
           variant="link"
-          className="mt-4 w-[315px] p-6 text-lg font-medium text-primary-500 bg-primary-100 rounded-md"
+          className="mt-4 w-[300px] p-6 text-lg font-medium text-primary-500 bg-primary-100 rounded-md"
         >
           Send Message
         </Button>
