@@ -11,7 +11,7 @@ import JoinCourse from "./components/shared/JoinCourse";
 export default async function Home() {
   const courses = await fetchCourses();
   const instructors = await getInstructors();
-  console.log(instructors);
+ 
   return (
     <div className="bg-background text-primary">
       <Hero />
