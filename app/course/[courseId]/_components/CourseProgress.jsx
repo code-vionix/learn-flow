@@ -10,5 +10,5 @@ export function CourseProgress() {
         return () => clearTimeout(timer)
     }, [])
 
-    return <Progress value={progress} className="w-full h-1 mt-2 !rounded-none green-progress" />
+    return <Progress value={progress} className="w-full h-1 mt-2 !rounded-none green-progress !bg-success" />
 }

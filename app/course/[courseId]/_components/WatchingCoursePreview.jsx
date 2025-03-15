@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/components/ui/button";
 import CourseVideoPlayer from "./CourseVideoPlayer";
 import { courseData } from "../data/coursesData";
@@ -7,9 +9,14 @@ import LecturesInfo from "./LecturesInfo";
 import AttachFiles from "./AttachFiles";
 import CourseComment from "./CourseComments";
 import WatchingCourseContent from "./WatchingCourseContent";
+import { useCourseContext } from "@/povider/CourseProvider";
 
 const WatchingCoursePreview = () => {
     const moduleData = courseData[0]?.modules[0];
+    const lectureData = courseData[0]?.modules[0]?.lectures[0];
+    const { currentPlay, currentLecture } = useCourseContext();
+
+    console.log("context........", currentPlay);
     return (
         <div>
             <CourseVideoPlayer />
@@ -23,7 +30,7 @@ const WatchingCoursePreview = () => {
             </div>
 
             <div className="mt-2">
-                <h1 className="md:text-[32px] text-[25px] font-semibold">{moduleData?.title}</h1>
+                <h1 className="md:text-[32px] text-[25px] font-semibold">{currentLecture?.lectureName}</h1>
 
                 <div className="md:flex items-center justify-between md:border-none md:mt-0 mt-4 border-t ">
                     <div className="md:flex items-center gap-3">
@@ -79,18 +86,23 @@ const WatchingCoursePreview = () => {
                     key={'description'}
                     id={'LecturesDescription'}
                     title={'Lectures Description'}
-                    description={moduleData?.description}
+                    description={lectureData?.description}
+
                 />
                 <LecturesInfo
                     key={'notes'}
                     id={'LecturesNotes'}
                     title={'Lectures Notes'}
-                    description={moduleData?.notes}
+                    description={lectureData?.notes?.details}
                     isDownloadable={true}
+                    downloadUrl={lectureData?.notes?.file}
                 />
-                <AttachFiles />
+                <AttachFiles data={lectureData?.attachments} />
 
-                <CourseComment />
+
+                <div id="comments">
+                    <CourseComment />
+                </div>
             </div>
         </div>
     );

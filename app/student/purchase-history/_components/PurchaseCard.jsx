@@ -12,7 +12,7 @@ const PurchaseCard = ({ purchase }) => {
         <div className="">
             <PurchesAccordionItem className="border " value={`course-${purchase?.id}`}>
                 <PurchesAccordionTrigger>
-                    <div className="text-start">
+                    <div className="text-start ">
                         <h3 className="text-[18px]">{date}</h3>
                         <div className="md:flex hidden text-[14px] items-center gap-4 mt-2">
                             <div className="flex items-center gap-1 text-gray-700">
@@ -30,7 +30,7 @@ const PurchaseCard = ({ purchase }) => {
                     </div>
                 </PurchesAccordionTrigger>
                 <PurchesAccordionContent>
-                    <div className="flex flex-col md:flex-row gap-6 w-full mx-auto">
+                    <div className="flex flex-col md:flex-row gap-0 w-full mx-auto">
                         {/* Left side - Course listings */}
                         <div className="flex-1 border-r pr-0">
                             <div className="space-y-">
