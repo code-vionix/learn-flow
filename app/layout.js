@@ -1,3 +1,4 @@
+import { CourseProvider } from "@/povider/CourseProvider";
 import Footer from "./components/shared/Footer/Footer";
 import Navbars from "./components/shared/Navbars";
 import Navigation from "./components/shared/Navigation";
@@ -14,7 +15,9 @@ export default function RootLayout({ children }) {
       <body>
         <Navbars />
         <Navigation />
-        {children}
+        <CourseProvider>
+          <main>{children}</main>
+        </CourseProvider>
         <Footer />
       </body>
     </html>

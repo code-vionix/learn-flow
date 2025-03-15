@@ -4,10 +4,10 @@ import { CreditCard } from "lucide-react";
 
 const PurchaseOrderSummaryCard = ({ courseDetails, amount, cardDetails, date, paymentMethod }) => {
     return (
-        <div className="w-full md:w-80 flex-shrink-0">
+        <div className="w-full md:w-80 flex-shrink-0 p-4">
             <div className="mb-6 text-lg font-medium text-gray-800">{date}</div>
 
-            <div className="flex flex-col space-y-3 mb-6">
+            <div className="flex md:flex-row flex-col gap-2 mb-6">
                 <div className="flex items-center">
                     <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
                         <Play size={16} />

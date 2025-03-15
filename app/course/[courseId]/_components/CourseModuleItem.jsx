@@ -8,8 +8,8 @@ const CourseModuleItem = ({ course }) => {
     const [playingId, setPlayingId] = useState(null);
 
     const calculateCompletionPercentage = (course) => {
-        const totalModules = course.modules.length;
-        const finishedModules = course.modules.filter(mod => mod.isFinished).length;
+        const totalModules = course?.lectures.length;
+        const finishedModules = course?.lectures?.filter(mod => mod?.isFinished).length;
         return totalModules > 0 ? ((finishedModules / totalModules) * 100).toFixed(2) + "%" : "0%";
     };
 
@@ -28,7 +28,7 @@ const CourseModuleItem = ({ course }) => {
                 <div className="md:flex hidden ml-auto items-center  gap-2 !text-[14px] mt-1 pr-1">
                     <div className="flex items-center gap-1">
                         <CirclePlay strokeWidth={1.5} className="h-4 w-4 text-secondary-500" />
-                        <span className="text-gray-600">{course?.lectures} lectures</span>
+                        <span className="text-gray-600">{course?.lectures.length} lectures</span>
                     </div>
                     <div className="flex items-center gap-1">
                         <FolderOpen strokeWidth={1.5} className="h-4 w-4 text-primary-500" />
@@ -41,9 +41,10 @@ const CourseModuleItem = ({ course }) => {
                         </div>}
                 </div>
             </AccordionTrigger2>
+
             <AccordionContent2 className="py-0">
                 <ul>
-                    {course?.modules?.map(module => (
+                    {course?.lectures?.map(module => (
                         <li
                             key={module?.id}
                             onClick={() => handlePlayPause(module?.id)}
@@ -55,7 +56,7 @@ const CourseModuleItem = ({ course }) => {
                                         className={`${module?.isFinished && "!bg-primary-500 !border-none "} border-gray-400 !border !rounded-none w-5 h-5`}
                                         checked={module?.isFinished}
                                     />
-                                    {module?.title}
+                                    {module?.lectureName}
                                 </span>
                                 <span className="flex items-center gap-2 text-[12px]">
                                     {playingId === module?.id ? <Pause size={12} /> : <Play size={12} />} {module?.moduleDuration}
