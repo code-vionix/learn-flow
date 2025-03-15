@@ -13,7 +13,7 @@ import { SendHorizontal } from "lucide-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const ModalForm = () => {
+const ModalForm = ({ OnClose }) => {
   const {
     register,
     reset,
@@ -25,6 +25,7 @@ const ModalForm = () => {
   const onSubmit = (data) => {
     console.log(data);
     reset();
+    OnClose();
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

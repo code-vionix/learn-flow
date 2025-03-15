@@ -1,14 +1,21 @@
+"use client";
 import { Avatar } from "@/components/ui/avatar";
 import Image from "next/image";
-import React from "react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 const StudentList = ({ students }) => {
+  const { id } = useParams();
+
   return (
     <div className="mt-4 space-y-2 overflow-y-auto h-[80%]">
       {students.map((student) => (
-        <div
+        <Link
+          href={`/student/message/${student.id}`}
           key={student.id}
-          className="flex items-center space-x-3 p-2 rounded-md cursor-pointer hover:bg-gray-200"
+          className={`flex items-center space-x-3 p-2 rounded-md cursor-pointer hover:bg-primary-200 ${
+            id == student.id && "bg-primary-200"
+          } `}
         >
           <Avatar className="w-10 h-10 relative overflow-visible ">
             <Image
@@ -44,7 +51,7 @@ const StudentList = ({ students }) => {
               ></p>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
