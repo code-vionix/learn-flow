@@ -4,7 +4,7 @@ import CourseModuleItem from "./CourseModuleItem";
 import { courseData } from "../data/coursesData";
 import { Accordion2 } from "@/components/ui/accordion2.";
 
-const WatchingCourseContent = () => {
+const WatchingCourseContent = ({ modules }) => {
     return (
         <div className="md:mt-0 mt-4">
             <div className="flex items-center justify-between w-full">
@@ -15,7 +15,7 @@ const WatchingCourseContent = () => {
 
             <div className="mt-4 border transparent-scroll h-[490px] overflow-y-auto ">
                 <Accordion2 type="single" collapsible className="w-full">
-                    {courseData?.map((course) => (
+                    {modules?.map((course) => (
                         <CourseModuleItem key={course.id} course={course} />
                     ))}
                 </Accordion2>

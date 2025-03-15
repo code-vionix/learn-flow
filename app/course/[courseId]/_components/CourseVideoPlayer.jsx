@@ -5,38 +5,24 @@ import { useRef, useEffect, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import { Play } from 'lucide-react';
+import { courseData } from '../data/coursesData';
 const DynamicReactPlayer = dynamic(() => import('react-player'), {
     ssr: false,
 });
 
 export default function CourseVideoPlayer() {
-    const [url, setUrl] = useState('https://www.youtube.com/watch?v=b8NxzFyGKtQ&ab_channel=Quran');
+    const moduleData = courseData[0]?.modules[0]?.lectures[0];
+
+
+    const [url, setUrl] = useState(moduleData?.video_url);
     const [autoPlay, setAutoPlay] = useState(false);
     const [showPlayButton, setShowPlayButton] = useState(true);
     const videoRef = useRef(null);
 
     useEffect(() => {
-        const player = new Plyr(videoRef.current);
-    }, []);
-
-    const updateUrl = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        setUrl(form.link.value);
-        form.reset();
-    };
-
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (event) => {
-            const dataUrl = event.target.result;
-            setUrl(dataUrl);
-        };
-
-        reader.readAsDataURL(file);
-    };
+        new Plyr(videoRef.current);
+        setUrl(moduleData?.video_url)
+    }, [moduleData]);
 
     const handlePlayButtonClick = () => {
         setShowPlayButton(false);
@@ -64,23 +50,6 @@ export default function CourseVideoPlayer() {
                         className="border-2 rounded-lg lg:!h-[550px] md:!h-[500px] !h-[200px] overflow-hidden bg-primary-500"
                     />
                 </div>
-            </div>
-            <div className="hidden items-center justify-between border-b border-[gray] pb-2">
-                <h3 className="font-bold text-xl">NTube</h3>
-                <input type="file" onChange={handleFileChange} />
-                <form onSubmit={updateUrl} className="flex items-center">
-                    <input
-                        type="text"
-                        name="link"
-                        className="bg-primary border border-[#12618b] px-3 py-1 w-[270px]"
-                        placeholder="video URL..."
-                    />
-                    <input
-                        type="submit"
-                        value="preview"
-                        className="px-3 py-1 border border-[#0786c1] cursor-pointer bg-[#0786c1]"
-                    />
-                </form>
             </div>
         </main>
     );
