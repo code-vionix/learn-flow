@@ -1,17 +1,20 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CirclePlay, Clock, FolderOpen } from "lucide-react";
 import WatchingCourseWrapper from "./WatchingCourseWrapper";
 import ReviewModal from './ReviewModal';
+import { useCourseContext } from '@/povider/CourseProvider';
 
-const WatchingCourseHeader = () => {
+const WatchingCourseHeader = ({ data }) => {
     const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-
+    const { handleNextClick } = useCourseContext();
     const handleReviewSubmit = (rating, feedback) => {
         console.log('Review submitted:', { rating, feedback });
     };
+
+    console.log('data:: ', data);
 
     return (
         <div className="bg-[#F5F7FA]">
@@ -23,20 +26,20 @@ const WatchingCourseHeader = () => {
                         </Button>
 
                         <div className="">
-                            <h3 className="font-semibold text-[18px] lg:w-auto w-auto md:w-[400px]">Complete Website Responsive Design: from Figma to</h3>
+                            <h3 className="font-semibold text-[18px] lg:w-auto w-auto md:w-[400px]">{data?.courseName}</h3>
 
                             <div className="flex items-center gap-3 text-sm mt-1">
                                 <div className="flex items-center gap-1">
                                     <FolderOpen strokeWidth={1.5} className="h-4 w-4 text-primary-500" />
-                                    <span className="text-sm text-gray-600">6 Sections</span>
+                                    <span className="text-sm text-gray-600">{data?.sections} Sections</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <CirclePlay strokeWidth={1.5} className="h-4 w-4 text-secondary-500" />
-                                    <span className="text-sm text-gray-600">202 lectures</span>
+                                    <span className="text-sm text-gray-600">{data?.lectures} lectures</span>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Clock strokeWidth={1.5} className="h-4 w-4 text-warning-500" />
-                                    <span className="text-sm text-gray-600">2h 37m</span>
+                                    <span className="text-sm text-gray-600">{data?.courseDuration}</span>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +51,7 @@ const WatchingCourseHeader = () => {
                         >
                             Write a Review
                         </Button>
-                        <Button className="bg-primary-500 text-sm text-white px-6 duration-300 hover:bg-primary-400 shadow-none font-[400]">
+                        <Button onClick={handleNextClick} className="bg-primary-500 text-sm text-white px-6 duration-300 hover:bg-primary-400 shadow-none font-[400]">
                             Next lecture
                         </Button>
                     </div>

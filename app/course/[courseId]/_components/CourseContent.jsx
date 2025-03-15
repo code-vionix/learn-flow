@@ -1,14 +1,15 @@
 import WatchingCourseContent from "./WatchingCourseContent";
 import WatchingCoursePreview from "./WatchingCoursePreview";
 
-const CourseContent = () => {
+const CourseContent = ({ data }) => {
+    const modules = data.modules;
     return (
-        <div id="comments" className="mt-3 lg:flex grid-cols-3 gap-4">
+        <div className="mt-3 lg:flex grid-cols-3 gap-4">
             <div className="col-span-2 md:p-2 lg:w-[65%] w-full">
-                <WatchingCoursePreview />
+                <WatchingCoursePreview data={data} />
             </div>
             <div className="md:block hidden lg:w-[35%] w-full">
-                <WatchingCourseContent />
+                <WatchingCourseContent modules={modules} />
             </div>
         </div>
     );

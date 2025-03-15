@@ -8,7 +8,7 @@ const PurchaseHistory = () => {
     const [viewAll, setViewAll] = useState(false)
     const publishedData = viewAll ? purchaseData : purchaseData.slice(0, 4);
     return (
-        <>
+        <div className=''>
           <div>
                 <h2 className="basic-title">Purchase History</h2>
                 <PurchesAccordion defaultValue={`course-${publishedData[0]?.id}`} className='space-y-4 mt-4' type="single" collapsible>
@@ -20,7 +20,7 @@ const PurchaseHistory = () => {
                     {viewAll ? 'Show Less' : 'Yay! You have seen all your purchase history.😎'}
                 </button>
         </div>
-        </>
+        </div>
     );
 };
 
