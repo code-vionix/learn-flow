@@ -21,7 +21,7 @@ export default function ProfileTop() {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-3">
                   <h2 className="text-2xl font-semibold">Vako Shvili</h2>
-                  <span className="flex items-center gap-1 bg-orange-100 text-orange-600 text-xs font-bold px-2 py-1 rounded-md">
+                  <span className="flex items-center gap-1 bg-primary-100 text-primary-600 text-xs font-bold px-2 py-1 rounded-md">
                     <Crown className="w-4 h-4" /> Top Rated
                   </span>
                 </div>
