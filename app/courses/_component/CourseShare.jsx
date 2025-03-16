@@ -16,7 +16,7 @@ export default function CourseShare() {
         {shareOptions.map(({ icon: Icon, label }) => (
           <button
             key={label}
-            className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+            className="p-3 bg-gray-50  hover:bg-gray-100 transition-colors"
             aria-label={label}
           >
             <Icon className="w-5 h-5 text-gray-700" />

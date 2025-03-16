@@ -196,6 +196,25 @@
   clip-path: polygon(12% 0, 0% 100%, 0 0);
 }
 
+.hover-item {
+  @apply flex items-center cursor-pointer relative w-fit;
+}
+
+/* Underline effect */
+.hover-item span {
+  @apply relative;
+}
+
+.hover-item span::after {
+  content: "";
+  @apply block w-0 h-[2px] bg-primary-500 transition-all duration-200 absolute left-0 bottom-0 group-hover:w-full;
+}
+
+/* Arrow Effect */
+.hover-item::after {
+  content: "→";
+  @apply opacity-0 transition-opacity duration-200 ml-1 group-hover:opacity-100;
+}
 .basic-title {
   @apply md:text-[24px] text-[22px] font-[600]
 }
@@ -238,4 +257,5 @@
 .transparent-scroll::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px grey; 
   border-radius: 10px;
+
 }
