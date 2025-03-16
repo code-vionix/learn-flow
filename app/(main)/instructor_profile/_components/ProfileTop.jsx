@@ -5,7 +5,7 @@ import SocialIcon from "../../components/shared/social_icon";
 
 export default function ProfileTop() {
   return (
-    <div className="h-40 bg-[#FFEEE8] relative">
+    <div className="h-40 bg-white relative">
       <div className="container mx-auto px-8 absolute top-3/4 bg-white left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="border-b border-primary-200">
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
