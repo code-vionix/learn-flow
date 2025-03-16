@@ -16,14 +16,14 @@ const CourseHoverCard = ({ course }) => {
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
             <img
-              src={course.instructors[0].image}
-              alt={course.instructors[0].name}
+              src={course.image}
+              alt={course.name}
               className="w-12 h-12 rounded-full"
             />
             <div>
               <p className="text-sm text-gray-500">Course by</p>
               <p className="text-sm text-gray-900 font-medium">
-                {course.instructors[0].name}
+                {course.name}
               </p>
             </div>
           </div>
