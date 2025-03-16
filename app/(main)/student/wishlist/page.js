@@ -58,7 +58,7 @@ export default function Wishlist() {
 
         <Table className="border">
           <TableHeader>
-            <TableRow className="text-xl">
+            <TableRow className="text-lg">
               <TableHead className="p-3">Course</TableHead>
               <TableHead>Price</TableHead>
               <TableHead className="pl-24">Action</TableHead>
@@ -80,7 +80,7 @@ export default function Wishlist() {
                     </div>
                     <div>
                       <div className="mb-5 flex items-center  text-gray-500">
-                        <div className="flex text-lg  items-center">
+                        <div className="flex text-md  items-center">
                           <Star className="h-4 w-4 text-yellow-400 fill-current" />
                           <span className="ml-1 font-medium">
                             {course.rating}
@@ -90,12 +90,12 @@ export default function Wishlist() {
                           </span>
                         </div>
                       </div>
-                      <h2 className="text-2xl font-medium text-gray-900 mt-[-12px]">
+                      <h2 className="text-xl font-medium text-gray-900 mt-[-12px]">
                         {course.title}
                       </h2>
-                      <div className="flex mt-6 space-x-2">
-                        <p className="text-lg  text-gray-500">Course by:</p>
-                        <p className="text-lg font-medium text-gray-500">
+                      <div className="flex mt-6 space-x-2 text-md">
+                        <p className=" text-gray-500">Course by:</p>
+                        <p className=" font-medium text-gray-500">
                           {course.instructors.join(" • ")}
                         </p>
                       </div>
@@ -113,10 +113,10 @@ export default function Wishlist() {
                 <TableCell className="pr-4">
                   <div className="ml-5 flex flex-col justify-center items-end gap-6 min-w-[200px]">
                     <div className="flex space-x-3">
-                      <button className="inline-flex items-center px-10 py-3 border border-transparent text-lg font-medium  shadow-sm text-black bg-gray-100 ">
+                      <button className="inline-flex items-center px-10 py-3 border border-transparent text-md font-medium  shadow-sm text-black bg-gray-100 ">
                         Buy Now
                       </button>
-                      <button className="inline-flex items-center px-10 py-3 border border-transparent text-lg font-medium  text-white bg-orange-500 hover:bg-orange-600 ">
+                      <button className="inline-flex items-center px-10 py-3 border border-transparent text-md font-medium  text-white bg-orange-500 hover:bg-orange-600 ">
                         Add To Cart
                       </button>
                       <button className="inline-flex items-center p-2 border-1 bg-primary-100 border-gray-300  text-red-600 ">
@@ -133,4 +133,3 @@ export default function Wishlist() {
     </div>
   );
 }
-

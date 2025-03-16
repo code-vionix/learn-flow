@@ -84,12 +84,12 @@ export default function TopInstructors({ instructors }) {
   const topInstructors = instructors.slice(0, 5);
 
   return (
-    <section className="w-full bg-white border border-[#E9EAF0] py-20">
+    <section className="w-full bg-white  py-20">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-semibold text-center text-[#1D2026] mb-10 leading-[48px] tracking-[-0.01em]">
           Top instructor of the month
         </h2>
-        <div className="flex flex-wrap justify-center gap-6 mb-10">
+        <div className="flex flex-wrap justify-between w-[1320px] gap-6 mb-10">
           {topInstructors.map((instructor, index) => (
             <TopInstructorCard key={index} instructor={instructor} />
           ))}

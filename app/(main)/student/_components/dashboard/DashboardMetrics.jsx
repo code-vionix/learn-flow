@@ -1,68 +1,63 @@
+import { Card } from "@/components/ui/card";
+import { cn, nameToColor } from "@/lib/utils";
 import { Flag, Play, Trophy, Users } from "lucide-react";
+import Link from "next/link";
 
 const metrics = [
   {
     label: "Enrolled Courses",
     value: "957",
     icon: Play,
-    className: "bg-orange-50",
+    className: "bg-orange-100",
     iconClassName: "text-orange-500",
   },
   {
     label: "Active Courses",
     value: "6",
     icon: Flag,
-    className: "bg-blue-50",
+    className: "bg-blue-100",
     iconClassName: "text-blue-500",
   },
   {
     label: "Completed Courses",
     value: "951",
     icon: Trophy,
-    className: "bg-green-50",
+    className: "bg-green-100",
     iconClassName: "text-green-500",
   },
   {
     label: "Course Instructors",
     value: "241",
     icon: Users,
-    className: "bg-orange-50",
+    className: "bg-orange-100",
     iconClassName: "text-orange-500",
   },
 ];
 
 export default function DashboardMetrics() {
   return (
-    <div className="w-full  mt-20">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {metrics.map((metric, index) => {
-          const Icon = metric.icon;
-          return (
-            <div
-              key={index}
-              className={`${metric.className} p-6  transition-transform hover:scale-105`}
-            >
-              <div className="flex justify-start items-center">
-                <div className="w-1/4 ">
-                  <div className=" w-10 h-10 bg-white">
-                    <Icon
-                      className={`w-8 h-8 ${metric.iconClassName} mb-4 bg-white `}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1 flex flex-col items-center">
-                  <h2 className="text-3xl font-bold text-gray-900 w-3/4">
-                    {metric.value}
-                  </h2>
-                  <p className="text-sm text-gray-600">{metric.label}</p>
-                </div>
-              </div>
+    <>
+      {metrics.map((mat, index) => (
+        <Link href="#" key={index}>
+          <Card
+            className={cn(
+              "flex items-center h-[108px] w-[312px] gap-5 p-5",
+              mat.className
+            )}
+          >
+            <div className="p-3 gap-4 bg-white">
+              <mat.icon className={`w-6 h-6 ${mat.iconClassName}`} />
             </div>
-          );
-        })}
-      </div>
-    </div>
+            <div>
+              <p className="text-xl font-bold text-gray-600">{mat.value}</p>
+
+              <h3 className="font-semibold text-sm text-gray-500">
+                {mat.label}
+              </h3>
+            </div>
+          </Card>
+        </Link>
+      ))}
+    </>
   );
 }
