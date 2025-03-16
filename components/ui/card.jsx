@@ -5,10 +5,7 @@ import { cn } from "@/lib/utils";
 const Card = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn(
-      "p-2 bg-card text-card-foreground  hover:shadow-lg transition-shadow duration-200",
-      className
-    )}
+    className={cn("p-2 bg-card text-card-foreground  ", className)}
     {...props}
   />
 ));
@@ -57,9 +54,9 @@ CardFooter.displayName = "CardFooter";
 
 export {
   Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardDescription,
   CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
 };

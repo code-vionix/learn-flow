@@ -26,7 +26,7 @@ const MainChatBox = ({ messages }) => {
 
       {/* Chat Messages (Scrollable) */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages?.map((msg) => {
+        {messages?.map((msg, i) => {
           const isSentByCurrentUser = msg.sender.id === currentUserId;
           return (
             <div

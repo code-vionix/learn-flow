@@ -1,6 +1,6 @@
 "use client";
 
-import { courseData } from "@/app/(main)/course/[courseId]/data/coursesData";
+import { courseData } from "@/app/(main)/player/[courseId]/data/coursesData";
 // import { courseData } from "@/app/course/[courseId]/data/coursesData";
 import { createContext, useContext, useState } from "react";
 
