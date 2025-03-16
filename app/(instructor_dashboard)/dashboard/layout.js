@@ -2,6 +2,7 @@ import React from "react";
 import "../../globals.css";
 import Logo from "./_components/Logo";
 import DashboardNavbar from "./_components/DashboardNavbar";
+import DashboardHeader from "./_components/DashboardHeader";
 
 const InstructorDashboardLayout = ({ children }) => {
   return (
@@ -12,8 +13,10 @@ const InstructorDashboardLayout = ({ children }) => {
         <DashboardNavbar />
       </aside>
       <div className="flex flex-col w-full ">
-        <div className="bg-white w-full px-10 h-20"></div>
-        <div className="mt-10 container px-10 mx-auto">{children}</div>
+        <div className="bg-white w-full">
+          <DashboardHeader />
+        </div>
+        <div className="mt-6 container px-10 mx-auto">{children}</div>
       </div>
     </div>
   );
