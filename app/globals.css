@@ -195,6 +195,7 @@
   z-index: 5;
   clip-path: polygon(12% 0, 0% 100%, 0 0);
 }
+
 .hover-item {
   @apply flex items-center cursor-pointer relative w-fit;
 }
@@ -213,4 +214,48 @@
 .hover-item::after {
   content: "→";
   @apply opacity-0 transition-opacity duration-200 ml-1 group-hover:opacity-100;
+}
+.basic-title {
+  @apply md:text-[24px] text-[22px] font-[600]
+}
+
+
+/********************************
+ * watch course styles
+ ********************************/
+ .green-progress {
+    --progress-bar-color: green;
+}
+.accordion-trigger {
+    transition: color 0.3s ease;
+}
+.accordion-trigger[aria-expanded="true"] {
+    background-color: #F5F7FA!important;
+    color: #FF6636!important;
+}
+
+.accordion-trigger[aria-expanded="true"] .arrow {
+    transform: rotate(180deg);
+}
+
+.react-player > div {
+    position: relative;
+}
+
+.react-player .react-player__preview {
+    display: none !important;
+}
+
+.react-player iframe {
+    pointer-events: none;
+}
+
+.transparent-scroll::-webkit-scrollbar {
+  width: 0px;
+}
+
+.transparent-scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+
 }
