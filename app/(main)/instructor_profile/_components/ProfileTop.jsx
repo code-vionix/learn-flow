@@ -1,17 +1,7 @@
-import {
-  BookOpen,
-  Crown,
-  Facebook,
-  Globe,
-  Instagram,
-  Star,
-  Twitter,
-  Users,
-  Youtube,
-} from "lucide-react";
-import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
 import playCircle from "@/public/PlayCircle.png";
+import { Crown, Globe, Star, Users } from "lucide-react";
+import Image from "next/image";
+import SocialIcon from "../../components/shared/social_icon";
 
 export default function ProfileTop() {
   return (
@@ -48,8 +38,12 @@ export default function ProfileTop() {
                     <span className="font-semibold">430,117</span> students
                   </div>
                   <div className="flex items-center gap-1">
-                  <Image src={playCircle} alt="Play Circle" width={20} height={20} />
-
+                    <Image
+                      src={playCircle}
+                      alt="Play Circle"
+                      width={20}
+                      height={20}
+                    />
                     <span className="font-semibold">7</span> courses
                   </div>
                 </div>
@@ -62,23 +56,7 @@ export default function ProfileTop() {
               >
                 <Globe size={16} className="text-end" /> www.vakoshvili.com
               </a>
-              <div className="flex gap-4 mt-4 self-end">
-                <a href="#" className="p-3 bg-gray-100 hover:bg-orange-500">
-                  <Facebook className="h-4 w-4 text-black" />
-                </a>
-                <a href="#" className="p-3 bg-gray-100 hover:bg-orange-500">
-                  <Twitter className="h-4 w-4 text-black" />
-                </a>
-                <a href="#" className="p-3 bg-gray-100 hover:bg-orange-500">
-                  <Instagram className="h-4 w-4 text-black" />
-                </a>
-                <a href="#" className="p-3 bg-gray-100 hover:bg-orange-500">
-                  <Youtube className="h-4 w-4 text-black" />
-                </a>
-                <a href="#" className="p-3 bg-gray-100 hover:bg-orange-500">
-                  <FaWhatsapp className="h-4 w-4 text-black" />
-                </a>
-              </div>
+              <SocialIcon />
             </div>
           </div>
         </div>
