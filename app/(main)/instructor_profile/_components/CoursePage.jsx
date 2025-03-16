@@ -17,13 +17,13 @@ export default async function InstructorCoursePage() {
 
       <div className="w-full md:w-2/3">
         <div className="flex gap-40 pl-16">
-          <span className="relative text-xl font-md pb-4 text-black hover:after:w-40 hover:after:border-b-2 hover:after:border-orange-500 hover:after:content-[''] hover:after:absolute hover:after:left-1/2 hover:after:-translate-x-1/2 hover:after:bottom-0">
+          <span className="relative text-xl font-md pb-4 text-black hover:after:w-40 hover:after:border-b-2 hover:after:border-primary-500 hover:after:content-[''] hover:after:absolute hover:after:left-1/2 hover:after:-translate-x-1/2 hover:after:bottom-0">
             Courses
           </span>
 
           <a
             href="#student-feedback"
-            className="relative text-xl font-md pb-4 text-black hover:after:w-40 hover:after:border-b-2 hover:after:border-orange-500 hover:after:content-[''] hover:after:absolute hover:after:left-1/2 hover:after:-translate-x-1/2 hover:after:bottom-0"
+            className="relative text-xl font-md pb-4 text-black hover:after:w-40 hover:after:border-b-2 hover:after:border-primary-500 hover:after:content-[''] hover:after:absolute hover:after:left-1/2 hover:after:-translate-x-1/2 hover:after:bottom-0"
           >
             Review
           </a>
