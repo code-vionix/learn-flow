@@ -1,7 +1,3 @@
-import { CourseProvider } from "@/povider/CourseProvider";
-import Footer from "./components/shared/Footer/Footer";
-import Navbars from "./components/shared/Navbars";
-import Navigation from "./components/shared/Navigation";
 import "./globals.css";
 
 export const metadata = {
@@ -12,13 +8,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="h-auto">
-        <Navbars />
-        <Navigation />
-        <CourseProvider>
-          <main>{children}</main>
-        </CourseProvider>
-        <Footer />
+      <body>
+        <>{children}</>
       </body>
     </html>
   );
