@@ -1,4 +1,7 @@
+import { Card } from "@/components/ui/card";
+import { cn, nameToColor } from "@/lib/utils";
 import { Flag, Play, Trophy, Users } from "lucide-react";
+import Link from "next/link";
 
 const metrics = [
   {
@@ -33,36 +36,28 @@ const metrics = [
 
 export default function DashboardMetrics() {
   return (
-    <div className="w-full  mt-20">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {metrics.map((metric, index) => {
-          const Icon = metric.icon;
-          return (
-            <div
-              key={index}
-              className={`${metric.className} p-6  transition-transform hover:scale-105`}
-            >
-              <div className="flex justify-start items-center">
-                <div className="w-1/4 ">
-                  <div className=" w-10 h-10 bg-white">
-                    <Icon
-                      className={`w-8 h-8 ${metric.iconClassName} mb-4 bg-white `}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1 flex flex-col items-center">
-                  <h2 className="text-3xl font-bold text-gray-900 w-3/4">
-                    {metric.value}
-                  </h2>
-                  <p className="text-sm text-gray-600">{metric.label}</p>
-                </div>
-              </div>
+    <>
+      {metrics.map((mat, index) => (
+        <Link href="#" key={index}>
+          <Card
+            className={cn(
+              "flex items-center h-[108px] w-[312px]",
+              mat.className
+            )}
+            style={{ backgroundColor: nameToColor(index) }}
+          >
+            <div className="p-3 gap-4 bg-white rounded-full">
+              <mat.icon className={`w-6 h-6 ${mat.iconClassName}`} />
             </div>
-          );
-        })}
-      </div>
-    </div>
+            <div>
+              <h3 className="font-semibold text-md text-gray-900">
+                {mat.label}
+              </h3>
+              <p className="text-xs text-gray-600">{mat.value}</p>
+            </div>
+          </Card>
+        </Link>
+      ))}
+    </>
   );
 }

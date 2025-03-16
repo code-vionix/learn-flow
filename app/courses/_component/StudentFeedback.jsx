@@ -14,14 +14,14 @@ import StarRating from "./StarRating";
 
 export const StudentFeedback = ({ reviews }) => {
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="w-full mx-auto  space-y-6 mt-10">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold text-[#1D2026]">
           Students Feedback
         </h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2 w-[200px]">
               Sort by
               <ChevronDownIcon className="h-4 w-4" />
             </Button>
@@ -37,28 +37,28 @@ export const StudentFeedback = ({ reviews }) => {
       </div>
 
       <div className="space-y-4">
-        {reviews.map((review) => (
-          <Card key={review.id} className="hover:shadow-md transition-shadow">
+        {reviews.map((review, index) => (
+          <Card key={index} className="border-b ">
             <CardContent className="p-6">
               <div className="flex gap-4">
                 <img
-                  src={review.avatar}
-                  alt={review.author}
+                  src={review.image}
+                  alt={review.name}
                   className="w-10 h-10 rounded-full"
                 />
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-sm text-[#1D2026]">
-                      {review.author}
+                      {review.name}
                     </h3>
                     <span className="text-xs text-[#6E7485]">•</span>
                     <span className="text-xs text-[#6E7485]">
-                      {review.timeAgo}
+                      {review.timeAgo}5 min
                     </span>
                   </div>
                   <StarRating rating={review.rating} />
                   <p className="mt-3 text-sm text-[#4E5566] leading-[22px] tracking-tight">
-                    {review.content}
+                    {review.comment}
                   </p>
                 </div>
               </div>
@@ -68,10 +68,8 @@ export const StudentFeedback = ({ reviews }) => {
       </div>
 
       <div className="flex justify-start pt-3">
-        <Button className="w-[165px] h-12 flex justify-center items-center gap-3 bg-[#FFEEE8] text-[#FF6636] font-semibold rounded">
+        <Button className="w-[165px] h-12 flex justify-center items-center gap-3 bg-[#FFEEE8] text-[#FF6636] font-semibold rounded-none">
           <span>Load More</span>
-
-          <div className="animate-spin w-6 h-6 border-2 border-[#FF6636] border-t-transparent rounded-full" />
         </Button>
       </div>
     </div>

@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const InstructorCard = () => {
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="w-4/5 flex flex-col lg:flex-row gap-4 justify-between items-center pt-[80px]  pr-[300] pl-[300] lg:h-[440px] overflow-hidden">
+    <div className="w-full flex justify-center  h-[671px] bg-gray-100">
+      <div className="flex flex-col lg:flex-row gap-4 justify-between  w-[1320px] mt-20 ">
         {/* Left Section */}
-        <div className=" bg-gradient-to-r from-[#CC522B] to-[#FF6636] hidden sm:flex justify-between h-64 w-full lg:w-1/2 rounded-lg">
+        <div className=" bg-gradient-to-r from-[#CC522B] to-[#FF6636] hidden sm:flex justify-between h-[270px] w-full lg:w-1/2 ">
           <div className="w-3/5 flex flex-col items-start justify-center gap-4 px-5">
             <h3 className="text-2xl font-semibold leading-[36px] lg:leading-[48px] text-white">
               Become an instructor
@@ -24,7 +24,7 @@ const InstructorCard = () => {
           </div>
           <div className="relative w-2/5 h-full overflow-hidden">
             <Image
-              src="/images/download.png"
+              src="https://s3-alpha-sig.figma.com/img/29bd/96c4/72eab052ddcd508f02e69e7f0166dd61?Expires=1742774400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=k5anUZX--3TaSVJsixxvTolwYzFwB1OrFZz~Fhar2EjrE8pwju8TdDIRppvrXOEcfQnPi6W9WEHE14I3MeqRwiph-k-Yl2ThXeTwmUa8Y93sJbLR4FOXnV7KGpxGKxeyWMm4TSwH-YizswyTfUbib14uGmXDyDN1dCpo5zZ3mOkCQMGKWgApiLCd3OJZ~r~7XL6stuLU1yXEYjcyt5UA2dcdzNnavwJXouIJrbw7Qo1~Zp28Ay1oEOVcTlYrt1QwDhMe9coY2N9WiwtvZGa--S2Fe2CnuKp3iCPBzUoScQFquj5OfKndZ809PpSRu2vI~EwEcTZI3ar~VeSMFsthcA__"
               alt="Promotion Image"
               width={1200}
               height={1250}
@@ -34,8 +34,8 @@ const InstructorCard = () => {
         </div>
 
         {/* Right Section */}
-        <div className="flex flex-col items-center p-6 lg:p-10 gap-7 h-auto lg:h-64 w-full lg:w-1/2 bg-white rounded-lg shadow-md">
-          <h3 className="text-gray-900 text-2xl lg:text-3xl font-semibold leading-8 lg:leading-10 tracking-tight text-center lg:text-left">
+        <div className="flex flex-col h-[270px] p-10  bg-white  shadow-md gap-4">
+          <h3 className="text-gray-900 text-2xl lg:text-3xl  font-semibold leading-8 lg:leading-10 tracking-tight text-center lg:text-left">
             Your teaching & earning steps
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full">

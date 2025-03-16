@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function CourseDetails() {
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
+    <div className=" w-full mx-auto space-y-6">
       {/* Who this course is for */}
       <div>
         <h2 className="text-xl font-semibold text-gray-900">
