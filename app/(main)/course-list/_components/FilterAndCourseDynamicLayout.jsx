@@ -1,8 +1,9 @@
-import CourseCard from "@/app/components/cards/CourseCard";
+// import CourseCard from "@/app/components/cards/CourseCard";
 import React from "react";
 // import { bestSellingCourses as courses } from "./../../../data/index";
 import FilterLeftSideBar from "./FilterLeftSideBar";
 import courses from "@/data/newDataFormateForFilter";
+import CourseCard from "../../components/cards/CourseCard";
 
 const FilterAndCourseDynamicLayout = ({ showFilters }) => {
   return (
