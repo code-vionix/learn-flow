@@ -2,9 +2,10 @@ import { bestSellingCourses } from "@/data";
 import CourseCard from "../components/cards/CourseCard";
 
 import { getInstructors } from "@/lib/fetchData";
-import TopInstructors from "../components/home/TopInstructors ";
-import CourseListPage from "../course-list/page";
+
 import PopularToolsCarousel from "./_components/PopularTools";
+import CourseListPage from "../courses/page";
+import TopInstructors from "../components/home/TopInstructors ";
 
 export default async function CategoryList() {
   const instructors = await getInstructors();
