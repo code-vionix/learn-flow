@@ -24,7 +24,7 @@ export function CourseCarousel({ courses }) {
         className="w-full"
       >
         {/* Absolute Positioned Navigation Buttons INSIDE Carousel */}
-        <div className="absolute -top-10 right-0 flex gap-2 mb-10 text-[#FF6636] bg-[#FFEEE8] rounded-none">
+        <div className="absolute -top-10 right-0 flex gap-2 mb-10 text-primary-500 bg-primary-900 rounded-none">
           <CarouselPrevious className="hidden md:flex " />
           <CarouselNext className="hidden md:flex" />
         </div>

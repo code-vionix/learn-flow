@@ -6,7 +6,7 @@ const InstructorCard = () => {
     <div className="w-full flex justify-center  h-[671px] bg-gray-100">
       <div className="flex flex-col lg:flex-row gap-4 justify-between  w-[1320px] mt-20 ">
         {/* Left Section */}
-        <div className=" bg-gradient-to-r from-[#CC522B] to-[#FF6636] hidden sm:flex justify-between h-[270px] w-full lg:w-1/2 ">
+        <div className=" bg-gradient-to-r from-primary-600 to-pritext-primary-500 hidden sm:flex justify-between h-[270px] w-full lg:w-1/2 ">
           <div className="w-3/5 flex flex-col items-start justify-center gap-4 px-5">
             <h3 className="text-2xl font-semibold leading-[36px] lg:leading-[48px] text-white">
               Become an instructor
@@ -16,7 +16,7 @@ const InstructorCard = () => {
               Udemy. We provide the tools and skills to teach what you love.
             </p>
             <div>
-              <button className="w-[196px] h-[48px] bg-white text-[#FF6636] py-2 px-4 lg:py-3 lg:px-5 text-sm flex items-center justify-center">
+              <button className="w-[196px] h-[48px] bg-white text-primary-500 py-2 px-4 lg:py-3 lg:px-5 text-sm flex items-center justify-center">
                 Start Teaching
                 <ArrowRight className="ml-2" />
               </button>

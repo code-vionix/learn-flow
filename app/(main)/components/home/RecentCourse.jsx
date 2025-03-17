@@ -30,7 +30,7 @@ const RecentCourseCard = ({ course }) => {
             >
               {course.category.name.toUpperCase()}
             </span>
-            <span className="text-lg font-medium text-[#FF6636]">
+            <span className="text-lg font-medium text-pribg-primary-500">
               ${course.price}.00
             </span>
           </div>
@@ -42,11 +42,11 @@ const RecentCourseCard = ({ course }) => {
           <div className="border-t border-gray-200 pt-2 mt-2">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-1">
-                <Star className="w-5 h-5 text-[#FD8E1F] fill-[#FD8E1F]" />
+                <Star className="w-5 h-5 text-warning-500 fill-wartext-warning-500" />
                 <span className="text-sm text-gray-700">{course.rating}</span>
               </div>
               <div className="flex items-center gap-1">
-                <User className="w-5 h-5 text-[#564FFD]" />
+                <User className="w-5 h-5 text-secondary-500" />
                 <span className="text-sm text-gray-700">
                   {(course.students / 1000).toFixed(1)}K students
                 </span>
@@ -78,11 +78,11 @@ const RecentCourseCard = ({ course }) => {
               {/* Course Info */}
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <BarChart className="w-5 h-5 text-[#E34444]" />
+                  <BarChart className="w-5 h-5 text-danger-500" />
                   <span className="text-sm text-gray-700">{course.level}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-[#23BD33]" />
+                  <Clock className="w-5 h-5 text-success-500" />
                   <span className="text-sm text-gray-700">
                     {course.duration}
                   </span>
@@ -97,7 +97,7 @@ const RecentCourseCard = ({ course }) => {
                 <span className="text-sm text-gray-500 line-through">
                   ${course.originalPrice}
                 </span>
-                <span className="text-xs text-white bg-[#FF6636] px-2 py-1 rounded">
+                <span className="text-xs text-white bg-primary-500 px-2 py-1 rounded">
                   {course.discount}% OFF
                 </span>
               </div>
@@ -110,7 +110,7 @@ const RecentCourseCard = ({ course }) => {
                 <ul className="space-y-2">
                   {course.description.map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <Check className="w-6 h-6 text-[#23BD33] flex-shrink-0" />
+                      <Check className="w-6 h-6 text-success-500 flex-shrink-0" />
                       <p className="text-sm text-gray-600">{item}</p>
                     </li>
                   ))}
@@ -119,11 +119,11 @@ const RecentCourseCard = ({ course }) => {
 
               {/* Buttons */}
               <div className="flex flex-col gap-3 mt-2">
-                <button className="w-full flex items-center justify-center gap-2 bg-[#FF6636] text-white py-3 rounded">
+                <button className="w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3 rounded">
                   <ShoppingCart className="w-6 h-6" />
                   <span>Add to Cart</span>
                 </button>
-                <button className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
+                <button className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-pribg-primary-500 py-3 rounded">
                   Course Detail
                 </button>
               </div>

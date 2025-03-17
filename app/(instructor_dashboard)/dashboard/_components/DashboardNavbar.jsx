@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 const DashboardNavbar = () => {
   const pathname = usePathname().toLowerCase();
@@ -39,9 +38,9 @@ const DashboardNavbar = () => {
           <CirclePlus /> Create New Course
         </Link>
         <Link
-          href="#"
+          href="dashboard/my-courses"
           className={`py-3 text-sm transition-all px-5 w-full flex items-center gap-2 ${
-            pathname === "/create"
+            pathname === "/dashboard/my-courses"
               ? "bg-primary-500 text-white"
               : "hover:bg-primary-500 hover:text-white"
           }`}
