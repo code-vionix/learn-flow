@@ -12,7 +12,7 @@ import Image from "next/image";
 import ChatBoxHeader from "./ChatBoxHeader";
 
 const currentUserId = "420"; //let this is current user
-const MainChatBox = ({ messages }) => {
+const MainChatBox = ({ messages, isDash = false }) => {
   const [input, setInput] = useState("");
   const messagesEndRef = useRef(null);
 
@@ -21,7 +21,11 @@ const MainChatBox = ({ messages }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
   return (
-    <main className="col-span-2 flex flex-col border bg-white h-[600px] overflow-hidden">
+    <main
+      className={`col-span-2 flex flex-col border bg-white ${
+        isDash ? "h-[75vh]" : "h-[600px]"
+      }  overflow-hidden`}
+    >
       <ChatBoxHeader />
 
       {/* Chat Messages (Scrollable) */}
