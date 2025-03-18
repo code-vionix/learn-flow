@@ -13,6 +13,7 @@ import React from "react";
 
 const DashboardNavbar = () => {
   const pathname = usePathname().toLowerCase();
+  console.log(pathname);
 
   return (
     <div>
@@ -59,9 +60,9 @@ const DashboardNavbar = () => {
           <CreditCard /> Earning
         </Link>
         <Link
-          href="#"
+          href="/dashboard/message"
           className={`py-3 text-sm relative transition-all px-5 w-full flex items-center gap-2 ${
-            pathname === "/create"
+            pathname.includes("message")
               ? "bg-primary-500 text-white"
               : "hover:bg-primary-500 hover:text-white"
           }`}
