@@ -49,9 +49,9 @@ const DashboardNavbar = () => {
           <Layers /> My Courses
         </Link>
         <Link
-          href="#"
+          href="/dashboard/earning"
           className={`py-3 text-sm transition-all px-5 w-full flex items-center gap-2 ${
-            pathname === "/create"
+            pathname === "/earning"
               ? "bg-primary-500 text-white"
               : "hover:bg-primary-500 hover:text-white"
           }`}
