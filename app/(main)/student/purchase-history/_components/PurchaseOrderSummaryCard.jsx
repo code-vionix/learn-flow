@@ -7,7 +7,11 @@ const PurchaseOrderSummaryCard = ({ courseDetails, amount, cardDetails, date, pa
         <div className="w-full md:w-[536px] m-auto  flex-shrink-0 p-6">
             <div className="mb-3 text-lg font-medium  text-gray-800">{date}</div>
 
+<<<<<<< HEAD:app/student/purchase-history/_components/PurchaseOrderSummaryCard.jsx
+            <div className="flex md:flex-col space-y-3 mb-6">
+=======
             <div className="flex md:flex-row flex-col gap-2 mb-4">
+>>>>>>> cfd5cf82b57b13e526bb4b70644fbfee2d8ee33d:app/(main)/student/purchase-history/_components/PurchaseOrderSummaryCard.jsx
                 <div className="flex items-center">
                     <div className="flex h-7 w-7 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
                         <Play size={16} />
