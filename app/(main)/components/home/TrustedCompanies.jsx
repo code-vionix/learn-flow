@@ -54,10 +54,10 @@ export default function TrustedCompanies() {
     <section className="w-full  bg-white mt-[550px] ">
       <div className=" flex h-[384px] w-[1320px] mx-auto items-center justify-center gap-4 bg-white">
         <div className="w-2/6 text-center ">
-          <h3 className="text-2xl font-semibold text-[#1D2026] leading-tight tracking-tight mb-4">
+          <h3 className="text-2xl font-semibold text-gray-900 leading-tight tracking-tight mb-4">
             6.3k Trusted Companies
           </h3>
-          <p className="text-sm text-[#6E7485] ">
+          <p className="text-sm text-gray-600 ">
             Nullam egestas tellus at enim ornare tristique. Class aptent taciti
             sociosqu ad litora torquent per conubia nostra.
           </p>
