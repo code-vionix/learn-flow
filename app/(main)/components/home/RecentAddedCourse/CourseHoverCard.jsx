@@ -16,14 +16,14 @@ const CourseHoverCard = ({ course }) => {
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
             <img
-              src={course.instructors[0].image}
-              alt={course.instructors[0].name}
+              src={course.image}
+              alt={course.name}
               className="w-12 h-12 rounded-full"
             />
             <div>
               <p className="text-sm text-gray-500">Course by</p>
               <p className="text-sm text-gray-900 font-medium">
-                {course.instructors[0].name}
+                {course.name}
               </p>
             </div>
           </div>
@@ -31,11 +31,11 @@ const CourseHoverCard = ({ course }) => {
           {/* Course Info */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <BarChart className="w-5 h-5 text-danger-500" />
+              <BarChart className="w-5 h-5 text-[#E34444]" />
               <span className="text-sm text-gray-700">{course.level}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-success-500" />
+              <Clock className="w-5 h-5 text-[#23BD33]" />
               <span className="text-sm text-gray-700">{course.duration}</span>
             </div>
           </div>
@@ -48,7 +48,7 @@ const CourseHoverCard = ({ course }) => {
             <span className="text-sm text-gray-500 line-through">
               ${course.price}
             </span>
-            <span className="text-xs text-white bg-primary-500 px-2 py-1 rounded">
+            <span className="text-xs text-white bg-[#FF6636] px-2 py-1 rounded">
               {`${discountPercentage.toFixed(1)}`}% OFF
             </span>
           </div>
@@ -61,7 +61,7 @@ const CourseHoverCard = ({ course }) => {
             <ul className="space-y-2">
               {course.target_audience.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <Check className="w-6 h-6 text-success-500 flex-shrink-0" />
+                  <Check className="w-6 h-6 text-[#23BD33] flex-shrink-0" />
                   <p className="text-sm text-gray-600">{item}</p>
                 </li>
               ))}
@@ -70,11 +70,11 @@ const CourseHoverCard = ({ course }) => {
 
           {/* Buttons */}
           <div className="flex flex-col gap-3 mt-2">
-            <button className="w-full flex items-center justify-center gap-2 bg-primary-500 text-white py-3 rounded">
+            <button className="w-full flex items-center justify-center gap-2 bg-[#FF6636] text-white py-3 rounded">
               <ShoppingCart className="w-6 h-6" />
               <span>Add to Cart</span>
             </button>
-            <button className="w-full flex items-center justify-center gap-2 bg-primary-900 text-primabg-primary-500 py-3 rounded">
+            <button className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
               Course Detail
             </button>
           </div>
