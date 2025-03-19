@@ -4,7 +4,7 @@ import CheckoutForm from "../components/checkout/checkoutForm";
 function page({ isGift = true }) {
   return (
     <>
-      {isGift && <GiftCourse />}
+      {/* {isGift && <GiftCourse />} */}
 
       <CheckoutForm isGift={isGift} />
     </>
