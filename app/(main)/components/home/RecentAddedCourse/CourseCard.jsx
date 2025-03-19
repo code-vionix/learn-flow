@@ -30,7 +30,7 @@ const CourseCard = ({ course }) => {
             >
               {course.category.toUpperCase()}
             </span>
-            <span className="text-lg font-medium text-primary-500">
+            <span className="text-lg font-medium text-[#FF6636]">
               ${course.price}
             </span>
           </div>
@@ -42,11 +42,11 @@ const CourseCard = ({ course }) => {
           <div className="border-t border-gray-200 pt-2 mt-2">
             <div className=" p-4 flex justify-between items-center">
               <div className="flex items-center gap-1">
-                <Star className="w-5 h-5 text-warning-500 fill-wartext-warning-500" />
+                <Star className="w-5 h-5 text-[#FD8E1F] fill-[#FD8E1F]" />
                 <span className="text-sm text-gray-700">{course.rating}</span>
               </div>
               <div className="flex items-center gap-1 px-4 ">
-                <User className="w-5 h-5 text-secondary-500" />
+                <User className="w-5 h-5 text-[#564FFD]" />
                 <span className="text-sm text-gray-700">
                   {(course.students / 10).toFixed(1)}K students
                 </span>
