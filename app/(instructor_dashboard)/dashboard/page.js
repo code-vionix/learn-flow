@@ -1,35 +1,11 @@
-import CourseOverview from "../components/shared/CourseOverview/CourseOverview";
-import CourseRating from "../components/shared/CourseRating/CourseRating";
-import RevenueChart from "../components/shared/RevenueChart/RevenueChart";
+import React from "react";
 
-import ProfileBanner from "./_components/ProfileBanner";
-import ProfileViewChart from "./_components/ProfileViewChart";
-import RecentActivity from "./_components/RecentActivity";
-
-import StatsGrid from "./_components/StatsGrid";
-
-export default function DashbordPAge() {
+const DashboardPage = () => {
   return (
-    <div className=" w-full min-h-screen mx-auto bg-gray-50">
-      <div className=" container w-[1320px]  mx-auto">
-        <StatsGrid />
-        <ProfileBanner />
-        <div className="w-full  flex  py-4 gap-6 ">
-          <div className="w-4/12">
-            <RecentActivity />
-          </div>
-          <div className="w-5/12">
-            <RevenueChart />
-          </div>
-          <div className="w-3/12">
-            <ProfileViewChart />
-          </div>
-        </div>
-        <div className="w-full flex gap-6">
-          <CourseRating />
-          <CourseOverview />
-        </div>
-      </div>
+    <div className="bg-gray-200 text-center py-5 text-balance text-2xl">
+      Write your code
     </div>
   );
-}
+};
+
+export default DashboardPage;
