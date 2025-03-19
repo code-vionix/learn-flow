@@ -6,7 +6,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function CourseCard({ course }) {
   return (
@@ -43,7 +42,7 @@ export default function CourseCard({ course }) {
             variant="ghost"
             className="bg-orange-50 text-orange-500 hover:bg-orange-100 hover:text-orange-600 w-full"
           >
-            <Link href={`/player/${course.id}`}>Watch Lecture</Link>
+            Watch Lecture
           </Button>
         )}
       </CardFooter>

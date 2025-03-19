@@ -5,8 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import React from "react";
-
 const StudentLayout = () => {
   const pathname = usePathname();
 
@@ -21,7 +19,7 @@ const StudentLayout = () => {
   ];
 
   return (
-    <div className="w-full h-60 bg-[#FFEEE8] relative">
+    <div className="w-full h-40 bg-primary-900 relative">
       <div className="container mx-auto absolute top-3/4 bg-white left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="border-b border-primary-200">
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -50,7 +48,6 @@ const StudentLayout = () => {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-
           <nav className="flex w-full justify-between overflow-x-auto border-t border-primary-200 font-bold">
             {navLinks.map(({ href, label }) => (
               <Link
@@ -58,7 +55,7 @@ const StudentLayout = () => {
                 href={href}
                 className={`px-6 py-4 text-gray-600 hover:text-gray-900 border-b-2 transition-all ${
                   pathname === href
-                    ? "border-[#FF6636] text-gray-900"
+                    ? "border-primary-500 text-gray-900"
                     : "border-transparent"
                 }`}
               >
