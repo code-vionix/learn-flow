@@ -13,13 +13,13 @@ import {
 
 const BreadcrumbSeparator = () => <span className="mx-2 text-gray-500">/</span>;
 
-const CustomBreadcrumb = () => {
+const CustomBreadcrumb = ({title}) => {
     const pathname = usePathname();
     const paths = pathname.split("/").filter((path) => path);
 
     return (
         <div className="h-[100px] flex items-center justify-center flex-col bg-gray-50">
-            <h1 className=" text-[20px] font-[600]">Become an Instructor</h1>
+            <h1 className=" text-[20px] font-[600]">{ title || 'Become an Instructor'}</h1>
             <Breadcrumb className="mt-2 !text-[16px]">
                 <BreadcrumbList className="!gap-0">
                     <BreadcrumbItem >

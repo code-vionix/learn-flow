@@ -32,6 +32,7 @@ export default async function Home() {
       </div>
 
       <TrustedCompanies />
+
       <JoinCourse />
     </div>
   );

@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
-const InstructorDisplayInfo = () => {
+const InstructorDisplayInfo = ({color}) => {
     const displayInfo = [
         {
             id: 1,
@@ -32,7 +32,7 @@ const InstructorDisplayInfo = () => {
         },
     ]
     return (
-        <div className="bg-primary-100">
+        <div className={`${color} || bg-primary-100`}>
 
 
 
