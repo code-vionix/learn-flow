@@ -8,11 +8,7 @@ import SearchStudent from "./SearchStudent";
 
 const LeftStudentBar = ({ students, isDash = false }) => {
   return (
-    <aside
-      className={`border p-4 bg-white ${
-        isDash ? "h-[75vh]" : "h-[600px]"
-      } overflow-hidden`}
-    >
+    <aside className={`border p-4 bg-white h-[75vh] overflow-hidden`}>
       <ComposeButton />
       <SearchStudent />
 
