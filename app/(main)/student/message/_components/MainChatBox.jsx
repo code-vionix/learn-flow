@@ -7,29 +7,35 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { PencilLine, SendHorizontal } from "lucide-react";
 import { format } from "date-fns"; // For formatting timestamps
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import ChatBoxHeader from "./ChatBoxHeader";
+import MessageInput from "./MessageInput";
 
 const currentUserId = "420"; //let this is current user
-const MainChatBox = ({ messages, isDash = false }) => {
-  const [input, setInput] = useState("");
-  const messagesEndRef = useRef(null);
+const MainChatBox = ({ messages }) => {
+  const messagesContainerRef = useRef(null); // ref for the message container
 
-  // Auto-scroll to the bottom when messages change
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]); // This runs whenever messages change
+
   return (
     <main
-      className={`col-span-2 flex flex-col border bg-white ${
-        isDash ? "h-[75vh]" : "h-[600px]"
-      }  overflow-hidden`}
+      className={`col-span-2 flex flex-col border bg-white h-[75vh] overflow-hidden`}
     >
       <ChatBoxHeader />
 
       {/* Chat Messages (Scrollable) */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4"
+      >
         {messages?.map((msg, i) => {
           const isSentByCurrentUser = msg.sender.id === currentUserId;
           return (
@@ -75,27 +81,10 @@ const MainChatBox = ({ messages, isDash = false }) => {
             </div>
           );
         })}
-        {/* Scroll to bottom ref */}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Fixed Message Input */}
-      <div className="p-4 border-t flex items-center space-x-2 bg-white relative">
-        <PencilLine
-          className="absolute left-8 top-8 text-primary-500"
-          size={18}
-        />
-        <Input
-          placeholder="Type your message"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="flex-1 px-8 py-6"
-        />
-        <Button className="bg-primary-500 text-white hover:bg-primary-600 py-6">
-          Send
-          <SendHorizontal className="ml-1" size={20} />
-        </Button>
-      </div>
+      <MessageInput />
     </main>
   );
 };

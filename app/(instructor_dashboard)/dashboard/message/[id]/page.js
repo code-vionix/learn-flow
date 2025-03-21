@@ -6,7 +6,6 @@ const ChatBoxPageInDashboard = async (params) => {
   const { id } = await params;
   return (
     <div>
-      {" "}
       <MainChatBox isDash={true} messages={messages} />
     </div>
   );
