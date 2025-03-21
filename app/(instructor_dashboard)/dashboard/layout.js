@@ -3,6 +3,7 @@ import "../../globals.css";
 import Logo from "./_components/Logo";
 import DashboardNavbar from "./_components/DashboardNavbar";
 import DashboardHeader from "./_components/DashboardHeader";
+import DashboardFooter from "./_components/DashboardFooter";
 
 const InstructorDashboardLayout = ({ children }) => {
   return (
@@ -12,11 +13,16 @@ const InstructorDashboardLayout = ({ children }) => {
         <Logo />
         <DashboardNavbar />
       </aside>
+
       <div className="flex flex-col w-full pl-72 overflow-hidden">
         <div className="bg-white w-full fixed z-40 top-0 pl-72 right-0 shadow-sm">
+
           <DashboardHeader />
         </div>
         <div className="mt-32 container px-10 mx-auto">{children}</div>
+        <div className="mt-auto py-6">
+          <DashboardFooter />
+        </div>
       </div>
     </div>
   );

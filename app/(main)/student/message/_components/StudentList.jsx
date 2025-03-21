@@ -4,14 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-const StudentList = ({ students }) => {
+const StudentList = ({ students, isDash }) => {
   const { id } = useParams();
 
   return (
     <div className="mt-4 space-y-2 overflow-y-auto h-[80%]">
       {students.map((student) => (
         <Link
-          href={`/student/message/${student.id}`}
+          href={` ${
+            isDash
+              ? `/dashboard/message/${student.id}`
+              : `/student/message/${student.id}`
+          }`}
           key={student.id}
           className={`flex items-center space-x-3 p-2 rounded-md cursor-pointer hover:bg-primary-200 ${
             id == student.id && "bg-primary-200"
