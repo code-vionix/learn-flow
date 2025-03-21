@@ -31,7 +31,7 @@ export default function RevenueChart() {
           data={filteredData}
           xAxisKey="date"
           yAxisDomain={[0, 50000]}
-          areas={[{ key: "value", color: "#5B5FEF" }]}
+          areas={[{ key: "value", color: "#23BD33" }]}
           referenceLine="2024-08-10"
           tickFormatterX={(value) => formatDate(value)}
           tickFormatterY={(value) => formatValue(value)}
