@@ -13,7 +13,7 @@ const CourseSuggestionSection = () => {
       <div>
         <p>
           <span className="text-xs">
-            3,145,684 results found for <strong>"UI/UX Design"</strong>
+            3,145,684 results found for <strong>&quot;UI/UX Design&quot;</strong>
           </span>
         </p>
       </div>
