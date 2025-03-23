@@ -40,7 +40,7 @@ export function RecipientForm({ onRecipientChange, paymentData }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-gray-900 text-sm">
-                Recipient's Name
+                Recipient&apos;s Name
               </FormLabel>
               <FormControl className="w-[580px] h-12">
                 <Input
@@ -64,7 +64,7 @@ export function RecipientForm({ onRecipientChange, paymentData }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-gray-900 text-sm">
-                Recipient's Email
+                Recipient&apos;s Email
               </FormLabel>
               <FormControl className="w-[580px] h-12">
                 <Input
