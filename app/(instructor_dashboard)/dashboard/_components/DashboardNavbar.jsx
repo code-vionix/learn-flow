@@ -47,6 +47,7 @@ const links = [
 
 const DashboardNavbar = () => {
   const pathname = usePathname().toLowerCase();
+  console.log(pathname);
 
   return (
     <div>
