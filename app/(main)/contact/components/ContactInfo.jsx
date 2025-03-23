@@ -10,7 +10,7 @@ function ContactInfo() {
     <div className="text-start w-[536px] flex-1  ">
       <h3 className="text-2xl font-normal text-gray-900 mb-7">
         Will you be in Los Angeles or any other branches any time soon? Stop by
-        the office! We'd love to meet.
+        the office! We&apos;d love to meet.
       </h3>
       <div className="flex flex-col gap-5">
       <div className="flex justify-between text-justify gap-8 border-b-2 pb-4">

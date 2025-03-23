@@ -75,7 +75,7 @@ function OurPerkBenefit() {
       <div className="grid grid-cols-4 gap-3 mt-10">
         {benefits.map((benefit) => {
           return (
-            <div className={`${benefit.bgColor} w-[312px] h-[192px] p-8`}>
+            <div key={benefit.id} className={`${benefit.bgColor} w-[312px] h-[192px] p-8`}>
             <div className="flex flex-col gap-6">
               <div className="w-16 h-16 bg-white flex items-center justify-center p-5">
                 {benefit.icon}
