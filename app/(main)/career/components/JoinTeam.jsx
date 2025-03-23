@@ -1,0 +1,69 @@
+import unionImage from "@/public/images/Union.png";
+import { CircleCheck } from "lucide-react";
+import Image from "next/image";
+
+function JoinTeam() {
+  return (
+    <div className="w-full flex flex-row-reverse px-72 py-10 items-center justify-center gap-28 bg-gray-50 ">
+      <div className="w-[536px] flex flex-col gap-5 flex-none ">
+        <div className="flex flex-col gap-3 ">
+          <h1 className="font-semibold text-4xl text-gray-900">
+            Why you will join our team
+          </h1>
+          <p className="font-normal text-base text-gray-700">
+            Quisque leo leo, suscipit sed arcu sit amet, iaculis feugiat felis.
+            Vestibulum non consectetur tortor. Morbi at orci vehicula, vehicula
+            mi ut, vestibulum odio.{" "}
+          </p>
+        </div>
+        <div className="flex justify-between text-start items-start p-8 bg-white gap-2  ">
+          <div>
+            {" "}
+            <CircleCheck
+              fill="rgba(35, 189, 51, 1)"
+              size={40}
+              className=" text-white  "
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="font-medium text-base text-gray-900">
+              Ut justo ligula, vehicula sed egestas vel.
+            </h3>
+            <p className="font-normal text-sm text-gray-600">
+              Quisque leo leo, suscipit sed arcu sit amet, iaculis feugiat
+              felis. Vestibulum non consectetur tortor. Morbi at orci vehicula,
+              vehicula mi ut, vestibulum odio.{" "}
+            </p>
+          </div>
+        </div>
+        <div className="flex justify-between text-start items-start p-8 bg-white gap-2  ">
+          <div>
+            {" "}
+            <CircleCheck
+              fill="rgba(35, 189, 51, 1)"
+              size={40}
+              className=" text-white  "
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="font-medium text-base text-gray-900">
+            Aenean vitae leo leo praesent ullamcorper ac.
+            </h3>
+            <p className="font-normal text-sm text-gray-600">
+            Aenean vitae leo leo. Praesent ullamcorper ac libero et mattis. Aenean vel erat at neque viverra feugiat. 
+            </p>
+          </div>
+        </div>
+      </div>
+      <Image
+        src={unionImage}
+        className="flex-1"
+        alt=""
+        width={648}
+        height={600}
+      />
+    </div>
+  );
+}
+
+export default JoinTeam;
