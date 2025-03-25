@@ -30,9 +30,9 @@ export default async function Home() {
           <TopInstructors instructors={instructors} />
         </div>
       </div>
-
-      <TrustedCompanies />
-
+      <section className="w-full  bg-white mt-[550px] ">
+        <TrustedCompanies />
+      </section>
       <JoinCourse />
     </div>
   );
