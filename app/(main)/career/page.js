@@ -13,12 +13,11 @@ function CareerPage() {
     <div>
       <CustomBreadcrumb title="Career" />
       <Teams />
-      <JoinTeam/>
-      <OurPerkBenefit/>
-      <OurGallery isButton ={false} />
+      <JoinTeam />
+      <OurPerkBenefit />
+      <OurGallery isButton={false} />
       <TrustedCompanies smHeading={"We just keep going with "} />
-      <OpenPosition/>
-      
+      <OpenPosition />
     </div>
   );
 }

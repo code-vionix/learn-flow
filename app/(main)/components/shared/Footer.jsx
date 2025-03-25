@@ -11,6 +11,7 @@ import {
 import Apple from "@/public/images/app-store.png";
 import Google from "@/public/images/google-play.png";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -74,12 +75,12 @@ export default function Footer() {
             <div>
               <h4 className="text-white font-semibold">QUICK LINKS</h4>
               <ul className="text-gray-400 text-sm mt-2 space-y-1">
-                <li>About</li>
-                <li className="hover:text-primary-500 flex items-center">
+                <Link href='/about'>About</Link>
+                <Link href='/instructor' className="hover:text-primary-500 flex items-center">
                   Become Instructor →
-                </li>
-                <li>Contact</li>
-                <li>Career</li>
+                </Link>
+                <Link href='/contact'>Contact</Link>
+                <Link href='career'>Career</Link>
               </ul>
             </div>
 
