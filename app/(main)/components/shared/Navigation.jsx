@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navigation() {
@@ -72,8 +73,13 @@ export default function Navigation() {
           </div>
           <div className="flex items-center space-x-4">
             <Bell className="size-5 text-gray-600 cursor-pointer" />
+            <Link href='/student/wishlist'>
             <Heart className="size-5 text-gray-600 cursor-pointer" />
+            </Link>
+            <Link href='/shopping-cart'>
+           
             <ShoppingCart className="size-5 text-gray-600 cursor-pointer" />
+            </Link>
             <Button className="text-primary-500 hover:text-orange-600 px-4 py-2 bg-primary-100 hover:bg-primary-200">
               Create Account
             </Button>
