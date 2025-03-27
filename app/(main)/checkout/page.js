@@ -1,7 +1,7 @@
 import GiftCourse from "../components/checkout/GiftCourse";
 import CheckoutForm from "../components/checkout/checkoutForm";
 
-function page({ isGift = true }) {
+function CheckoutPage({ isGift = true }) {
   return (
     <>
       {/* {isGift && <GiftCourse />} */}
@@ -11,4 +11,4 @@ function page({ isGift = true }) {
   );
 }
 
-export default page;
+export default CheckoutPage;
