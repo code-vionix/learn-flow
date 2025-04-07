@@ -1,0 +1,52 @@
+"use client";
+import { useState } from "react";
+
+export default function TopicInput({
+  progress,
+  setProgress,
+  formData,
+  setFormData,
+}) {
+  const [topic, setTopic] = useState(formData.topic || "");
+  const [hasCounted, setHasCounted] = useState(!!formData.topic);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setTopic(value);
+
+    if (value.trim().length > 0 && !hasCounted) {
+      setProgress(progress + 1);
+      setHasCounted(true);
+    }
+
+    if (value.trim().length === 0 && hasCounted) {
+      setProgress(progress - 1);
+      setHasCounted(false);
+    }
+
+    // Update the form data
+    setFormData((prev) => ({
+      ...prev,
+      topic: value,
+    }));
+  };
+
+  return (
+    <div className="space-y-2">
+      <label
+        htmlFor="topic"
+        className="block text-sm font-medium text-gray-700"
+      >
+        Course Topic
+      </label>
+      <input
+        type="text"
+        id="topic"
+        value={topic}
+        onChange={handleChange}
+        placeholder="What is primarily taught in your course?"
+        className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 focus:border-orange-500 outline-none"
+      />
+    </div>
+  );
+}
