@@ -9,7 +9,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 const links = [
   {
@@ -18,7 +17,7 @@ const links = [
     label: "Dashboard",
   },
   {
-    href: "/dashboard/create",
+    href: "/dashboard/create-new-course",
     icon: <CirclePlus />,
     label: "Create New Course",
   },
