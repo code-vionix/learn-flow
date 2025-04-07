@@ -1,7 +1,7 @@
 import { CheckCircle } from "lucide-react";
 
 export default function BasicInformationTab({ progress }) {
-  const totalInput = 9;
+  const totalInput = 10;
   const isCompleted = progress === totalInput;
 
   return (

@@ -1,9 +1,14 @@
 "use client";
 import { useState } from "react";
 
-export default function TopicInput({ progress, setProgress }) {
-  const [topic, setTopic] = useState("");
-  const [hasCounted, setHasCounted] = useState(false);
+export default function TopicInput({
+  progress,
+  setProgress,
+  formData,
+  setFormData,
+}) {
+  const [topic, setTopic] = useState(formData.topic || "");
+  const [hasCounted, setHasCounted] = useState(!!formData.topic);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -18,6 +23,12 @@ export default function TopicInput({ progress, setProgress }) {
       setProgress(progress - 1);
       setHasCounted(false);
     }
+
+    // Update the form data
+    setFormData((prev) => ({
+      ...prev,
+      topic: value,
+    }));
   };
 
   return (

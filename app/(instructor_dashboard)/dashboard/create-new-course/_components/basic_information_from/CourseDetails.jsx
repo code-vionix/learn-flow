@@ -14,15 +14,12 @@ const subtitleLanguages = ["None", "English", "Spanish", "French"];
 const courseLevels = ["Beginner", "Intermediate", "Advanced"];
 const durationTypes = ["Minutes", "Hours", "Days", "Weeks"];
 
-export default function CourseDetails({ progress, setProgress }) {
-  const [formData, setFormData] = useState({
-    language: "",
-    subtitleLang: "",
-    level: "",
-    duration: "",
-    durationType: "Days",
-  });
-
+export default function CourseDetails({
+  progress,
+  setProgress,
+  formData,
+  setFormData,
+}) {
   const [hasCounted, setHasCounted] = useState({
     language: false,
     subtitleLang: false,
@@ -31,7 +28,7 @@ export default function CourseDetails({ progress, setProgress }) {
   });
 
   const handleSelect = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData(field, value);
 
     if (value && !hasCounted[field]) {
       setProgress(progress + 1);
@@ -46,7 +43,7 @@ export default function CourseDetails({ progress, setProgress }) {
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    setFormData((prev) => ({ ...prev, duration: value }));
+    setFormData("duration", value);
 
     if (value.trim().length > 0 && !hasCounted.duration) {
       setProgress(progress + 1);
@@ -78,7 +75,7 @@ export default function CourseDetails({ progress, setProgress }) {
           </label>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="w-full px-4 py-2 border border-gray-300 bg-white text-left text-sm flex items-center justify-between  focus:ring-0 focus:ring-orange-500 focus:outline-none">
+              <button className="w-full px-4 py-2 border border-gray-300 bg-white text-left text-sm flex items-center justify-between focus:ring-0 focus:ring-orange-500 focus:outline-none">
                 {formData[id] || "Select..."}
                 <ChevronDown className="h-4 w-4 text-gray-500" />
               </button>
@@ -110,27 +107,19 @@ export default function CourseDetails({ progress, setProgress }) {
             value={formData.duration}
             onChange={handleInputChange}
             placeholder="Course duration"
-            className="w-full px-4 py-2 border border-gray-300 focus:ring-0 focus:ring-orange-500 focus:outline-none"
+            className="w-full px-4 py-2 border border-gray-300 focus:ring-0 focus:ring-orange-500 outline-none"
           />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="min-w-[110px] px-4 py-2 border border-l-0 border-gray-300 bg-white text-sm flex items-center justify-between  focus:ring-0 focus:ring-orange-500 focus:outline-none">
-                {formData.durationType}
-                <ChevronDown className="h-4 w-4 text-gray-500 ml-1" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              {durationTypes.map((type, i) => (
-                <DropdownMenuItem
-                  key={i}
-                  onClick={() => handleSelect("durationType", type)}
-                  className="cursor-pointer"
-                >
-                  {type}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <select
+            value={formData.durationType}
+            onChange={(e) => handleSelect("durationType", e.target.value)}
+            className="w-32 border border-gray-300 px-4 py-2 focus:ring-0 focus:ring-orange-500 outline-none"
+          >
+            {durationTypes.map((type, idx) => (
+              <option key={idx} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
     </div>
