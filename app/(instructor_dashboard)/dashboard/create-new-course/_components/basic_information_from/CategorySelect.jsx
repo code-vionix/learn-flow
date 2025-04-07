@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const demoCategories = [
   {
@@ -29,34 +27,39 @@ const demoCategories = [
   },
 ];
 
-export default function CategorySelect({ progress, setProgress }) {
+export default function CategorySelect({
+  progress,
+  setProgress,
+  formData,
+  setFormData,
+}) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
-  const [hasCounted, setHasCounted] = useState(false);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
     setSelectedSubcategory(""); // reset subcategory on change
+    setFormData("category", category.name); // Store selected category
+
+    // Update progress when a category is selected
+    if (category.name && !selectedCategory?.name) {
+      setProgress(progress + 1); // Increment progress
+    } else if (!category.name) {
+      setProgress(progress - 1); // Decrement progress if no category selected
+    }
   };
 
   const handleSubcategorySelect = (sub) => {
     setSelectedSubcategory(sub);
+    setFormData("subcategory", sub); // Store selected subcategory
+
+    // Update progress when a subcategory is selected
+    if (sub && !selectedSubcategory) {
+      setProgress(progress + 1); // Increment progress
+    } else if (!sub) {
+      setProgress(progress - 1); // Decrement progress if no subcategory selected
+    }
   };
-
-  // useEffect to track and update progress only once when both values are filled
-  useEffect(() => {
-    const isFilled = selectedCategory && selectedSubcategory;
-
-    if (isFilled && !hasCounted) {
-      setProgress(progress + 1);
-      setHasCounted(true);
-    }
-
-    if (!isFilled && hasCounted) {
-      setProgress(progress - 1);
-      setHasCounted(false);
-    }
-  }, [selectedCategory, selectedSubcategory]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

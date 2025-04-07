@@ -1,4 +1,5 @@
-export default function FormActions() {
+// FormActions.jsx
+export default function FormActions({ handleSaveAndNext }) {
   return (
     <div className="flex justify-between pt-6">
       <button
@@ -8,7 +9,8 @@ export default function FormActions() {
         Cancel
       </button>
       <button
-        type="submit"
+        type="button"
+        onClick={handleSaveAndNext} // Calls the passed function to log data
         className="px-6 py-3 bg-orange-500 text-white hover:bg-orange-600 transition-colors"
       >
         Save & Next
