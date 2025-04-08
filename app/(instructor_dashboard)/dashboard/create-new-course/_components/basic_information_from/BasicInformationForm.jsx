@@ -4,11 +4,12 @@ import { useProgress } from "../../../_ProgressContext/ProgressContext";
 import CategorySelect from "./CategorySelect";
 import CourseDetails from "./CourseDetails";
 import FormActions from "./FormActions";
+import FormHeader from "./FormHeader";
 import SubtitleInput from "./SubtitleInput";
 import TitleInput from "./TitleInput";
 import TopicInput from "./TopicInput";
 
-export default function BasicInformationForm() {
+export default function BasicInformationForm({ title, onNext }) {
   const { progress, setProgress } = useProgress();
   const [formData, setFormData] = useState({
     title: "",
@@ -29,46 +30,50 @@ export default function BasicInformationForm() {
 
   const handleSaveAndNext = () => {
     console.log("Form Data:", formData);
+    onNext();
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 max-h-[796px]">
-      <form className="space-y-8 h-">
-        <TitleInput
-          progress={progress}
-          setProgress={setProgress}
-          formData={formData}
-          setFormData={handleFormDataChange}
-          field="title"
-        />
-        <SubtitleInput
-          progress={progress}
-          setProgress={setProgress}
-          formData={formData}
-          setFormData={handleFormDataChange}
-          field="subtitle"
-        />
-        <CategorySelect
-          progress={progress}
-          setProgress={setProgress}
-          formData={formData}
-          setFormData={handleFormDataChange}
-        />
-        <TopicInput
-          progress={progress}
-          setProgress={setProgress}
-          formData={formData}
-          setFormData={handleFormDataChange}
-          field="topic" // pass the field name here
-        />
-        <CourseDetails
-          progress={progress}
-          setProgress={setProgress}
-          formData={formData}
-          setFormData={handleFormDataChange}
-        />
-        <FormActions handleSaveAndNext={handleSaveAndNext} />
-      </form>
-    </div>
+    <>
+      <FormHeader title={title} />
+      <div className="max-w-7xl mx-auto py-8 max-h-[796px]">
+        <form className="space-y-8 h-">
+          <TitleInput
+            progress={progress}
+            setProgress={setProgress}
+            formData={formData}
+            setFormData={handleFormDataChange}
+            field="title"
+          />
+          <SubtitleInput
+            progress={progress}
+            setProgress={setProgress}
+            formData={formData}
+            setFormData={handleFormDataChange}
+            field="subtitle"
+          />
+          <CategorySelect
+            progress={progress}
+            setProgress={setProgress}
+            formData={formData}
+            setFormData={handleFormDataChange}
+          />
+          <TopicInput
+            progress={progress}
+            setProgress={setProgress}
+            formData={formData}
+            setFormData={handleFormDataChange}
+            field="topic" // pass the field name here
+          />
+          <CourseDetails
+            progress={progress}
+            setProgress={setProgress}
+            formData={formData}
+            setFormData={handleFormDataChange}
+          />
+          <FormActions handleSaveAndNext={handleSaveAndNext} />
+        </form>
+      </div>
+    </>
   );
 }

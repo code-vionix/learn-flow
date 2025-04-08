@@ -1,11 +1,19 @@
+import clsx from "clsx"; // Optional: use clsx or classnames for cleaner conditional classes
 import { CheckCircle } from "lucide-react";
 
-export default function BasicInformationTab({ progress }) {
+export default function BasicInformationTab({ progress, isActive }) {
   const totalInput = 10;
   const isCompleted = progress === totalInput;
 
   return (
-    <div className="flex items-center py-4 text-sm font-medium cursor-pointer text-gray-700 border-b-4 border-primary-500">
+    <div
+      className={clsx(
+        "flex items-center py-4 text-sm font-medium cursor-pointer text-gray-700",
+        {
+          "border-b-4 border-orange-500": isActive, // only add if active
+        }
+      )}
+    >
       <div className="flex items-center justify-center w-6 h-6 mr-2 bg-gray-100">
         <svg
           xmlns="http://www.w3.org/2000/svg"
