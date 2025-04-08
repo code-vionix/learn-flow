@@ -13,7 +13,7 @@ export default function AdvanceInformationTab({ isActive }) {
     >
       <div
         className={`flex items-center justify-center w-6 h-6 mr-2 rounded bg-gray-100 ${
-          isActive ? "text-orange-500" : "text-gray-500"
+          isActive ? "" : "text-gray-500"
         }`}
       >
         <svg
