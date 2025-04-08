@@ -37,7 +37,7 @@ export default function CourseMediaUploader() {
                 </p>
               </div>
 
-              <button className="flex items-center px-4 py-2 w-48 h-12 text-orange-500 bg-orange-50 hover:bg-orange-100 transition">
+              <button className=" flex items-center px-4 py-2 w-48 h-12 font-bold text-primary-500 bg-primary-100 hover:bg-orange-100 transition">
                 Upload Image
                 <Upload className="w-4 h-4 ml-6" />
               </button>
@@ -69,7 +69,7 @@ export default function CourseMediaUploader() {
                   exceptionally awesome videos.
                 </p>
               </div>
-              <button className="flex items-center px-4 py-2 w-48 h-12 text-orange-500 bg-orange-50 hover:bg-orange-100 transition">
+              <button className="flex items-center px-4 py-2 w-48 h-12 font-bold text-primary-500 bg-primary-100 hover:bg-orange-100 transition">
                 Upload Video
                 <Upload className="w-4 h-4 ml-6" />
               </button>

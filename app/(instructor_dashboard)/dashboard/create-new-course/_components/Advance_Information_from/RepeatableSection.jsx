@@ -28,7 +28,7 @@ export default function RepeatableSection({ title, index }) {
           className={`flex items-center text-sm ${
             items.length >= 8
               ? "text-gray-300 cursor-not-allowed"
-              : "text-orange-500 hover:underline"
+              : "text-primary-500 font-semibold hover:underline"
           }`}
         >
           <Plus className="w-4 h-4 mr-1" />
@@ -48,7 +48,7 @@ export default function RepeatableSection({ title, index }) {
               type="text"
               value={text}
               onChange={(e) => handleInputChange(e.target.value, itemIndex)}
-              className="w-full p-3 border border-gray-200 focus:outline-none focus:ring-1 focus:ring-orange-500"
+              className="w-full p-3 border border-gray-200 focus:outline-none focus:ring-1 focus:ring-primary-500"
               placeholder={
                 index === 0
                   ? "What you will teach in this course..."
