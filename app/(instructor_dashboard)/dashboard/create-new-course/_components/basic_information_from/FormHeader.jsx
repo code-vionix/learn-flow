@@ -1,7 +1,7 @@
 export default function FormHeader({ title }) {
   return (
     <div className="border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto py-6 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
         <div className="flex space-x-4">
           <button className="px-4 py-2 bg-gray-50 text-gray-800 border border-gray-200 hover:bg-gray-100 transition-colors">
