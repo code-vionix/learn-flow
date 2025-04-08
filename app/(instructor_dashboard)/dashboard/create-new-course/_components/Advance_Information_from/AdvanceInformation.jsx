@@ -33,7 +33,7 @@ export default function AdvanceInformation({ title, onBack }) {
               onClick={() => {
                 // Future: setActiveTab("curriculum");
               }}
-              className="px-6 py-2 bg-orange-500 text-white hover:bg-orange-600 transition"
+              className="px-6 py-2 bg-primary-500 font-bold text-white hover:bg-orange-600 transition"
             >
               Save & Next
             </button>
