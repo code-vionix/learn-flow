@@ -5,16 +5,37 @@ import BasicInformationTab from "./BasicInformationTab";
 import CurriculumTab from "./CurriculumTab";
 import PublishCourseTab from "./PublishCourseTab";
 
-export default function ProgressSteps() {
+export default function ProgressSteps({ activeTab, setActiveTab }) {
   const { progress } = useProgress();
+
   return (
-    <div className="border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-0">
+    <div className="border-b p-0">
+      <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <BasicInformationTab progress={progress} />
-          <AdvanceInformationTab progress={progress} />
-          <CurriculumTab progress={progress} />
-          <PublishCourseTab progress={progress} />
+          <div onClick={() => setActiveTab("basic")}>
+            <BasicInformationTab
+              progress={progress}
+              isActive={activeTab === "basic"}
+            />
+          </div>
+          <div onClick={() => setActiveTab("advance")}>
+            <AdvanceInformationTab
+              progress={progress}
+              isActive={activeTab === "advance"}
+            />
+          </div>
+          <div onClick={() => setActiveTab("curriculum")}>
+            <CurriculumTab
+              progress={progress}
+              isActive={activeTab === "curriculum"}
+            />
+          </div>
+          <div onClick={() => setActiveTab("publish")}>
+            <PublishCourseTab
+              progress={progress}
+              isActive={activeTab === "publish"}
+            />
+          </div>
         </div>
       </div>
     </div>
