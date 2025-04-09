@@ -5,6 +5,7 @@ import ProgressSteps from "./_components/basic_information_from/ProgressSteps";
 
 import AdvanceInformation from "./_components/Advance_Information_from/AdvanceInformation";
 import BasicInformationForm from "./_components/basic_information_from/BasicInformationForm";
+import CourseCurriculum from "./_components/CourseCurriculum/CourseCurriculum";
 
 export default function CreateCourseLayout() {
   const [activeTab, setActiveTab] = useState("basic");
@@ -25,8 +26,8 @@ export default function CreateCourseLayout() {
             onBack={() => setActiveTab("basic")}
           />
         );
-      // case "curriculum":
-      //   return <CurriculumForm />;
+      case "curriculum":
+        return <CourseCurriculum />;
       // case "publish":
       //   return <PublishCourseForm />;
       default:
