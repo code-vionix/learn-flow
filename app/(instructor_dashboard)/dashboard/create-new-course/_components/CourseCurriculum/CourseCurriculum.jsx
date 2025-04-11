@@ -2,7 +2,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import CurriculumHeader from "./components/CurriculumHeader";
+import FormHeader from "../basic_information_from/FormHeader";
 import SectionCard from "./components/SectionCard";
 import AttachFileDialog from "./dialogs/AttachFileDialog";
 import CaptionDialog from "./dialogs/CaptionDialog";
@@ -84,129 +84,138 @@ export default function CourseCurriculum() {
   } = useCurriculumHandlers();
 
   return (
-    <div className="max-w-7xl mx-auto py-4">
-      <CurriculumHeader />
+    <>
+      <FormHeader
+        title="Course Curriculum
+"
+      />
+      <div className="max-w-7xl mx-auto py-4">
+        <div className="space-y-4">
+          {sections.map((section, index) => (
+            <SectionCard
+              key={section.id}
+              section={section}
+              index={index}
+              sections={sections}
+              setSections={setSections}
+              openEditSectionDialog={openEditSectionDialog}
+              confirmDelete={confirmDelete}
+              toggleLecture={toggleLecture}
+              openVideoUploadDialog={openVideoUploadDialog}
+              openAttachFileDialog={openAttachFileDialog}
+              openCaptionDialog={openCaptionDialog}
+              openDescriptionDialog={openDescriptionDialog}
+              openNotesDialog={openNotesDialog}
+              openEditLectureDialog={openEditLectureDialog}
+            />
+          ))}
+        </div>
 
-      <div className="space-y-4">
-        {sections.map((section, index) => (
-          <SectionCard
-            key={section.id}
-            section={section}
-            index={index}
-            sections={sections}
-            setSections={setSections}
-            openEditSectionDialog={openEditSectionDialog}
-            confirmDelete={confirmDelete}
-            toggleLecture={toggleLecture}
-            openVideoUploadDialog={openVideoUploadDialog}
-            openAttachFileDialog={openAttachFileDialog}
-            openCaptionDialog={openCaptionDialog}
-            openDescriptionDialog={openDescriptionDialog}
-            openNotesDialog={openNotesDialog}
-            openEditLectureDialog={openEditLectureDialog}
-          />
-        ))}
-      </div>
-
-      <Button
-        variant="ghost"
-        className="w-full mt-4 py-3 text-orange-500 bg-orange-50 hover:bg-orange-100"
-        onClick={addSection}
-      >
-        Add Sections
-      </Button>
-
-      <div className="flex justify-between mt-8">
-        <Button variant="outline">Previous</Button>
         <Button
-          className="bg-orange-500 hover:bg-orange-600"
-          onClick={() => {
-            // Log the sections or other relevant data
-            console.log("Sections Data:", sections);
-          }}
+          variant="ghost"
+          className="w-full h-12 mt-4 py-3 text-primary-500 bg-primary-100 hover:bg-primary-200 rounded-none border-0"
+          onClick={addSection}
         >
-          Save & Next
+          Add Sections
         </Button>
+
+        <div className="flex justify-between mt-28">
+          <Button
+            variant="outline"
+            className="rounded-none hover:bg-primary-100  h-14 w-32"
+          >
+            Previous
+          </Button>
+          <Button
+            className="bg-primary-500 hover:bg-primary-600 h-14 rounded-none border-0 w-40"
+            onClick={() => {
+              // Log the sections or other relevant data
+              console.log("Sections Data:", sections);
+            }}
+          >
+            Save & Next
+          </Button>
+        </div>
+
+        <DeleteConfirmationDialog
+          open={deleteDialogOpen}
+          setOpen={setDeleteDialogOpen}
+          itemToDelete={itemToDelete}
+          handleDelete={handleDelete}
+        />
+
+        <EditSectionDialog
+          open={editSectionDialogOpen}
+          setOpen={setEditSectionDialogOpen}
+          newSectionName={newSectionName}
+          setNewSectionName={setNewSectionName}
+          saveSectionName={saveSectionName}
+        />
+
+        <EditLectureDialog
+          open={editLectureDialogOpen}
+          setOpen={setEditLectureDialogOpen}
+          newLectureName={newLectureName}
+          setNewLectureName={setNewLectureName}
+          saveLectureName={saveLectureName}
+        />
+
+        <VideoUploadDialog
+          open={videoUploadDialogOpen}
+          setOpen={setVideoUploadDialogOpen}
+          isFileUploaded={isFileUploaded}
+          triggerFileInput={triggerFileInput}
+          handleFileSelect={handleFileSelect}
+          fileInputRef={fileInputRef}
+          selectedFileName={selectedFileName}
+          selectedFileUrl={selectedFileUrl}
+          selectedFileDuration={selectedFileDuration}
+          uploadVideo={uploadVideo}
+          resetVideoUpload={() => {
+            setIsFileUploaded(false);
+            setSelectedFileName("");
+            setSelectedFileUrl("");
+          }}
+        />
+
+        <CaptionDialog
+          open={captionDialogOpen}
+          setOpen={setCaptionDialogOpen}
+          captionText={captionText}
+          setCaptionText={setCaptionText}
+          saveCaption={saveCaption}
+        />
+
+        <AttachFileDialog
+          open={attachFileDialogOpen}
+          setOpen={setAttachFileDialogOpen}
+          attachedFileName={attachedFileName}
+          triggerAttachFileInput={triggerAttachFileInput}
+          attachFileInputRef={attachFileInputRef}
+          handleAttachFileSelect={handleAttachFileSelect}
+          attachFile={attachFile}
+        />
+
+        <DescriptionDialog
+          open={descriptionDialogOpen}
+          setOpen={setDescriptionDialogOpen}
+          descriptionText={descriptionText}
+          setDescriptionText={setDescriptionText}
+          saveDescription={saveDescription}
+        />
+
+        <NotesDialog
+          open={notesDialogOpen}
+          setOpen={setNotesDialogOpen}
+          notesText={notesText}
+          setNotesText={setNotesText}
+          notesFileName={notesFileName}
+          triggerNotesFileInput={triggerNotesFileInput}
+          notesFileInputRef={notesFileInputRef}
+          handleNotesFileSelect={handleNotesFileSelect}
+          saveNotes={saveNotes}
+        />
       </div>
-
-      <DeleteConfirmationDialog
-        open={deleteDialogOpen}
-        setOpen={setDeleteDialogOpen}
-        itemToDelete={itemToDelete}
-        handleDelete={handleDelete}
-      />
-
-      <EditSectionDialog
-        open={editSectionDialogOpen}
-        setOpen={setEditSectionDialogOpen}
-        newSectionName={newSectionName}
-        setNewSectionName={setNewSectionName}
-        saveSectionName={saveSectionName}
-      />
-
-      <EditLectureDialog
-        open={editLectureDialogOpen}
-        setOpen={setEditLectureDialogOpen}
-        newLectureName={newLectureName}
-        setNewLectureName={setNewLectureName}
-        saveLectureName={saveLectureName}
-      />
-
-      <VideoUploadDialog
-        open={videoUploadDialogOpen}
-        setOpen={setVideoUploadDialogOpen}
-        isFileUploaded={isFileUploaded}
-        triggerFileInput={triggerFileInput}
-        handleFileSelect={handleFileSelect}
-        fileInputRef={fileInputRef}
-        selectedFileName={selectedFileName}
-        selectedFileUrl={selectedFileUrl}
-        selectedFileDuration={selectedFileDuration}
-        uploadVideo={uploadVideo}
-        resetVideoUpload={() => {
-          setIsFileUploaded(false);
-          setSelectedFileName("");
-          setSelectedFileUrl("");
-        }}
-      />
-
-      <CaptionDialog
-        open={captionDialogOpen}
-        setOpen={setCaptionDialogOpen}
-        captionText={captionText}
-        setCaptionText={setCaptionText}
-        saveCaption={saveCaption}
-      />
-
-      <AttachFileDialog
-        open={attachFileDialogOpen}
-        setOpen={setAttachFileDialogOpen}
-        attachedFileName={attachedFileName}
-        triggerAttachFileInput={triggerAttachFileInput}
-        attachFileInputRef={attachFileInputRef}
-        handleAttachFileSelect={handleAttachFileSelect}
-        attachFile={attachFile}
-      />
-
-      <DescriptionDialog
-        open={descriptionDialogOpen}
-        setOpen={setDescriptionDialogOpen}
-        descriptionText={descriptionText}
-        setDescriptionText={setDescriptionText}
-        saveDescription={saveDescription}
-      />
-
-      <NotesDialog
-        open={notesDialogOpen}
-        setOpen={setNotesDialogOpen}
-        notesText={notesText}
-        setNotesText={setNotesText}
-        notesFileName={notesFileName}
-        triggerNotesFileInput={triggerNotesFileInput}
-        notesFileInputRef={notesFileInputRef}
-        handleNotesFileSelect={handleNotesFileSelect}
-        saveNotes={saveNotes}
-      />
-    </div>
+    </>
   );
 }
