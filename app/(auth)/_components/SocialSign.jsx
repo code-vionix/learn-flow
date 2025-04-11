@@ -28,8 +28,8 @@ function SocialSign() {
       <div className=" w-full text-center">
         <div className=" w-full border-t-[1px] border-gray-300  "></div>
 
-        <div className="text-sm font-medium text-gray-500 mt-[-10px] bg-transparent  ">
-          SIGN UP WITH
+        <div className="text-sm font-medium text-gray-500 mt-[-10px] bg-transparent flex justify-center  ">
+          <p className="bg-white w-fit px-5 rounded-full">SIGN UP WITH</p>
         </div>
       </div>
 
