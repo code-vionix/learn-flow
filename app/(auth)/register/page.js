@@ -5,7 +5,7 @@ import RegisterForm from '../_components/RegisterForm'
 
 function RegistationPage() {
   return (
-    <div className="pr-72 flex items-center justify-center overflow-hidden gap-32 h-screen w-screen">
+    <div className="flex items-center justify-between overflow-hidden gap-32 h-[91vh] w-full ">
       <Image
         src={registerImage}
         alt=""
@@ -13,7 +13,7 @@ function RegistationPage() {
         height={992}
         className="object-fit"
       />
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center w-full">
         <RegisterForm />
       </div>
     </div>
