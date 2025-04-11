@@ -1,11 +1,5 @@
 "use client";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+
 import { useState } from "react";
 
 const demoCategories = [
@@ -36,34 +30,35 @@ export default function CategorySelect({
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
 
-  const handleCategorySelect = (category) => {
+  const handleCategoryChange = (e) => {
+    const categoryName = e.target.value;
+    const category = demoCategories.find((cat) => cat.name === categoryName);
     setSelectedCategory(category);
-    setSelectedSubcategory(""); // reset subcategory on change
-    setFormData("category", category.name); // Store selected category
+    setSelectedSubcategory("");
+    setFormData("category", category?.name || "");
 
-    // Update progress when a category is selected
-    if (category.name && !selectedCategory?.name) {
-      setProgress(progress + 1); // Increment progress
-    } else if (!category.name) {
-      setProgress(progress - 1); // Decrement progress if no category selected
+    if (category && !formData.category) {
+      setProgress(progress + 1);
+    } else if (!category && formData.category) {
+      setProgress(progress - 1);
     }
   };
 
-  const handleSubcategorySelect = (sub) => {
+  const handleSubcategoryChange = (e) => {
+    const sub = e.target.value;
     setSelectedSubcategory(sub);
-    setFormData("subcategory", sub); // Store selected subcategory
+    setFormData("subcategory", sub);
 
-    // Update progress when a subcategory is selected
-    if (sub && !selectedSubcategory) {
-      setProgress(progress + 1); // Increment progress
-    } else if (!sub) {
-      setProgress(progress - 1); // Decrement progress if no subcategory selected
+    if (sub && !formData.subcategory) {
+      setProgress(progress + 1);
+    } else if (!sub && formData.subcategory) {
+      setProgress(progress - 1);
     }
   };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Category Dropdown */}
+      {/* Category Select */}
       <div className="space-y-2">
         <label
           htmlFor="category"
@@ -71,27 +66,22 @@ export default function CategorySelect({
         >
           Course Category
         </label>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 outline-none flex items-center justify-between bg-white text-left">
-              {selectedCategory?.name || "Select a category"}
-              <ChevronDown className="w-4 h-4 text-gray-500 ml-2" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full">
-            {demoCategories.map((category) => (
-              <DropdownMenuItem
-                key={category.name}
-                onClick={() => handleCategorySelect(category)}
-              >
-                {category.name}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <select
+          id="category"
+          value={selectedCategory?.name || ""}
+          onChange={handleCategoryChange}
+          className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 outline-none"
+        >
+          <option value="">Select a category</option>
+          {demoCategories.map((category) => (
+            <option key={category.name} value={category.name}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Subcategory Dropdown */}
+      {/* Subcategory Select */}
       <div className="space-y-2">
         <label
           htmlFor="subcategory"
@@ -99,27 +89,20 @@ export default function CategorySelect({
         >
           Sub-category
         </label>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              disabled={!selectedCategory}
-              className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 outline-none flex items-center justify-between bg-white text-left disabled:opacity-50"
-            >
-              {selectedSubcategory || "Select a sub-category"}
-              <ChevronDown className="w-4 h-4 text-gray-500 ml-2" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-full">
-            {selectedCategory?.subcategories?.map((sub, index) => (
-              <DropdownMenuItem
-                key={index}
-                onClick={() => handleSubcategorySelect(sub)}
-              >
-                {sub}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <select
+          id="subcategory"
+          value={selectedSubcategory}
+          onChange={handleSubcategoryChange}
+          disabled={!selectedCategory}
+          className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 outline-none disabled:opacity-50"
+        >
+          <option value="">Select a sub-category</option>
+          {selectedCategory?.subcategories?.map((sub) => (
+            <option key={sub} value={sub}>
+              {sub}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
