@@ -80,12 +80,12 @@ export default function Navigation() {
            
             <ShoppingCart className="size-5 text-gray-600 cursor-pointer" />
             </Link>
-            <Button className="text-primary-500 hover:text-orange-600 px-4 py-2 bg-primary-100 hover:bg-primary-200">
+            <Link href='/register' className="text-primary-500 hover:text-orange-600 px-4 py-2 bg-primary-100 hover:bg-primary-200">
               Create Account
-            </Button>
-            <Button className="bg-primary-500 text-white px-4 py-2 hover:bg-primary-600">
+            </Link>
+            <Link href='/login' className="bg-primary-500 text-white px-4 py-2 hover:bg-primary-600">
               Sign in
-            </Button>
+            </Link>
           </div>
         </div>
       </div>
