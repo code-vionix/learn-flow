@@ -37,14 +37,14 @@ function ContactForm() {
   const titleLength = watch("title")?.length || 0;
 
   return (
-    <div className="w-[648px] p-10 bg-white flex-none ">
+    <div className="md:w-[40.5rem] md:p-10 bg-white md:flex-none ">
       <h1 className="text-2xl mb-3 font-normal text-gray-900">Get In touch </h1>
       <p className="text-base mb-3 text-gray-600 font-normal">
         Feel free contact with us, we love to make new partners & friends
       </p>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full">
         <div className="flex gap-5 ">
-          <div className="flex-1">
+          <div className="md:flex-1">
             <label className="block text-sm text-gray-900 mb-1.5">
               First name
             </label>
@@ -116,7 +116,7 @@ function ContactForm() {
           />
         </div>
 
-        <div>
+        <div className="flex items-center justify-center lg:block">
           <button
             type="submit"
             className="px-6 py-3 flex gap-3 bg-primary-500 text-white font-semibold rounded-md hover:bg-primary-600"
