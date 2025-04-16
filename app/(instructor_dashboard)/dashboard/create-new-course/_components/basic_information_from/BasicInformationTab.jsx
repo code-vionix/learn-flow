@@ -1,4 +1,4 @@
-import clsx from "clsx"; // Optional: use clsx or classnames for cleaner conditional classes
+import clsx from "clsx";
 import { CheckCircle } from "lucide-react";
 
 export default function BasicInformationTab({ progress, isActive }) {
@@ -10,7 +10,7 @@ export default function BasicInformationTab({ progress, isActive }) {
       className={clsx(
         "flex items-center py-4 text-sm font-medium cursor-pointer text-gray-700",
         {
-          "border-b-4 border-orange-500": isActive, // only add if active
+          "border-b-4 border-orange-500": isActive,
         }
       )}
     >
@@ -34,13 +34,14 @@ export default function BasicInformationTab({ progress, isActive }) {
       </div>
       <span>Basic Information</span>
 
-      {isCompleted ? (
-        <CheckCircle className="ml-2 h-4 w-4 text-green-500" />
-      ) : (
-        <span className="ml-2 text-green-500 text-xs">
-          {progress}/{totalInput}
-        </span>
-      )}
+      {isActive &&
+        (isCompleted ? (
+          <CheckCircle className="ml-2 h-4 w-4 text-green-500" />
+        ) : (
+          <span className="ml-2 text-green-500 text-xs">
+            {progress}/{totalInput}
+          </span>
+        ))}
     </div>
   );
 }
