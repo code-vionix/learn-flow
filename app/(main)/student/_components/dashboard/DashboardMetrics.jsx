@@ -34,7 +34,7 @@ const metrics = [
   },
 ];
 
-export default function DashboardMetrics() {
+export default function DashboardMetrics({totalEnroll}) {
   return (
     <>
       {metrics.map((mat, index) => (
@@ -49,7 +49,7 @@ export default function DashboardMetrics() {
               <mat.icon className={`w-6 h-6 ${mat.iconClassName}`} />
             </div>
             <div>
-              <p className="text-xl font-bold text-gray-600">{mat.value}</p>
+              <p className="text-xl font-bold text-gray-600">{totalEnroll}</p>
 
               <h3 className="font-semibold text-sm text-gray-500">
                 {mat.label}
