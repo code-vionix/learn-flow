@@ -27,6 +27,11 @@ const links = [
     label: "My Courses",
   },
   {
+    href: "/dashboard/my-courses-list",
+    icon: <Layers />,
+    label: "My Courses List",
+  },
+  {
     href: "/dashboard/earning",
     icon: <CreditCard />,
     label: "Earning",
