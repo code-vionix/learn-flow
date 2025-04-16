@@ -22,6 +22,7 @@ export default async function Home({ params }) {
   const { id } = params;
   const course = await getCourseById(id);
 
+  console.log("course >>>", course);
   return (
     <div className="h-full w-full">
       <div className="w-full min-h-screen relative">
@@ -30,33 +31,33 @@ export default async function Home({ params }) {
         <div className="flex-1 px-10 py-2 flex gap-6 w-[1320px] mx-auto  bg-transparent -mt-[330px] ">
           <div className="flex flex-col  gap-4 w-full">
             <Breadcrumb />
-            <CourseTitle title={course.title} subtitle={course.subtitle} />
-            <CourseInfo course={course} />
-            <CoursePreview course={course} />
-            <CourseTabs />
-            <CourseDescription />
-            <CourseLearning />
-            <CourseDetails />
+            <CourseTitle title={course?.title} subtitle={course?.subtitle} />
+            {/* <CourseInfo course={course} /> */}
+            {/* <CoursePreview course={course} /> */}
+            {/* <CourseTabs /> */}
+            {/* <CourseDescription /> */}
+            {/* <CourseLearning /> */}
+            {/* <CourseDetails /> */}
 
             {/* Ensure the ID matches the tab name */}
             <section id="curriculum">
-              <Curriculum />
+              {/* <Curriculum /> */}
             </section>
 
             <section id="instructor">
-              <CourseInstructor instructors={course.instructors} />
+              {/* <CourseInstructor instructors={course?.instructors} /> */}
             </section>
 
             <section id="review">
-              <CourseRating />
-              <StudentFeedback reviews={course.user_reviews} />
+              {/* <CourseRating /> */}
+              {/* <StudentFeedback reviews={course?.user_reviews} /> */}
             </section>
           </div>
-          <CourseSidebar course={course} />
+          {/* <CourseSidebar course={course} /> */}
         </div>
       </div>
       <div className="w-full">
-        <RelatedCourses course={course} />
+        {/* <RelatedCourses course={course} /> */}
       </div>
     </div>
   );
