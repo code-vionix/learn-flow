@@ -4,10 +4,10 @@ import Image from "next/image";
 
 function JoinTeam() {
   return (
-    <div className="w-full flex flex-row-reverse px-72 py-10 items-center justify-center gap-28 bg-gray-50 ">
-      <div className="w-[536px] flex flex-col gap-5 flex-none ">
+    <div className="w-full flex flex-col-reverse lg:flex-row-reverse px-2 sm:px-8 md:px-16 lg:px-32 xl:px-60 2xl:px-72 lg:py-10 items-center justify-center gap-3 lg:gap-28 bg-gray-50 ">
+      <div className="lg:w-[33.5rem] text-center lg:text-start flex flex-col gap-5 flex-1 ">
         <div className="flex flex-col gap-3 ">
-          <h1 className="font-semibold text-4xl text-gray-900">
+          <h1 className="font-semibold text-3xl lg:text-4xl text-gray-900">
             Why you will join our team
           </h1>
           <p className="font-normal text-base text-gray-700">
@@ -57,7 +57,7 @@ function JoinTeam() {
       </div>
       <Image
         src={unionImage}
-        className="flex-1"
+        className="md:flex-1"
         alt=""
         width={648}
         height={600}
