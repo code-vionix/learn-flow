@@ -1,13 +1,17 @@
+import Navbar from "./_components/Navbar";
 
-import React from 'react'
-import Navbar from './_components/Navbar'
+export const metadata = {
+  title: "Your App",
+  description: "Your description",
+};
 
-function layout({children}) {
+export default function RootLayout({ children }) {
   return (
-    <div>
-      <Navbar/>
-      {children}</div>
-  )
+    <html lang="en">
+      <body className="h-screen">
+        <Navbar />
+        {children}
+      </body>
+    </html>
+  );
 }
-
-export default layout

@@ -1,118 +1,110 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeOff, MoveRight } from "lucide-react";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import SocialSign from "./SocialSign";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import SignInButton from "./SignInButton";
 
-const signInSchema = z
-  .object({
-    identifier: z.string().min(3, "Username or email is required"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    remember: z.boolean().optional(),
-  })
-  .refine(
-    (data) => {
-      return data.identifier.includes("@")
-        ? z.string().email().safeParse(data.identifier).success
-        : true;
-    },
-    {
-      message: "Invalid email format",
-      path: ["identifier"],
-    }
-  );
+export default function LoginForm() {
+  const router = useRouter();
 
-function LoginForm() {
- 
+  const [form, setForm] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(signInSchema) });
+  const [error, setError] = useState("");
 
-  function onSubmit(data) {
-    console.log(data);
-    reset();
-  }
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    const res = await signIn("credentials", {
+      email: form.email,
+      password: form.password,
+      redirect: false,
+    });
+
+    if (res?.ok) {
+      router.push("/");
+    } else {
+      setError("Invalid email or password");
+    }
+  };
 
   return (
-    <div className=" flex flex-col items-center justify-center gap-10">
-      <h1 className="font-semibold text-5xl text-gray-900">
-        Sign in to your account
-      </h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <div className="w-[648px]">
-          <label htmlFor="" className="font-normal text-base text-gray-900">
-            Email
-          </label>
-          <div className="w-full  gap-3  mt-2">
-            <input
-              {...register("identifier")}
-              type="text"
-              className="h-12 w-full p-5 focus:outline-none focus:border-primary-500 bg-white border-[1px] border-gray-100 font-normal text-base text-gray-500"
-              placeholder=" Username or email address..."
-            />
-            {errors.identifier && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.identifier.message}
-              </p>
+    <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">Email</label>
+        <input
+          type="email"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email address..."
+          required
+          className="w-full px-3 py-2 border border-gray-300"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">Password</label>
+        <div className="relative">
+          <input
+            type={showPassword ? "text" : "password"}
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Password"
+            required
+            className="w-full px-3 py-2 border border-gray-300 pr-10"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-0 flex items-center pr-3"
+          >
+            {showPassword ? (
+              <EyeOffIcon className="h-5 w-5 text-gray-400" />
+            ) : (
+              <EyeIcon className="h-5 w-5 text-gray-400" />
             )}
-          </div>
+          </button>
         </div>
+      </div>
 
-        <div className="w-full  gap-4">
-          <label htmlFor="" className="font-normal text-base text-gray-900">
-            Password
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <input
+            id="remember"
+            type="checkbox"
+            className="h-4 w-4 border border-gray-300"
+          />
+          <label htmlFor="remember" className="ml-2 text-sm text-gray-600">
+            Remember me
           </label>
-          <div className=" mt-2">
-            <div className="relative">
-              <input
-                {...register("password")}
-                type={showPassword ? "text" : "password"}
-                className="h-12 w-full p-5 focus:outline-none focus:border-primary-500 bg-white border-[1px] border-gray-100 font-normal text-base text-gray-500"
-                placeholder=" Password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-6 -translate-y-1/2 text-gray-600"
-              >
-                {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-              </button>
-            </div>
-
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex gap-3 items-center">
-            <input
-              {...register("remember")}
-              type="checkbox"
-              className="h-5 w-5 border-[1px] bg-white border-gray-200"
-            />
-            <p className="font-normal text-sm text-gray-500">Remember me</p>
-          </div>
+        <SignInButton />
+      </div>
 
-          <Button className="bg-primary-500 px-6 py-6 font-semibold text-base hover:bg-primary-600">
-            Create Account <MoveRight size={30} color="white" />
-          </Button>
+      <div className="relative py-6">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300"></div>
         </div>
-      </form>
-      <SocialSign />
-    </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-white px-2 text-gray-500">SIGN IN WITH</span>
+        </div>
+      </div>
+
+      {/* <SignInButton /> */}
+    </form>
   );
 }
-
-export default LoginForm;
