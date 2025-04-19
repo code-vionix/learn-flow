@@ -1,4 +1,3 @@
-// lib/auth/nextAuthHandler.js
 import { refreshAccessToken } from "@/lib/refreshAccessToken";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
