@@ -25,12 +25,12 @@ export default function CourseDetails({
     setFormData(field, value);
 
     if (value && !hasCounted[field]) {
-      setProgress(progress + 1);
+      setProgress('basic',progress + 1);
       setHasCounted((prev) => ({ ...prev, [field]: true }));
     }
 
     if (!value && hasCounted[field]) {
-      setProgress(progress - 1);
+      setProgress('basic',progress - 1);
       setHasCounted((prev) => ({ ...prev, [field]: false }));
     }
   };
@@ -40,12 +40,12 @@ export default function CourseDetails({
     setFormData("duration", value);
 
     if (value.trim().length > 0 && !hasCounted.duration) {
-      setProgress(progress + 1);
+      setProgress('basic',progress + 1);
       setHasCounted((prev) => ({ ...prev, duration: true }));
     }
 
     if (value.trim().length === 0 && hasCounted.duration) {
-      setProgress(progress - 1);
+      setProgress('basic',progress - 1);
       setHasCounted((prev) => ({ ...prev, duration: false }));
     }
   };

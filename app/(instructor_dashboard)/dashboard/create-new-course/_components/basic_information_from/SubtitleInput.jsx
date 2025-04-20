@@ -16,12 +16,12 @@ export default function SubtitleInput({
       onChange(inputValue);
 
       if (inputValue.trim().length > 0 && !hasCounted) {
-        setProgress(progress + 1);
+        setProgress('basic',progress + 1);
         setHasCounted(true);
       }
 
       if (inputValue.trim().length === 0 && hasCounted) {
-        setProgress(progress - 1);
+        setProgress('basic',progress - 1);
         setHasCounted(false);
       }
     }
