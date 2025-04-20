@@ -1,10 +1,6 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   ChevronDown,
   ChevronUp,
@@ -13,6 +9,7 @@ import {
   Trash2,
   VideoIcon,
 } from "lucide-react";
+import { useState } from "react";
 import Badge from "./Badge";
 
 export default function LectureItem({
@@ -27,9 +24,16 @@ export default function LectureItem({
   openEditLectureDialog,
   confirmDelete,
 }) {
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleToggleDropdown = () => {
+    toggleLecture(sectionId, lecture.id);
+    setShowDropdown((prev) => !prev);
+  };
+
   return (
     <div className="bg-white border border-slate-200">
-      <div className="flex items-center justify-between p-3">
+      <div className="flex items-center justify-between p-3 relative">
         <div className="flex items-center gap-2 flex-1">
           <span className="text-slate-500">=</span>
           <span>{lecture.name}</span>
@@ -42,56 +46,57 @@ export default function LectureItem({
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="sm"
-                className="bg-primary-100 text-primary-500 hover:bg-primary-200 border-primary-200 rounded-none"
-                onClick={() => toggleLecture(sectionId, lecture.id)}
-              >
-                Contents
-                {lecture.isOpen ? (
-                  <ChevronUp className="ml-1 h-4 w-4" />
-                ) : (
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-
-            {lecture.isOpen && (
-              <DropdownMenuContent align="end" className="w-[180px]">
-                <DropdownMenuItem
-                  onClick={() => openVideoUploadDialog(sectionId, lecture.id)}
-                >
-                  <VideoIcon className="mr-2 h-4 w-4" />
-                  <span>Video</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => openAttachFileDialog(sectionId, lecture.id)}
-                >
-                  <File className="mr-2 h-4 w-4" />
-                  <span>Attach File</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => openCaptionDialog(sectionId, lecture.id)}
-                >
-                  <span className="ml-6">Captions</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => openDescriptionDialog(sectionId, lecture.id)}
-                >
-                  <span className="ml-6">Description</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => openNotesDialog(sectionId, lecture.id)}
-                >
-                  <span className="ml-6">Lecture Notes</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
+        <div className="flex items-center gap-2 relative">
+          <Button
+            variant="outline"
+            size="sm"
+            className="bg-primary-100 text-primary-500 hover:bg-primary-200 border-primary-200 rounded-none"
+            onClick={handleToggleDropdown}
+          >
+            Contents
+            {showDropdown ? (
+              <ChevronUp className="ml-1 h-4 w-4" />
+            ) : (
+              <ChevronDown className="ml-1 h-4 w-4" />
             )}
-          </DropdownMenu>
+          </Button>
+
+          {showDropdown && (
+            <div className="absolute top-10 right-0 z-50 w-48 bg-white border border-gray-200 rounded shadow-md">
+              <button
+                onClick={() => openVideoUploadDialog(sectionId, lecture.id)}
+                className="flex items-center px-4 py-2 w-full hover:bg-gray-100"
+              >
+                <VideoIcon className="mr-2 h-4 w-4" />
+                Video
+              </button>
+              <button
+                onClick={() => openAttachFileDialog(sectionId, lecture.id)}
+                className="flex items-center px-4 py-2 w-full hover:bg-gray-100"
+              >
+                <File className="mr-2 h-4 w-4" />
+                Attach File
+              </button>
+              <button
+                onClick={() => openCaptionDialog(sectionId, lecture.id)}
+                className="px-4 py-2 w-full text-left hover:bg-gray-100"
+              >
+                Captions
+              </button>
+              <button
+                onClick={() => openDescriptionDialog(sectionId, lecture.id)}
+                className="px-4 py-2 w-full text-left hover:bg-gray-100"
+              >
+                Description
+              </button>
+              <button
+                onClick={() => openNotesDialog(sectionId, lecture.id)}
+                className="px-4 py-2 w-full text-left hover:bg-gray-100"
+              >
+                Lecture Notes
+              </button>
+            </div>
+          )}
 
           <Button
             variant="ghost"
