@@ -11,6 +11,7 @@ import TopicInput from "./TopicInput";
 
 export default function BasicInformationForm({ title, onNext }) {
   const { progress, setProgress } = useProgress();
+  const [isComplate, setIsComplate] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
@@ -30,7 +31,10 @@ export default function BasicInformationForm({ title, onNext }) {
 
   const handleSaveAndNext = () => {
     console.log("Form Data:", formData);
-    onNext();
+    if (progress === 10) {
+      setIsComplate(true);
+      onNext();
+    }
   };
 
   return (
