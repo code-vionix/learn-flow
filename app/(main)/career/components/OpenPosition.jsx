@@ -39,11 +39,11 @@ function OpenPosition() {
   ];
 
   return (
-    <div className="px-72 py-10 bg-gray-50">
-      <h1 className="font-semibold text-4xl text-gray-900 text-center">
+    <div className="px-2 py-5 md:py-10  sm:px-8 md:px-16 xl:px-40 2xl:px-72 lg:py-10 bg-gray-50">
+      <h1 className="font-semibold text-3xl lg:text-4xl text-gray-900 text-center">
         Our all open positions ({positions.length})
       </h1>
-      <div className="py-10 flex justify-start flex-wrap gap-3">
+      <div className="lg:py-10 flex justify-center items-center flex-wrap gap-3">
         {positions.map((position) => {
           return (
            <JobCard key={position.id} position={position}/>
