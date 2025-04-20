@@ -97,8 +97,8 @@ function FAQsPage() {
     <div>
       <CustomBreadcrumb title={"FAQs"} />
 
-      <div className="min-h-screen  py-12">
-        <div className=" mx-auto px-72">
+      <div className=" px-2 py-2 sm:px-8 md:px-16 lg:px-32 2xl:72  lg:py-12">
+        <div className=" mx-auto ">
          <FaqNav role={role} setRole={setRole} setSelectedTopic={setSelectedTopic} topics={topics} setExpandedQuestion={setExpandedQuestion} />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-7xl mx-auto">
             {/* Left sidebar */}
