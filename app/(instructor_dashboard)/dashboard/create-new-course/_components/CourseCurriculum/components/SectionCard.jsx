@@ -1,6 +1,7 @@
 // File: components/curriculum/SectionCard/index.jsx
 
 import { Card } from "@/components/ui/card";
+
 import LectureList from "./LectureList";
 import SectionHeader from "./SectionHeader";
 
