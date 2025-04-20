@@ -1,9 +1,9 @@
 "use client";
 import { useProgress } from "../../../_ProgressContext/ProgressContext";
-import AdvanceInformationTab from "./AdvanceInformationTab";
-import BasicInformationTab from "./BasicInformationTab";
-import CurriculumTab from "./CurriculumTab";
-import PublishCourseTab from "./PublishCourseTab";
+import AdvanceInformationTab from "../TabSection/AdvanceInformationTab";
+import BasicInformationTab from "../TabSection/BasicInformationTab";
+import CurriculumTab from "../TabSection/CurriculumTab";
+import PublishCourseTab from "../TabSection/PublishCourseTab";
 
 export default function ProgressSteps({ activeTab, setActiveTab }) {
   const { progress } = useProgress();
