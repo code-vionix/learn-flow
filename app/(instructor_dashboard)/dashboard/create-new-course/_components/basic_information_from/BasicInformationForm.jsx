@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { useProgress } from "../../../_ProgressContext/ProgressContext";
 import CategorySelect from "./CategorySelect";
 import CourseDetails from "./CourseDetails";
@@ -9,71 +8,64 @@ import SubtitleInput from "./SubtitleInput";
 import TitleInput from "./TitleInput";
 import TopicInput from "./TopicInput";
 
-export default function BasicInformationForm({ title, onNext }) {
+export default function BasicInformationForm({
+  title,
+  onNext,
+  formData,
+  setFormData,
+}) {
+  console.log(formData);
   const { progress, setProgress } = useProgress();
-  const [isComplate, setIsComplate] = useState(false);
-  const [formData, setFormData] = useState({
-    title: "",
-    subtitle: "",
-    category: "",
-    subcategory: "",
-    topic: "",
-    language: "",
-    subtitleLang: "",
-    level: "",
-    duration: "",
-    durationType: "Days",
-  });
 
   const handleFormDataChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
   const handleSaveAndNext = () => {
     console.log("Form Data:", formData);
+    // You can validate fields here if needed
     if (progress === 10) {
-      setIsComplate(true);
-      onNext();
+      onNext(); // Go to next tab
     }
   };
 
   return (
     <>
-      <FormHeader title={title} />
+      <FormHeader title={title} formData={formData} />
       <div className="max-w-7xl mx-auto py-8 max-h-[796px]">
-        <form className="space-y-8 h-">
+        <form className="space-y-8">
           <TitleInput
+            value={formData.title}
+            onChange={(val) => handleFormDataChange("title", val)}
             progress={progress}
             setProgress={setProgress}
-            formData={formData}
-            setFormData={handleFormDataChange}
-            field="title"
           />
           <SubtitleInput
+            value={formData.subtitle}
+            onChange={(val) => handleFormDataChange("subtitle", val)}
             progress={progress}
             setProgress={setProgress}
-            formData={formData}
-            setFormData={handleFormDataChange}
-            field="subtitle"
           />
           <CategorySelect
-            progress={progress}
-            setProgress={setProgress}
             formData={formData}
             setFormData={handleFormDataChange}
+            progress={progress}
+            setProgress={setProgress}
           />
           <TopicInput
+            value={formData.topic}
+            onChange={(val) => handleFormDataChange("topic", val)}
             progress={progress}
             setProgress={setProgress}
-            formData={formData}
-            setFormData={handleFormDataChange}
-            field="topic" // pass the field name here
           />
           <CourseDetails
-            progress={progress}
-            setProgress={setProgress}
             formData={formData}
             setFormData={handleFormDataChange}
+            progress={progress}
+            setProgress={setProgress}
           />
           <FormActions handleSaveAndNext={handleSaveAndNext} />
         </form>

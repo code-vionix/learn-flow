@@ -2,7 +2,7 @@
 import { useState } from "react";
 import CourseReview from "../CoursePreview/CoursePreview";
 
-export default function FormHeader({ title }) {
+export default function FormHeader({ title, formData }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -42,7 +42,7 @@ export default function FormHeader({ title }) {
             >
               &times;
             </button>
-            <CourseReview />
+            <CourseReview formData={formData} />
           </div>
         </div>
       )}
