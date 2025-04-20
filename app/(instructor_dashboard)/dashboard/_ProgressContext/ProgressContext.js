@@ -13,10 +13,13 @@ export const ProgressProvider = ({ children }) => {
     coursePublish: 0,
   });
 
-  const updateProgress = (key, value) => {
+  const updateProgress = (key, valueOrUpdater) => {
     setProgress((prev) => ({
       ...prev,
-      [key]: value,
+      [key]:
+        typeof valueOrUpdater === "function"
+          ? valueOrUpdater(prev[key]) // safely call the updater
+          : valueOrUpdater,
     }));
   };
 

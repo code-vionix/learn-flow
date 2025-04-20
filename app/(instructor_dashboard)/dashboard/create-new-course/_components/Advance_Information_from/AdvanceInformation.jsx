@@ -8,7 +8,7 @@ import CourseMediaUploader from "./CourseMediaUploader/CourseMediaUploader";
 import RepeatableSection from "./RepeatableSection";
 
 export default function AdvanceInformation({ title, onBack, onNext }) {
-  const { progress, setProgress } = useProgress();
+  const { progress, updateProgress } = useProgress();
   const [courseData, setCourseData] = useState({
     thumbnailUrl: "",
     trailerUrl: "",
@@ -62,13 +62,13 @@ export default function AdvanceInformation({ title, onBack, onNext }) {
       <div className="max-w-7xl mx-auto py-6">
         <div className="bg-white">
           <CourseMediaUploader
-            progress={progress}
-            setProgress={setProgress}
+            progress={progress.advance}
+            setProgress={updateProgress}
             onUpload={handleMediaUpload}
           />
           <CourseDescriptionEditor
-            progress={progress}
-            setProgress={setProgress}
+             progress={progress.advance}
+             setProgress={updateProgress}
             onDescriptionChange={handleDescriptionChange}
           />
           {repeatableTitles.map((title, index) => (
@@ -76,8 +76,8 @@ export default function AdvanceInformation({ title, onBack, onNext }) {
               key={index}
               title={title}
               index={index}
-              progress={progress}
-              setProgress={setProgress}
+              progress={progress.advance}
+              setProgress={updateProgress}
               onItemsChange={(items) =>
                 handleRepeatableSectionChange(title, items)
               }
