@@ -1,27 +1,21 @@
 "use client";
 import { useState } from "react";
 
-export default function TitleInput({
-  progress,
-  setProgress,
-  formData,
-  setFormData,
-  field,
-}) {
+export default function TitleInput({ value, onChange, progress, setProgress }) {
   const [hasCounted, setHasCounted] = useState(false);
 
   const handleChange = (e) => {
-    const value = e.target.value;
+    const newValue = e.target.value;
 
-    if (value.length <= 80) {
-      setFormData(field, value);
+    if (newValue.length <= 80) {
+      onChange(newValue);
 
-      if (value.trim().length > 0 && !hasCounted) {
+      if (newValue.trim().length > 0 && !hasCounted) {
         setProgress(progress + 1);
         setHasCounted(true);
       }
 
-      if (value.trim().length === 0 && hasCounted) {
+      if (newValue.trim().length === 0 && hasCounted) {
         setProgress(progress - 1);
         setHasCounted(false);
       }
@@ -40,13 +34,13 @@ export default function TitleInput({
         <input
           type="text"
           id="title"
-          value={formData.title}
+          value={value}
           onChange={handleChange}
           placeholder="Your course title"
           className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 focus:border-orange-500 outline-none"
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">
-          {formData.title.length}/80
+          {value.length}/80
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import CourseDescriptionEditor from "./CourseDescriptionEditor/CourseDescription
 import CourseMediaUploader from "./CourseMediaUploader/CourseMediaUploader";
 import RepeatableSection from "./RepeatableSection";
 
-export default function AdvanceInformation({ title, onBack }) {
+export default function AdvanceInformation({ title, onBack, onNext }) {
   const { progress, setProgress } = useProgress();
   const [courseData, setCourseData] = useState({
     thumbnailUrl: "",
@@ -46,7 +46,8 @@ export default function AdvanceInformation({ title, onBack }) {
 
   const handleSaveNext = () => {
     console.log("Course Data: ", courseData);
-    // Proceed to the next step (e.g., setActiveTab("curriculum"))
+    console.log("Navigating to curriculum..."); // ✅ Check if this shows
+    onNext(); // this should switch the tab
   };
 
   const repeatableTitles = [

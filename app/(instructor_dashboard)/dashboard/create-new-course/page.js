@@ -11,6 +11,20 @@ import CoursePublish from "./_components/CoursePublish/CoursePublish";
 export default function CreateCourseLayout() {
   const [activeTab, setActiveTab] = useState("basic");
 
+  // 👇 Lifting formData up here
+  const [basicFormData, setBasicFormData] = useState({
+    title: "",
+    subtitle: "",
+    category: "",
+    subcategory: "",
+    topic: "",
+    language: "",
+    subtitleLang: "",
+    level: "",
+    duration: "",
+    durationType: "Days",
+  });
+
   const renderTabContent = () => {
     switch (activeTab) {
       case "basic":
@@ -18,6 +32,8 @@ export default function CreateCourseLayout() {
           <BasicInformationForm
             title="Basic Information"
             onNext={() => setActiveTab("advance")}
+            formData={basicFormData}
+            setFormData={setBasicFormData}
           />
         );
       case "advance":
@@ -25,6 +41,7 @@ export default function CreateCourseLayout() {
           <AdvanceInformation
             title="Advance Information"
             onBack={() => setActiveTab("basic")}
+            onNext={() => setActiveTab("curriculum")}
           />
         );
       case "curriculum":

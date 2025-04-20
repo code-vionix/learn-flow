@@ -12,30 +12,22 @@ export default function ProgressSteps({ activeTab, setActiveTab }) {
     <div className="border-b p-0">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
-          <div onClick={() => setActiveTab("basic")}>
-            <BasicInformationTab
-              progress={progress}
-              isActive={activeTab === "basic"}
-            />
-          </div>
-          <div onClick={() => setActiveTab("advance")}>
-            <AdvanceInformationTab
-              progress={progress}
-              isActive={activeTab === "advance"}
-            />
-          </div>
-          <div onClick={() => setActiveTab("curriculum")}>
-            <CurriculumTab
-              progress={progress}
-              isActive={activeTab === "curriculum"}
-            />
-          </div>
-          <div onClick={() => setActiveTab("publish")}>
-            <PublishCourseTab
-              progress={progress}
-              isActive={activeTab === "publish"}
-            />
-          </div>
+          <BasicInformationTab
+            progress={progress}
+            isActive={activeTab === "basic"}
+          />
+          <AdvanceInformationTab
+            progress={progress}
+            isActive={activeTab === "advance"}
+          />
+          <CurriculumTab
+            progress={progress}
+            isActive={activeTab === "curriculum"}
+          />
+          <PublishCourseTab
+            progress={progress}
+            isActive={activeTab === "publish"}
+          />
         </div>
       </div>
     </div>
