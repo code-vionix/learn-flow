@@ -1,4 +1,4 @@
-import LectureItem from "./LectureList/LectureItem";
+import LectureItem from "./LectureItem/LectureItem";
 
 export default function LectureList({
   section,
