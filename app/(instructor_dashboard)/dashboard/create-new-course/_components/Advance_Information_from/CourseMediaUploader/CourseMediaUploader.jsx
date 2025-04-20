@@ -50,7 +50,7 @@ export default function CourseMediaUploader({
       }
 
       onUpload(`${type}Url`, url);
-      setProgress((prev) => prev + 1);
+      setProgress("advance", (prevValue) => prevValue + 1);
     } catch (err) {
       console.error("Upload failed", err);
       setIsUploadingThumbnail(false);
@@ -61,11 +61,11 @@ export default function CourseMediaUploader({
   const handleRemove = (type) => {
     if (type === "thumbnail") {
       setThumbnailUrl(null);
-      setProgress((prev) => prev - 1);
+      setProgress("advance", (prevValue) => prevValue - 1);
       onUpload("thumbnailUrl", null);
     } else {
       setTrailerUrl(null);
-      setProgress((prev) => prev - 1);
+      setProgress("advance", (prevValue) => prevValue - 1);
       onUpload("trailerUrl", null);
     }
   };

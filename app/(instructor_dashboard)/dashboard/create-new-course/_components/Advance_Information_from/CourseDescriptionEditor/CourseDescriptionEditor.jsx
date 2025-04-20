@@ -2,14 +2,29 @@
 import { useRef, useState } from "react";
 import Toolbar from "./Toolbar";
 
-export default function CourseDescriptionEditor({ onDescriptionChange }) {
+export default function CourseDescriptionEditor({
+  onDescriptionChange,
+  progress,
+  setProgress,
+}) {
   const [description, setDescription] = useState("");
+  const [hasProgressed, setHasProgressed] = useState(false);
   const textareaRef = useRef(null);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setDescription(value);
     onDescriptionChange(value);
+
+    if (value.trim().length > 0 && !hasProgressed) {
+      setProgress("advance", (prev) => prev + 1);
+      setHasProgressed(true);
+    }
+
+    if (value.trim().length === 0 && hasProgressed) {
+      setProgress("advance", (prev) => prev - 1);
+      setHasProgressed(false);
+    }
   };
 
   const insertMarkdown = (prefix, suffix = prefix, placeholder = "") => {
@@ -26,7 +41,7 @@ export default function CourseDescriptionEditor({ onDescriptionChange }) {
       description.slice(end);
 
     setDescription(newText);
-    onDescriptionChange(newText); // sync with parent
+    onDescriptionChange(newText);
 
     setTimeout(() => {
       textarea.focus();

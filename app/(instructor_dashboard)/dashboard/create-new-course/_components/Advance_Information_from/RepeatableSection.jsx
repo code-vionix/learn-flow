@@ -1,8 +1,15 @@
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function RepeatableSection({ title, index }) {
+export default function RepeatableSection({
+  title,
+  index,
+  progress,
+  setProgress,
+  onItemsChange,
+}) {
   const [items, setItems] = useState([""]);
+  const [hasProgressed, setHasProgressed] = useState(false);
 
   const handleAddItem = () => {
     if (items.length < 8) {
@@ -14,7 +21,23 @@ export default function RepeatableSection({ title, index }) {
     const newItems = [...items];
     newItems[idx] = value;
     setItems(newItems);
+    onItemsChange(newItems);
   };
+
+  // Track progress dynamically
+  useEffect(() => {
+    const hasContent = items.some((item) => item.trim().length > 0);
+
+    if (hasContent && !hasProgressed) {
+      setProgress("advance", (prev) => prev + 1);
+      setHasProgressed(true);
+    }
+
+    if (!hasContent && hasProgressed) {
+      setProgress("advance", (prev) => prev - 1);
+      setHasProgressed(false);
+    }
+  }, [items, hasProgressed, setProgress]);
 
   return (
     <div className="mb-8">
