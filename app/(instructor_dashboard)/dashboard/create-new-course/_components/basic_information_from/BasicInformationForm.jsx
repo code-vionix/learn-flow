@@ -15,7 +15,7 @@ export default function BasicInformationForm({
   setFormData,
 }) {
   console.log(formData);
-  const { progress, setProgress } = useProgress();
+  const { progress, updateProgress } = useProgress();
 
   const handleFormDataChange = (field, value) => {
     setFormData((prev) => ({
@@ -27,7 +27,7 @@ export default function BasicInformationForm({
   const handleSaveAndNext = () => {
     console.log("Form Data:", formData);
     // You can validate fields here if needed
-    if (progress === 10) {
+    if (progress.basic === 10) {
       onNext(); // Go to next tab
     }
   };
@@ -40,32 +40,32 @@ export default function BasicInformationForm({
           <TitleInput
             value={formData.title}
             onChange={(val) => handleFormDataChange("title", val)}
-            progress={progress}
-            setProgress={setProgress}
+            progress={progress.basic}
+            setProgress={updateProgress}
           />
           <SubtitleInput
             value={formData.subtitle}
             onChange={(val) => handleFormDataChange("subtitle", val)}
-            progress={progress}
-            setProgress={setProgress}
+            progress={progress.basic}
+            setProgress={updateProgress}
           />
           <CategorySelect
             formData={formData}
             setFormData={handleFormDataChange}
-            progress={progress}
-            setProgress={setProgress}
+            progress={progress.basic}
+            setProgress={updateProgress}
           />
           <TopicInput
             value={formData.topic}
             onChange={(val) => handleFormDataChange("topic", val)}
-            progress={progress}
-            setProgress={setProgress}
+            progress={progress.basic}
+            setProgress={updateProgress}
           />
           <CourseDetails
             formData={formData}
             setFormData={handleFormDataChange}
-            progress={progress}
-            setProgress={setProgress}
+            progress={progress.basic}
+            setProgress={updateProgress}
           />
           <FormActions handleSaveAndNext={handleSaveAndNext} />
         </form>

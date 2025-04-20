@@ -13,19 +13,19 @@ export default function ProgressSteps({ activeTab, setActiveTab }) {
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between">
           <BasicInformationTab
-            progress={progress}
+            progress={progress.basic}
             isActive={activeTab === "basic"}
           />
           <AdvanceInformationTab
-            progress={progress}
+            progress={progress.advance}
             isActive={activeTab === "advance"}
           />
           <CurriculumTab
-            progress={progress}
+            progress={progress.curriculum}
             isActive={activeTab === "curriculum"}
           />
           <PublishCourseTab
-            progress={progress}
+            progress={progress.coursePublish}
             isActive={activeTab === "publish"}
           />
         </div>

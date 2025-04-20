@@ -11,12 +11,12 @@ export default function TitleInput({ value, onChange, progress, setProgress }) {
       onChange(newValue);
 
       if (newValue.trim().length > 0 && !hasCounted) {
-        setProgress(progress + 1);
+        setProgress('basic',progress + 1);
         setHasCounted(true);
       }
 
       if (newValue.trim().length === 0 && hasCounted) {
-        setProgress(progress - 1);
+        setProgress('basic',progress - 1);
         setHasCounted(false);
       }
     }
