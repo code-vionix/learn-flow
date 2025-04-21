@@ -1,19 +1,22 @@
+import { AuthProvider } from "@/components/AuthProvider";
 import { CourseProvider } from "@/povider/CourseProvider";
+import { Suspense } from "react";
 import "../globals.css";
+import Footer from "./components/shared/Footer/Footer";
 import Navbars from "./components/shared/Navbars";
 import Navigation from "./components/shared/Navigation";
-import Footer from "./components/shared/Footer/Footer";
-import { Suspense } from "react";
 
 export default function MainLayout({ children }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Navbars />
-      <Navigation />
-      <CourseProvider>
-        <main>{children}</main>
-      </CourseProvider>
-      <Footer />
+      <AuthProvider>
+        <Navbars />
+        <Navigation />
+        <CourseProvider>
+          <main>{children}</main>
+        </CourseProvider>
+        <Footer />
+      </AuthProvider>
     </Suspense>
   );
 }

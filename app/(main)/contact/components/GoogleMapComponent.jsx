@@ -7,7 +7,7 @@ const containerStyle = {
   height: "400px",
 };
 
-const center = {
+const center = {  
   lat: 34.0549, // Example: Los Angeles
   lng: -118.2426,
 };

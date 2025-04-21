@@ -18,7 +18,7 @@ function PaymentCard({
   onPayment
 }) {
   return (
-    <div className="w-[25rem] flex flex-col gap-5">
+    <div className="lg:w-[25rem] flex  flex-col lg:gap-5">
       <div className="mt-2 border-b-[1px] flex flex-col gap-4">
         <h2 className="text-gray-900 text-xl font-normal">Order Summery</h2>
         <div className="flex justify-between">
@@ -40,14 +40,14 @@ function PaymentCard({
           </p>
         </div>
       </div>
-      <div className="flex justify-between  ">
+      <div className="flex justify-between   ">
         <p className="text-gray-900 font-normal  text-xl">Total</p>
         <h1 className="text-gray-900 font-semibold text-2xl">
           {totalPrice.toFixed(2)} USD
         </h1>
       </div>
       <div className="border-t-[1px] flex flex-col gap-4 pb-3">
-        <h2>Apply coupon code</h2>
+        <h2 className="mt-5">Apply coupon code</h2>
         <div className="mt-4 flex">
           <Input
             placeholder="Coupon code"
@@ -68,7 +68,7 @@ function PaymentCard({
       </div>
       <Button
         onClick={() => onPayment(totalPrice)}
-        className=" w-[19.5rem] bg-primary-500 text-lg p text-white px-6 py-6 hover:bg-primary-600"
+        className=" lg:w-[19.5rem] bg-primary-500 text-lg p text-white px-6 py-6 hover:bg-primary-600"
       >
         Proceed to checkout <ArrowRight color="white" size={30}/>
       </Button>

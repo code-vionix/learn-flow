@@ -30,12 +30,12 @@ function Testimonial() {
   ]
 
   return (
-    <div className="w-full justify-center items-center m-auto mx-auto py-10 flex  gap-6    ">
+    <div className="w-full justify-center items-center m-auto mx-auto py-10 flex flex-wrap  gap-6    ">
      {
       users.map(user=>{
        return (
           <div key={user.id} className="flex flex-col items-center justify-center gap-8">
-          <div className="w-[424px]  bg-gray-50 relative  ">
+          <div className="md:w-[424px]  bg-gray-50 relative  ">
             <div className="p-6 text-center ">
               <div className="w-full h-12">
                 {" "}

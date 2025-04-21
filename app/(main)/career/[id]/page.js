@@ -49,7 +49,7 @@ function page() {
   return (
     <div>
       <JobHeading positions={positions} />
-      <div className="flex flex-col items-center justify-center gap-10  py-10">
+      <div className="flex flex-col items-center justify-center gap-5 px-2 py-5 sm:px-8 md:px-16 lg:px-32  xl:px-60 2xl:px-72 lg:gap-10  lg:py-10">
         <JobInfo
           heading={"Who we are"}
           text={
