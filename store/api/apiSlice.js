@@ -5,7 +5,7 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.NEXT_PUBLIC_API_ROUTE_URL,
     }),
-    tagTypes: ['courses', 'course'],
+    tagTypes: ['courses', 'course','EnrollCourses'],
     endpoints: (builder) => ({
     }),
 });
