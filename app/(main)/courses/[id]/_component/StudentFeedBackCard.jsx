@@ -15,8 +15,8 @@ import StarRating from "./StarRating";
 export default function StudentFeedBackCard({ reviews }) {
   return (
     <>
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold text-[#1D2026]">
+      <div className="lg:px-16 sm:px-5 md:px-8 flex justify-between items-center">
+        <h2 className="lg:text-2xl text-lg font-semibold text-[#1D2026]">
           Students Feedback
         </h2>
         <DropdownMenu>
@@ -57,7 +57,7 @@ export default function StudentFeedBackCard({ reviews }) {
                     </span>
                   </div>
                   <StarRating rating={review.rating} />
-                  <p className="mt-3 text-sm text-[#4E5566] leading-[22px] tracking-tight">
+                  <p className=" w-full mt-3 lg:text-sm text-xs text-[#4E5566] lg:leading-[22px] tracking-tight">
                     {review.content}
                   </p>
                 </div>
@@ -67,7 +67,7 @@ export default function StudentFeedBackCard({ reviews }) {
         ))}
       </div>
 
-      <div className="flex justify-start pt-3">
+      <div className="flex items- justify-center lg:justify-start pt-3">
         <Button className="w-[165px] h-12 flex justify-center items-center gap-3 bg-[#FFEEE8] text-[#FF6636] font-semibold rounded">
           <span>Load More</span>
 
