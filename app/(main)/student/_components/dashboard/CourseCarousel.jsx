@@ -35,7 +35,7 @@ export function CourseCarousel({ courses }) {
               key={index}
               className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4"
             >
-              <CourseCard course={course} />
+              <CourseCard course={course.course} />
             </CarouselItem>
           ))}
         </CarouselContent>
