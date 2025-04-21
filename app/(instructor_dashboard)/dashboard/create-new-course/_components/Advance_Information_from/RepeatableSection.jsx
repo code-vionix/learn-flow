@@ -7,49 +7,39 @@ export default function RepeatableSection({
   progress,
   setProgress,
   onItemsChange,
-  initialItems = [], // <-- New prop to receive previously saved items
+  initialItems = [],
 }) {
-  const [items, setItems] = useState(
-    initialItems.length > 0 ? initialItems : [""]
+  const [items, setItems] = useState(initialItems.length ? initialItems : [""]);
+  const [hasProgressed, setHasProgressed] = useState(() =>
+    initialItems.some((item) => item.trim().length > 0)
   );
-  const [hasProgressed, setHasProgressed] = useState(false);
 
-  // Sync if initialItems change (e.g. when user navigates back)
   useEffect(() => {
-    if (initialItems.length > 0) {
+    if (initialItems.length) {
       setItems(initialItems);
     }
   }, [initialItems]);
 
   const handleAddItem = () => {
     if (items.length < 8) {
-      const updatedItems = [...items, ""];
-      setItems(updatedItems);
-      onItemsChange(updatedItems);
+      const updated = [...items, ""];
+      setItems(updated);
+      onItemsChange(updated);
     }
   };
 
   const handleInputChange = (value, idx) => {
-    const newItems = [...items];
-    newItems[idx] = value;
-    setItems(newItems);
-    onItemsChange(newItems);
-  };
+    const updated = [...items];
+    updated[idx] = value;
+    setItems(updated);
+    onItemsChange(updated);
 
-  // Track progress dynamically
-  useEffect(() => {
-    const hasContent = items.some((item) => item.trim().length > 0);
-
+    const hasContent = updated.some((item) => item.trim().length > 0);
     if (hasContent && !hasProgressed) {
       setProgress("advance", (prev) => prev + 1);
       setHasProgressed(true);
     }
-
-    if (!hasContent && hasProgressed) {
-      setProgress("advance", (prev) => prev - 1);
-      setHasProgressed(false);
-    }
-  }, [items, hasProgressed, setProgress]);
+  };
 
   return (
     <div className="mb-8">
