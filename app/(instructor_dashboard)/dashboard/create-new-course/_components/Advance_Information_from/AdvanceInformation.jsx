@@ -1,9 +1,54 @@
+"use client";
+import { useState } from "react";
+import { useProgress } from "../../../_ProgressContext/ProgressContext";
 import FormHeader from "../basic_information_from/FormHeader";
-import CourseDescriptionEditor from "./CourseDescriptionEditor";
-import CourseMediaUploader from "./CourseMediaUploader";
+
+import CourseDescriptionEditor from "./CourseDescriptionEditor/CourseDescriptionEditor";
+import CourseMediaUploader from "./CourseMediaUploader/CourseMediaUploader";
 import RepeatableSection from "./RepeatableSection";
 
 export default function AdvanceInformation({ title, onBack }) {
+  const { progress, setProgress } = useProgress();
+  const [courseData, setCourseData] = useState({
+    thumbnailUrl: "",
+    trailerUrl: "",
+    description: "",
+    repeatableSections: {
+      whatYouTeach: [],
+      targetAudience: [],
+      requirements: [],
+    },
+  });
+
+  const handleMediaUpload = (type, url) => {
+    setCourseData((prevData) => ({
+      ...prevData,
+      [type]: url,
+    }));
+  };
+
+  const handleDescriptionChange = (description) => {
+    setCourseData((prevData) => ({
+      ...prevData,
+      description,
+    }));
+  };
+
+  const handleRepeatableSectionChange = (section, items) => {
+    setCourseData((prevData) => ({
+      ...prevData,
+      repeatableSections: {
+        ...prevData.repeatableSections,
+        [section]: items,
+      },
+    }));
+  };
+
+  const handleSaveNext = () => {
+    console.log("Course Data: ", courseData);
+    // Proceed to the next step (e.g., setActiveTab("curriculum"))
+  };
+
   const repeatableTitles = [
     "What you will teach in this course",
     "Target Audience",
@@ -15,10 +60,27 @@ export default function AdvanceInformation({ title, onBack }) {
       <FormHeader title={title} />
       <div className="max-w-7xl mx-auto py-6">
         <div className="bg-white">
-          <CourseMediaUploader />
-          <CourseDescriptionEditor />
+          <CourseMediaUploader
+            progress={progress}
+            setProgress={setProgress}
+            onUpload={handleMediaUpload}
+          />
+          <CourseDescriptionEditor
+            progress={progress}
+            setProgress={setProgress}
+            onDescriptionChange={handleDescriptionChange}
+          />
           {repeatableTitles.map((title, index) => (
-            <RepeatableSection key={index} title={title} index={index} />
+            <RepeatableSection
+              key={index}
+              title={title}
+              index={index}
+              progress={progress}
+              setProgress={setProgress}
+              onItemsChange={(items) =>
+                handleRepeatableSectionChange(title, items)
+              }
+            />
           ))}
 
           {/* Navigation Buttons */}
@@ -30,9 +92,7 @@ export default function AdvanceInformation({ title, onBack }) {
               Previous
             </button>
             <button
-              onClick={() => {
-                // Future: setActiveTab("curriculum");
-              }}
+              onClick={handleSaveNext}
               className="px-6 py-2 bg-primary-500 font-bold text-white hover:bg-orange-600 transition"
             >
               Save & Next

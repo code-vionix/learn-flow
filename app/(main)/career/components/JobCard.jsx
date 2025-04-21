@@ -9,7 +9,7 @@ import Link from "next/link";
 function JobCard({position}) {
   return (
     <Link href={`/career/${position.id}`}>
-    <div  className="w-[26.5rem] p-6 bg-white">
+    <div  className="lg:w-[26.5rem] p-6 bg-white">
     <div className="flex flex-col gap-6">
       <h2 className="font-medium text-xl text-gray-900">
         {position.jobTitle}

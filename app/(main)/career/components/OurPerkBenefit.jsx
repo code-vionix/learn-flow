@@ -68,14 +68,14 @@ function OurPerkBenefit() {
   ];
 
   return (
-    <div className="px-72 py-10">
-      <h1 className="font-semibold text-4xl text-gray-900 text-center">
+    <div className=" px-2  sm:px-8 md:px-16 xl:px-40 2xl:px-72 2xl:py-10">
+      <h1 className="font-semibold py-5 text-3xl lg:text-4xl text-gray-900 text-center">
         Our Perks & Benefits
       </h1>
-      <div className="grid grid-cols-4 gap-3 mt-10">
+      <div className="flex flex-wrap items-center justify-center gap-3 lg:mt-10">
         {benefits.map((benefit) => {
           return (
-            <div key={benefit.id} className={`${benefit.bgColor} w-[312px] h-[192px] p-8`}>
+            <div key={benefit.id} className={`${benefit.bgColor} w-[19.5rem] h-[12rem] p-8`}>
             <div className="flex flex-col gap-6">
               <div className="w-16 h-16 bg-white flex items-center justify-center p-5">
                 {benefit.icon}

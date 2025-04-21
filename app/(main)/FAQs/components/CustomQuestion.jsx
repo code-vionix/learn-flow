@@ -11,7 +11,7 @@ function CustomQuestion({customQuestion,setCustomQuestion}) {
   }
 
   return (
-    <div className="lg:col-span-3  w-[21rem] ">
+    <div className="lg:col-span-3 text-center lg:text-start  lg:w-[21rem] ">
               <div className=" rounded-lg shadow p-5 bg-gray-50">
                 <h2 className="text-xl font-semibold text-gray-900 mb-2">
                   Don&apos;t find your answer?
