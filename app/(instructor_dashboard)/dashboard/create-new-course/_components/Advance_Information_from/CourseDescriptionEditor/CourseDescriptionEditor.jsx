@@ -1,19 +1,26 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Toolbar from "./Toolbar";
 
 export default function CourseDescriptionEditor({
+  description = "", // received from parent
   onDescriptionChange,
   progress,
   setProgress,
 }) {
-  const [description, setDescription] = useState("");
-  const [hasProgressed, setHasProgressed] = useState(false);
   const textareaRef = useRef(null);
+  const [hasProgressed, setHasProgressed] = useState(false);
+
+  useEffect(() => {
+    if (description.trim().length > 0) {
+      setHasProgressed(true);
+    } else {
+      setHasProgressed(false);
+    }
+  }, [description]);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setDescription(value);
     onDescriptionChange(value);
 
     if (value.trim().length > 0 && !hasProgressed) {
@@ -40,7 +47,6 @@ export default function CourseDescriptionEditor({
       suffix +
       description.slice(end);
 
-    setDescription(newText);
     onDescriptionChange(newText);
 
     setTimeout(() => {

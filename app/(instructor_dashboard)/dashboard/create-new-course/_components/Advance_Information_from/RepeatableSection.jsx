@@ -7,13 +7,25 @@ export default function RepeatableSection({
   progress,
   setProgress,
   onItemsChange,
+  initialItems = [], // <-- New prop to receive previously saved items
 }) {
-  const [items, setItems] = useState([""]);
+  const [items, setItems] = useState(
+    initialItems.length > 0 ? initialItems : [""]
+  );
   const [hasProgressed, setHasProgressed] = useState(false);
+
+  // Sync if initialItems change (e.g. when user navigates back)
+  useEffect(() => {
+    if (initialItems.length > 0) {
+      setItems(initialItems);
+    }
+  }, [initialItems]);
 
   const handleAddItem = () => {
     if (items.length < 8) {
-      setItems((prev) => [...prev, ""]);
+      const updatedItems = [...items, ""];
+      setItems(updatedItems);
+      onItemsChange(updatedItems);
     }
   };
 
