@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { useProgress } from "../../../_ProgressContext/ProgressContext";
 import FormHeader from "../basic_information_from/FormHeader";
 
@@ -7,47 +6,42 @@ import CourseDescriptionEditor from "./CourseDescriptionEditor/CourseDescription
 import CourseMediaUploader from "./CourseMediaUploader/CourseMediaUploader";
 import RepeatableSection from "./RepeatableSection";
 
-export default function AdvanceInformation({ title, onBack, onNext }) {
+export default function AdvanceInformation({
+  title,
+  onBack,
+  onNext,
+  formData,
+  setFormData,
+}) {
   const { progress, updateProgress } = useProgress();
-  const [courseData, setCourseData] = useState({
-    thumbnailUrl: "",
-    trailerUrl: "",
-    description: "",
-    repeatableSections: {
-      whatYouTeach: [],
-      targetAudience: [],
-      requirements: [],
-    },
-  });
 
   const handleMediaUpload = (type, url) => {
-    setCourseData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       [type]: url,
     }));
   };
 
   const handleDescriptionChange = (description) => {
-    setCourseData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       description,
     }));
   };
 
   const handleRepeatableSectionChange = (section, items) => {
-    setCourseData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       repeatableSections: {
-        ...prevData.repeatableSections,
+        ...prev.repeatableSections,
         [section]: items,
       },
     }));
   };
 
   const handleSaveNext = () => {
-    console.log("Course Data: ", courseData);
-    console.log("Navigating to curriculum..."); // ✅ Check if this shows
-    onNext(); // this should switch the tab
+    console.log("Advance Form Data: ", formData);
+    onNext();
   };
 
   const repeatableTitles = [
@@ -65,11 +59,13 @@ export default function AdvanceInformation({ title, onBack, onNext }) {
             progress={progress.advance}
             setProgress={updateProgress}
             onUpload={handleMediaUpload}
+            formData={formData}
           />
           <CourseDescriptionEditor
-             progress={progress.advance}
-             setProgress={updateProgress}
+            progress={progress.advance}
+            setProgress={updateProgress}
             onDescriptionChange={handleDescriptionChange}
+            description={formData.description || ""}
           />
           {repeatableTitles.map((title, index) => (
             <RepeatableSection
@@ -78,13 +74,13 @@ export default function AdvanceInformation({ title, onBack, onNext }) {
               index={index}
               progress={progress.advance}
               setProgress={updateProgress}
+              initialItems={formData.repeatableSections?.[title] || []}
               onItemsChange={(items) =>
                 handleRepeatableSectionChange(title, items)
               }
             />
           ))}
 
-          {/* Navigation Buttons */}
           <div className="flex justify-between pt-4">
             <button
               onClick={onBack}

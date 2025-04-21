@@ -25,6 +25,18 @@ export default function CreateCourseLayout() {
     durationType: "Days",
   });
 
+  //advance information
+  const [advanceFormData, setAdvanceFormData] = useState({
+    thumbnailUrl: "",
+    trailerUrl: "",
+    description: "",
+    repeatableSections: {
+      whatYouTeach: [],
+      targetAudience: [],
+      requirements: [],
+    },
+  });
+
   const renderTabContent = () => {
     switch (activeTab) {
       case "basic":
@@ -40,12 +52,27 @@ export default function CreateCourseLayout() {
         return (
           <AdvanceInformation
             title="Advance Information"
-            onBack={() => setActiveTab("basic")}
+            onBack={() => {
+              setActiveTab("basic");
+              console.log("basic");
+            }}
             onNext={() => setActiveTab("curriculum")}
+            formData={advanceFormData}
+            setFormData={setAdvanceFormData}
           />
         );
+
       case "curriculum":
-        return <CourseCurriculum title="Course Curriculum" />;
+        return (
+          <CourseCurriculum
+            title="Course Curriculum"
+            onBack={() => {
+              setActiveTab("advance");
+              console.log("advance");
+            }}
+            onNext={() => setActiveTab("publish")}
+          />
+        );
       case "publish":
         return <CoursePublish title="Publish Course" />;
       default:
