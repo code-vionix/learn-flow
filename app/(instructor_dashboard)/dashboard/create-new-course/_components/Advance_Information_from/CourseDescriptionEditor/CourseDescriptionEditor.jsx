@@ -3,24 +3,26 @@ import { useEffect, useRef, useState } from "react";
 import Toolbar from "./Toolbar";
 
 export default function CourseDescriptionEditor({
-  description = "", // received from parent
+  description: initialDescription = "", // new prop
   onDescriptionChange,
   progress,
   setProgress,
 }) {
-  const textareaRef = useRef(null);
+  const [description, setDescription] = useState(initialDescription);
   const [hasProgressed, setHasProgressed] = useState(false);
+  const textareaRef = useRef(null);
 
+  // Sync internal state when prop changes (e.g., when user navigates back)
   useEffect(() => {
-    if (description.trim().length > 0) {
+    setDescription(initialDescription);
+    if (initialDescription.trim().length > 0 && !hasProgressed) {
       setHasProgressed(true);
-    } else {
-      setHasProgressed(false);
     }
-  }, [description]);
+  }, [initialDescription]);
 
   const handleChange = (e) => {
     const value = e.target.value;
+    setDescription(value);
     onDescriptionChange(value);
 
     if (value.trim().length > 0 && !hasProgressed) {
@@ -47,6 +49,7 @@ export default function CourseDescriptionEditor({
       suffix +
       description.slice(end);
 
+    setDescription(newText);
     onDescriptionChange(newText);
 
     setTimeout(() => {
