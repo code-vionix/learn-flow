@@ -9,10 +9,12 @@ const CourseHoverCard = ({ course }) => {
   const originalPrice = course.price;
   const offerPrice = course.offer_price;
   const discountPercentage = calculateDiscount(originalPrice, offerPrice);
+  console.log(course.target_audience);
+  
   return (
-    <div className="z-10">
-      <div className="bg-white border border-gray-200 shadow-lg  w-[424px] p-5">
-        <div className="flex flex-col gap-4">
+    <div className="z-10 flex items-start justify-start">
+      <div className="bg-white border border-gray-200 shadow-lg  lg:w-[424px] p-5">
+        <div className="flex flex-col lg:gap-4">
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
             <img
@@ -59,7 +61,7 @@ const CourseHoverCard = ({ course }) => {
               What you will learn
             </h4>
             <ul className="space-y-2">
-              {course.target_audience.map((item, index) => (
+              {course.target_audience?.map((item, index) => (
                 <li key={index} className="flex items-start gap-2">
                   <Check className="w-6 h-6 text-[#23BD33] flex-shrink-0" />
                   <p className="text-sm text-gray-600">{item}</p>
