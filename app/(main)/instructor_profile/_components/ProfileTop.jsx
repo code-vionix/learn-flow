@@ -8,8 +8,8 @@ export default function ProfileTop() {
     <div className=" bg-white ">
       <div className=" mx-auto px-2   bg-white ">
         <div className="border-b border-primary-200">
-          <div className="py-3 px-4 md:px-6 flex flex-col md:flex-row items-center mx-auto text-center md:text-start md:items-center lg:justify-between">
-            <div className="flex flex-col md:flex-row items-center mx-auto md:items-center gap-4">
+          <div className="border border-[red] flex justify-between">
+            <div className="border border-[red] flex flex-col md:flex-row items-center mx-auto md:items-center gap-4">
               <Image
                 src="https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Profile picture"
@@ -19,7 +19,7 @@ export default function ProfileTop() {
               />
 
               <div className="flex-1">
-                <div className="flex items-center justify-center gap-2 mb-3">
+                <div className="flex items-center justify-start gap-2 mb-3">
                   <h2 className="text-2xl font-semibold">Vako Shvili</h2>
                   <span className="flex items-center gap-1 bg-primary-100 text-primary-600 text-xs font-bold px-2 py-1 rounded-md">
                     <Crown className="w-4 h-4" /> Top Rated
