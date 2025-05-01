@@ -1,4 +1,4 @@
-import CourseReview from "../CoursePreview/CoursePreview";
+import CourseReview1 from "../CoursePreview/CourseReview";
 
 export default function CourseReviewModal({ onClose }) {
   return (
@@ -10,7 +10,7 @@ export default function CourseReviewModal({ onClose }) {
         >
           ✕
         </button>
-        <CourseReview />
+        <CourseReview1 />
       </div>
     </div>
   );
