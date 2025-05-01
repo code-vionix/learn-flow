@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploaderCard from "./UploaderCard";
 
 const CLOUDINARY_UPLOAD_PRESET = "Learn-Folw";
@@ -9,11 +9,22 @@ export default function CourseMediaUploader({
   progress,
   setProgress,
   onUpload,
+  formData, // <-- Accept formData prop
 }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [trailerUrl, setTrailerUrl] = useState(null);
   const [isUploadingThumbnail, setIsUploadingThumbnail] = useState(false);
   const [isUploadingTrailer, setIsUploadingTrailer] = useState(false);
+
+  // Load saved URLs from formData when component mounts or formData changes
+  useEffect(() => {
+    if (formData?.thumbnailUrl) {
+      setThumbnailUrl(formData.thumbnailUrl);
+    }
+    if (formData?.trailerUrl) {
+      setTrailerUrl(formData.trailerUrl);
+    }
+  }, [formData]);
 
   const uploadToCloudinary = async (file, type) => {
     const formData = new FormData();
@@ -50,7 +61,7 @@ export default function CourseMediaUploader({
       }
 
       onUpload(`${type}Url`, url);
-      setProgress((prev) => prev + 1);
+      setProgress("advance", (prevValue) => prevValue + 1);
     } catch (err) {
       console.error("Upload failed", err);
       setIsUploadingThumbnail(false);
@@ -61,11 +72,11 @@ export default function CourseMediaUploader({
   const handleRemove = (type) => {
     if (type === "thumbnail") {
       setThumbnailUrl(null);
-      setProgress((prev) => prev - 1);
+      setProgress("advance", (prevValue) => prevValue - 1);
       onUpload("thumbnailUrl", null);
     } else {
       setTrailerUrl(null);
-      setProgress((prev) => prev - 1);
+      setProgress("advance", (prevValue) => prevValue - 1);
       onUpload("trailerUrl", null);
     }
   };
