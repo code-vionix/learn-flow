@@ -1,15 +1,39 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Toolbar from "./Toolbar";
 
-export default function CourseDescriptionEditor({ onDescriptionChange }) {
-  const [description, setDescription] = useState("");
+export default function CourseDescriptionEditor({
+  description: initialDescription = "", // new prop
+  onDescriptionChange,
+  progress,
+  setProgress,
+}) {
+  const [description, setDescription] = useState(initialDescription);
+  const [hasProgressed, setHasProgressed] = useState(false);
   const textareaRef = useRef(null);
+
+  // Sync internal state when prop changes (e.g., when user navigates back)
+  useEffect(() => {
+    setDescription(initialDescription);
+    if (initialDescription.trim().length > 0 && !hasProgressed) {
+      setHasProgressed(true);
+    }
+  }, [initialDescription]);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setDescription(value);
     onDescriptionChange(value);
+
+    if (value.trim().length > 0 && !hasProgressed) {
+      setProgress("advance", (prev) => prev + 1);
+      setHasProgressed(true);
+    }
+
+    if (value.trim().length === 0 && hasProgressed) {
+      setProgress("advance", (prev) => prev - 1);
+      setHasProgressed(false);
+    }
   };
 
   const insertMarkdown = (prefix, suffix = prefix, placeholder = "") => {
@@ -26,7 +50,7 @@ export default function CourseDescriptionEditor({ onDescriptionChange }) {
       description.slice(end);
 
     setDescription(newText);
-    onDescriptionChange(newText); // sync with parent
+    onDescriptionChange(newText);
 
     setTimeout(() => {
       textarea.focus();
