@@ -21,7 +21,7 @@ export default function DashbordPAge() {
   return (
     <div className=" w-full min-h-screen mx-auto bg-gray-50">
 
-      <div className=" container w-[1320px]  mx-auto">
+      <div className=" container w-full  mx-auto">
         {/* {isError && <div>{error}</div>} */}
         {deleteCourseLoading && <div>Loading...</div>}
         {deleteIsCourseError && <div>{deleteCourseError.data.message}</div>}

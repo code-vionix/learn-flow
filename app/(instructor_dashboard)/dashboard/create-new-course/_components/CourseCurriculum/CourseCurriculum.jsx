@@ -14,7 +14,7 @@ import NotesDialog from "./dialogs/NotesDialog";
 import VideoUploadDialog from "./dialogs/VideoUploadDialog";
 import useCurriculumHandlers from "./hooks/useCurriculumHandlers";
 
-export default function CourseCurriculum() {
+export default function CourseCurriculum({ title, onBack, onNext }) {
   const {
     sections,
     setSections,
@@ -121,6 +121,7 @@ export default function CourseCurriculum() {
 
         <div className="flex justify-between mt-28">
           <Button
+            onClick={() => onBack()}
             variant="outline"
             className="rounded-none hover:bg-primary-100  h-14 w-32"
           >
@@ -131,6 +132,7 @@ export default function CourseCurriculum() {
             onClick={() => {
               // Log the sections or other relevant data
               console.log("Sections Data:", sections);
+              onNext();
             }}
           >
             Save & Next

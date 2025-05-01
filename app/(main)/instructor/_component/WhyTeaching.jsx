@@ -21,10 +21,10 @@ const features = [
 
 const WhyTeaching = () => {
     return (
-        <div className=" h-[648px] flex items-center justify-center">
-            <div className="instructor-container h-full flex flex-col items-center justify-center">
-                <div className="grid grid-cols-2 gap-6">
-                    <div className="flex items-center justify-start">
+        <div className="instructor-container text-center lg:text-start  lg:h-[648px] flex items-center justify-center">
+            <div className=" h-full flex flex-col items-center justify-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="flex items-center justify-center ">
                         <Image
                             src="/images/computer.png"
                             alt="teaching"
@@ -34,20 +34,20 @@ const WhyTeaching = () => {
                         />
                     </div>
 
-                    <div>
-                        <h1 className="text-4xl font-semibold">
+                    <div >
+                        <h1 className="text-3xl lg:text-4xl  font-semibold">
                             Why you’ll start teaching on Eduguard
                         </h1>
-                        <p className="mt-3 text-md text-gray-700">
+                        <p className="lg:mt-3 text-md text-gray-700">
                             Praesent congue ornare nibh sed ullamcorper. Proin venenatis
                             tellus non turpis scelerisque, vitae auctor arcu ornare. Cras
                             vitae nulla a purus mollis venenatis.
                         </p>
 
-                        <ul className="mt-6 space-y-4">
+                        <ul className="mt-6 space-y-4 text-start">
                             {features.map((feature, index) => (
                                 <li key={index} className="flex items-start gap-6">
-                                    <div className="bg-success-500 size-10 rounded-full text-white flex items-center justify-center flex-shrink-0">
+                                    <div className="bg-success-500 lg:size-10 size-8 rounded-full text-white flex items-center justify-center flex-shrink-0">
                                         <Check className="w-6 h-6" />
                                     </div>
                                     <div>

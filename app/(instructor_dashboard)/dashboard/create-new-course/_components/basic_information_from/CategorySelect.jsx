@@ -38,9 +38,9 @@ export default function CategorySelect({
     setFormData("category", category?.name || "");
 
     if (category && !formData.category) {
-      setProgress(progress + 1);
+      setProgress('basic',progress + 1);
     } else if (!category && formData.category) {
-      setProgress(progress - 1);
+      setProgress('basic',progress - 1);
     }
   };
 
@@ -50,9 +50,9 @@ export default function CategorySelect({
     setFormData("subcategory", sub);
 
     if (sub && !formData.subcategory) {
-      setProgress(progress + 1);
+      setProgress('basic',progress + 1);
     } else if (!sub && formData.subcategory) {
-      setProgress(progress - 1);
+      setProgress('basic',progress - 1);
     }
   };
 

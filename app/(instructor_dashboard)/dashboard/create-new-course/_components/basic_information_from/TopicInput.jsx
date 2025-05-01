@@ -1,34 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function TopicInput({
-  progress,
-  setProgress,
-  formData,
-  setFormData,
-}) {
-  const [topic, setTopic] = useState(formData.topic || "");
-  const [hasCounted, setHasCounted] = useState(!!formData.topic);
+export default function TopicInput({ value, onChange, progress, setProgress }) {
+  const [hasCounted, setHasCounted] = useState(false);
+
+  useEffect(() => {
+    if (value.trim().length > 0) {
+      setHasCounted(true);
+    }
+  }, []);
 
   const handleChange = (e) => {
-    const value = e.target.value;
-    setTopic(value);
+    const newValue = e.target.value;
+    onChange(newValue);
 
-    if (value.trim().length > 0 && !hasCounted) {
-      setProgress(progress + 1);
+    if (newValue.trim().length > 0 && !hasCounted) {
+      setProgress('basic',progress + 1);
       setHasCounted(true);
     }
 
-    if (value.trim().length === 0 && hasCounted) {
-      setProgress(progress - 1);
+    if (newValue.trim().length === 0 && hasCounted) {
+      setProgress('basic',progress - 1);
       setHasCounted(false);
     }
-
-    // Update the form data
-    setFormData((prev) => ({
-      ...prev,
-      topic: value,
-    }));
   };
 
   return (
@@ -42,7 +36,7 @@ export default function TopicInput({
       <input
         type="text"
         id="topic"
-        value={topic}
+        value={value}
         onChange={handleChange}
         placeholder="What is primarily taught in your course?"
         className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 focus:border-orange-500 outline-none"
