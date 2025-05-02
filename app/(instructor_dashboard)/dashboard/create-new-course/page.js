@@ -1,91 +1,179 @@
 "use client";
-import { useState } from "react";
-import { ProgressProvider } from "../_ProgressContext/ProgressContext";
-import ProgressSteps from "./_components/basic_information_from/ProgressSteps";
 
-import AdvanceInformation from "./_components/Advance_Information_from/AdvanceInformation";
-import BasicInformationForm from "./_components/basic_information_from/BasicInformationForm";
-import CourseCurriculum from "./_components/CourseCurriculum/CourseCurriculum";
-import CoursePublish from "./_components/CoursePublish/CoursePublish";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Info,
+  FileText,
+  BookOpen,
+  Upload,
+  ImageIcon,
+  Play,
+  Plus,
+  X,
+} from "lucide-react";
+import { CourseBasicForm } from "./_components/CourseBasicForm";
+import { useSelector } from "react-redux";
+import { setActiveTab } from "@/store/slice/courseCreateSlice";
+import { useDispatch } from "react-redux";
+import CourseAdvanceForm from "./_components/CourseAdvanceForm";
 
-export default function CreateCourseLayout() {
-  const [activeTab, setActiveTab] = useState("basic");
+export default function CourseForm() {
+  const activetab = useSelector((state) => state.course.activeTab);
+  const dispatch = useDispatch();
 
-  // 👇 Lifting formData up here
-  const [basicFormData, setBasicFormData] = useState({
-    title: "",
-    subtitle: "",
-    category: "",
-    subcategory: "",
-    topic: "",
-    language: "",
-    subtitleLang: "",
-    level: "",
-    duration: "",
-    durationType: "Days",
-  });
-
-  //advance information
-  const [advanceFormData, setAdvanceFormData] = useState({
-    thumbnailUrl: "",
-    trailerUrl: "",
-    description: "",
-    repeatableSections: {
-      whatYouTeach: [],
-      targetAudience: [],
-      requirements: [],
-    },
-  });
-
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case "basic":
-        return (
-          <BasicInformationForm
-            title="Basic Information"
-            onNext={() => setActiveTab("advance")}
-            formData={basicFormData}
-            setFormData={setBasicFormData}
-          />
-        );
-      case "advance":
-        return (
-          <AdvanceInformation
-            title="Advance Information"
-            onBack={() => {
-              setActiveTab("basic");
-              console.log("basic");
-            }}
-            onNext={() => setActiveTab("curriculum")}
-            formData={advanceFormData}
-            setFormData={setAdvanceFormData}
-          />
-        );
-
-      case "curriculum":
-        return (
-          <CourseCurriculum
-            title="Course Curriculum"
-            onBack={() => {
-              setActiveTab("advance");
-              console.log("advance");
-            }}
-            onNext={() => setActiveTab("publish")}
-          />
-        );
-      case "publish":
-        return <CoursePublish title="Publish Course" />;
-      default:
-        return null;
-    }
+  // for handle tabs
+  const handleTabChange = (newValue) => {
+    dispatch(setActiveTab(newValue));
   };
 
   return (
-    <ProgressProvider>
-      <div className="min-h-screen bg-white p-4">
-        <ProgressSteps activeTab={activeTab} setActiveTab={setActiveTab} />
-        <div className="w-full mx-auto">{renderTabContent()}</div>
-      </div>
-    </ProgressProvider>
+    <div className="w-full bg-white rounded-md shadow-sm">
+      <Tabs
+        value={activetab}
+        onValueChange={handleTabChange}
+        className="w-full"
+      >
+        <TabsList className="flex w-full justify-between bg-white border-b border-gray-200 p-0 h-auto">
+          <TabsTrigger
+            value="basic"
+            className="flex items-center gap-2 px-4 py-3 data-[state=active]:border-b-2 data-[state=active]:border-primary-500 data-[state=active]:text-primary-500 rounded-none bg-transparent hover:bg-gray-50"
+          >
+            <Info className="h-5 w-5" />
+            <span>Basic Information</span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="advance"
+            className="flex items-center gap-2 px-4 py-3 data-[state=active]:border-b-2 data-[state=active]:border-primary-500 data-[state=active]:text-primary-500 rounded-none bg-transparent hover:bg-gray-50"
+          >
+            <FileText className="h-5 w-5" />
+            <span>Advance Information</span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="curriculum"
+            className="flex items-center gap-2 px-4 py-3 data-[state=active]:border-b-2 data-[state=active]:border-primary-500 data-[state=active]:text-primary-500 rounded-none bg-transparent hover:bg-gray-50"
+          >
+            <BookOpen className="h-5 w-5" />
+            <span>Curriculum</span>
+          </TabsTrigger>
+          <TabsTrigger
+            value="publish"
+            className="flex items-center gap-2 px-4 py-3 data-[state=active]:border-b-2 data-[state=active]:border-primary-500 data-[state=active]:text-primary-500 rounded-none bg-transparent hover:bg-gray-50"
+          >
+            <Upload className="h-5 w-5" />
+            <span>Publish Course</span>
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="basic" className="p-6">
+          <CourseBasicForm />
+        </TabsContent>
+
+        <TabsContent value="advance" className="p-6">
+          <CourseAdvanceForm />
+        </TabsContent>
+
+        <TabsContent value="curriculum" className="p-6">
+          <h2 className="text-xl font-semibold mb-6">Curriculum</h2>
+          <p>Curriculum form will go here.</p>
+        </TabsContent>
+
+        <TabsContent value="publish" className="p-6">
+          <h2 className="text-xl font-semibold mb-6">Publish Course</h2>
+          <p>Publishing options will go here.</p>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }
+
+// import { useState } from "react";
+// import { ProgressProvider } from "../_ProgressContext/ProgressContext";
+// import ProgressSteps from "./_components/basic_information_from/ProgressSteps";
+// import AdvanceInformation from "./_components/Advance_Information_from/AdvanceInformation";
+// import BasicInformationForm from "./_components/basic_information_from/BasicInformationForm";
+// import CourseCurriculum from "./_components/CourseCurriculum/CourseCurriculum";
+// import CoursePublish from "./_components/CoursePublish/CoursePublish";
+
+// export default function CreateCourseLayout() {
+//   const [activeTab, setActiveTab] = useState("basic");
+
+//   // 👇 Lifting formData up here
+//   const [basicFormData, setBasicFormData] = useState({
+//     title: "",
+//     subtitle: "",
+//     category: "",
+//     subcategory: "",
+//     topic: "",
+//     language: "",
+//     subtitleLang: "",
+//     level: "",
+//     duration: "",
+//     durationType: "Days",
+//   });
+
+//   //advance information
+//   const [advanceFormData, setAdvanceFormData] = useState({
+//     thumbnailUrl: "",
+//     trailerUrl: "",
+//     description: "",
+//     repeatableSections: {
+//       whatYouTeach: [],
+//       targetAudience: [],
+//       requirements: [],
+//     },
+//   });
+
+//   const renderTabContent = () => {
+//     switch (activeTab) {
+//       case "basic":
+//         return (
+//           <BasicInformationForm
+//             title="Basic Information"
+//             onNext={() => setActiveTab("advance")}
+//             formData={basicFormData}
+//             setFormData={setBasicFormData}
+//           />
+//         );
+//       case "advance":
+//         return (
+//           <AdvanceInformation
+//             title="Advance Information"
+//             onBack={() => {
+//               setActiveTab("basic");
+//               console.log("basic");
+//             }}
+//             onNext={() => setActiveTab("curriculum")}
+//             formData={advanceFormData}
+//             setFormData={setAdvanceFormData}
+//           />
+//         );
+
+//       case "curriculum":
+//         return (
+//           <CourseCurriculum
+//             title="Course Curriculum"
+//             onBack={() => {
+//               setActiveTab("advance");
+//               console.log("advance");
+//             }}
+//             onNext={() => setActiveTab("publish")}
+//           />
+//         );
+//       case "publish":
+//         return <CoursePublish title="Publish Course" />;
+//       default:
+//         return null;
+//     }
+//   };
+
+//   return (
+//     <>
+//       <ProgressProvider>
+//         <div className="min-h-screen bg-white p-4">
+//           <ProgressSteps activeTab={activeTab} setActiveTab={setActiveTab} />
+//           <div className="w-full mx-auto">{renderTabContent()}</div>
+//         </div>
+//       </ProgressProvider>
+//     </>
+//   );
+// }
