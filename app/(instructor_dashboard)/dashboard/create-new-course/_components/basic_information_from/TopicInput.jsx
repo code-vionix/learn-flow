@@ -8,19 +8,19 @@ export default function TopicInput({ value, onChange, progress, setProgress }) {
     if (value.trim().length > 0) {
       setHasCounted(true);
     }
-  }, []);
+  }, [value]);
 
   const handleChange = (e) => {
     const newValue = e.target.value;
     onChange(newValue);
 
     if (newValue.trim().length > 0 && !hasCounted) {
-      setProgress('basic',progress + 1);
+      setProgress("basic", progress + 1);
       setHasCounted(true);
     }
 
     if (newValue.trim().length === 0 && hasCounted) {
-      setProgress('basic',progress - 1);
+      setProgress("basic", progress - 1);
       setHasCounted(false);
     }
   };
