@@ -30,7 +30,7 @@ export default function CurriculumTab({ progress, isActive }) {
           <polygon points="10 8 16 12 10 16 10 8" />
         </svg>
       </div>
-      <span>Basic Information</span>
+      <span>Curriculum</span>
 
       {isCompleted ? (
         <CheckCircle className="ml-2 h-4 w-4 text-green-500" />
