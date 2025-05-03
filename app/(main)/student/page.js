@@ -14,12 +14,12 @@ export default function HomePage() {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Something went wrong!</p>;
 
-  const total_enrolled = courses.length;
+  
 
   return (
     <div className="container mx-auto">
       <div className="flex items-center justify-between mx-auto w-[1530px]">
-        <DashboardMetrics totalEnroll={total_enrolled} />
+        <DashboardMetrics courses={courses} />
       </div>
 
       <CourseCarousel courses={courses} />

@@ -1,9 +1,13 @@
 'use client';
 import { Button } from "@/components/ui/button";
+import { useGetUserProfileQuery } from "@/store/api/userApi";
 import { useState } from "react";
 
 const ProfileForm = () => {
     const [titleCount, setTitleCount] = useState('')
+    const {data, isLoading, isError} = useGetUserProfileQuery()
+
+    console.log(data);
 
     const handleTitleChange = (e) => {
         const input = e.target.value;

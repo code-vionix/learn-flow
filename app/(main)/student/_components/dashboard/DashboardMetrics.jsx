@@ -3,25 +3,36 @@ import { cn } from "@/lib/utils";
 import { Flag, Play, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 
-export default function DashboardMetrics({ totalEnroll }) {
+export default function DashboardMetrics({ courses }) {
+
+  const total_enrolled = courses.length
+
+  const getCourseStatus = (progress) => {
+    return progress === 100 ? "Completed" : "Active";
+  };
+
+  // Calculate active and completed courses
+  const activeCourses = courses.filter(course => getCourseStatus(course.progress) === "Active").length;
+  const completedCourses = courses.filter(course => getCourseStatus(course.progress) === "Completed").length;
+  console.log('object', activeCourses);
   const metrics = [
     {
       label: "Enrolled Courses",
-      value: totalEnroll,
+      value: total_enrolled,
       icon: Play,
       className: "bg-orange-100",
       iconClassName: "text-orange-500",
     },
     {
       label: "Active Courses",
-      value: "6",
+      value: activeCourses,
       icon: Flag,
       className: "bg-blue-100",
       iconClassName: "text-blue-500",
     },
     {
       label: "Completed Courses",
-      value: "951",
+      value: completedCourses,
       icon: Trophy,
       className: "bg-green-100",
       iconClassName: "text-green-500",

@@ -8,18 +8,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Check, ChevronDown, Search } from "lucide-react";
-import { useState } from "react";
 
-export default function CoursesSearch({ courses }) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("Latest");
-  const [status, setStatus] = useState("All Courses");
-  const [teacher, setTeacher] = useState("All Teachers");
-
+export default function CoursesSearch({
+  courses,
+  searchQuery,
+  setSearchQuery,
+  sortBy,
+  setSortBy,
+  status,
+  setStatus,
+  teacher,
+  setTeacher,
+}) {
   const totalCourses = courses.length;
+  console.log(courses);
 
   const sortOptions = ["Latest", "Oldest", "A-Z", "Z-A"];
   const statusOptions = ["All Courses", "Active", "Completed", "Archived"];
+  
+
   const teacherOptions = [
     "All Teachers",
     "John Doe",
