@@ -1,19 +1,44 @@
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function RepeatableSection({ title, index }) {
-  const [items, setItems] = useState([""]);
+export default function RepeatableSection({
+  title,
+  index,
+  progress,
+  setProgress,
+  onItemsChange,
+  initialItems = [],
+}) {
+  const [items, setItems] = useState(initialItems.length ? initialItems : [""]);
+  const [hasProgressed, setHasProgressed] = useState(() =>
+    initialItems.some((item) => item.trim().length > 0)
+  );
+
+  useEffect(() => {
+    if (initialItems.length) {
+      setItems(initialItems);
+    }
+  }, [initialItems]);
 
   const handleAddItem = () => {
     if (items.length < 8) {
-      setItems((prev) => [...prev, ""]);
+      const updated = [...items, ""];
+      setItems(updated);
+      onItemsChange(updated);
     }
   };
 
   const handleInputChange = (value, idx) => {
-    const newItems = [...items];
-    newItems[idx] = value;
-    setItems(newItems);
+    const updated = [...items];
+    updated[idx] = value;
+    setItems(updated);
+    onItemsChange(updated);
+
+    const hasContent = updated.some((item) => item.trim().length > 0);
+    if (hasContent && !hasProgressed) {
+      setProgress("advance", (prev) => prev + 1);
+      setHasProgressed(true);
+    }
   };
 
   return (

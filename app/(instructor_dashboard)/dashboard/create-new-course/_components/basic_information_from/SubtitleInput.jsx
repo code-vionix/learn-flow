@@ -2,27 +2,26 @@
 import { useState } from "react";
 
 export default function SubtitleInput({
+  value,
+  onChange,
   progress,
   setProgress,
-  formData,
-  setFormData,
-  field,
 }) {
   const [hasCounted, setHasCounted] = useState(false);
 
   const handleChange = (e) => {
-    const value = e.target.value;
+    const inputValue = e.target.value;
 
-    if (value.length <= 120) {
-      setFormData(field, value);
+    if (inputValue.length <= 120) {
+      onChange(inputValue);
 
-      if (value.trim().length > 0 && !hasCounted) {
-        setProgress(progress + 1);
+      if (inputValue.trim().length > 0 && !hasCounted) {
+        setProgress('basic',progress + 1);
         setHasCounted(true);
       }
 
-      if (value.trim().length === 0 && hasCounted) {
-        setProgress(progress - 1);
+      if (inputValue.trim().length === 0 && hasCounted) {
+        setProgress('basic',progress - 1);
         setHasCounted(false);
       }
     }
@@ -40,13 +39,13 @@ export default function SubtitleInput({
         <input
           type="text"
           id="subtitle"
-          value={formData.subtitle}
+          value={value}
           onChange={handleChange}
           placeholder="Your course subtitle"
           className="w-full px-4 py-3 border border-gray-300 focus:ring-0 focus:ring-orange-500 focus:border-orange-500 outline-none"
         />
         <div className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-500">
-          {formData.subtitle.length}/120
+          {value.length}/120
         </div>
       </div>
     </div>
