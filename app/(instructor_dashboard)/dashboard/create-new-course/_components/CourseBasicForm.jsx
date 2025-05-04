@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { fetchCategories } from "@/store/slice/courseCreateSlice";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { setBasicCourse } from "@/store/slice/courseCreateSlice";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -12,11 +14,25 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { useDispatch } from "react-redux";
-import { setCourse } from "@/store/slice/courseCreateSlice";
-import { useSelector } from "react-redux";
+import { ChevronDown } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useEffect, useState } from "react";
+
 export function CourseBasicForm() {
   const courseData = useSelector((state) => state.course.courseBasicData);
+  const courseCategory = useSelector((state) => state.course.category);
+  const [sebCat, setSebCat] = useState([]);
+  const dispatch = useDispatch();
+  const subtitleLanguages = ["english", "spanish", "french", "german"];
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
   const {
     register,
@@ -25,34 +41,49 @@ export function CourseBasicForm() {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: courseData || {}, // ← use redux state here
+    defaultValues: courseData || {},
   });
 
-  const [submitType, setSubmitType] = useState("next");
-  const dispatch = useDispatch();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "tools",
+  });
 
   const watchTitle = watch("title");
   const watchSubtitle = watch("subtitle");
 
-  const onSubmit = (data) => {
-    if (submitType === "save") {
-      console.log("Save:", data);
-      dispatch(setCourse(data)); // Save to redux state
-      // add save logic here (API call / local save)
-    } else if (submitType === "preview") {
-      console.log("Save & Preview:", data);
-      dispatch(setCourse(data)); // Save to redux state
-      // add save and preview logic here
-    } else {
-      console.log("Save & Next (Submit):", data);
-      dispatch(setCourse(data)); // Save to redux state
-      // add final submit logic here (move to next step)
-    }
+  const handleSave = (data) => {
+    console.log("Save:", data);
+    dispatch(setBasicCourse(data));
+    // add save logic here
+  };
+
+  const handlePreview = (data) => {
+    console.log("Save & Preview:", data);
+    dispatch(setBasicCourse(data));
+    // add preview logic here
+  };
+
+  const handleNext = (data) => {
+    console.log("Save & Next (Submit):", data);
+    console.log("ello");
+
+    dispatch(setBasicCourse(data));
+    // add final submit/next step logic here
   };
 
   const handleCancel = () => {
-    console.log("Cancelled");
-    // reset form or navigate away
+    if (confirm("Are you sure you want to cancel?")) {
+      dispatch(setBasicCourse({}));
+      console.log("Cancelled and reset course data.");
+    }
+  };
+  const handelSubCaregory = (value) => {
+    courseCategory.map((category) => {
+      if (category.id == value) {
+        setSebCat(category.SubCategory);
+      }
+    });
   };
 
   return (
@@ -65,10 +96,7 @@ export function CourseBasicForm() {
             type="button"
             variant="outline"
             className="bg-primary-50 text-primary-500 border-primary-100 hover:bg-primary-100"
-            onClick={() => {
-              setSubmitType("save");
-              handleSubmit(onSubmit)();
-            }}
+            onClick={() => handleSubmit(handleSave)()}
           >
             Save
           </Button>
@@ -76,10 +104,7 @@ export function CourseBasicForm() {
             type="button"
             variant="outline"
             className="bg-primary-50 text-primary-500 border-primary-100 hover:bg-primary-100"
-            onClick={() => {
-              setSubmitType("preview");
-              handleSubmit(onSubmit)();
-            }}
+            onClick={() => handleSubmit(handlePreview)()}
           >
             Save & Preview
           </Button>
@@ -87,14 +112,7 @@ export function CourseBasicForm() {
       </div>
 
       {/* Form */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSubmitType("next");
-          handleSubmit(onSubmit)();
-        }}
-        className="space-y-6"
-      >
+      <form onSubmit={handleSubmit(handleNext)} className="space-y-6">
         {/* Title */}
         <div className="space-y-2">
           <Label htmlFor="title">Title</Label>
@@ -123,11 +141,15 @@ export function CourseBasicForm() {
               id="subtitle"
               placeholder="Your course subtitle"
               maxLength={120}
-              {...register("subtitle")}
+              {...register("subtitle", { required: true })}
+              className={errors.subtitle ? "border-red-500" : ""}
             />
             <span className="absolute right-3 top-2 text-xs text-gray-400">
               {watchSubtitle?.length || 0}/120
             </span>
+            {errors.subtitle && (
+              <p className="text-sm text-red-500">Subtitle is required.</p>
+            )}
           </div>
         </div>
 
@@ -136,26 +158,37 @@ export function CourseBasicForm() {
           <div className="space-y-2">
             <Label>Course Category</Label>
             <Controller
-              name="category"
+              name="categoryId"
               control={control}
               rules={{ required: true }}
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    handelSubCaregory(value);
+                  }}
+                >
                   <SelectTrigger
                     className={errors.category ? "border-red-500" : ""}
                   >
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="development">Development</SelectItem>
-                    <SelectItem value="business">Business</SelectItem>
-                    <SelectItem value="design">Design</SelectItem>
-                    <SelectItem value="marketing">Marketing</SelectItem>
+                    {courseCategory.length > 0 &&
+                      courseCategory.map((category) => (
+                        <SelectItem
+                          onClick={() => console.log("hello")}
+                          key={category.id}
+                          value={category.id}
+                        >
+                          {category.name}
+                        </SelectItem>
+                      ))}
                   </SelectContent>
                 </Select>
               )}
             />
-            {errors.category && (
+            {errors.categoryId && (
               <p className="text-sm text-red-500">Category is required.</p>
             )}
           </div>
@@ -163,7 +196,7 @@ export function CourseBasicForm() {
           <div className="space-y-2">
             <Label>Course Sub-category</Label>
             <Controller
-              name="subCategory"
+              name="subCategoryId"
               control={control}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} value={field.value}>
@@ -171,10 +204,13 @@ export function CourseBasicForm() {
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="web">Web Development</SelectItem>
-                    <SelectItem value="mobile">Mobile Development</SelectItem>
-                    <SelectItem value="game">Game Development</SelectItem>
-                    <SelectItem value="database">Database Design</SelectItem>
+                    {
+                      sebCat?.map((subCat) => (
+                        <SelectItem key={subCat.id} value={subCat.id}>
+                          {subCat.name}
+                        </SelectItem>
+                      )) /* Render subcategories here */
+                    }
                   </SelectContent>
                 </Select>
               )}
@@ -195,9 +231,40 @@ export function CourseBasicForm() {
           )}
         </div>
 
+        {/* Tools */}
+        <div className="space-y-2">
+          <Label> Course Tools </Label>
+          {fields.map((item, index) => (
+            <div key={item.id} className="flex items-center gap-2">
+              <Input
+                placeholder="Tool name"
+                {...register(`tools.${index}`)}
+                className="flex-1"
+              />
+              <Button
+                type="button"
+                variant="destructive"
+                className="bg-primary-500 hover:bg-primary-600 text-white border-primary-100"
+                size="icon"
+                onClick={() => remove(index)}
+              >
+                ✕
+              </Button>
+            </div>
+          ))}
+
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => append("")}
+            className="mt-2 text-primary-500 border-primary-100 hover:bg-primary-100 hover:text-primary-600"
+          >
+            + Add Tools
+          </Button>
+        </div>
+
         {/* Language / Subtitles / Level / Duration */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {/* Language */}
           <div className="space-y-2">
             <Label>Course Language</Label>
             <Controller
@@ -224,30 +291,53 @@ export function CourseBasicForm() {
               <p className="text-sm text-red-500">Language is required.</p>
             )}
           </div>
-
-          {/* Subtitle Language */}
           <div className="space-y-2">
-            <Label>Subtitle Language (Optional)</Label>
+            <Label>Subtitle Languages (Optional)</Label>
             <Controller
-              name="subtitleLanguage"
+              name="subtitleLanguages"
               control={control}
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="english">English</SelectItem>
-                    <SelectItem value="spanish">Spanish</SelectItem>
-                    <SelectItem value="french">French</SelectItem>
-                    <SelectItem value="german">German</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-between"
+                    >
+                      {field.value && field.value.length > 0
+                        ? `${field.value.length} selected`
+                        : "Select Languages"}
+                      <ChevronDown className="ml-2 h-4 w-4" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-60 p-2 space-y-2">
+                    {subtitleLanguages.map((lang) => (
+                      <div key={lang} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={lang}
+                          className="data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
+                          checked={field.value?.includes(lang)}
+                          onCheckedChange={(checked) => {
+                            const value = lang;
+                            if (checked) {
+                              field.onChange([...(field.value || []), value]);
+                            } else {
+                              field.onChange(
+                                field.value.filter((item) => item !== value)
+                              );
+                            }
+                          }}
+                        />
+                        <Label htmlFor={lang}>
+                          {lang.charAt(0).toUpperCase() + lang.slice(1)}
+                        </Label>
+                      </div>
+                    ))}
+                  </PopoverContent>
+                </Popover>
               )}
             />
           </div>
 
-          {/* Course Level */}
           <div className="space-y-2">
             <Label>Course Level</Label>
             <Controller
@@ -262,10 +352,9 @@ export function CourseBasicForm() {
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="beginner">Beginner</SelectItem>
-                    <SelectItem value="intermediate">Intermediate</SelectItem>
-                    <SelectItem value="advanced">Advanced</SelectItem>
-                    <SelectItem value="all">All Levels</SelectItem>
+                    <SelectItem value="BIGINNER">Beginner</SelectItem>
+                    <SelectItem value="INTERMEDIATE">Intermediate</SelectItem>
+                    <SelectItem value="ADVANVED">Advanced</SelectItem>
                   </SelectContent>
                 </Select>
               )}
@@ -275,23 +364,38 @@ export function CourseBasicForm() {
             )}
           </div>
 
-          {/* Duration */}
           <div className="space-y-2">
-            <Label>Duration</Label>
+            <Label>Course Duration</Label>
             <div className="flex gap-2">
-              <Input
-                placeholder="Duration"
-                type="number"
-                className="flex-1"
-                {...register("duration")}
+              <Controller
+                name="duration"
+                control={control}
+                rules={{ required: true, min: 1 }}
+                render={({ field }) => (
+                  <Input
+                    type="number"
+                    placeholder="0"
+                    min={1}
+                    className={`flex-1 ${
+                      errors.duration ? "border-red-500" : ""
+                    }`}
+                    {...field}
+                  />
+                )}
               />
+
               <Controller
                 name="durationUnit"
                 control={control}
+                rules={{ required: true }}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-24">
-                      <SelectValue />
+                    <SelectTrigger
+                      className={`w-28 ${
+                        errors.durationUnit ? "border-red-500" : ""
+                      }`}
+                    >
+                      <SelectValue placeholder="Unit" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Hour">Hour</SelectItem>
@@ -303,10 +407,16 @@ export function CourseBasicForm() {
                 )}
               />
             </div>
+
+            {(errors.duration || errors.durationUnit) && (
+              <p className="text-sm text-red-500">
+                Both duration and unit are required.
+              </p>
+            )}
           </div>
         </div>
 
-        {/* Footer Buttons */}
+        {/* Footer */}
         <div className="flex justify-between pt-4">
           <Button type="button" variant="outline" onClick={handleCancel}>
             Cancel
