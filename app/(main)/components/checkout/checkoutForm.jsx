@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { RecipientForm } from "./RecipientForm";
 
 import CourseCard from "./CourseCard";
@@ -59,8 +59,6 @@ function CheckoutForm({ isGift }) {
       ...prev,
       totalPrice,
     }));
-
-    console.log(paymentData);
 
     setIsSave(false);
     setPaymentData(initialState);

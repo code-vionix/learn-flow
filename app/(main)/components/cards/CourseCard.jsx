@@ -9,7 +9,7 @@ export default function CourseCard({
   title,
   category,
   price,
-  rating,
+  rating=5,
   students,
   image,
 }) {

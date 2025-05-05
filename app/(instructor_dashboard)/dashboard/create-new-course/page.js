@@ -54,7 +54,6 @@ export default function CreateCourseLayout() {
             title="Advance Information"
             onBack={() => {
               setActiveTab("basic");
-              console.log("basic");
             }}
             onNext={() => setActiveTab("curriculum")}
             formData={advanceFormData}
@@ -68,7 +67,6 @@ export default function CreateCourseLayout() {
             title="Course Curriculum"
             onBack={() => {
               setActiveTab("advance");
-              console.log("advance");
             }}
             onNext={() => setActiveTab("publish")}
           />

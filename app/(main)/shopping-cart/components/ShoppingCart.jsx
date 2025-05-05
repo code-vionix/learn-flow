@@ -1,15 +1,7 @@
 "use client";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-import Image from "next/image";
 import { useState } from "react";
 import PaymentCard from "./PaymentCard";
 import PaymentCourseCard from "./PaymentCourseCard";
@@ -95,6 +87,7 @@ function ShoppingCart() {
           </TableHeader>
           {courses.map((course) => (
             <PaymentCourseCard
+              key={course.id}
               course={course}
               setWishlist={setWishlist}
               wishlist={wishlist}

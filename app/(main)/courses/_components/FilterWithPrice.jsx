@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ChevronDown } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -17,10 +16,9 @@ const FilterWithPrice = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // get initial values from URL or set defaults
+  // Initial values from URL or default to 0
   const initialMin = Number(searchParams.get("minPrice")) || 0;
   const initialMax = Number(searchParams.get("maxPrice")) || 0;
-
   const initialPaid = searchParams.get("paid") === "true";
   const initialFree = searchParams.get("free") === "true";
 
@@ -36,20 +34,18 @@ const FilterWithPrice = () => {
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
 
-    params.set("minPrice", String(minPrice));
-    params.set("maxPrice", String(maxPrice));
-
-    if (filters.paid) {
-      params.set("paid", "true");
+    // Only set minPrice and maxPrice if either is not zero
+    if (minPrice !== 0 || maxPrice !== 0) {
+      params.set("minPrice", String(minPrice));
+      params.set("maxPrice", String(maxPrice));
     } else {
-      params.delete("paid");
+      params.delete("minPrice");
+      params.delete("maxPrice");
     }
 
-    if (filters.free) {
-      params.set("free", "true");
-    } else {
-      params.delete("free");
-    }
+    // Set or delete 'paid' and 'free'
+    filters.paid ? params.set("paid", "true") : params.delete("paid");
+    filters.free ? params.set("free", "true") : params.delete("free");
 
     router.push(`?${params.toString()}`, { scroll: false });
   }, [minPrice, maxPrice, filters, router, searchParams]);
@@ -126,7 +122,6 @@ const FilterWithPrice = () => {
                     onCheckedChange={() => toggleFilter("paid")}
                   />
                   Paid
-                  {/* <span className="ml-auto text-gray-500">1345</span> */}
                 </label>
                 <label className="flex cursor-pointer items-center gap-2">
                   <Checkbox
@@ -134,7 +129,6 @@ const FilterWithPrice = () => {
                     onCheckedChange={() => toggleFilter("free")}
                   />
                   Free
-                  {/* <span className="ml-auto text-gray-500">1345</span> */}
                 </label>
               </div>
             </div>

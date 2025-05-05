@@ -1,47 +1,22 @@
-export const getToolsFormCoures = (array, catName) => {
-  const findTools = [
-    ...new Set(
-      array?.flatMap((cours) => {
-        return cours[catName];
-      })
-    ),
-  ];
-  return findTools;
-};
+export const getAllCategories = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE_URL}/category`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store", // optional: for SSR freshness
+    });
 
-export const getCategoryFromCourses = (courses) => {
-  const categories = [];
-  courses.forEach((course) => {
-    let category = categories.find((c) => c.title === course.category);
-
-    if (!category) {
-      category = {
-        id: `${categories.length + 1}`,
-        title: course.category,
-        logo: course.category[0], // First letter as logo
-        subCategory: [],
-      };
-      categories.push(category);
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.message || "Failed to fetch categories");
     }
 
-    let subCategory = category.subCategory.find(
-      (sub) => sub.name === course.subCategory
-    );
-
-    if (!subCategory) {
-      subCategory = {
-        id: `${category.subCategory.length + 1}`,
-        name: course.subCategory,
-        count: 1,
-      };
-      category.subCategory.push(subCategory);
-    } else {
-      subCategory.count += 1;
-    }
-  });
-
-  return categories;
+    const data = await res.json();
+    return data; // assuming the response contains category array
+  } catch (error) {
+    console.error("Fetch category error:", error.message);
+    return []; // return empty list on error
+  }
 };
-
-//   const categories = transformCoursesToCategories(courses);
-//   console.log(categories);
