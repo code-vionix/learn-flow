@@ -1,5 +1,4 @@
 "use client";
-
 import { fetchCategories } from "@/store/slice/courseCreateSlice";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,17 +21,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useEffect, useState } from "react";
+import { store } from "@/store/store";
+import { useGetAllCategoryQuery } from "@/store/api/categoryApi";
 
 export function CourseBasicForm() {
   const courseData = useSelector((state) => state.course.courseBasicData);
-  const courseCategory = useSelector((state) => state.course.category);
   const [sebCat, setSebCat] = useState([]);
   const dispatch = useDispatch();
   const subtitleLanguages = ["english", "spanish", "french", "german"];
-
-  useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+  const category = useGetAllCategoryQuery();
+  const courseCategory = category?.data;
 
   const {
     register,
@@ -64,12 +62,33 @@ export function CourseBasicForm() {
     // add preview logic here
   };
 
-  const handleNext = (data) => {
-    console.log("Save & Next (Submit):", data);
-    console.log("ello");
+  const handleNext = async (data) => {
+    const courseData = {
+      teacherId: "67e130a3738e16ff755553d0",
+      ...data,
+    };
 
-    dispatch(setBasicCourse(data));
-    // add final submit/next step logic here
+    try {
+      const res = await fetch(`http://localhost:3001/api/v1/courses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      });
+
+      const result = await res.json();
+      console.log("Response:", result);
+
+      if (res.ok) {
+        console.log("Course created successfully:", result);
+        dispatch(setBasicCourse(result.data));
+      } else {
+        console.error("Error creating course:", result);
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+    }
   };
 
   const handleCancel = () => {
@@ -174,16 +193,15 @@ export function CourseBasicForm() {
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    {courseCategory.length > 0 &&
-                      courseCategory.map((category) => (
-                        <SelectItem
-                          onClick={() => console.log("hello")}
-                          key={category.id}
-                          value={category.id}
-                        >
-                          {category.name}
-                        </SelectItem>
-                      ))}
+                    {courseCategory?.map((category) => (
+                      <SelectItem
+                        onClick={() => console.log("hello")}
+                        key={category.id}
+                        value={category.id}
+                      >
+                        {category.name}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               )}
