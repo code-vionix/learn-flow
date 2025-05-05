@@ -13,13 +13,13 @@ function FaqNav({role,setRole,setSelectedTopic,topics,setExpandedQuestion}) {
   };
   
   return (
-    <div className="flex justify-between items-center mb-12">
-            <h1 className="text-4xl font-semibold text-gray-900 mb-4">
+    <div className=" py-6 w-full flex flex-col lg:flex-row lg:justify-between  items-center justify-center ">
+            <h1 className="lg:text-4xl text-3xl  text-center lg:font-semibold text-gray-900 mb-4">
               Frequently asked questions
             </h1>
             <div className="flex gap-4">
               <Select value={role} onValueChange={handleRoleChange} >
-                <SelectTrigger className="w-[200px]">
+                <SelectTrigger className="w-[7.5rem]">
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>

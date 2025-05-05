@@ -1,5 +1,4 @@
 import CustomBreadcrumb from '@/components/CustomBreadcrumb'
-import React from 'react'
 import InstructorHeader from './_component/InstructorHeader'
 import InstructorDisplayInfo from './_component/InstructorDisplayInfo'
 import WhyTeaching from './_component/WhyTeaching'

@@ -4,7 +4,7 @@ import React from "react";
 
 function ApplyButton() {
   return (
-    <Button className="px-8 py-3 bg-primary-500 text-white font-semibold text-lg h-14 hover:bg-primary-600">
+    <Button className="lg:px-8 lg:py-3 px-4 py-1 bg-primary-500 text-white font-semibold text-base lg:text-lg h-10 lg:h-14 hover:bg-primary-600">
       Apply Now{" "}
       <MoveRight
         size={30}

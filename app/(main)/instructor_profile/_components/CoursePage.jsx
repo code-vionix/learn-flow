@@ -16,6 +16,7 @@ export default function InstructorCoursePage() {
   if (isError) return <div className="p-4 text-red-500">{isError}</div>;
   console.log("course : : : ", data);
   return (
+
     <>
       <div className="container mx-auto px-8  flex flex-col lg:flex-row gap-6 lg:mt-20 mt-5 mb-20">
         <div className="w-full md:w-1/3 border p-6 self-start">
@@ -46,6 +47,7 @@ export default function InstructorCoursePage() {
               <CourseCard key={index} course={course} />
             ))}
           </div>
+
 
           <div id="student-feedback">
             <StudentFeedBackCard reviews={profile?.ratings} />
