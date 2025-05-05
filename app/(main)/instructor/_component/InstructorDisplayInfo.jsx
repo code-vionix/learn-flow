@@ -36,18 +36,18 @@ const InstructorDisplayInfo = ({color}) => {
 
 
 
-            <div className="instructor-container h-[128px] grid grid-cols-5 gap-4 items-center">
+            <div className="instructor-container lg:h-[128px] flex flex-wrap text-center justify-center items-center  mx-auto lg:justify-between gap-2 lg:gap-4 ">
                 {
-                    displayInfo?.map(itm => <div key={itm?.id} className="px-4py-2 flex gap-4 items-start">
+                    displayInfo?.map(itm => <div key={itm?.id} className="  flex gap-2 lg:gap-4 items-center justify-center">
                         <Image
-                            className="w-[40px] h-[40px]"
+                            className="lg:w-[40px] lg:h-[40px] w-[30px] h-[30px]"
                             src={itm?.icon}
                             alt={itm?.title}
                             width={100}
                             height={100}
                         />
                         <div>
-                            <h1 className="text-[1.8rem] font-bold">{itm?.title}</h1>
+                            <h1 className="lg:text-[1.8rem] text-2xl font-bold">{itm?.title}</h1>
                             <p className="text-gray-700">{itm?.subtitle}</p>
                         </div>
                     </div>)

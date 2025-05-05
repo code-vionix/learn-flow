@@ -33,10 +33,10 @@ const BecomeSuccessful = () => {
     ]
     return (
         <div className='bg-gray-50 py-14'>
-            <div className="instructor-container">
-                <h1 style={{ lineHeight: "48px" }} className="m-auto md:text-4xl md:w-[400px] font-semibold">How you&apos;ll become successful instructor</h1>
+            <div className="instructor-container text-center mx-auto">
+                <h1 style={{ lineHeight: "48px" }} className="m-auto text-3xl lg:text-4xl md:w-[400px] font-semibold">How you&apos;ll become successful instructor</h1>
                 <br />
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                     {
                         cardIfo?.map((itm, index) => <SuccessfullCard key={itm?.id} data={itm} index={index + 1} />)
                     }

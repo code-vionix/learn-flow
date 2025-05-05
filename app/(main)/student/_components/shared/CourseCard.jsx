@@ -14,7 +14,7 @@ export default function CourseCard({ course }) {
       <CardHeader className="p-0 space-y-0">
         <div className="w-full h-[220px] relative">
           <Image
-            src={course.image || "/placeholder.svg"}
+            src={course.thumbnail || "/placeholder.svg"}
             alt={course.title}
             fill
             className="object-cover rounded-none"

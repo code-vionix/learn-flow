@@ -68,7 +68,7 @@ const CourseCard = ({ course }) => {
 
       {/* Hover Card (Fixed Position in Course Card) */}
       {isHovered && (
-        <div className="absolute -top-16 -left-16  mt-0 z-10">
+        <div className="absolute lg:-top-16 lg:-left-16 top-20  mt-0 z-10">
           <CourseHoverCard course={course} />
         </div>
       )}
