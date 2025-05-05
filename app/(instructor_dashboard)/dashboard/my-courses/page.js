@@ -1,30 +1,40 @@
-import CourseOverview from "../../components/shared/CourseOverview/CourseOverview";
-import CourseRating from "../../components/shared/CourseRating/CourseRating";
-import RevenueChart from "../../components/shared/RevenueChart/RevenueChart";
+'use client';
+import React from 'react';
+import InstructorCourseCard from './_components/InstructorCourseCard';
+import { useGetInstructorByIdQuery } from '@/store/api/instructorApi';
+import { useSession } from 'next-auth/react';
 
-import Breadcrumb from "./_components/Breadcrumb";
-import CourseCard from "./_components/CourseCard";
-import StatsGrid from "./_components/StatsGrid";
+const InstructorPage = () => {
+  const { data: session } = useSession();
+  console.log("useer ........................", session);
+  const { data, isLoading, isError } = useGetInstructorByIdQuery(session?.user?.id || '');
+  const profile = data?.data?.instructor;
+  const courses = profile?.Course;
 
-export default function MyCoursesPage() {
+  // LinkedIn-style spinner
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-red-500 py-10">
+        Failed to load courses. Please try again later.
+      </div>
+    );
+  }
+
   return (
-    <div className="gap-6">
-      <Breadcrumb />
-      <CourseCard />
-      <div className="w-full flex justify-between gap-4 h-full py-6">
-        <StatsGrid />
-        <div className="h-full w-1/2">
-          <CourseRating />
-        </div>
-      </div>
-      <div className="w-full flex   justify-between gap-4 h-full">
-        <div className=" w-2/5  h-[30rem] ">
-          <RevenueChart />
-        </div>
-        <div className="w-3/5  h-[30rem] ">
-          <CourseOverview />
-        </div>
-      </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {courses?.map((course) => (
+        <InstructorCourseCard key={course?.id} course={course} />
+      ))}
     </div>
   );
-}
+};
+
+export default InstructorPage;

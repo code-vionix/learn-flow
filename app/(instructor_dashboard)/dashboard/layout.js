@@ -7,9 +7,12 @@ import DashboardHeader from "./_components/DashboardHeader";
 import DashboardFooter from "./_components/DashboardFooter";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const InstructorDashboardLayout = ({ children }) => {
   return (
+    <AuthProvider>
     <Provider store={store}>
     <div className="min-h-screen bg-gray-50 flex">
       <aside className="w-72 bg-gray-900 fixed h-full z-50 flex flex-col">
@@ -21,13 +24,17 @@ const InstructorDashboardLayout = ({ children }) => {
         <div className="bg-white w-full fixed z-40 top-0 pl-72 right-0 shadow-sm">
           <DashboardHeader />
         </div>
-        <div className="mt-32 container px-10 mx-auto">{children}</div>
+          <div className="mt-32 container px-10 mx-auto">
+            {children}
+          <Toaster />
+          </div>
         <div className="mt-auto py-6">
           <DashboardFooter />
         </div>
       </div>
     </div>
     </Provider>
+    </AuthProvider>
   );
 };
 

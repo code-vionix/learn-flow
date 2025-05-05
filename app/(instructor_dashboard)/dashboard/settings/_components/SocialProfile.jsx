@@ -11,6 +11,10 @@ import {
   Youtube,
 } from "lucide-react";
 import Whatsapp from "@/public/components/Whatsapp";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { useUpdateInstructorMutation } from "@/store/api/instructorApi";
+import { useSession } from "next-auth/react";
 
 const socialSchema = z.object({
   website: z.string().url("Please enter a valid URL").or(z.string().length(0)),
@@ -21,7 +25,7 @@ const socialSchema = z.object({
   youtube: z.string(),
 });
 
-export default function SocialProfile({setInstructorInfo}) {
+export default function SocialProfile({ setInstructorInfo }) {
   const {
     register,
     handleSubmit,
@@ -30,15 +34,44 @@ export default function SocialProfile({setInstructorInfo}) {
   } = useForm({
     resolver: zodResolver(socialSchema),
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [updateInstructor] = useUpdateInstructorMutation();
+  const { toast } = useToast();
+  const { data: session } = useSession();
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+    try {
+      const updatedInstructorData = {
+        id: session?.user?.id,
+        website: data?.website,
+        facebook: data?.facebook,
+        instagram: data?.instagram,
+        linkedin: data?.linkedin,
+        twitter: data?.twitter,
+        youtube: data?.youtube,
+      };
 
-  const onSubmit = (data) => {
-    setInstructorInfo((prev)=>({
-      ...prev,
-      socialLink:data
-    }))
+      const response = await updateInstructor(updatedInstructorData).unwrap();
 
-    reset()
+      toast({
+        title: "Social Links Updated!",
+        description: "Your instructor social links has been successfully updated.",
+      });
+
+      console.log("Updated links:", response);
+      reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update social links.",
+        variant: "destructive",
+      });
+      console.error("Error updating social links:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
 
   return (
     <div className="bg-white p-10 rounded-lg shadow-sm mt-6">
@@ -75,7 +108,7 @@ export default function SocialProfile({setInstructorInfo}) {
             </label>
             <div className="relative z-10">
               <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary-500 ">
-                <Facebook   className="text-primary-500" size={20} />
+                <Facebook className="text-primary-500" size={20} />
               </div>
               <input
                 {...register("facebook")}
@@ -168,9 +201,11 @@ export default function SocialProfile({setInstructorInfo}) {
         <div>
           <button
             type="submit"
-            className="px-6 py-3 bg-primary-500 text-white font-semibold rounded-md hover:bg-primary-500"
+            disabled={isLoading}
+            className={`px-6 py-3 font-semibold rounded-md text-white ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary-500 hover:bg-primary-600"
+              }`}
           >
-            Save Changes
+            {isLoading ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </form>
