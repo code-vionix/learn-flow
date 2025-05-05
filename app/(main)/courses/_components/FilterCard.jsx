@@ -12,7 +12,7 @@ import {
 import { Star } from "lucide-react";
 import { useState } from "react";
 
-const FilterCard = ({ title, items }) => {
+const FilterCard = ({ title, items, onFilterChange }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -25,9 +25,11 @@ const FilterCard = ({ title, items }) => {
   const displayedItems = showAll ? items : items.slice(0, 5);
 
   const toggleOption = (item) => {
-    const newSelectedOptions = selectedOptions.includes(item)
-      ? selectedOptions.filter((opt) => opt !== item)
-      : [...selectedOptions, item];
+    const itemStr = item.toString();
+    const isChecked = !selectedOptions.includes(itemStr);
+    const newSelectedOptions = isChecked
+      ? [...selectedOptions, itemStr]
+      : selectedOptions.filter((opt) => opt !== itemStr);
 
     const params = new URLSearchParams(searchParams);
     if (newSelectedOptions.length > 0) {
@@ -35,7 +37,13 @@ const FilterCard = ({ title, items }) => {
     } else {
       params.delete(title);
     }
+
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
+
+    // Notify parent to update hasCount
+    if (onFilterChange) {
+      onFilterChange(title, isChecked);
+    }
   };
 
   return (
@@ -51,40 +59,41 @@ const FilterCard = ({ title, items }) => {
           </AccordionTrigger>
           <AccordionContent>
             <div>
-              {displayedItems?.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center justify-between py-2 hover:bg-gray-50"
-                >
-                  <div className="flex items-center">
-                    <Checkbox
-                      id={item}
-                      checked={selectedOptions.includes(item.toString())}
-                      onCheckedChange={() => toggleOption(item.toString())}
-                      className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
-                    />
-                    <Label
-                      htmlFor={item.toString()}
-                      className={`${
-                        selectedOptions.includes(item.toString())
-                          ? "text-primary-500"
-                          : "text-gray-700"
-                      } ml-2 text-sm cursor-pointer`}
-                    >
-                      {title.toLowerCase() === "rating" ? (
-                        <span>
-                          <Star className="h-4 w-4 inline-block text-yellow-400 fill-current" />
-                          {`    ${item}  Star`}
-                        </span>
-                      ) : (
-                        item
-                      )}
-                    </Label>
+              {displayedItems?.map((item) => {
+                const itemStr = item.toString();
+                const isChecked = selectedOptions.includes(itemStr);
+                return (
+                  <div
+                    key={itemStr}
+                    className="flex items-center justify-between py-2 hover:bg-gray-50"
+                  >
+                    <div className="flex items-center">
+                      <Checkbox
+                        id={itemStr}
+                        checked={isChecked}
+                        onCheckedChange={() => toggleOption(itemStr)}
+                        className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
+                      />
+                      <Label
+                        htmlFor={itemStr}
+                        className={`${
+                          isChecked ? "text-primary-500" : "text-gray-700"
+                        } ml-2 text-sm cursor-pointer`}
+                      >
+                        {title.toLowerCase() === "rating" ? (
+                          <span>
+                            <Star className="h-4 w-4 inline-block text-yellow-400 fill-current" />
+                            {` ${itemStr} Star`}
+                          </span>
+                        ) : (
+                          itemStr
+                        )}
+                      </Label>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
-              {/* See More / See Less Button */}
               {items.length > 5 && (
                 <button
                   onClick={() => setShowAll(!showAll)}
