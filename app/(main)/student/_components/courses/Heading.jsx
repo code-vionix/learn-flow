@@ -21,11 +21,9 @@ export default function CoursesSearch({
   setTeacher,
 }) {
   const totalCourses = courses.length;
-  console.log(courses);
 
   const sortOptions = ["Latest", "Oldest", "A-Z", "Z-A"];
   const statusOptions = ["All Courses", "Active", "Completed", "Archived"];
-  
 
   const teacherOptions = [
     "All Teachers",

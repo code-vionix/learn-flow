@@ -131,7 +131,7 @@ export default function CourseCurriculum({ title, onBack, onNext }) {
             className="bg-primary-500 hover:bg-primary-600 h-14 rounded-none border-0 w-40"
             onClick={() => {
               // Log the sections or other relevant data
-              console.log("Sections Data:", sections);
+
               onNext();
             }}
           >

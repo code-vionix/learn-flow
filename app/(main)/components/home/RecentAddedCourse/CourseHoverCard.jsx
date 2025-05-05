@@ -9,8 +9,7 @@ const CourseHoverCard = ({ course }) => {
   const originalPrice = course.price;
   const offerPrice = course.offer_price;
   const discountPercentage = calculateDiscount(originalPrice, offerPrice);
-  console.log(course.target_audience);
-  
+
   return (
     <div className="z-10 flex items-start justify-start">
       <div className="bg-white border border-gray-200 shadow-lg  lg:w-[424px] p-5">
@@ -24,9 +23,7 @@ const CourseHoverCard = ({ course }) => {
             />
             <div>
               <p className="text-sm text-gray-500">Course by</p>
-              <p className="text-sm text-gray-900 font-medium">
-                {course.name}
-              </p>
+              <p className="text-sm text-gray-900 font-medium">{course.name}</p>
             </div>
           </div>
 

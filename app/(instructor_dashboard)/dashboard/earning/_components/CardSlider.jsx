@@ -1,11 +1,10 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { Copy, Ellipsis } from "lucide-react";
-import SliderButton from "./SliderButton";
-import DotSliderButton from "./DotSliderButton";
+import { useState } from "react";
 import CardAddButton from "./CardAddButton";
+import DotSliderButton from "./DotSliderButton";
+import SliderButton from "./SliderButton";
 
 const cards = [
   {
@@ -28,7 +27,6 @@ const cards = [
 
 export default function CardSlider() {
   const [current, setCurrent] = useState(0);
-  console.log(current);
 
   const nextCard = () => {
     setCurrent((prev) => (prev + 1) % cards.length);

@@ -38,11 +38,11 @@ const FilterCategoryLists = ({ category }) => {
     <Accordion key={category.id} type="single" collapsible>
       <AccordionItem value="item-1">
         <AccordionTrigger className="hover:no-underline data-[state=open]:text-primary-500">
-          {category.title}
+          {category.name}
         </AccordionTrigger>
         <AccordionContent>
           <div>
-            {category?.subCategory?.map((item) => (
+            {category?.SubCategory?.map((item) => (
               <div
                 key={item.name}
                 className="flex items-center justify-between py-2 hover:bg-gray-50"

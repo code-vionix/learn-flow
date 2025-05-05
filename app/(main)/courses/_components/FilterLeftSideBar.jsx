@@ -1,53 +1,87 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import FilterCategoryLists from "./FilterCategoryLists";
-
-import { getCategoryFromCourses, getToolsFormCoures } from "@/utils/category";
-import FilterWithPrice from "./FilterWithPrice";
 import FilterCard from "./FilterCard";
+import FilterWithPrice from "./FilterWithPrice";
+import { extractCourseFilters } from "@/utils/courses";
 
-const FilterLeftSideBar = ({ showFilters, courses }) => {
+const FilterLeftSideBar = ({ showFilters, courses, categories,setFilteredCourses }) => {
   const searchParams = useSearchParams();
-  // Get the query from the URL
-  // Retrieve filter values from the URL
+
   const selectedTools = searchParams.get("Tools")?.split(",") || [];
   const selectedRatings = searchParams.get("Rating")?.split(",") || [];
   const selectedDuration = searchParams.get("Duration")?.split(",") || [];
   const selectedCourseLevel = searchParams.get("CourseLevel")?.split(",") || [];
   const selectedCategories = searchParams.get("category")?.split(",") || [];
-  console.log(selectedRatings);
 
-  const tools = getToolsFormCoures(courses, "tools");
-  const ratings = getToolsFormCoures(courses, "rating");
-  const duration = getToolsFormCoures(courses, "duration");
-  const courseLevel = getToolsFormCoures(courses, "courseLevel");
-  const categorys = getCategoryFromCourses(courses);
+  
+
+  const { tags, levels, durations, ratings } = extractCourseFilters(courses);
+ 
+
+  // Convert all filters into a query string
+  const buildQuery = () => {
+    const params = new URLSearchParams();
+    if (selectedCategories.length) params.set("category", selectedCategories.join(","));
+    if (selectedTools.length) params.set("Tools", selectedTools.join(","));
+    if (selectedRatings.length) params.set("Rating", selectedRatings.join(","));
+    if (selectedDuration.length) params.set("Duration", selectedDuration.join(","));
+    if (selectedCourseLevel.length) params.set("CourseLevel", selectedCourseLevel.join(","));
+    return params.toString();
+  };
+
+  useEffect(() => {
+    const query = buildQuery();
+  
+    const fetchFilteredCourses = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/api/v1/courses?${query}`);
+        const data = await res.json();
+        setFilteredCourses(data);
+        console.log("Filtered courses:", data);
+      } catch (error) {
+        console.error("Failed to fetch filtered courses:", error);
+      }
+    };
+  
+    if (
+      selectedCategories.length ||
+      selectedTools.length ||
+      selectedRatings.length ||
+      selectedDuration.length ||
+      selectedCourseLevel.length
+    ) {
+      fetchFilteredCourses();
+    }
+    // Only depend on **primitive arrays** (not searchParams directly)
+  }, [
+    selectedCategories.join(","),
+    selectedTools.join(","),
+    selectedRatings.join(","),
+    selectedDuration.join(","),
+    selectedCourseLevel.join(","),
+  ]);
 
   return (
     <>
       {showFilters && (
-        <div className="col-span-1 bg-white p-1">
+        <div className="col-span-1 bg-white p-1 max-h-[800px] overflow-auto">
           <div className="p-4 rounded-sm border w-full">
             <h1 className="text-2xl text-black mb-2 pb-6 uppercase font-semibold border-b">
               Category
             </h1>
-
-            {categorys.map((category) => (
+            {categories.map((category) => (
               <FilterCategoryLists key={category.id} category={category} />
             ))}
           </div>
 
-          {/* Tools  */}
-          <FilterCard title="Tools" items={tools} />
-          {/* rating  */}
+          <FilterCard title="Tools" items={tags} />
           <FilterCard title="Rating" items={ratings} />
-
-          {/* courseLevel  */}
-          <FilterCard title="CourseLevel" items={courseLevel} />
-          {/* price  */}
+          <FilterCard title="CourseLevel" items={levels} />
           <FilterWithPrice />
-          {/* duration  */}
-          <FilterCard title="Duration" items={duration} />
+          <FilterCard title="Duration" items={durations} />
         </div>
       )}
     </>
