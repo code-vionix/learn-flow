@@ -7,7 +7,7 @@ import FilterCard from "./FilterCard";
 import FilterWithPrice from "./FilterWithPrice";
 import { extractCourseFilters } from "@/utils/courses";
 
-const FilterLeftSideBar = ({ showFilters, courses, categories,setFilteredCourses }) => {
+const FilterLeftSideBar = ({ showFilters, courses, categories,setFilteredCourses,setHasCount }) => {
   const searchParams = useSearchParams();
 
   const selectedTools = searchParams.get("Tools")?.split(",") || [];
@@ -64,6 +64,10 @@ const FilterLeftSideBar = ({ showFilters, courses, categories,setFilteredCourses
     selectedCourseLevel.join(","),
   ]);
 
+  //hasCount 
+  const handleFilterChange = (type, isChecked) => {
+    setHasCount((prev) => (isChecked ? prev + 1 : prev - 1));
+  };
   return (
     <>
       {showFilters && (
@@ -73,15 +77,19 @@ const FilterLeftSideBar = ({ showFilters, courses, categories,setFilteredCourses
               Category
             </h1>
             {categories.map((category) => (
-              <FilterCategoryLists key={category.id} category={category} />
+              <FilterCategoryLists
+              key={category.id}
+              category={category}
+              onFilterChange={handleFilterChange}
+            />
             ))}
           </div>
 
-          <FilterCard title="Tools" items={tags} />
-          <FilterCard title="Rating" items={ratings} />
-          <FilterCard title="CourseLevel" items={levels} />
-          <FilterWithPrice />
-          <FilterCard title="Duration" items={durations} />
+          <FilterCard title="Tools" items={tags} onFilterChange={handleFilterChange} />
+<FilterCard title="Rating" items={ratings} onFilterChange={handleFilterChange} />
+<FilterCard title="CourseLevel" items={levels} onFilterChange={handleFilterChange} />
+<FilterWithPrice onFilterChange={handleFilterChange} />
+<FilterCard title="Duration" items={durations} onFilterChange={handleFilterChange} />
         </div>
       )}
     </>

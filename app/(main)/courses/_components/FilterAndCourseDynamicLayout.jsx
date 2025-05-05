@@ -3,21 +3,25 @@ import React, { useState, useEffect } from "react";
 import FilterLeftSideBar from "./FilterLeftSideBar";
 import CourseCard from "../../components/cards/CourseCard";
 import { getAllCourses } from "@/utils/courses";
-import { getAllCategories } from "@/utils/category"; // import utility
+import { getAllCategories } from "@/utils/category";
+import { useSearchParams } from "next/navigation";
 
-const FilterAndCourseDynamicLayout = ({ showFilters }) => {
+const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [courses, setCourses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredCourses, setFilteredCourses] = useState([]);
+  const searchParams = useSearchParams();
+
+  const hasActiveFilters = Array.from(searchParams.entries()).length > 0;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [fetchedCourses, fetchedCategories] = await Promise.all([
           getAllCourses(),
-          getAllCategories()
+          getAllCategories(),
         ]);
         setCourses(fetchedCourses);
         setCategories(fetchedCategories);
@@ -34,14 +38,22 @@ const FilterAndCourseDynamicLayout = ({ showFilters }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  const displayCourses =
+    hasActiveFilters && filteredCourses.length > 0
+      ? filteredCourses
+      : hasActiveFilters
+      ? [] // filters active but no match
+      : courses; // no filters
+
   return (
     <div
       className={`grid gap-6 my-8 ${showFilters ? "grid-cols-4" : "grid-cols-3"}`}
     >
       <FilterLeftSideBar
+        setHasCount={setHasCount}
         courses={courses}
         showFilters={showFilters}
-        categories={categories} // ✅ pass to sidebar
+        categories={categories}
         setFilteredCourses={setFilteredCourses}
       />
 
@@ -50,14 +62,15 @@ const FilterAndCourseDynamicLayout = ({ showFilters }) => {
           showFilters ? "col-span-3 grid-cols-3" : "col-span-4 grid-cols-4"
         }`}
       >
-        {/* {courses.map((course) => (
-          <CourseCard key={course.id} {...course} />
-        ))} */}
-        {
-          filteredCourses.length>0 ?filteredCourses.map((course) => (
+        {displayCourses.length > 0 ? (
+          displayCourses.map((course) => (
             <CourseCard key={course.id} {...course} />
-          )):<p>no course found</p>
-        }
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500">
+            No courses found.
+          </p>
+        )}
       </div>
     </div>
   );

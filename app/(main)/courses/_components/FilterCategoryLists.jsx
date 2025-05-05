@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import React from "react";
 
-const FilterCategoryLists = ({ category }) => {
+const FilterCategoryLists = ({ category, onFilterChange }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -20,9 +20,11 @@ const FilterCategoryLists = ({ category }) => {
   const selectedCategories = searchParams.get("category")?.split(",") || [];
 
   const toggleCategory = (cat) => {
-    const newSelectedCategories = selectedCategories.includes(cat)
-      ? selectedCategories.filter((c) => c !== cat)
-      : [...selectedCategories, cat];
+    const isChecked = !selectedCategories.includes(cat);
+
+    const newSelectedCategories = isChecked
+      ? [...selectedCategories, cat]
+      : selectedCategories.filter((c) => c !== cat);
 
     const params = new URLSearchParams(searchParams);
     if (newSelectedCategories.length > 0) {
@@ -32,6 +34,11 @@ const FilterCategoryLists = ({ category }) => {
     }
 
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
+
+    // Notify parent
+    if (onFilterChange) {
+      onFilterChange("category", isChecked);
+    }
   };
 
   return (
@@ -42,32 +49,33 @@ const FilterCategoryLists = ({ category }) => {
         </AccordionTrigger>
         <AccordionContent>
           <div>
-            {category?.SubCategory?.map((item) => (
-              <div
-                key={item.name}
-                className="flex items-center justify-between py-2 hover:bg-gray-50"
-              >
-                <div className="flex items-center">
-                  <Checkbox
-                    id={item.name}
-                    checked={selectedCategories.includes(item.name)}
-                    onCheckedChange={() => toggleCategory(item.name)}
-                    className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
-                  />
-                  <Label
-                    htmlFor={item.name}
-                    className={`${
-                      selectedCategories.includes(item.name)
-                        ? "text-primary-500"
-                        : "text-gray-700"
-                    } ml-2 text-sm cursor-pointer`}
-                  >
-                    {item.name}
-                  </Label>
+            {category?.SubCategory?.map((item) => {
+              const isChecked = selectedCategories.includes(item.name);
+              return (
+                <div
+                  key={item.name}
+                  className="flex items-center justify-between py-2 hover:bg-gray-50"
+                >
+                  <div className="flex items-center">
+                    <Checkbox
+                      id={item.name}
+                      checked={isChecked}
+                      onCheckedChange={() => toggleCategory(item.name)}
+                      className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
+                    />
+                    <Label
+                      htmlFor={item.name}
+                      className={`${
+                        isChecked ? "text-primary-500" : "text-gray-700"
+                      } ml-2 text-sm cursor-pointer`}
+                    >
+                      {item.name}
+                    </Label>
+                  </div>
+                  <span className="text-sm text-gray-400">{item.count}</span>
                 </div>
-                <span className="text-sm text-gray-400">{item.count}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </AccordionContent>
       </AccordionItem>
