@@ -4,8 +4,15 @@ export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.NEXT_PUBLIC_API_ROUTE_URL,
-    }),
-    tagTypes: ['courses', 'course','EnrollCourses','PurchesHistory','UserProfile'],
+        prepareHeaders: (headers) => {
+            const token = localStorage.getItem("accessToken");
+            if (token) {
+                headers.set("authorization", `Bearer ${token}`);
+            }
+            return headers;
+        }
+    tagTypes: ['courses', 'course', 'instructors' ,'instructor', 'user','EnrollCourses','PurchesHistory','UserProfile''],
+
     endpoints: (builder) => ({
     }),
 });
