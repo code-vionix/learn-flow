@@ -6,14 +6,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useState } from 'react'
 import { useUpdateUserPasswordMutation } from '@/store/api/userApi'
+import { useAuth } from '@/lib/auth'
+import { toast, useToast } from '@/hooks/use-toast'
 
 const passwordSchema = z
   .object({
     currentPassword: z
       .string()
-      .min(6, "Password must be at least 6 characters"),
-    newPassword: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(6, "Password must be at least 6 characters")
+      .min(4, "Password must be at least 6 characters"),
+    newPassword: z.string().min(4, "Password must be at least 6 characters"),
+    confirmPassword: z.string().min(4, "Password must be at least 6 characters")
   })
   .refine(data => data.newPassword === data.confirmPassword, {
     message: "Passwords don't match",
@@ -21,10 +23,12 @@ const passwordSchema = z
   })
 
 function Password({ setInstructorInfo }) {
-
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+  const { accessToken, session } = useAuth();
+  console.log("token", accessToken, session);
 
   const {
     register,
@@ -36,7 +40,30 @@ function Password({ setInstructorInfo }) {
   })
 
   const [updateUserPassword] = useUpdateUserPasswordMutation();
+  // const onPasswordSubmit = async (data) => {
+  //   setInstructorInfo(prev => ({
+  //     ...prev,
+  //     password: data
+  //   }));
+
+  //   try {
+  //     const res = await updateUserPassword({
+  //       currentPassword: data?.currentPassword,
+  //       newPassword: data?.newPassword,
+  //     }).unwrap();
+  //     console.log('Password updated:', res);
+  //   } catch (err) {
+  //     console.error('Error updating password:', err);
+  //   }
+
+
+  //   reset()
+
+  // }
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
   const onPasswordSubmit = async (data) => {
+    setLoading(true);
     setInstructorInfo(prev => ({
       ...prev,
       password: data
@@ -44,20 +71,27 @@ function Password({ setInstructorInfo }) {
 
     try {
       const res = await updateUserPassword({
-        id: '6811186f3f1d94ec4578d01b',
-        oldPassword: 'nahid6@gmail.com',
+        currentPassword: data?.currentPassword,
         newPassword: data?.newPassword,
       }).unwrap();
-      console.log('Password updated:', res);
+      setLoading(false);
+      toast({
+        title: "Password Updated",
+        description: "Your password has been changed successfully.",
+        variant: "default", // can also be 'success' if you created that variant
+      });
+
+      reset();
     } catch (err) {
-      console.error('Error updating password:', err);
+      setLoading(false);
+      toast({
+        title: "Update Failed",
+        description: err?.data?.message || "Something went wrong while updating password.",
+        variant: "destructive",
+      });
     }
+  };
 
-    console.log(data);
-
-    reset()
-
-  }
 
 
 
@@ -150,9 +184,11 @@ function Password({ setInstructorInfo }) {
         <div>
           <button
             type="submit"
-            className="px-6 py-3 bg-primary-500 text-white font-semibold rounded-md hover:bg-orange-600"
+            disabled={loading}
+            className={`px-6 py-3 font-semibold rounded-md text-white ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-primary-500 hover:bg-primary-600"
+              }`}
           >
-            Save Changes
+            {loading ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </form>
