@@ -3,6 +3,7 @@ import React from 'react';
 import InstructorCourseCard from './_components/InstructorCourseCard';
 import { useGetInstructorByIdQuery } from '@/store/api/instructorApi';
 import { useSession } from 'next-auth/react';
+import FilterCourse from './_components/FilterCourse';
 
 const InstructorPage = () => {
   const { data: session } = useSession();
@@ -29,11 +30,14 @@ const InstructorPage = () => {
   }
 
   return (
+    <>
+    {/* <FilterCourse courses={courses} /> */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {courses?.map((course) => (
         <InstructorCourseCard key={course?.id} course={course} />
       ))}
     </div>
+    </>
   );
 };
 

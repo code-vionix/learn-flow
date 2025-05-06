@@ -39,7 +39,7 @@ export default function AccountSettings() {
     setIsLoading(true);
     try {
       const updatedInstructorData = {
-        id: session?.user?.id,
+        id: '6811186f3f1d94ec4578d01b',
         firstName: data?.firstName,
         lastName: data?.lastName,
         username: data?.username,
