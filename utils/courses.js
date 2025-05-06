@@ -35,34 +35,39 @@ export const getAllCourses = async (queryParams = "") => {
   
   
   export const extractCourseFilters = (courses) => {
-    const categories = new Set();
+    const categoryMap = new Map();
     const tags = new Set();
     const levels = new Set();
     const durations = new Set();
     const ratings = new Set();
   
     courses.forEach((course) => {
-      if (course.category) categories.add(course.category);
+      // Unique category by ID
+      if (course.category && course.category.id) {
+        categoryMap.set(course.category.id, course.category);
+      }
   
-      if (course.tags && Array.isArray(course.tags)) {
+      // Unique tags
+      if (Array.isArray(course.tags)) {
         course.tags.forEach((tag) => tags.add(tag));
       }
   
+      // Unique levels
       if (course.level) levels.add(course.level);
   
+      // Unique durations
       if (course.duration) durations.add(course.duration);
   
-      if (course.reviews && Array.isArray(course.reviews) && course.reviews.length > 0) {
+      // Unique ratings
+      if (Array.isArray(course.reviews)) {
         course.reviews.forEach((review) => {
-          if (review.rating && !ratings.has(review.rating)) {
-            ratings.add(review.rating);
-          }
+          if (review.rating) ratings.add(review.rating);
         });
       }
     });
   
     return {
-      categories: Array.from(categories),
+      categories: Array.from(categoryMap.values()),
       tags: Array.from(tags),
       levels: Array.from(levels),
       durations: Array.from(durations),
