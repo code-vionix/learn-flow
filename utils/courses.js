@@ -36,7 +36,6 @@ export const getAllCourses = async (queryParams = "") => {
   
   export const extractCourseFilters = (courses) => {
     const categories = new Set();
-    const subCategories = new Set(); // NEW
     const tags = new Set();
     const levels = new Set();
     const durations = new Set();
@@ -44,8 +43,6 @@ export const getAllCourses = async (queryParams = "") => {
   
     courses.forEach((course) => {
       if (course.category) categories.add(course.category);
-  
-      if (course.subCategory) subCategories.add(course.subCategory);
   
       if (course.tags && Array.isArray(course.tags)) {
         course.tags.forEach((tag) => tags.add(tag));
@@ -66,7 +63,6 @@ export const getAllCourses = async (queryParams = "") => {
   
     return {
       categories: Array.from(categories),
-      subCategories: Array.from(subCategories),
       tags: Array.from(tags),
       levels: Array.from(levels),
       durations: Array.from(durations),

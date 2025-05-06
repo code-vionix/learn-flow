@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Accordion,
   AccordionContent,
@@ -16,15 +15,29 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Get selected categories from URL
   const selectedCategories = searchParams.get("category")?.split(",") || [];
+  const selectedSubcategories = searchParams.get("subcategory")?.split(",") || [];
 
-  const toggleCategory = (cat) => {
-    const isChecked = !selectedCategories.includes(cat);
+  const toggleCategory = (cat, subCat) => {
+    const isCategoryChecked = !selectedCategories.includes(cat);
+    const isSubcategoryChecked = !selectedSubcategories.includes(subCat);
 
-    const newSelectedCategories = isChecked
-      ? [...selectedCategories, cat]
-      : selectedCategories.filter((c) => c !== cat);
+    let newSelectedCategories = [...selectedCategories];
+    let newSelectedSubcategories = [...selectedSubcategories];
+
+    // Toggle category
+    if (isCategoryChecked) {
+      newSelectedCategories.push(cat);
+    } else {
+      newSelectedCategories = newSelectedCategories.filter((c) => c !== cat);
+    }
+
+    // Toggle subcategory
+    if (isSubcategoryChecked) {
+      newSelectedSubcategories.push(subCat);
+    } else {
+      newSelectedSubcategories = newSelectedSubcategories.filter((s) => s !== subCat);
+    }
 
     const params = new URLSearchParams(searchParams);
     if (newSelectedCategories.length > 0) {
@@ -33,11 +46,22 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
       params.delete("category");
     }
 
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+    if (newSelectedSubcategories.length > 0) {
+      params.set("subcategory", newSelectedSubcategories.join(","));
+    } else {
+      params.delete("subcategory");
+    }
 
-    // Notify parent
+    const newUrl = `${pathname}?${params.toString()}`;
+
+    // Log the updated URL to console
+    console.log("Updated URL query:", newUrl);
+
+    router.push(newUrl, { scroll: false });
+
     if (onFilterChange) {
-      onFilterChange("category", isChecked);
+      onFilterChange("category", isCategoryChecked);
+      onFilterChange("subcategory", isSubcategoryChecked);
     }
   };
 
@@ -50,7 +74,8 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
         <AccordionContent>
           <div>
             {category?.SubCategory?.map((item) => {
-              const isChecked = selectedCategories.includes(item.name);
+              const isSubcategoryChecked = selectedSubcategories.includes(item.name);
+
               return (
                 <div
                   key={item.name}
@@ -59,14 +84,14 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
                   <div className="flex items-center">
                     <Checkbox
                       id={item.name}
-                      checked={isChecked}
-                      onCheckedChange={() => toggleCategory(item.name)}
+                      checked={isSubcategoryChecked}
+                      onCheckedChange={() => toggleCategory(category.name, item.name)}
                       className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
                     />
                     <Label
                       htmlFor={item.name}
                       className={`${
-                        isChecked ? "text-primary-500" : "text-gray-700"
+                        isSubcategoryChecked ? "text-primary-500" : "text-gray-700"
                       } ml-2 text-sm cursor-pointer`}
                     >
                       {item.name}

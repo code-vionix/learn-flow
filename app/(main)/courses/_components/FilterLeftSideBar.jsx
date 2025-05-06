@@ -10,7 +10,6 @@ import { extractCourseFilters } from "@/utils/courses";
 const FilterLeftSideBar = ({
   showFilters,
   courses,
-  categories,
   setFilteredCourses,
   setHasCount,
 }) => {
@@ -27,7 +26,7 @@ const FilterLeftSideBar = ({
   const minPrice = Number(searchParams.get("minPrice")) || 0;
   const maxPrice = Number(searchParams.get("maxPrice")) || 0;
 
-  const { tags, levels, durations, ratings } = extractCourseFilters(courses);
+  const { tags, levels, durations, ratings,categories} = extractCourseFilters(courses);
 
   const buildQuery = () => {
     const params = new URLSearchParams();
