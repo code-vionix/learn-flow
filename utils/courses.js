@@ -1,37 +1,37 @@
-export const getAllCourses = async (queryParams = "") => {
-    try {
-      // Fetch the API base URL from environment variables (default to localhost if not set)
-      const baseUrl = process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
-  
-      // Construct the full API URL
-      const apiUrl = `${baseUrl}/courses${queryParams ? `?${queryParams}` : ""}`;
-  
-      // Make the fetch request
-      const res = await fetch(apiUrl, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache: "no-store", // Optional: For fresh data in SSR
-      });
-  
-      // If response is not okay, throw an error with the error message from the API
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Failed to fetch courses");
+export const getAllCourses = async (queryObj = {}) => {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
+    const url = new URL(`${baseUrl}/courses`);
+
+    // Convert queryObj to URLSearchParams
+    Object.entries(queryObj).forEach(([key, value]) => {
+      if (value) {
+        url.searchParams.append(key, value);
       }
-  
-      // Parse the response data
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      // Log the error message
-      console.error("Fetch error:", error.message);
-  
-      // Return an empty array in case of error
-      return [];
+    });
+
+    const res = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store", // ensure fresh data
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Failed to fetch courses");
     }
-  };
+
+    const data = await res.json();
+    console.log("Fetched courses:", data); // 🔍 Log the fetched course data
+    return data;
+  } catch (error) {
+    console.error("Fetch error:", error.message);
+    return [];
+  }
+};
+
   
   
   export const extractCourseFilters = (courses) => {
