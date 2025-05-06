@@ -8,7 +8,6 @@ import { useSearchParams } from "next/navigation";
 
 const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [courses, setCourses] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -19,21 +18,18 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [fetchedCourses, fetchedCategories] = await Promise.all([
-          getAllCourses(),
-          getAllCategories(),
-        ]);
+        const fetchedCourses = await getAllCourses();
         setCourses(fetchedCourses);
-        setCategories(fetchedCategories);
       } catch (err) {
         setError("Failed to load data.");
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
+  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -53,7 +49,6 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
         setHasCount={setHasCount}
         courses={courses}
         showFilters={showFilters}
-        categories={categories}
         setFilteredCourses={setFilteredCourses}
       />
 
