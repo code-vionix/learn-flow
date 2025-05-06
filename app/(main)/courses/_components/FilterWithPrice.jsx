@@ -1,6 +1,5 @@
 "use client";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
@@ -12,13 +11,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const FilterWithPrice = () => {
+const FilterWithPrice = ({ onFilterChange }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const initialPaid = searchParams.get("paid") === "true";
   const initialFree = searchParams.get("free") === "true";
-
   const initialMin = Number(searchParams.get("minPrice")) || 0;
   const initialMax = Number(searchParams.get("maxPrice")) || 0;
 
@@ -30,10 +28,13 @@ const FilterWithPrice = () => {
     free: initialFree,
   });
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams);
+  // Track previous active state
+  const prevActiveRef = useRef(initialPaid || initialFree);
 
-    // Apply filters
+  // Handle changes to URL when any filter updates
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
     if (filters.paid) {
       params.set("paid", "true");
       params.delete("free");
@@ -45,7 +46,6 @@ const FilterWithPrice = () => {
       params.delete("free");
     }
 
-    // Apply price only if paid is selected
     if (filters.paid && (minPrice !== 0 || maxPrice !== 0)) {
       params.set("minPrice", String(minPrice));
       params.set("maxPrice", String(maxPrice));
@@ -55,7 +55,7 @@ const FilterWithPrice = () => {
     }
 
     router.push(`?${params.toString()}`, { scroll: false });
-  }, [minPrice, maxPrice, filters, router, searchParams]);
+  }, [minPrice, maxPrice, filters]);
 
   const handleSliderChange = (value) => {
     setPriceRange(value);
@@ -75,10 +75,23 @@ const FilterWithPrice = () => {
   };
 
   const toggleFilter = (type) => {
-    setFilters((prev) => ({
-      paid: type === "paid" ? !prev.paid : false,
-      free: type === "free" ? !prev.free : false,
-    }));
+    setFilters((prev) => {
+      const updated = {
+        paid: type === "paid" ? !prev.paid : false,
+        free: type === "free" ? !prev.free : false,
+      };
+
+      const newActive = updated.paid || updated.free;
+      const prevActive = prevActiveRef.current;
+
+      // Only call onFilterChange if active state changed
+      if (onFilterChange && newActive !== prevActive) {
+        onFilterChange("price", newActive);
+        prevActiveRef.current = newActive;
+      }
+
+      return updated;
+    });
   };
 
   return (
