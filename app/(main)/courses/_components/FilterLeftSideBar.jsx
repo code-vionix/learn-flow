@@ -27,7 +27,7 @@ const FilterLeftSideBar = ({
   const maxPrice = Number(searchParams.get("maxPrice")) || 0;
 
   const { tags, levels, durations, ratings,categories} = extractCourseFilters(courses);
-
+console.log(categories)
   const buildQuery = () => {
     const params = new URLSearchParams();
     if (selectedCategories.length) params.set("category", selectedCategories.join(","));
