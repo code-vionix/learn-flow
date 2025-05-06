@@ -1,45 +1,58 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import FilterLeftSideBar from "./FilterLeftSideBar";
 import CourseCard from "../../components/cards/CourseCard";
-import { getAllCourses } from "@/utils/courses";
-import { getAllCategories } from "@/utils/category";
+import { getAllCourses } from "@/utils/courses"; // This should accept query params
 import { useSearchParams } from "next/navigation";
 
 const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [courses, setCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filteredCourses, setFilteredCourses] = useState([]);
+
   const searchParams = useSearchParams();
+  const query = searchParams.get("query");
 
   const hasActiveFilters = Array.from(searchParams.entries()).length > 0;
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        const fetchedCourses = await getAllCourses();
+        const queryObj = {};
+        if (query) {
+          queryObj.query = query;
+        }
+
+        // You need to pass query params to getAllCourses
+        const fetchedCourses = await getAllCourses(queryObj);
         setCourses(fetchedCourses);
       } catch (err) {
-        setError("Failed to load data.");
+        setError("Failed to load courses.");
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, []);
-  
+  }, [query]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  const displayCourses =
-    hasActiveFilters && filteredCourses.length > 0
-      ? filteredCourses
-      : hasActiveFilters
-      ? [] // filters active but no match
-      : courses; // no filters
+  const displayCourses = (() => {
+    if (filteredCourses.length > 0) return filteredCourses;
+  
+    if (query && courses.length > 0) return courses;
+  
+    if (query && courses.length === 0) return [];
+  
+    return courses;
+  })();
+  
 
   return (
     <div
