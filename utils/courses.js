@@ -1,4 +1,5 @@
 export const getAllCourses = async (queryParams = "") => {
+  console.log(queryParams)
     try {
       // Fetch the API base URL from environment variables (default to localhost if not set)
       const baseUrl = process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
