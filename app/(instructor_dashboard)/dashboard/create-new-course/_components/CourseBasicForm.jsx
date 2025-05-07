@@ -20,17 +20,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useEffect, useState } from "react";
-import { store } from "@/store/store";
+import { useState } from "react";
 import { useGetAllCategoryQuery } from "@/store/api/categoryApi";
+import { useRouter } from "next/navigation";
 
 export function CourseBasicForm() {
   const courseData = useSelector((state) => state.course.courseBasicData);
+  const router = useRouter();
   const [sebCat, setSebCat] = useState([]);
   const dispatch = useDispatch();
   const subtitleLanguages = ["english", "spanish", "french", "german"];
   const category = useGetAllCategoryQuery();
-  const courseCategory = category?.data;
+  const courseCategory = category?.data || [];
 
   const {
     register,
@@ -51,13 +52,10 @@ export function CourseBasicForm() {
   const watchSubtitle = watch("subtitle");
 
   const handleSave = (data) => {
-    console.log("Save:", data);
     dispatch(setBasicCourse(data));
-    // add save logic here
   };
 
   const handlePreview = (data) => {
-    console.log("Save & Preview:", data);
     dispatch(setBasicCourse(data));
     // add preview logic here
   };
@@ -94,9 +92,10 @@ export function CourseBasicForm() {
   const handleCancel = () => {
     if (confirm("Are you sure you want to cancel?")) {
       dispatch(setBasicCourse({}));
-      console.log("Cancelled and reset course data.");
+      router.back();
     }
   };
+
   const handelSubCaregory = (value) => {
     courseCategory.map((category) => {
       if (category.id == value) {

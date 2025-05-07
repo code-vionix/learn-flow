@@ -19,7 +19,7 @@ export default function CourseAdvanceForm() {
   const courseAdvancedData = useSelector(
     (state) => state.course.courseAdvancedData
   );
-  console.log(courseAdvancedData);
+  const courseBasicData = useSelector((state) => state.course.courseBasicData);
 
   const dispatch = useDispatch();
   const imageInputRef = useRef(null); // create a ref for the file input
@@ -42,55 +42,32 @@ export default function CourseAdvanceForm() {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: {
+    defaultValues: courseAdvancedData || {
       description: "",
-      whatYouWillLearn: [
-        { text: "" },
-        { text: "" },
-        { text: "" },
-        { text: "" },
-      ],
-      targetAudience: [{ text: "" }, { text: "" }, { text: "" }, { text: "" }],
-      courseRequirements: [
-        { text: "" },
-        { text: "" },
-        { text: "" },
-        { text: "" },
-      ],
+      whatYouWillLearn: [{ description: "" }],
+      targetAudience: [{ description: "" }],
+      courseRequirements: [{ description: "" }],
     },
   });
 
   // Update form values when courseAdvancedData changes
   useEffect(() => {
-    if (courseAdvancedData) {
+    if (!courseAdvancedData) {
       reset({
-        description: courseAdvancedData.description || "",
-        whatYouWillLearn: courseAdvancedData.whatYouWillLearn || [
-          { text: "" },
-          { text: "" },
-          { text: "" },
-          { text: "" },
-        ],
-        targetAudience: courseAdvancedData.targetAudience || [
-          { text: "" },
-          { text: "" },
-          { text: "" },
-          { text: "" },
-        ],
-        courseRequirements: courseAdvancedData.courseRequirements || [
-          { text: "" },
-          { text: "" },
-          { text: "" },
-          { text: "" },
-        ],
+        description: "",
+        whatYouWillLearn: [{ description: "" }],
+        targetAudience: [{ description: "" }],
+        courseRequirements: [{ description: "" }],
       });
     }
   }, [courseAdvancedData, reset]);
 
   const [imagePreview, setImagePreview] = useState(null);
   const [videoPreview, setVideoPreview] = useState(null);
-  const [image, setImage] = useState(null);
-  const [video, setVideo] = useState(null);
+  const [thumbnail, setThumbnail] = useState(
+    courseAdvancedData?.thumbnail || null
+  );
+  const [trailer, setTrailer] = useState(null);
 
   const {
     fields: whatYouWillLearnFields,
@@ -121,28 +98,77 @@ export default function CourseAdvanceForm() {
 
   // Handlers
   const handleSave = (data) => {
-    console.log("Saved:", data);
-    dispatch(setCourseAdvancedData({ ...data, image, video }));
-    dispatch(setActiveTab("curriculum"));
+    dispatch(setCourseAdvancedData(data));
   };
 
   const handleSaveAndPreview = (data) => {
-    console.log("Saved & Preview:", data);
-    const newData = { ...data, image, video };
-    dispatch(setCourseAdvancedData(newData));
+    dispatch(setCourseAdvancedData(data));
   };
 
-  const onSubmit = (data) => {
-    console.log("Final Submit:", data);
-    const newData = { ...data, image, video };
-    dispatch(setCourseAdvancedData(newData));
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+
+    // Add text fields
+    formData.append("description", data.description);
+
+    // Add nested arrays
+    data.whatYouWillLearn.forEach((item, index) => {
+      formData.append(
+        `whatYouWillLearn[${index}][description]`,
+        item.description
+      );
+    });
+
+    data.targetAudience.forEach((item, index) => {
+      formData.append(
+        `targetAudience[${index}][description]`,
+        item.description
+      );
+    });
+
+    data.courseRequirements.forEach((item, index) => {
+      formData.append(
+        `courseRequirements[${index}][description]`,
+        item.description
+      );
+    });
+
+    // Append files (must be File objects from input type="file")
+    if (thumbnail) {
+      formData.append("thumbnail", thumbnail);
+    }
+
+    if (trailer) {
+      formData.append("trailer", trailer);
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/v1/courses/${courseBasicData.id}`,
+        {
+          method: "PUT",
+          body: formData, // fetch will automatically set multipart/form-data
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to update course");
+      }
+
+      const updatedCourse = await response.json();
+      console.log("Course updated successfully:", updatedCourse);
+
+      dispatch(setCourseAdvancedData(data));
+    } catch (error) {
+      console.error("Error updating course:", error);
+    }
   };
 
   // Image and Video Handlers
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
+      setThumbnail(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -154,9 +180,12 @@ export default function CourseAdvanceForm() {
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setVideo(file);
+      setTrailer(file);
       setVideoPreview(file.name);
     }
+  };
+  const handlePrevious = () => {
+    dispatch(setActiveTab("basic"));
   };
 
   return (
@@ -322,7 +351,7 @@ export default function CourseAdvanceForm() {
         />
 
         <div className="flex justify-between pt-4">
-          <Button type="button" variant="outline">
+          <Button onClick={handlePrevious} type="button" variant="outline">
             Previous
           </Button>
           <Button
@@ -364,7 +393,7 @@ function FormListSection({
             variant="ghost"
             size="sm"
             className="text-primary-500 hover:text-primary-600 hover:bg-transparent p-0 h-auto flex items-center gap-1"
-            onClick={() => append({ text: "" })}
+            onClick={() => append({ description: "" })}
           >
             <Plus className="h-3 w-3" />
             Add more
@@ -386,7 +415,7 @@ function FormListSection({
                   ? "Who is this course for?"
                   : "What do students need to know?"
               }
-              {...register(`${name}.${index}.text`)}
+              {...register(`${name}.${index}.description`)}
               className="border-gray-300"
             />
           </div>
