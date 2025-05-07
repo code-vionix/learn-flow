@@ -12,7 +12,7 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [error, setError] = useState(null);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const searchParams = useSearchParams();
-  const queryString = searchParams.toString();
+  const searchQuery = searchParams.get("query") || ""
   const hasActiveFilters = Array.from(searchParams.entries()).length > 0;
 
   useEffect(() => {
@@ -50,6 +50,7 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
         courses={courses}
         showFilters={showFilters}
         setFilteredCourses={setFilteredCourses}
+        searchQuery={searchQuery }
       />
 
       <div

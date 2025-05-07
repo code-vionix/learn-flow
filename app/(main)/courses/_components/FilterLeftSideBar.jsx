@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import FilterCategoryLists from "./FilterCategoryLists";
@@ -12,9 +12,11 @@ const FilterLeftSideBar = ({
   courses,
   setFilteredCourses,
   setHasCount,
+  searchQuery,
 }) => {
   const searchParams = useSearchParams();
 
+  // Extract selected filters from URL query parameters
   const selectedTools = searchParams.get("Tools")?.split(",") || [];
   const selectedRatings = searchParams.get("Rating")?.split(",") || [];
   const selectedDuration = searchParams.get("Duration")?.split(",") || [];
@@ -26,10 +28,12 @@ const FilterLeftSideBar = ({
   const minPrice = Number(searchParams.get("minPrice")) || 0;
   const maxPrice = Number(searchParams.get("maxPrice")) || 0;
 
-  const { tags, levels, durations, ratings,categories} = extractCourseFilters(courses);
-console.log(categories)
+  const { tags, levels, durations, ratings, categories } = extractCourseFilters(courses);
+
+  // Build query string for API request including the search query
   const buildQuery = () => {
     const params = new URLSearchParams();
+    if (searchQuery) params.set("query", searchQuery); // Include search query
     if (selectedCategories.length) params.set("category", selectedCategories.join(","));
     if (selectedTools.length) params.set("Tools", selectedTools.join(","));
     if (selectedRatings.length) params.set("Rating", selectedRatings.join(","));
@@ -44,9 +48,9 @@ console.log(categories)
     return params.toString();
   };
 
+  // Fetch filtered courses whenever the filters or search query changes
   useEffect(() => {
     const query = buildQuery();
-
     const fetchFilteredCourses = async () => {
       try {
         const res = await fetch(`http://localhost:3000/api/v1/courses?${query}`);
@@ -66,20 +70,14 @@ console.log(categories)
       selectedCourseLevel.length ||
       isPaid ||
       isFree ||
-      (isPaid && (minPrice !== 0 || maxPrice !== 0))
+      (isPaid && (minPrice !== 0 || maxPrice !== 0)) ||
+      searchQuery // Include search query in the check
     ) {
       fetchFilteredCourses();
     }
   }, [
-    selectedCategories.join(","),
-    selectedTools.join(","),
-    selectedRatings.join(","),
-    selectedDuration.join(","),
-    selectedCourseLevel.join(","),
-    isPaid,
-    isFree,
-    minPrice,
-    maxPrice,
+    searchParams, // This ensures the effect re-runs on any URL parameter change
+    searchQuery,  // Re-run when searchQuery changes
   ]);
 
   const handleFilterChange = (type, isChecked) => {
