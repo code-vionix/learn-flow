@@ -1,17 +1,50 @@
+"use client";
 import playCircle from "@/public/PlayCircle.png";
 import { Crown, Globe, Star, Users } from "lucide-react";
 import Image from "next/image";
 import SocialIcon from "../../components/shared/social_icon";
+import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { fetchProfile } from "@/app/api/instructor";
+import { useGetInstructorByIdQuery } from "@/store/api/instructorApi";
 
 export default function ProfileTop() {
+  const { data: session } = useSession();
+  const { data, isLoading, isError } = useGetInstructorByIdQuery(session?.user?.id || "");
+  const profile = data?.data?.instructor;
+
+  const totalReviews = data?.data?.totalReviews || 0;
+  const possibleRatings = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5];
+
+  const reviews = Array.from({ length: totalReviews }, () => ({
+    rating: possibleRatings[Math.floor(Math.random() * possibleRatings.length)],
+  }));
+
+
+
+  if (isLoading)
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="w-10 h-10 border-4 border-t-transparent border-primary-500 rounded-full animate-spin mb-2"></div>
+        <span className="text-lg">Loading</span>
+      </div>
+    );
+
+  if (isError) return <div className="p-4 text-red-500">{isError}</div>;
+
+
+
   return (
-    <div className=" bg-white ">
-      <div className=" mx-auto px-2   bg-white ">
+
+    <div className="h-40  relative">
+      <div className="container mx-auto px-8 absolute top-3/4  left-1/2 -translate-x-1/2 -translate-y-1/2">
+
         <div className="border-b border-primary-200">
           <div className="border border-[red] flex justify-between">
             <div className="border border-[red] flex flex-col md:flex-row items-center mx-auto md:items-center gap-4">
               <Image
-                src="https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src={profile?.user?.imageUrl || 'https://randomuser.me/api/portraits/men/32.jpg'}
                 alt="Profile picture"
                 width={200}
                 height={200}
@@ -19,23 +52,30 @@ export default function ProfileTop() {
               />
 
               <div className="flex-1">
+<<<<<<< HEAD
                 <div className="flex items-center justify-start gap-2 mb-3">
                   <h2 className="text-2xl font-semibold">Vako Shvili</h2>
+=======
+
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="text-2xl font-semibold">{profile?.user?.firstName} {profile?.user?.lastName}</h2>
+
+>>>>>>> 1e049a127c5852cac6cfae90ebcf0b9afb53c02d
                   <span className="flex items-center gap-1 bg-primary-100 text-primary-600 text-xs font-bold px-2 py-1 rounded-md">
                     <Crown className="w-4 h-4" /> Top Rated
                   </span>
                 </div>
                 <p className="text-gray-500 text-sm mb-5">
-                  Web Designer & Best-Selling Instructor
+                  {profile?.bio ?? 'N/A'}
                 </p>
                 <div className="flex flex-wrap items-center justify-center  gap-4 mt-2 text-gray-600 text-sm">
                   <div className="flex items-center gap-1">
                     <Star className="text-yellow-500" size={16} />{" "}
-                    <span className="font-semibold">4.8</span> (134,633 reviews)
+                    <span className="font-semibold">{totalReviews}</span> ({data?.data?.totalReviews} reviews)
                   </div>
                   <div className="flex items-center gap-1">
                     <Users size={16} />{" "}
-                    <span className="font-semibold">430,117</span> students
+                    <span className="font-semibold">{data?.data?.totalEnrollments}</span> students
                   </div>
                   <div className="flex items-center gap-1">
                     <Image
@@ -44,7 +84,7 @@ export default function ProfileTop() {
                       width={20}
                       height={20}
                     />
-                    <span className="font-semibold">7</span> courses
+                    <span className="font-semibold">{profile?.Course.length}</span> courses
                   </div>
                 </div>
               </div>
@@ -54,9 +94,9 @@ export default function ProfileTop() {
                 href="https://www.vakoshvili.com"
                 className="text-blue-500 hover:underline flex items-center gap-2"
               >
-                <Globe size={16} className="text-end" /> www.vakoshvili.com
+                <Globe size={16} className="text-end" />{profile?.website}
               </a>
-              <SocialIcon />
+              <SocialIcon profile={profile} />
             </div>
           </div>
         </div>

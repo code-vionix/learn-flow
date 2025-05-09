@@ -40,7 +40,6 @@ export default function AdvanceInformation({
   };
 
   const handleSaveNext = () => {
-    console.log("Advance Form Data: ", formData);
     onNext();
   };
 

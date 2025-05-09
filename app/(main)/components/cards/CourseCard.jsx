@@ -9,7 +9,7 @@ export default function CourseCard({
   title,
   category,
   price,
-  rating,
+  rating=5,
   students,
   image,
 }) {
@@ -34,7 +34,7 @@ export default function CourseCard({
               className="text-primary px-2 py-1 rounded-sm text-xs font-semibold "
               style={{ backgroundColor: nameToColor(category) }}
             >
-              {category.toUpperCase()}
+              {category.name.toUpperCase()}
             </span>
             <span className="font-bold text-primary-500 text-md">${price}</span>
           </div>

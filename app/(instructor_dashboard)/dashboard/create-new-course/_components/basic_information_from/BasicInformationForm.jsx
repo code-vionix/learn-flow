@@ -14,7 +14,6 @@ export default function BasicInformationForm({
   formData,
   setFormData,
 }) {
-  console.log(formData);
   const { progress, updateProgress } = useProgress();
 
   const handleFormDataChange = (field, value) => {
@@ -25,7 +24,6 @@ export default function BasicInformationForm({
   };
 
   const handleSaveAndNext = () => {
-    console.log("Form Data:", formData);
     // You can validate fields here if needed
     if (progress.basic === 10) {
       onNext(); // Go to next tab

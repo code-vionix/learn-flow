@@ -5,7 +5,7 @@ import { CreditCard } from "lucide-react";
 const PurchaseOrderSummaryCard = ({
   courseDetails,
   amount,
-  cardDetails,
+  // cardDetails,
   date,
   paymentMethod,
 }) => {
@@ -38,13 +38,13 @@ const PurchaseOrderSummaryCard = ({
         </div>
       </div>
 
-      <div className="space-y-2">
+      {/* <div className="space-y-2">
         <div className="text-sm text-gray-600"> {cardDetails.name}</div>
         <div className="flex justify-between">
           <div className="text-sm font-medium">{cardDetails.number}</div>
           <div className="text-sm text-gray-600">{cardDetails.expiry}</div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

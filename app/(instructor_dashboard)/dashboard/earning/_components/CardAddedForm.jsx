@@ -1,11 +1,11 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { SendHorizontal } from "lucide-react";
+import { useForm } from "react-hook-form";
 
 export default function CardAddedForm({ onClose }) {
   const {
@@ -15,7 +15,6 @@ export default function CardAddedForm({ onClose }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Form Data:", data);
     onClose();
   };
 
