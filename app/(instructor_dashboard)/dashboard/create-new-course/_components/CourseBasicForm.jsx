@@ -1,5 +1,5 @@
 "use client";
-import { fetchCategories } from "@/store/slice/courseCreateSlice";
+import { fetchCategories, setActiveTab } from "@/store/slice/courseCreateSlice";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setBasicCourse } from "@/store/slice/courseCreateSlice";
@@ -23,9 +23,17 @@ import {
 import { useState } from "react";
 import { useGetAllCategoryQuery } from "@/store/api/categoryApi";
 import { useRouter } from "next/navigation";
+import {
+  useAddNewCourseMutation,
+  useUpdateCourseMutation,
+} from "@/store/api/courseApi";
 
 export function CourseBasicForm() {
-  const courseData = useSelector((state) => state.course.courseBasicData);
+  const basicCourseData = useSelector((state) => state.course.courseBasicData);
+  const [addNewCourse, { isLoading, isSuccess, isError, error }] =
+    useAddNewCourseMutation();
+  const [updateCourse] = useUpdateCourseMutation();
+
   const router = useRouter();
   const [sebCat, setSebCat] = useState([]);
   const dispatch = useDispatch();
@@ -40,7 +48,7 @@ export function CourseBasicForm() {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: courseData || {},
+    defaultValues: basicCourseData || {},
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -61,31 +69,24 @@ export function CourseBasicForm() {
   };
 
   const handleNext = async (data) => {
-    const courseData = {
-      teacherId: "67e130a3738e16ff755553d0",
-      ...data,
-    };
+    console.log("data", data);
 
     try {
-      const res = await fetch(`http://localhost:3001/api/v1/courses`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(courseData),
-      });
-
-      const result = await res.json();
-      console.log("Response:", result);
-
-      if (res.ok) {
-        console.log("Course created successfully:", result);
-        dispatch(setBasicCourse(result.data));
+      if (basicCourseData?.id) {
+        // If courseData has an id, update the course
+        const result = await updateCourse({
+          course: data,
+          id: basicCourseData?.id,
+        }).unwrap();
       } else {
-        console.error("Error creating course:", result);
+        const result = await addNewCourse(data).unwrap();
+        if (result?.data) {
+          dispatch(setBasicCourse(result?.data));
+          dispatch(setActiveTab("advance"));
+        }
       }
-    } catch (error) {
-      console.error("Network error:", error);
+    } catch (err) {
+      console.error("Failed to add course:", err);
     }
   };
 
@@ -103,6 +104,10 @@ export function CourseBasicForm() {
       }
     });
   };
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
@@ -193,11 +198,7 @@ export function CourseBasicForm() {
                   </SelectTrigger>
                   <SelectContent>
                     {courseCategory?.map((category) => (
-                      <SelectItem
-                        onClick={() => console.log("hello")}
-                        key={category.id}
-                        value={category.id}
-                      >
+                      <SelectItem key={category.id} value={category.id}>
                         {category.name}
                       </SelectItem>
                     ))}
@@ -369,9 +370,9 @@ export function CourseBasicForm() {
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="BIGINNER">Beginner</SelectItem>
+                    <SelectItem value="BEGINNER">Beginner</SelectItem>
                     <SelectItem value="INTERMEDIATE">Intermediate</SelectItem>
-                    <SelectItem value="ADVANVED">Advanced</SelectItem>
+                    <SelectItem value="ADVANCED">Advanced</SelectItem>
                   </SelectContent>
                 </Select>
               )}

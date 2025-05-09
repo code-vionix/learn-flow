@@ -14,12 +14,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { ImageIcon, Play, Plus, Upload, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { useUpdateCourseMutation } from "@/store/api/courseApi";
 
 export default function CourseAdvanceForm() {
   const courseAdvancedData = useSelector(
     (state) => state.course.courseAdvancedData
   );
   const courseBasicData = useSelector((state) => state.course.courseBasicData);
+  const [updateCourse] = useUpdateCourseMutation();
 
   const dispatch = useDispatch();
   const imageInputRef = useRef(null); // create a ref for the file input
@@ -42,7 +44,7 @@ export default function CourseAdvanceForm() {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: courseAdvancedData || {
+    defaultValues: {
       description: "",
       whatYouWillLearn: [{ description: "" }],
       targetAudience: [{ description: "" }],
@@ -52,7 +54,23 @@ export default function CourseAdvanceForm() {
 
   // Update form values when courseAdvancedData changes
   useEffect(() => {
-    if (!courseAdvancedData) {
+    if (courseAdvancedData) {
+      reset({
+        description: courseAdvancedData.description || "",
+        whatYouWillLearn:
+          courseAdvancedData.learnings?.length > 0
+            ? courseAdvancedData.learnings
+            : [{ description: "" }],
+        targetAudience:
+          courseAdvancedData.targetAudiences?.length > 0
+            ? courseAdvancedData.targetAudiences
+            : [{ description: "" }],
+        courseRequirements:
+          courseAdvancedData.PreRequirement?.length > 0
+            ? courseAdvancedData.PreRequirement
+            : [{ description: "" }],
+      });
+    } else {
       reset({
         description: "",
         whatYouWillLearn: [{ description: "" }],
@@ -100,7 +118,6 @@ export default function CourseAdvanceForm() {
   const handleSave = (data) => {
     dispatch(setCourseAdvancedData(data));
   };
-
   const handleSaveAndPreview = (data) => {
     dispatch(setCourseAdvancedData(data));
   };
@@ -142,28 +159,21 @@ export default function CourseAdvanceForm() {
       formData.append("trailer", trailer);
     }
 
+    /**-------------------------------------------- */
+
     try {
-      const response = await fetch(
-        `http://localhost:3001/api/v1/courses/${courseBasicData.id}`,
-        {
-          method: "PUT",
-          body: formData, // fetch will automatically set multipart/form-data
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to update course");
+      if (courseBasicData?.id) {
+        // If courseData has an id, update the course
+        const result = await updateCourse({
+          course: formData,
+          id: courseBasicData?.id,
+        }).unwrap();
+        dispatch(setCourseAdvancedData(result));
       }
-
-      const updatedCourse = await response.json();
-      console.log("Course updated successfully:", updatedCourse);
-
-      dispatch(setCourseAdvancedData(data));
-    } catch (error) {
-      console.error("Error updating course:", error);
+    } catch (err) {
+      console.error("Failed to add course:", err);
     }
   };
-
   // Image and Video Handlers
   const handleImageChange = (e) => {
     const file = e.target.files[0];
