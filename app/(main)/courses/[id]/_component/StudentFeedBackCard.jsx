@@ -15,13 +15,13 @@ import StarRating from "./StarRating";
 export default function StudentFeedBackCard({ reviews }) {
   return (
     <>
-      <div className="lg:px-16 sm:px-5 md:px-8 flex justify-between items-center">
+      <div className="flex justify-between items-center">
         <h2 className="lg:text-2xl text-lg font-semibold text-[#1D2026]">
           Students Feedback
         </h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2 rounded-none">
               Sort by
               <ChevronDownIcon className="h-4 w-4" />
             </Button>
@@ -38,32 +38,34 @@ export default function StudentFeedBackCard({ reviews }) {
 
       <div className="space-y-4">
         {reviews.map((review) => (
-          <Card key={review.id} className="hover:shadow-md transition-shadow">
-            <CardContent className="p-6">
+          <div key={review.id} className="border-b pb-4">
+          <Card className="hover:shadow-md transition-shadow">
+            <CardContent className="py-6">
               <div className="flex gap-4">
                 <img
-                  src={review.avatar}
-                  alt={review.author}
+                  src={review.user.imageUrl}
+                  alt={review.user.name}
                   className="w-10 h-10 rounded-full"
                 />
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-2">
                     <h3 className="font-medium text-sm text-[#1D2026]">
-                      {review.author}
+                      {review.user.name}
                     </h3>
                     <span className="text-xs text-[#6E7485]">•</span>
                     <span className="text-xs text-[#6E7485]">
-                      {review.timeAgo}
+                      {review.createdAt}
                     </span>
                   </div>
                   <StarRating rating={review.rating} />
                   <p className=" w-full mt-3 lg:text-sm text-xs text-[#4E5566] lg:leading-[22px] tracking-tight">
-                    {review.content}
+                    {review.comment}
                   </p>
                 </div>
               </div>
             </CardContent>
           </Card>
+          </div>
         ))}
       </div>
 
