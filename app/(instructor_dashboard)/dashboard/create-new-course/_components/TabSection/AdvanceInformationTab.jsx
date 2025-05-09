@@ -1,8 +1,6 @@
 import { CheckCircle } from "lucide-react";
 
 export default function AdvanceInformationTab({ isActive, progress }) {
-  console.log("Advance progress:", progress);
-
   const totalInput = 6;
   const isCompleted = progress === totalInput;
 

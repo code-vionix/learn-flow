@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { SlidersHorizontal } from "lucide-react";
 import React from "react";
 
-const FilterToggleButton = ({ showFilters, setShowFilters }) => {
+const FilterToggleButton = ({ showFilters, setShowFilters ,hasCount}) => {
   return (
     <Button
       variant="outline"
@@ -13,7 +13,7 @@ const FilterToggleButton = ({ showFilters, setShowFilters }) => {
       <SlidersHorizontal className="w-4 h-4" />
       Filter
       <Badge className="ml-1 bg-primary-500 text-white rounded-none text-[10px]">
-        3
+        {hasCount}
       </Badge>
     </Button>
   );

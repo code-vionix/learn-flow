@@ -13,9 +13,12 @@ import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Navigation() {
   const [isSticky, setIsSticky] = useState(false);
+  const { data: session } = useSession();
+  console.log(session);
 
   useEffect(() => {
     const handleScroll = () => {
