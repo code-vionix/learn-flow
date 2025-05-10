@@ -11,6 +11,7 @@ import {
 
 import { ChevronDownIcon } from "lucide-react";
 import StarRating from "./StarRating";
+import { formatDate } from "@/lib/formatters";
 
 export default function StudentFeedBackCard({ reviews }) {
   return (
@@ -54,7 +55,7 @@ export default function StudentFeedBackCard({ reviews }) {
                     </h3>
                     <span className="text-xs text-[#6E7485]">•</span>
                     <span className="text-xs text-[#6E7485]">
-                      {review.createdAt}
+                      {formatDate(review.createdAt)}
                     </span>
                   </div>
                   <StarRating rating={review.rating} />

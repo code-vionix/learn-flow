@@ -26,9 +26,9 @@ const CourseCard = ({ course }) => {
           <div className="p-4 flex justify-between items-center">
             <span
               className="text-xs font-medium px-2 py-1 rounded"
-              style={{ backgroundColor: nameToColor(course.category) }}
+              style={{ backgroundColor: nameToColor(course.category.name) }}
             >
-              {course.category.toUpperCase()}
+              {course.category.name.toUpperCase()}
             </span>
             <span className="text-lg font-medium text-[#FF6636]">
               ${course.price}
