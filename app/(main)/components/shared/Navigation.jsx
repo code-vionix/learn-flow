@@ -13,12 +13,12 @@ import { Bell, Heart, Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 
 export default function Navigation() {
   const [isSticky, setIsSticky] = useState(false);
-  const { data: session } = useSession();
-  console.log(session);
+  // const { data: session } = useSession();
+  // console.log(session);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,8 +32,8 @@ export default function Navigation() {
   return (
     <nav
       className={`w-full z-50 transition-all duration-300 ${isSticky
-          ? "fixed top-0 bg-white shadow-md py-3"
-          : "relative bg-transparent py-5"
+        ? "fixed top-0 bg-white shadow-md py-3"
+        : "relative bg-transparent py-5"
         }`}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8">

@@ -14,8 +14,8 @@ const RecentCourseCard = ({ course }) => {
     >
       <div className="w-[312px] bg-white border border-gray-200 flex flex-col">
         <img
-          src={course.image}
-          alt={course.title}
+          src={course?.image}
+          alt={course?.title}
           className="w-full h-[234px] object-cover border-b border-gray-200"
         />
 
@@ -28,7 +28,7 @@ const RecentCourseCard = ({ course }) => {
                 color: course.category.color,
               }}
             >
-              {course.category.name.toUpperCase()}
+              {course.category?.name}
             </span>
             <span className="text-lg font-medium text-[#FF6636]">
               ${course.price}.00
@@ -63,14 +63,14 @@ const RecentCourseCard = ({ course }) => {
               {/* Instructor Section */}
               <div className="flex items-center gap-3">
                 <img
-                  src={course.instructor.image}
-                  alt={course.instructor.name}
+                  alt={course?.instructor?.name}
+                  src={course?.instructor?.image}
                   className="w-12 h-12 rounded-full"
                 />
                 <div>
                   <p className="text-sm text-gray-500">Course by</p>
                   <p className="text-sm text-gray-900 font-medium">
-                    {course.instructor.name}
+                    {course?.instructor?.name}
                   </p>
                 </div>
               </div>
@@ -79,12 +79,12 @@ const RecentCourseCard = ({ course }) => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <BarChart className="w-5 h-5 text-[#E34444]" />
-                  <span className="text-sm text-gray-700">{course.level}</span>
+                  <span className="text-sm text-gray-700">{course?.level}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-[#23BD33]" />
                   <span className="text-sm text-gray-700">
-                    {course.duration}
+                    {course?.duration}
                   </span>
                 </div>
               </div>
@@ -92,13 +92,13 @@ const RecentCourseCard = ({ course }) => {
               {/* Pricing Section */}
               <div className="flex items-center gap-2">
                 <span className="text-xl font-semibold text-gray-900">
-                  ${course.discountedPrice}
+                  ${course?.discountedPrice}
                 </span>
                 <span className="text-sm text-gray-500 line-through">
-                  ${course.originalPrice}
+                  ${course?.originalPrice}
                 </span>
                 <span className="text-xs text-white bg-[#FF6636] px-2 py-1 rounded">
-                  {course.discount}% OFF
+                  {course?.discount}% OFF
                 </span>
               </div>
 
@@ -108,7 +108,7 @@ const RecentCourseCard = ({ course }) => {
                   What you will learn
                 </h4>
                 <ul className="space-y-2">
-                  {course.description.map((item, index) => (
+                  {course?.description?.map((item, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <Check className="w-6 h-6 text-[#23BD33] flex-shrink-0" />
                       <p className="text-sm text-gray-600">{item}</p>

@@ -9,7 +9,7 @@ export default function CourseCard({
   title,
   category,
   price,
-  rating=5,
+  rating = 5,
   students,
   image,
 }) {
@@ -31,10 +31,10 @@ export default function CourseCard({
         <div>
           <div className="flex items-center justify-between mb-2 p-3">
             <span
-              className="text-primary px-2 py-1 rounded-sm text-xs font-semibold "
+              className="text-primary uppercase px-2 py-1 rounded-sm text-xs font-semibold "
               style={{ backgroundColor: nameToColor(category) }}
             >
-              {category.name.toUpperCase()}
+              {category?.name}
             </span>
             <span className="font-bold text-primary-500 text-md">${price}</span>
           </div>

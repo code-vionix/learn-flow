@@ -6,10 +6,21 @@ import Image from "next/image";
 import { courseData } from "../data/coursesData";
 import AttachFiles from "./AttachFiles";
 import CourseComment from "./CourseComments";
-import CourseVideoPlayer from "./CourseVideoPlayer";
+// import CourseVideoPlayer from "./CourseVideoPlayer";
 import LecturesInfo from "./LecturesInfo";
 import WatchCourseNavigateBar from "./WatchCourseNavigateBar";
 import WatchingCourseContent from "./WatchingCourseContent";
+import dynamic from "next/dynamic";
+
+const CourseVideoPlayer = dynamic(() => import("./CourseVideoPlayer"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[500px] flex items-center justify-center bg-gray-100">
+      <span className="text-gray-500">Loading...</span>
+    </div>
+  ),
+});
+
 
 const WatchingCoursePreview = () => {
   const moduleData = courseData[0]?.modules[0];

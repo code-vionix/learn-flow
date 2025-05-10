@@ -57,7 +57,7 @@ const CourseCard = ({ course }) => {
               <div className="flex items-center gap-1 px-4 ">
                 <User className="w-5 h-5 text-[#564FFD]" />
                 <span className="text-sm text-gray-700">
-                  {(course?.enrollments.length
+                  {course?.enrollments && (course?.enrollments.length
                     / 10).toFixed(1)}K students
                 </span>
               </div>
