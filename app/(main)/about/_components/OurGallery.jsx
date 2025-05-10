@@ -5,9 +5,9 @@ import { MoveRight } from "lucide-react";
 
 function OurGallery({ isButton = true }) {
   return (
-    <div className="flex-col  px-2 py-20 sm:px-8 md:px-16 xl:px-40 2xl:px-72 w-full   lg:pr-40  lg:pl-72 flex items-center justify-center lg:flex-row-reverse gap-5 md:gap-28  ">
-      <Image className="flex-1" src={galleryImage} alt="" width={672} height={500} />
-      <div className="md:w-[26.5rem] lg:flex-none 2xl:flex-1 text-center lg:text-start  flex flex-col gap-3 md:gap-4">
+    <div className="primary-container grid lg:grid-cols-2  gap-5 md:gap-28  ">
+
+      <div className={`${isButton ? 'order-1' : 'order-2'} md:w-[26.5rem] lg:flex-none 2xl:flex-1 text-center lg:text-start  flex flex-col gap-3 md:gap-4`}>
         <h3 className="w-full text-sm md:text-base font-medium text-primary-500">
           OUR GALLERY
         </h3>
@@ -27,6 +27,7 @@ function OurGallery({ isButton = true }) {
           )}
         </div>
       </div>
+      <Image className="flex-1" src={galleryImage} alt="" width={672} height={500} />
     </div>
   );
 }

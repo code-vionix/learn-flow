@@ -43,8 +43,8 @@ export default function StudentFeedBackCard({ reviews }) {
 
   return (
     <>
-      <div className="lg:px-16 sm:px-5 md:px-8 flex justify-between items-center">
-        <h2 className="lg:text-2xl text-lg font-semibold text-[#1D2026]">
+      <div className=" flex justify-between items-center">
+        <h2 className="lg:text-2x text-lg font-semibold text-[#1D2026]">
           Students Feedback
         </h2>
         <DropdownMenu>
@@ -100,8 +100,8 @@ export default function StudentFeedBackCard({ reviews }) {
               </CardContent>
             </Card>
           ))
-          : <div>No Reviews Found</div>
-}
+          : <div className="w-full flex items-center justify-center py-4">No Reviews Found</div>
+        }
       </div>
     </>
   );
