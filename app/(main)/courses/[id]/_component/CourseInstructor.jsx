@@ -1,12 +1,11 @@
 import Image from "next/image";
 
-const CourseInstructor = ({ instructors }) => {
+const CourseInstructor = ({ instructor }) => {
   return (
     <div className="bg-white  w-full flex flex-col">
       <h2 className="text-2xl font-bold mb-4">Course Instructor (02)</h2>
-      {instructors.map((instructor, index) => (
+      
         <div
-          key={index}
           className="flex items-start bg-white shadow-sm p-6 mb-4 border w-full "
         >
           {/* Profile Image */}
@@ -42,7 +41,7 @@ const CourseInstructor = ({ instructors }) => {
             </p>
           </div>
         </div>
-      ))}
+      
     </div>
   );
 };

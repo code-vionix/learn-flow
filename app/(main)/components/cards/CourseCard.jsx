@@ -31,8 +31,8 @@ export default function CourseCard({
         <div>
           <div className="flex items-center justify-between mb-2 p-3">
             <span
-              className="text-primary uppercase px-2 py-1 rounded-sm text-xs font-semibold "
-              style={{ backgroundColor: nameToColor(category) }}
+              className="text-primary px-2 py-1 rounded-sm text-xs font-semibold "
+              style={{ backgroundColor: nameToColor(category.name) }}
             >
               {category?.name}
             </span>

@@ -1,6 +1,6 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -9,6 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+import { formatDate } from "@/lib/formatters";
 import { ChevronDownIcon } from "lucide-react";
 import StarRating from "./StarRating";
 
@@ -33,75 +35,77 @@ export default function StudentFeedBackCard({ reviews }) {
     return `${years} year${years !== 1 ? "s" : ""} ago`;
   }
 
-  // Sort reviews based on selected rating
-  // const sortedReviews = useMemo(() => {
-  //   if (!sortByRating) return reviews;
-  //   return [...reviews].filter((review) => Math.floor(review.rating) === sortByRating);
-  // }, [reviews, sortByRating]);
-
-  console.log("review.........", reviews);
+  // Sort/filter reviews by selected rating (optional feature)
+  const filteredReviews = sortByRating
+    ? reviews.filter((review) => Math.floor(review.rating) === sortByRating)
+    : reviews;
 
   return (
     <>
-      <div className=" flex justify-between items-center">
-        <h2 className="lg:text-2x text-lg font-semibold text-[#1D2026]">
+      <div className="flex justify-between items-center">
+        <h2 className="lg:text-2xl text-lg font-semibold text-[#1D2026]">
           Students Feedback
         </h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="gap-2">
-              {sortByRating ? `${sortByRating} Star Rating` : "Sort by"}
+            <Button variant="outline" className="gap-2 rounded-none">
+              Sort by
               <ChevronDownIcon className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {[5, 4, 3, 2, 1].map((star) => (
-              <DropdownMenuItem key={star} onClick={() => setSortByRating(star)}>
+              <DropdownMenuItem
+                key={star}
+                onClick={() => setSortByRating(star)}
+              >
                 {star} Star Rating
               </DropdownMenuItem>
             ))}
             <DropdownMenuItem onClick={() => setSortByRating(null)}>
-              Clear Filter
+              All Ratings
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
 
       <div className="space-y-4 mt-4">
-        {reviews && reviews.length > 0
-          ? reviews?.map((review, index) => (
-            <Card key={review?.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex gap-4">
-                  <img
-                    src={
-                      review.user?.imageUrl ||
-                      `https://avatar.iran.liara.run/public/${index}`
-                    }
-                    alt={review.user?.firstName}
-                    className="w-10 h-10 rounded-full"
-                  />
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-sm text-[#1D2026]">
-                        {review?.user?.firstName} {review?.user?.lastName}
-                      </h3>
-                      <span className="text-xs text-[#6E7485]">•</span>
-                      <span className="text-xs text-[#6E7485]">
-                        {getTimeAgo(review?.createdAt)}
-                      </span>
+        {filteredReviews.length > 0 ? (
+          filteredReviews.map((review) => (
+            <div key={review.id} className="border-b pb-4">
+              <Card className="hover:shadow-md transition-shadow">
+                <CardContent className="py-6">
+                  <div className="flex gap-4">
+                    <img
+                      src={review.user.imageUrl}
+                      alt={review.user.name}
+                      className="w-10 h-10 rounded-full"
+                    />
+                    <div className="flex-1 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-medium text-sm text-[#1D2026]">
+                          {review.user.name}
+                        </h3>
+                        <span className="text-xs text-[#6E7485]">•</span>
+                        <span className="text-xs text-[#6E7485]">
+                          {formatDate(review.createdAt)}
+                        </span>
+                      </div>
+                      <StarRating rating={review.rating} />
+                      <p className="w-full mt-3 lg:text-sm text-xs text-[#4E5566] lg:leading-[22px] tracking-tight">
+                        {review.comment}
+                      </p>
                     </div>
-                    <StarRating rating={review?.rating} />
-                    <p className="mt-3 text-sm text-[#4E5566] leading-[22px] tracking-tight">
-                      {review?.comment}
-                    </p>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           ))
-          : <div className="w-full flex items-center justify-center py-4">No Reviews Found</div>
-        }
+        ) : (
+          <div className="w-full flex items-center justify-center py-4 text-[#6E7485]">
+            No Reviews Found
+          </div>
+        )}
       </div>
     </>
   );
