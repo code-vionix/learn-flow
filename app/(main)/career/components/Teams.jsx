@@ -4,8 +4,8 @@ import careerImage from "@/public/images/career.png";
 
 function Teams() {
   return (
-    <div className=" flex-col-reverse lg:flex-row w-full flex lg:py-10 px-2 py-5 sm:px-8 md:px-16 lg:px-32  xl:px-60 2xl:px-72 items-center justify-center gap-3 lg:gap-28 ">
-      <div className="lg:w-[33.5rem] flex flex-col gap-5 lg:flex-none 2xl:flex-1 text-center lg:text-start ">
+    <div className="lg:!h-[530px] primary-container grid lg:grid-cols-2 relative lg:py-10 py-5  gap-3 lg:gap-28 ">
+      <div className=" flex flex-col justify-center gap-6 ">
         <h1 className="w-full  text-gray-900 font-semibold text-3xl lg:text-4xl">
           Join the most incredible & creative team.
         </h1>
@@ -24,7 +24,7 @@ function Teams() {
 
       <Image
         src={careerImage}
-        className="xl:flex-1"
+        className="xl:flex-1 absolute right-0 bottom-0"
         alt=""
         width={648}
         height={600}

@@ -8,6 +8,10 @@ import ProfileBanner from "./_components/ProfileBanner";
 import ProfileViewChart from "./_components/ProfileViewChart";
 import RecentActivity from "./_components/RecentActivity";
 
+import {
+  useDeleteCourseMutation,
+  useGetAllCourseQuery,
+} from "@/store/api/courseApi";
 import StatsGrid from "./_components/StatsGrid";
 import {
   useDeleteCourseMutation,

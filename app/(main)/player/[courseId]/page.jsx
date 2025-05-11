@@ -3,6 +3,7 @@ import WatchingCourseWrapper from "./_components/WatchingCourseWrapper";
 import WatchingCourseHeader from "./_components/WatchingCourseHeader";
 import { courseData } from "./data/coursesData";
 import CourseContent from "./_components/CourseContent";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const CourseWatchingPage = () => {
   const data = courseData[0];

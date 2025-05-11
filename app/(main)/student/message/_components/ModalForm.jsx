@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { SendHorizontal } from "lucide-react";
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const ModalForm = ({ OnClose }) => {
@@ -23,7 +22,6 @@ const ModalForm = ({ OnClose }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     reset();
     OnClose();
   };
