@@ -13,6 +13,10 @@ import {
   useGetAllCourseQuery,
 } from "@/store/api/courseApi";
 import StatsGrid from "./_components/StatsGrid";
+import {
+  useDeleteCourseMutation,
+  useGetAllCourseQuery,
+} from "@/store/api/courseApi";
 
 export default function DashbordPAge() {
   const search = useSelector((state) => state.search);
@@ -25,13 +29,12 @@ export default function DashbordPAge() {
       error: deleteCourseError,
     },
   ] = useDeleteCourseMutation();
-
+  console.log(error);
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>{error.data.message}</div>;
+  if (isError) return <div>{error?.data?.message}</div>;
   return (
     <div className=" w-full min-h-screen mx-auto bg-gray-50">
-
-      <div className=" container w-full  mx-auto">
+      <div className=" container w-[1320px]  mx-auto">
         {/* {isError && <div>{error}</div>} */}
         {deleteCourseLoading && <div>Loading...</div>}
         {deleteIsCourseError && <div>{deleteCourseError.data.message}</div>}
