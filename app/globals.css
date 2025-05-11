@@ -263,3 +263,6 @@
 .instructor-container {
   @apply  w-full mx-auto px-2 py-2 sm:px-8 md:px-16  2xl:px-72;
 }
+.primary-container {
+  @apply  lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16
+}

@@ -11,7 +11,7 @@ function AboutPage() {
     <div>
       <CustomBreadcrumb title={"About"} />
 
-      <div className="px-2 py-2 sm:px-8 md:px-32 xl:px-40 2xl:px-72  " >
+      <div className="primary-container" >
         <AboutUs />
         <div className="mt-0">
         <TrustedCompanies smHeading={"We just keep going with "} />
