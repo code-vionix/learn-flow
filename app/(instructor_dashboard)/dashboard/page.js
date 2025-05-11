@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useSelector } from "react-redux";
 import CourseOverview from "../components/shared/CourseOverview/CourseOverview";
 import CourseRating from "../components/shared/CourseRating/CourseRating";
@@ -9,18 +9,27 @@ import ProfileViewChart from "./_components/ProfileViewChart";
 import RecentActivity from "./_components/RecentActivity";
 
 import StatsGrid from "./_components/StatsGrid";
-import { useDeleteCourseMutation, useGetAllCourseQuery } from "@/store/api/courseApi";
+import {
+  useDeleteCourseMutation,
+  useGetAllCourseQuery,
+} from "@/store/api/courseApi";
 
 export default function DashbordPAge() {
-  const search = useSelector(state => state.search)
+  const search = useSelector((state) => state.search);
   const { data, isLoading, isError, isSuccess, error } = useGetAllCourseQuery();
-  const [deleteCourse, { isLoading: deleteCourseLoading, isError: deleteIsCourseError, error: deleteCourseError }] = useDeleteCourseMutation();
-  console.log(error)
+  const [
+    deleteCourse,
+    {
+      isLoading: deleteCourseLoading,
+      isError: deleteIsCourseError,
+      error: deleteCourseError,
+    },
+  ] = useDeleteCourseMutation();
+  console.log(error);
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>{error.data.message}</div>;
+  if (isError) return <div>{error?.data?.message}</div>;
   return (
     <div className=" w-full min-h-screen mx-auto bg-gray-50">
-
       <div className=" container w-[1320px]  mx-auto">
         {/* {isError && <div>{error}</div>} */}
         {deleteCourseLoading && <div>Loading...</div>}
@@ -28,7 +37,7 @@ export default function DashbordPAge() {
         <button
           className="bg-primary-500 text-white px-4 py-2 rounded"
           onClick={() => {
-            deleteCourse('67f9476e65985939a0e2ce7d')
+            deleteCourse("67f9476e65985939a0e2ce7d");
           }}
         >
           delete Course
