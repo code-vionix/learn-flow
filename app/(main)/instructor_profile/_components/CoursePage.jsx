@@ -16,13 +16,12 @@ export default function InstructorCoursePage() {
   if (isError) return <div className="p-4 text-red-500">{isError}</div>;
   console.log("course : : : ", data);
   return (
-
     <>
       <div className="container mx-auto px-8  flex flex-col lg:flex-row gap-6 lg:mt-20 mt-5 mb-20">
         <div className="w-full md:w-1/3 border p-6 self-start">
           <h2 className="text-xl font-semibold mb-4">About Me</h2>
           <p>
-            {profile?.about}
+            {profile?.about || "No description found"}
           </p>
         </div>
 
@@ -42,12 +41,17 @@ export default function InstructorCoursePage() {
           <hr className="text-black" />
 
           <h2 className="text-2xl font-semibold mb-4 capitalize mt-4">{profile?.user?.firstName} {data?.data?.lastName} Courses({profile?.Course?.length})</h2>
-          <div className="flex flex-wrap gap-6 mt-6 mb-6">
-            {courses?.map((course, index) => (
-              <CourseCard key={index} course={course} />
-            ))}
-          </div>
-
+          {courses && courses.length > 0
+            ? <div className="flex flex-wrap gap-6 mt-6 mb-6">
+              {courses?.map((course, index) => (
+                <CourseCard key={index} course={course} />
+              ))}
+            </div>
+            :
+            <div className="flex flex-col items-center justify-center h-[300px] w-full">
+              <span className="text-lg">No courses found</span>
+            </div>
+          }
 
           <div id="student-feedback">
             <StudentFeedBackCard reviews={profile?.ratings} />

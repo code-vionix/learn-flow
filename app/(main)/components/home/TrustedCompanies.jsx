@@ -51,7 +51,7 @@ const companies = [
 
 export default function TrustedCompanies({ smHeading = "" }) {
   return (
-    <div className=" flex h-[384px] w-[1320px] mx-auto items-center justify-center gap-4 bg-white">
+    <div className=" flex h-[384px]  mx-auto items-center justify-center gap-4 bg-white">
       <div className="w-2/6 text-center ">
         <h3 className="text-2xl font-semibold text-[#1D2026] leading-tight tracking-tight mb-4">
           {smHeading + "6.3k Trusted Companies"}
