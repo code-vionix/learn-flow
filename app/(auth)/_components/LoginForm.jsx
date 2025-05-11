@@ -30,6 +30,7 @@ export default function LoginForm() {
       redirect: false,
     });
 
+    console.log("user==========", res);
     if (res?.ok) {
       router.push("/");
     } else {

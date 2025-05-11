@@ -1,23 +1,16 @@
 "use client";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-
-import Image from "next/image";
-import { useState } from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useState, useEffect } from "react";
 import PaymentCard from "./PaymentCard";
 import PaymentCourseCard from "./PaymentCourseCard";
+import { XCircle } from "lucide-react";
 
 function ShoppingCart() {
   const [wishlist, setWishlist] = useState([]);
   const [couponApplied, setCouponApplied] = useState(false);
   const [couponCode, setCouponCode] = useState("");
+  const [hydrated, setHydrated] = useState(false); // Track if client has hydrated
 
   const courses = [
     {
@@ -55,6 +48,15 @@ function ShoppingCart() {
     },
   ];
 
+  useEffect(() => {
+    // Load wishlist from local storage (example)
+    const storedWishlist = localStorage.getItem('wishlist');
+    if (storedWishlist) {
+      setWishlist(JSON.parse(storedWishlist));
+    }
+    setHydrated(true); // Mark as hydrated once the client runs
+  }, []);
+
   // Calculate Subtotal
   const subtotal = courses.reduce(
     (sum, course) => sum + course.originalPrice,
@@ -77,6 +79,11 @@ function ShoppingCart() {
     console.log(value.toFixed(2));
   }
 
+  if (!hydrated) {
+    // Render a fallback or null to avoid initial mismatch
+    return null;
+  }
+
   return (
     <div className="px-2 py-2 sm:px-8 md:px-16 lg:px-32 2xl:72 2xl:py-20 mx-auto  ">
       <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center lg:text-start">
@@ -86,20 +93,17 @@ function ShoppingCart() {
         <Table className="border">
           <TableHeader>
             <TableRow className="w-full text-lg p-2 flex items-center justify-between  lg:gap-10 ">
-              <TableHead className="w-2/3">Course</TableHead>
-              <div className=" flex justify-evenly w-1/2">
-                <TableHead className="hidden lg:block ">Price</TableHead>
-                <TableHead className=" hidden lg:block ">Action</TableHead>
-              </div>
+              <TableHead className="w-2/3 flex justify-evenly ">Course</TableHead>
+              <TableHead className="hidden lg:block ">Price</TableHead>
+              <TableHead className=" hidden lg:block ">Action</TableHead>
             </TableRow>
           </TableHeader>
-          {courses.map((course) => (
-            <PaymentCourseCard
-              course={course}
-              setWishlist={setWishlist}
-              wishlist={wishlist}
-            />
-          ))}
+
+          <TableBody>
+            {courses?.map((course, i) => (
+              <PaymentCourseCard key={course?.id || i} course={course} wishlist={wishlist} setWishlist={setWishlist} />
+            ))}
+          </TableBody>
         </Table>
         <PaymentCard
           setCouponApplied={setCouponApplied}
