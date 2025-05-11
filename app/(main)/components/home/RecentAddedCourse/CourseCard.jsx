@@ -6,6 +6,7 @@ import { useState } from "react";
 import CourseHoverCard from "./CourseHoverCard";
 
 const CourseCard = ({ course }) => {
+  console.log(course);
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -43,7 +44,7 @@ const CourseCard = ({ course }) => {
             <div className=" px-4 py-3 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <Star className="w-5 h-5 text-[#FD8E1F] fill-[#FD8E1F]" />
-                <span className="text-sm text-gray-700">{reviews}</span>
+                <span className="text-sm text-gray-700">{course.rating}</span>
               </div>
               <div className="flex items-center gap-1 px-4 ">
                 <User className="w-5 h-5 text-[#564FFD]" />
