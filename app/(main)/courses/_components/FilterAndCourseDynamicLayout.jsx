@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import FilterLeftSideBar from "./FilterLeftSideBar";
-import CourseCard from "../../components/cards/CourseCard";
 import { getAllCourses } from "@/utils/courses"; // This should accept query params
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import CourseCard from "../../components/cards/CourseCard";
+import FilterLeftSideBar from "./FilterLeftSideBar";
 
 const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [courses, setCourses] = useState([]);
@@ -13,8 +13,7 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [error, setError] = useState(null);
 
   const searchParams = useSearchParams();
-  const query = searchParams.get("query");
-
+  const searchQuery = searchParams.get("query") || "";
   const hasActiveFilters = Array.from(searchParams.entries()).length > 0;
 
   useEffect(() => {
@@ -45,14 +44,13 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
 
   const displayCourses = (() => {
     if (filteredCourses.length > 0) return filteredCourses;
-  
+
     if (query && courses.length > 0) return courses;
-  
+
     if (query && courses.length === 0) return [];
-  
+
     return courses;
   })();
-  
 
   return (
     <div
@@ -63,6 +61,7 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
         courses={courses}
         showFilters={showFilters}
         setFilteredCourses={setFilteredCourses}
+        searchQuery={searchQuery}
       />
 
       <div
