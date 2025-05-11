@@ -8,15 +8,6 @@ import CourseHoverCard from "./CourseHoverCard";
 const CourseCard = ({ course }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const totalReviews = course?.reviews.length || 0;
-  const possibleRatings = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5];
-
-  const reviews = Array.from({ length: totalReviews }, () => ({
-    rating: possibleRatings[Math.floor(Math.random() * possibleRatings.length)],
-  }));
-
-
-  console.log("course---------------", course);
   return (
     <div
       className="relative w-[312px]"
@@ -34,14 +25,14 @@ const CourseCard = ({ course }) => {
         <div className=" flex flex-col gap-2">
           <div className="px-4 pt-4 pb-0 flex justify-between items-center">
             <span
-              className="text-xs font-medium uppercase px-2 py-1 rounded"
-              style={{ backgroundColor: nameToColor(course?.category?.name) }}
+              className="text-xs font-medium px-2 py-1 rounded"
+              style={{ backgroundColor: nameToColor(course.category.name) }}
             >
-              {course?.category?.name}
+              {course.category.name.toUpperCase()}
             </span>
-            <p className="text-lg font-medium text-[#FF6636]">
-              ${course?.price}
-            </p>
+            <span className="text-lg font-medium text-[#FF6636]">
+              ${course.price}
+            </span>
           </div>
 
           <h3 className=" px-4 text-base font-medium text-gray-900 ">
@@ -57,8 +48,7 @@ const CourseCard = ({ course }) => {
               <div className="flex items-center gap-1 px-4 ">
                 <User className="w-5 h-5 text-[#564FFD]" />
                 <span className="text-sm text-gray-700">
-                  {(course?.enrollments.length
-                    / 10).toFixed(1)}K students
+                  {(course.students / 10).toFixed(1)}K students
                 </span>
               </div>
             </div>
