@@ -8,8 +8,9 @@ import RecentAddedCourseList from "./components/home/RecentAddedCourse/RecentAdd
 import TopInstructors from "./components/home/TopInstructors ";
 import TrustedCompanies from "./components/home/TrustedCompanies";
 import JoinCourse from "./components/shared/JoinCourse";
+import { getAllCourses } from "@/utils/courses";
 export default async function Home() {
-  const courses = await fetchCourses();
+  const courses = await getAllCourses();
   const instructors = await getInstructors();
 
   return (
