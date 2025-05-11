@@ -14,14 +14,14 @@ function OurPerkBenefit() {
       id: "1",
       title: "Healthy Food & Snacks",
       bgColor: "bg-primary-100",
-      icon: <Utensils color="rgba(255, 102, 54, 1)"  />,
+      icon: <Utensils color="rgba(255, 102, 54, 1)" />,
     },
     {
       id: "2",
       title: "Personal Career Growth",
       bgColor: "bg-secondary-100",
 
-      icon: <ChartBarBig  color="rgba(86, 79, 253, 1)" />,
+      icon: <ChartBarBig color="rgba(86, 79, 253, 1)" />,
     },
     {
       id: "3",
@@ -68,25 +68,26 @@ function OurPerkBenefit() {
   ];
 
   return (
-    <div className=" px-2  sm:px-8 md:px-16 xl:px-40 2xl:px-72 2xl:py-10">
+    <section className="bg-gray-50">
       <h1 className="font-semibold py-5 text-3xl lg:text-4xl text-gray-900 text-center">
         Our Perks & Benefits
       </h1>
-      <div className="flex flex-wrap items-center justify-center gap-3 lg:mt-10">
+
+      <div className=" primary-container grid lg:grid-cols-4 gap-6 2xl:py-10">
         {benefits.map((benefit) => {
           return (
-            <div key={benefit.id} className={`${benefit.bgColor} w-[19.5rem] h-[12rem] p-8`}>
-            <div className="flex flex-col gap-6">
-              <div className="w-16 h-16 bg-white flex items-center justify-center p-5">
-                {benefit.icon}
+            <div key={benefit.id} className={`${benefit.bgColor} border border-foreground-50 w-full h-[12rem] p-8`}>
+              <div className="flex flex-col gap-6">
+                <div className="w-16 h-16 bg-white flex items-center justify-center p-5">
+                  {benefit.icon}
+                </div>
+                <h2 className="font-medium text-lg">{benefit.title}</h2>
               </div>
-              <h2 className="font-medium text-lg">{benefit.title}</h2>
-            </div>
             </div>
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }
 
