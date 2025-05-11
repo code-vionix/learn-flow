@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
-const InstructorDisplayInfo = ({color}) => {
+const InstructorDisplayInfo = ({ color }) => {
     const displayInfo = [
         {
             id: 1,
@@ -33,10 +33,7 @@ const InstructorDisplayInfo = ({color}) => {
     ]
     return (
         <div className={`${color} || bg-primary-100`}>
-
-
-
-            <div className="instructor-container lg:h-[128px] flex flex-wrap text-center justify-center items-center  mx-auto lg:justify-between gap-2 lg:gap-4 ">
+            <div className="grid grid-cols-5 gap-2 lg:gap-4 ">
                 {
                     displayInfo?.map(itm => <div key={itm?.id} className="  flex gap-2 lg:gap-4 items-center justify-center">
                         <Image

@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function FeaturedCourses({ courses }) {
   const FeatusedCourses = courses.slice(0, 4);
   return (
-    <section className=" max-w-7xl  mx-auto border border-r-gray-100 w-[1480px] px-10 py-10 ">
+    <section className="primary-container bg-white mt-[-260px] ">
       <div className="flex justify-between p-5">
         <h2 className="text-2xl font-bold mb-4">Our feature courses</h2>
         <p className="w-96 text-gray-500 text-sm">
