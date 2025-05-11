@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import FilterLeftSideBar from "./FilterLeftSideBar";
-import CourseCard from "../../components/cards/CourseCard";
 import { getAllCourses } from "@/utils/courses";
-import { getAllCategories } from "@/utils/category";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import CourseCard from "../../components/cards/CourseCard";
+import FilterLeftSideBar from "./FilterLeftSideBar";
 
 const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [courses, setCourses] = useState([]);
@@ -12,7 +11,7 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [error, setError] = useState(null);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const searchParams = useSearchParams();
-  const searchQuery = searchParams.get("query") || ""
+  const searchQuery = searchParams.get("query") || "";
   const hasActiveFilters = Array.from(searchParams.entries()).length > 0;
 
   useEffect(() => {
@@ -26,10 +25,9 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
-  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -38,8 +36,8 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
     hasActiveFilters && filteredCourses.length > 0
       ? filteredCourses
       : hasActiveFilters
-      ? [] // filters active but no match
-      : courses; // no filters
+        ? [] // filters active but no match
+        : courses; // no filters
 
   return (
     <div
@@ -50,7 +48,7 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
         courses={courses}
         showFilters={showFilters}
         setFilteredCourses={setFilteredCourses}
-        searchQuery={searchQuery }
+        searchQuery={searchQuery}
       />
 
       <div

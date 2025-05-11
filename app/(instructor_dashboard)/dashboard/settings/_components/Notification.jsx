@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 function Notification({ setInstructorInfo }) {
   const initialNotification = {
@@ -10,16 +11,40 @@ function Notification({ setInstructorInfo }) {
     visitProfile: false,
     downloadFile: false,
   };
-
+  const { data: session } = useSession();
   const [notifications, setNotifications] = useState(initialNotification);
 
-  const onNotificationSubmit = () => {
-    setInstructorInfo((prev) => ({
-      ...prev,
-      notifications,
-    }));
+  // onSubmit function with PUT request
+  const onNotificationSubmit = async () => {
+    try {
+      const notificationId = session?.user?.id; // replace with dynamic notification ID
+      const res = await fetch(`/api/v1/notification/${notificationId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // if auth is required
+        },
+        body: JSON.stringify(notifications),
+      });
 
-    setNotifications(initialNotification);
+      if (!res.ok) {
+        throw new Error('Failed to update notification settings.');
+      }
+
+      const data = await res.json();
+      console.log('Notification updated:', data);
+
+      // Update the instructorInfo state with the new notification settings
+      setInstructorInfo((prev) => ({
+        ...prev,
+        notifications,
+      }));
+
+      // Reset the notifications state to initial values after save
+      setNotifications(initialNotification);
+    } catch (error) {
+      console.error('Error updating notification:', error.message);
+    }
   };
 
   return (

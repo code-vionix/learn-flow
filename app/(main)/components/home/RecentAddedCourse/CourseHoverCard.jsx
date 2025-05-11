@@ -6,8 +6,8 @@ const CourseHoverCard = ({ course }) => {
     return ((originalPrice - offerPrice) / originalPrice) * 100;
   };
 
-  const originalPrice = course.price;
-  const offerPrice = course.offer_price;
+  const originalPrice = course?.price;
+  const offerPrice = course?.offer_price;
   const discountPercentage = calculateDiscount(originalPrice, offerPrice);
 
   return (
@@ -17,13 +17,15 @@ const CourseHoverCard = ({ course }) => {
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
             <img
-              src={course.image}
-              alt={course.name}
-              className="w-12 h-12 rounded-full"
+              src={course?.imageUrl}
+              alt={course?.title}
+              className="w-12 h-12 rounded-full object-scale-down"
             />
             <div>
               <p className="text-sm text-gray-500">Course by</p>
-              <p className="text-sm text-gray-900 font-medium">{course.name}</p>
+              <p className="text-sm text-gray-900 font-medium">
+                {course?.title}
+              </p>
             </div>
           </div>
 
@@ -31,21 +33,21 @@ const CourseHoverCard = ({ course }) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <BarChart className="w-5 h-5 text-[#E34444]" />
-              <span className="text-sm text-gray-700">{course.level}</span>
+              <span className="text-sm text-gray-700">{course?.level}</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-[#23BD33]" />
-              <span className="text-sm text-gray-700">{course.duration}</span>
+              <span className="text-sm text-gray-700">{course?.duration}</span>
             </div>
           </div>
 
           {/* Pricing Section */}
           <div className="flex items-center gap-2">
             <span className="text-xl font-semibold text-gray-900">
-              ${course.offer_price}
+              ${course?.offer_price}
             </span>
             <span className="text-sm text-gray-500 line-through">
-              ${course.price}
+              ${course?.price}
             </span>
             <span className="text-xs text-white bg-[#FF6636] px-2 py-1 rounded">
               {`${discountPercentage.toFixed(1)}`}% OFF
@@ -58,7 +60,9 @@ const CourseHoverCard = ({ course }) => {
               What you will learn
             </h4>
             <ul className="space-y-2">
-              {course.target_audience?.map((item, index) => (
+
+              {course?.target_audience?.map((item, index) => (
+
                 <li key={index} className="flex items-start gap-2">
                   <Check className="w-6 h-6 text-[#23BD33] flex-shrink-0" />
                   <p className="text-sm text-gray-600">{item}</p>
