@@ -6,6 +6,7 @@ import { useState } from "react";
 import CourseHoverCard from "./CourseHoverCard";
 
 const CourseCard = ({ course }) => {
+  console.log(course);
   const [isHovered, setIsHovered] = useState(false);
 
   const totalReviews = course?.reviews.length || 0;
@@ -41,9 +42,6 @@ const CourseCard = ({ course }) => {
             <span className="text-lg font-medium text-[#FF6636]">
               ${course.price}
             </span>
-            <p className="text-lg font-medium text-[#FF6636]">
-              ${course?.price}
-            </p>
           </div>
 
           <h3 className=" px-4 text-base font-medium text-gray-900 ">
