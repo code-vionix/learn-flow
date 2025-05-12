@@ -34,13 +34,10 @@ export default function StudentFeedBackCard({ reviews }) {
     return `${years} year${years !== 1 ? "s" : ""} ago`;
   }
 
-  // Sort reviews based on selected rating
-  // const sortedReviews = useMemo(() => {
-  //   if (!sortByRating) return reviews;
-  //   return [...reviews].filter((review) => Math.floor(review.rating) === sortByRating);
-  // }, [reviews, sortByRating]);
-
-  console.log("review.........", reviews);
+  // Sort/filter reviews by selected rating (optional feature)
+  const filteredReviews = sortByRating
+    ? reviews.filter((review) => Math.floor(review.rating) === sortByRating)
+    : reviews;
 
   return (
     <>
@@ -65,7 +62,7 @@ export default function StudentFeedBackCard({ reviews }) {
               </DropdownMenuItem>
             ))}
             <DropdownMenuItem onClick={() => setSortByRating(null)}>
-              Clear Filter
+              All Ratings
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
