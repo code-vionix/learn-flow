@@ -1,6 +1,5 @@
 "use client";
-
-import { getAllCourses } from "@/utils/courses"; // This should accept query params
+import { getAllCourses } from "@/utils/courses";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CourseCard from "../../components/cards/CourseCard";
@@ -8,49 +7,37 @@ import FilterLeftSideBar from "./FilterLeftSideBar";
 
 const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
   const [courses, setCourses] = useState([]);
-  const [filteredCourses, setFilteredCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [filteredCourses, setFilteredCourses] = useState([]);
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query") || "";
   const hasActiveFilters = Array.from(searchParams.entries()).length > 0;
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       try {
-        const queryObj = {};
-        if (query) {
-          queryObj.query = query;
-        }
-
-        // You need to pass query params to getAllCourses
-        const fetchedCourses = await getAllCourses(queryObj);
+        const fetchedCourses = await getAllCourses();
         setCourses(fetchedCourses);
       } catch (err) {
-        setError("Failed to load courses.");
-        console.error(err);
+        setError("Failed to load data.");
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [query]);
+  }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  const displayCourses = (() => {
-    if (filteredCourses.length > 0) return filteredCourses;
-
-    if (query && courses.length > 0) return courses;
-
-    if (query && courses.length === 0) return [];
-
-    return courses;
-  })();
+  const displayCourses =
+    hasActiveFilters && filteredCourses.length > 0
+      ? filteredCourses
+      : hasActiveFilters
+        ? [] // filters active but no match
+        : courses; // no filters
 
   return (
     <div
