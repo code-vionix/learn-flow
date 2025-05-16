@@ -21,6 +21,7 @@ export default async function Home({ params }) {
   const { id } = params;
   const course = await getCourseById(id);
   const instructor = await getCourseDataByCourseId("instructor", id);
+  const reviews = await getCourseDataByCourseId("reviews", id);
 
   return (
     <div className="h-full w-full">
@@ -30,8 +31,8 @@ export default async function Home({ params }) {
         <div className="flex-1 px-10 py-2 flex gap-6 w-[1320px] mx-auto  bg-transparent -mt-[330px] ">
           <div className="flex flex-col  gap-4 w-full">
             <Breadcrumb
-              category={course.category}
-              subCategory={course.subCategory}
+              categoryName={course?.categoryName}
+              subCategoryName={course?.subCategoryName}
             />
             <CourseTitle title={course?.title} subtitle={course?.subtitle} />
             <CourseInfo course={course} instructor={instructor.data} />
@@ -47,12 +48,12 @@ export default async function Home({ params }) {
             </section>
 
             <section id="instructor">
-              <CourseInstructor instructor={course?.instructor} />
+              <CourseInstructor instructor={instructor.data} />
             </section>
 
             <section id="review">
-              <CourseRating reviews={course.reviews} />
-              <StudentFeedback reviews={course.reviews} />
+              <CourseRating reviews={reviews} />
+              <StudentFeedback reviews={reviews} />
             </section>
           </div>
           <CourseSidebar course={course} />
