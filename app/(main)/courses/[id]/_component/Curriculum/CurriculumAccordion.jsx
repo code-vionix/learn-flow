@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Accordion,
   AccordionContent,
@@ -7,9 +6,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ChevronDown, Clock, File, Play } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
-export default function CurriculumAccordion({ sections = [] }) {
+export default function CurriculumAccordion({ sections = [], id }) {
   const [openIndex, setOpenIndex] = useState(null);
 
   return (
@@ -18,7 +18,7 @@ export default function CurriculumAccordion({ sections = [] }) {
       collapsible
       className="w-full border rounded-md divide-y bg-white"
       onValueChange={(val) => {
-        const idx = val?.split("-")[1]; // "section-0" => 0
+        const idx = val?.split("-")[1];
         setOpenIndex(val ? Number(idx) : null);
       }}
     >
@@ -34,6 +34,7 @@ export default function CurriculumAccordion({ sections = [] }) {
             : `${totalDuration}m`;
 
         const isOpen = openIndex === index;
+        const firstVideoLesson = lessons.find((l) => l.videoUrl);
 
         return (
           <AccordionItem
@@ -55,16 +56,29 @@ export default function CurriculumAccordion({ sections = [] }) {
                   <span
                     className={`font-semibold text-[15px] ${
                       isOpen ? "text-[#FD4D0C]" : "text-[#1D2026]"
-                    }`}
+                    }
+                    `}
                   >
                     {section.title}
                   </span>
                 </div>
+
                 <span className="text-sm flex gap-5 items-center">
-                  <span className="flex gap-1 items-center text-[#564FFD]">
-                    <Play size={16} />
-                    {lessons.length} lectures
-                  </span>
+                  {firstVideoLesson ? (
+                    <Link
+                      href={`/player/${id}`}
+                      className="flex gap-1 items-center text-[#564FFD] hover:underline"
+                    >
+                      <Play size={16} />
+                      {lessons.length} lectures
+                    </Link>
+                  ) : (
+                    <span className="flex gap-1 items-center text-[#564FFD]">
+                      <Play size={16} />
+                      {lessons.length} lectures
+                    </span>
+                  )}
+
                   <span className="flex gap-1 items-center text-[#FD8E1F]">
                     <Clock size={16} />
                     {durationText}
@@ -72,20 +86,28 @@ export default function CurriculumAccordion({ sections = [] }) {
                 </span>
               </div>
             </AccordionTrigger>
+
             <AccordionContent className="pb-4 px-4">
-              {lessons.map((lesson, i) => (
+              {lessons.map((lesson) => (
                 <div
                   key={lesson.id}
                   className="flex justify-between items-center py-2 text-sm text-[#1D2026] border-b last:border-b-0"
                 >
-                  <div className="flex items-center gap-2">
-                    {lesson.videoUrl ? (
+                  {lesson.videoUrl ? (
+                    <Link
+                      href={`/player/${id}`}
+                      className="flex items-center gap-2 hover:text-[#FD4D0C] transition-colors"
+                    >
                       <Play size={14} className="text-gray-700" />
-                    ) : (
+                      <span>{lesson.title}</span>
+                    </Link>
+                  ) : (
+                    <div className="flex items-center gap-2">
                       <File size={14} className="text-gray-700" />
-                    )}
-                    <span>{lesson.title}</span>
-                  </div>
+                      <span>{lesson.title}</span>
+                    </div>
+                  )}
+
                   <span className="text-[#8C94A3] text-xs">
                     {lesson.estimatedTime
                       ? `${lesson.estimatedTime}m`
