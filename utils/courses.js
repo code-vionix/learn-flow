@@ -83,7 +83,7 @@ export const getCourseDataByCourseId = async (dataName, courseId) => {
       throw new Error(err.message || "Failed to fetch courseData");
     }
     const data = await res.json();
-    return data.data;
+    return data;
   } catch (error) {
     console.log(error.massage);
   }

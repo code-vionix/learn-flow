@@ -12,7 +12,8 @@ import CourseRating from "./_component/CourseRating";
 import CourseSidebar from "./_component/CourseSidebar";
 import CourseTabs from "./_component/CourseTabs";
 import CourseTitle from "./_component/CourseTitle";
-import Curriculum from "./_component/Curriculum";
+
+import Curriculum from "./_component/Curriculum/Curriculum";
 import RelatedCourses from "./_component/RelatedCourses";
 import { StudentFeedback } from "./_component/StudentFeedback";
 
@@ -33,20 +34,16 @@ export default async function Home({ params }) {
               subCategory={course.subCategory}
             />
             <CourseTitle title={course?.title} subtitle={course?.subtitle} />
-            <CourseInfo course={course} instructor={instructor} />
+            <CourseInfo course={course} instructor={instructor.data} />
             <CoursePreview course={course} />
             <CourseTabs course={course} />
             <CourseDescription description={course?.description} />
             <CourseLearning id={id} />
-            <CourseDetails
-              tergetAudience={course?.targetAudiences}
-              requirements={course?.PreRequirement}
-              id={id}
-            />
+            <CourseDetails id={id} />
 
             {/* Ensure the ID matches the tab name */}
             <section id="curriculum">
-              <Curriculum />
+              <Curriculum id={id} />
             </section>
 
             <section id="instructor">

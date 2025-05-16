@@ -2,7 +2,6 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 
 export default function CourseInfo({ course, instructor }) {
-  console.log(instructor.user);
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-3">

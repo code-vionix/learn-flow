@@ -12,7 +12,7 @@ export default async function CourseDetails({ id }) {
           Who this course is for:
         </h2>
         <ul className="mt-2 space-y-2 text-gray-700">
-          {tergetAudience.map((item, index) => (
+          {tergetAudience.data.map((item, index) => (
             <li key={index} className="flex items-start space-x-2">
               <ArrowRight className="w-4 h-4 text-orange-500 mt-1" />
               <span>{item.description}</span>
@@ -27,7 +27,7 @@ export default async function CourseDetails({ id }) {
           Course requirements
         </h2>
         <ul className="mt-2 space-y-2 text-gray-700">
-          {requirements.map((item, index) => (
+          {requirements.data.map((item, index) => (
             <li key={index} className="flex items-start space-x-2">
               <span className="w-2 h-2 mt-2 bg-gray-500 rounded-full"></span>
               <span>{item.description}</span>
