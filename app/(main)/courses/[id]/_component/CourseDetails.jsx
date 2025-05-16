@@ -1,6 +1,9 @@
+import { getCourseDataByCourseId } from "@/utils/courses";
 import { ArrowRight } from "lucide-react";
 
-export default function CourseDetails({tergetAudience,requirements}) {
+export default async function CourseDetails({ id }) {
+  const tergetAudience = await getCourseDataByCourseId("targetAudiences", id);
+  const requirements = await getCourseDataByCourseId("requirements", id);
   return (
     <div className=" w-full mx-auto space-y-6">
       {/* Who this course is for */}

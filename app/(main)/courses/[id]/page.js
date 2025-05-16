@@ -1,6 +1,7 @@
 import { getCourseById } from "@/utils/getCourseById";
 import Breadcrumb from "./_component/Breadcrumb";
 
+import { getCourseDataByCourseId } from "@/utils/courses";
 import CourseDescription from "./_component/CourseDescription";
 import CourseDetails from "./_component/CourseDetails";
 import CourseInfo from "./_component/CourseInfo";
@@ -18,7 +19,8 @@ import { StudentFeedback } from "./_component/StudentFeedback";
 export default async function Home({ params }) {
   const { id } = params;
   const course = await getCourseById(id);
-  console.log(course);
+  const instructor = await getCourseDataByCourseId("instructor", id);
+
   return (
     <div className="h-full w-full">
       <div className="w-full min-h-screen relative">
@@ -31,14 +33,15 @@ export default async function Home({ params }) {
               subCategory={course.subCategory}
             />
             <CourseTitle title={course?.title} subtitle={course?.subtitle} />
-            <CourseInfo course={course} />
+            <CourseInfo course={course} instructor={instructor} />
             <CoursePreview course={course} />
             <CourseTabs course={course} />
             <CourseDescription description={course?.description} />
-            <CourseLearning learning={course?.learnings} />
+            <CourseLearning id={id} />
             <CourseDetails
               tergetAudience={course?.targetAudiences}
               requirements={course?.PreRequirement}
+              id={id}
             />
 
             {/* Ensure the ID matches the tab name */}
