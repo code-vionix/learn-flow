@@ -1,11 +1,11 @@
 "use client";
 
+import { extractCourseFilters } from "@/utils/courses";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import FilterCategoryLists from "./FilterCategoryLists";
 import FilterCard from "./FilterCard";
+import FilterCategoryLists from "./FilterCategoryLists";
 import FilterWithPrice from "./FilterWithPrice";
-import { extractCourseFilters } from "@/utils/courses";
 
 const FilterLeftSideBar = ({
   showFilters,
@@ -28,17 +28,21 @@ const FilterLeftSideBar = ({
   const minPrice = Number(searchParams.get("minPrice")) || 0;
   const maxPrice = Number(searchParams.get("maxPrice")) || 0;
 
-  const { tags, levels, durations, ratings, categories } = extractCourseFilters(courses);
+  const { tags, levels, durations, ratings, categories } =
+    extractCourseFilters(courses);
 
   // Build query string for API request including the search query
   const buildQuery = () => {
     const params = new URLSearchParams();
     if (searchQuery) params.set("query", searchQuery); // Include search query
-    if (selectedCategories.length) params.set("category", selectedCategories.join(","));
+    if (selectedCategories.length)
+      params.set("category", selectedCategories.join(","));
     if (selectedTools.length) params.set("Tools", selectedTools.join(","));
     if (selectedRatings.length) params.set("Rating", selectedRatings.join(","));
-    if (selectedDuration.length) params.set("Duration", selectedDuration.join(","));
-    if (selectedCourseLevel.length) params.set("CourseLevel", selectedCourseLevel.join(","));
+    if (selectedDuration.length)
+      params.set("Duration", selectedDuration.join(","));
+    if (selectedCourseLevel.length)
+      params.set("CourseLevel", selectedCourseLevel.join(","));
     if (isPaid) params.set("paid", "true");
     if (isFree) params.set("free", "true");
     if (isPaid && (minPrice !== 0 || maxPrice !== 0)) {
@@ -53,10 +57,11 @@ const FilterLeftSideBar = ({
     const query = buildQuery();
     const fetchFilteredCourses = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/v1/courses?${query}`);
+        const res = await fetch(
+          `http://localhost:3000/api/v1/courses?${query}`
+        );
         const data = await res.json();
         setFilteredCourses(data);
-        console.log("Filtered courses:", data);
       } catch (error) {
         console.error("Failed to fetch filtered courses:", error);
       }
@@ -77,7 +82,7 @@ const FilterLeftSideBar = ({
     }
   }, [
     searchParams, // This ensures the effect re-runs on any URL parameter change
-    searchQuery,  // Re-run when searchQuery changes
+    searchQuery, // Re-run when searchQuery changes
   ]);
 
   const handleFilterChange = (type, isChecked) => {
@@ -101,11 +106,27 @@ const FilterLeftSideBar = ({
             ))}
           </div>
 
-          <FilterCard title="Tools" items={tags} onFilterChange={handleFilterChange} />
-          <FilterCard title="Rating" items={ratings} onFilterChange={handleFilterChange} />
-          <FilterCard title="CourseLevel" items={levels} onFilterChange={handleFilterChange} />
+          <FilterCard
+            title="Tools"
+            items={tags}
+            onFilterChange={handleFilterChange}
+          />
+          <FilterCard
+            title="Rating"
+            items={ratings}
+            onFilterChange={handleFilterChange}
+          />
+          <FilterCard
+            title="CourseLevel"
+            items={levels}
+            onFilterChange={handleFilterChange}
+          />
           <FilterWithPrice onFilterChange={handleFilterChange} />
-          <FilterCard title="Duration" items={durations} onFilterChange={handleFilterChange} />
+          <FilterCard
+            title="Duration"
+            items={durations}
+            onFilterChange={handleFilterChange}
+          />
         </div>
       )}
     </>

@@ -1,20 +1,20 @@
 "use client";
-import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/use-toast";
+import Whatsapp from "@/public/components/Whatsapp";
+import { useUpdateInstructorMutation } from "@/store/api/instructorApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import {
-  Globe,
   Facebook,
+  Globe,
   Instagram,
   Linkedin,
   Twitter,
   Youtube,
 } from "lucide-react";
-import Whatsapp from "@/public/components/Whatsapp";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { useUpdateInstructorMutation } from "@/store/api/instructorApi";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const socialSchema = z.object({
   website: z.string().url("Please enter a valid URL").or(z.string().length(0)),
@@ -55,10 +55,10 @@ export default function SocialProfile({ setInstructorInfo }) {
 
       toast({
         title: "Social Links Updated!",
-        description: "Your instructor social links has been successfully updated.",
+        description:
+          "Your instructor social links has been successfully updated.",
       });
 
-      console.log("Updated links:", response);
       reset();
     } catch (error) {
       toast({
@@ -71,7 +71,6 @@ export default function SocialProfile({ setInstructorInfo }) {
       setIsLoading(false);
     }
   };
-
 
   return (
     <div className="bg-white p-10 rounded-lg shadow-sm mt-6">
@@ -202,8 +201,11 @@ export default function SocialProfile({ setInstructorInfo }) {
           <button
             type="submit"
             disabled={isLoading}
-            className={`px-6 py-3 font-semibold rounded-md text-white ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary-500 hover:bg-primary-600"
-              }`}
+            className={`px-6 py-3 font-semibold rounded-md text-white ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary-500 hover:bg-primary-600"
+            }`}
           >
             {isLoading ? "Saving..." : "Save Changes"}
           </button>

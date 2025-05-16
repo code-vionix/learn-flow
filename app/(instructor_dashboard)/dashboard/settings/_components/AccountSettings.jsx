@@ -39,7 +39,7 @@ export default function AccountSettings() {
     setIsLoading(true);
     try {
       const updatedInstructorData = {
-        id: '6811186f3f1d94ec4578d01b',
+        id: "6811186f3f1d94ec4578d01b",
         firstName: data?.firstName,
         lastName: data?.lastName,
         username: data?.username,
@@ -57,8 +57,6 @@ export default function AccountSettings() {
         title: "Profile updated!",
         description: "Your instructor profile has been successfully updated.",
       });
-
-      console.log("Updated Instructor:", response);
       reset();
     } catch (error) {
       toast({
@@ -196,14 +194,17 @@ export default function AccountSettings() {
                     </label>
                   </div>
                   <p className="text-sm text-gray-600 mt-3">
-                    Image size should be under 1MB and image ratio needs to be 1:1
+                    Image size should be under 1MB and image ratio needs to be
+                    1:1
                   </p>
                 </div>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm text-gray-900 mb-1.5">Title</label>
+              <label className="block text-sm text-gray-900 mb-1.5">
+                Title
+              </label>
               <div className="relative">
                 <input
                   {...register("title")}
@@ -232,8 +233,11 @@ export default function AccountSettings() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`px-6 py-3 font-semibold rounded-md text-white ${isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary-500 hover:bg-primary-600"
-                  }`}
+                className={`px-6 py-3 font-semibold rounded-md text-white ${
+                  isLoading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-primary-500 hover:bg-primary-600"
+                }`}
               >
                 {isLoading ? "Saving..." : "Save Changes"}
               </button>

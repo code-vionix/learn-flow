@@ -29,8 +29,6 @@ export default function LoginForm() {
       password: form.password,
       redirect: false,
     });
-
-    console.log("user==========", res);
     if (res?.ok) {
       router.push("/");
     } else {

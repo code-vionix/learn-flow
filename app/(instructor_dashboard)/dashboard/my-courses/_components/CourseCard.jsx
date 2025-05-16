@@ -3,9 +3,15 @@ import { MoreHorizontal, Star } from "lucide-react";
 import Image from "next/image";
 
 export default function CourseCard({ course }) {
-  const { imageUrl, instructor, description, createdAt, price, endDate, title } = course;
-
-  console.log("course", course);
+  const {
+    imageUrl,
+    instructor,
+    description,
+    createdAt,
+    price,
+    endDate,
+    title,
+  } = course;
   function formatDate(dateString) {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", {
@@ -15,13 +21,15 @@ export default function CourseCard({ course }) {
     }).format(date);
   }
 
-
   return (
     <div className="flex flex-col md:flex-row bg-white  shadow-sm overflow-hidden max-w-full">
       {/* Course Image */}
       <div className="relative w-full md:w-[352px] h-64 md:h-auto p-6">
         <Image
-          src={imageUrl || "https://plus.unsplash.com/premium_photo-1682974406904-15916a7501f1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+          src={
+            imageUrl ||
+            "https://plus.unsplash.com/premium_photo-1682974406904-15916a7501f1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          }
           alt={title || "Course Image"}
           fill
           sizes="(max-width: 768px) 100vw, 352px"
@@ -44,16 +52,11 @@ export default function CourseCard({ course }) {
           </span>
         </div>
 
-
         {/* Course Title */}
-        <h2 className="text-xl font-semibold text-gray-900 mb-1">
-          {title}
-        </h2>
+        <h2 className="text-xl font-semibold text-gray-900 mb-1">{title}</h2>
 
         {/* Course Description */}
-        <p className="text-sm text-gray-600 mb-6">
-          {description}
-        </p>
+        <p className="text-sm text-gray-600 mb-6">{description}</p>
 
         {/* Instructors and Rating */}
         <div className="flex flex-col md:flex-row justify-between mb-6">
@@ -62,7 +65,10 @@ export default function CourseCard({ course }) {
             <div className="relative w-12 h-12">
               <div className="absolute left-0 top-0 w-8 h-8 rounded-full overflow-hidden border-2 border-white">
                 <Image
-                  src={instructor?.user?.imageUrl || "https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                  src={
+                    instructor?.user?.imageUrl ||
+                    "https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  }
                   alt="Kevin Gilbert"
                   width={32}
                   height={32}

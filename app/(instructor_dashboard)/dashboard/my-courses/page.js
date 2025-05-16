@@ -1,14 +1,13 @@
-'use client';
-import React from 'react';
-import InstructorCourseCard from './_components/InstructorCourseCard';
-import { useGetInstructorByIdQuery } from '@/store/api/instructorApi';
-import { useSession } from 'next-auth/react';
-import FilterCourse from './_components/FilterCourse';
+"use client";
+import { useGetInstructorByIdQuery } from "@/store/api/instructorApi";
+import { useSession } from "next-auth/react";
+import InstructorCourseCard from "./_components/InstructorCourseCard";
 
 const InstructorPage = () => {
   const { data: session } = useSession();
-  console.log("useer ........................", session);
-  const { data, isLoading, isError } = useGetInstructorByIdQuery(session?.user?.id || '');
+  const { data, isLoading, isError } = useGetInstructorByIdQuery(
+    session?.user?.id || ""
+  );
   const profile = data?.data?.instructor;
   const courses = profile?.Course;
 
@@ -31,12 +30,12 @@ const InstructorPage = () => {
 
   return (
     <>
-    {/* <FilterCourse courses={courses} /> */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      {courses?.map((course) => (
-        <InstructorCourseCard key={course?.id} course={course} />
-      ))}
-    </div>
+      {/* <FilterCourse courses={courses} /> */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {courses?.map((course) => (
+          <InstructorCourseCard key={course?.id} course={course} />
+        ))}
+      </div>
     </>
   );
 };

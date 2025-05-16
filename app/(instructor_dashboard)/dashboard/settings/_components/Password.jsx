@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { Eye, EyeOff } from 'lucide-react'
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { useState } from 'react'
-import { useUpdateUserPasswordMutation } from '@/store/api/userApi'
-import { useAuth } from '@/lib/auth'
-import { toast, useToast } from '@/hooks/use-toast'
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth";
+import { useUpdateUserPasswordMutation } from "@/store/api/userApi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const passwordSchema = z
   .object({
@@ -15,29 +15,30 @@ const passwordSchema = z
       .string()
       .min(4, "Password must be at least 6 characters"),
     newPassword: z.string().min(4, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(4, "Password must be at least 6 characters")
+    confirmPassword: z
+      .string()
+      .min(4, "Password must be at least 6 characters"),
   })
-  .refine(data => data.newPassword === data.confirmPassword, {
+  .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"]
-  })
+    path: ["confirmPassword"],
+  });
 
 function Password({ setInstructorInfo }) {
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false)
-  const [showNewPassword, setShowNewPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { accessToken, session } = useAuth();
-  console.log("token", accessToken, session);
 
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(passwordSchema)
-  })
+    resolver: zodResolver(passwordSchema),
+  });
 
   const [updateUserPassword] = useUpdateUserPasswordMutation();
   // const onPasswordSubmit = async (data) => {
@@ -51,11 +52,10 @@ function Password({ setInstructorInfo }) {
   //       currentPassword: data?.currentPassword,
   //       newPassword: data?.newPassword,
   //     }).unwrap();
-  //     console.log('Password updated:', res);
+  //
   //   } catch (err) {
   //     console.error('Error updating password:', err);
   //   }
-
 
   //   reset()
 
@@ -64,9 +64,9 @@ function Password({ setInstructorInfo }) {
   const [loading, setLoading] = useState(false);
   const onPasswordSubmit = async (data) => {
     setLoading(true);
-    setInstructorInfo(prev => ({
+    setInstructorInfo((prev) => ({
       ...prev,
-      password: data
+      password: data,
     }));
 
     try {
@@ -86,14 +86,12 @@ function Password({ setInstructorInfo }) {
       setLoading(false);
       toast({
         title: "Update Failed",
-        description: err?.data?.message || "Something went wrong while updating password.",
+        description:
+          err?.data?.message || "Something went wrong while updating password.",
         variant: "destructive",
       });
     }
   };
-
-
-
 
   return (
     <div className="bg-white p-10 rounded-lg shadow-sm">
@@ -171,7 +169,6 @@ function Password({ setInstructorInfo }) {
               className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600"
             >
               {showConfirmPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-
             </button>
           </div>
           {errors.confirmPassword && (
@@ -185,15 +182,18 @@ function Password({ setInstructorInfo }) {
           <button
             type="submit"
             disabled={loading}
-            className={`px-6 py-3 font-semibold rounded-md text-white ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-primary-500 hover:bg-primary-600"
-              }`}
+            className={`px-6 py-3 font-semibold rounded-md text-white ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-primary-500 hover:bg-primary-600"
+            }`}
           >
             {loading ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default Password
+export default Password;
