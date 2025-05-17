@@ -94,6 +94,35 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -216,38 +245,37 @@
   @apply opacity-0 transition-opacity duration-200 ml-1 group-hover:opacity-100;
 }
 .basic-title {
-  @apply md:text-[24px] text-[22px] font-[600]
+  @apply md:text-[24px] text-[22px] font-[600];
 }
-
 
 /********************************
  * watch course styles
  ********************************/
- .green-progress {
-    --progress-bar-color: green;
+.green-progress {
+  --progress-bar-color: green;
 }
 .accordion-trigger {
-    transition: color 0.3s ease;
+  transition: color 0.3s ease;
 }
 .accordion-trigger[aria-expanded="true"] {
-    background-color: #F5F7FA!important;
-    color: #FF6636!important;
+  background-color: #f5f7fa !important;
+  color: #ff6636 !important;
 }
 
 .accordion-trigger[aria-expanded="true"] .arrow {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .react-player > div {
-    position: relative;
+  position: relative;
 }
 
 .react-player .react-player__preview {
-    display: none !important;
+  display: none !important;
 }
 
 .react-player iframe {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .transparent-scroll::-webkit-scrollbar {
@@ -255,14 +283,13 @@
 }
 
 .transparent-scroll::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
-
 }
 
 .instructor-container {
-  @apply  w-full mx-auto px-2 py-2 sm:px-8 md:px-16  2xl:px-72;
+  @apply w-full mx-auto px-2 py-2 sm:px-8 md:px-16  2xl:px-72;
 }
 .primary-container {
-  @apply  lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16
+  @apply lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16;
 }

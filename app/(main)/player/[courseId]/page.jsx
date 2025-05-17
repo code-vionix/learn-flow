@@ -1,18 +1,31 @@
-import React from "react";
-import WatchingCourseWrapper from "./_components/WatchingCourseWrapper";
-import WatchingCourseHeader from "./_components/WatchingCourseHeader";
-import { courseData } from "./data/coursesData";
+import { getCourseDataByCourseId } from "@/utils/courses";
+import { getCourseById } from "@/utils/getCourseById";
 import CourseContent from "./_components/CourseContent";
-import { AuthProvider } from "@/components/AuthProvider";
+import WatchingCourseHeader from "./_components/WatchingCourseHeader";
+import WatchingCourseWrapper from "./_components/WatchingCourseWrapper";
+import { courseData } from "./data/coursesData";
 
-const CourseWatchingPage = () => {
+const CourseWatchingPage = async ({ params }) => {
+  const { courseId } = params;
+
   const data = courseData[0];
+  const course = await getCourseById(courseId);
+  const sections = await getCourseDataByCourseId("modules", courseId);
+  const enrollments = await getCourseDataByCourseId("enrolments", courseId);
+
   return (
     <div className="bg-white">
-      <WatchingCourseHeader data={data} />
+      <WatchingCourseHeader course={course} sections={sections} />
       <WatchingCourseWrapper>
-        <CourseContent data={data} />
+        <CourseContent
+          courseId={courseId}
+          data={data}
+          sections={sections}
+          course={course}
+          enrollments={enrollments.data}
+        />
       </WatchingCourseWrapper>
+      ``
       <br /> <br />
     </div>
   );
