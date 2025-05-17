@@ -16,7 +16,6 @@ const CourseCard = ({ course }) => {
     rating: possibleRatings[Math.floor(Math.random() * possibleRatings.length)],
   }));
 
-  console.log("course---------------", course);
   return (
     <div
       className="relative w-[312px]"

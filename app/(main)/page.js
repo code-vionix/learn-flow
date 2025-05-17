@@ -8,18 +8,20 @@ import RecentAddedCourseList from "./components/home/RecentAddedCourse/RecentAdd
 import TopInstructors from "./components/home/TopInstructors ";
 import TrustedCompanies from "./components/home/TrustedCompanies";
 import JoinCourse from "./components/shared/JoinCourse";
-import { getAllCourses } from "@/utils/courses";
+import { getAllCourses, getBestSellingCourses, getFeaturedCourses } from "@/utils/courses";
 export default async function Home() {
   const courses = await getAllCourses();
+  const bestSellingCourses = await getBestSellingCourses();
+  const featuredCourses = await getFeaturedCourses();
   const instructors = await getInstructors();
 
-  return (
+   return (
     <div className="bg-background text-primary">
       <Hero />
       <CategoriesSection />
       <div className="relative ">
-        <BestSellingSection courses={courses} />
-          <FeaturedCourses courses={courses} />
+        <BestSellingSection courses={bestSellingCourses?.data} />
+          <FeaturedCourses courses={featuredCourses?.data} />
       <RecentAddedCourseList courses={courses} />
         <InstructorCard />
           <TopInstructors instructors={instructors} />
