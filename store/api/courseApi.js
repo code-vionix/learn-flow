@@ -6,6 +6,18 @@ export const courseApi = apiSlice.injectEndpoints({
       query: () => `/courses`,
       providesTags: ["courses"],
     }),
+    getBestSellingCourse: builder.query({
+      query: () => `/courses/best-selling`,
+      providesTags: ["courses"],
+    }),
+    getFeaturedCourse: builder.query({
+      query: () => `/courses/featured-course`,
+      providesTags: ["courses"],
+    }),
+    getBestSellingCourseByCategory: builder.query({
+      query: () => `/courses/featured-course`,
+      providesTags: ["courses"],
+    }),
     getCourseById: builder.query({
       query: (id) => `/courses/${id}`,
       providesTags: ["course"],
@@ -45,6 +57,9 @@ export const courseApi = apiSlice.injectEndpoints({
 export const {
   useGetAllCourseQuery,
   useGetCourseByIdQuery,
+  useGetBestSellingCourseQuery,
+  useGetFeaturedCourseQuery,
+  useGetBestSellingCourseByCategoryQuery,
   useAddNewCourseMutation,
   useUpdateCourseMutation,
   useDeleteCourseMutation,

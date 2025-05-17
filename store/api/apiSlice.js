@@ -5,12 +5,15 @@ export const apiSlice = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.NEXT_PUBLIC_API_ROUTE_URL,
         prepareHeaders: (headers, { getState }) => {
-            const token = getState().auth.accessToken;
+            const state = getState();
+            const token = state.auth?.accessToken;
+        
             if (token) {
                 headers.set("authorization", `Bearer ${token}`);
             }
+        
             return headers;
-        }
+        }        
     }),
     tagTypes: [
         'courses',
@@ -20,7 +23,13 @@ export const apiSlice = createApi({
         'user',
         'EnrollCourses',
         'PurchesHistory',
-        'UserProfile'
+        'UserProfile',
+        'testimonials',
+        'testimonial',
+        'contacts',
+        'contact',
+        'faqs',
+        'faq'
     ],
     endpoints: (builder) => ({})
 });
