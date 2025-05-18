@@ -6,7 +6,7 @@ import { Clock, LineChart, Star, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 export default function FeaturedCourses({ courses }) {
-  const FeatusedCourses = courses.slice(0, 4);
+  const FeatusedCourses = courses?.slice(0, 4);
   return (
     <section className="primary-container bg-white mt-[-260px] ">
       <div className="flex justify-between p-5">
@@ -17,7 +17,7 @@ export default function FeaturedCourses({ courses }) {
         </p>
       </div>
       <div className="grid md:grid-cols-2 gap-6">
-        {FeatusedCourses.map((course) => (
+        {FeatusedCourses?.map((course) => (
           <Link key={course.id} href={`/courses/${course.id}`}>
             <Card className="flex  overflow-hidden group">
               {/* Course Image */}
@@ -73,7 +73,7 @@ export default function FeaturedCourses({ courses }) {
                     <span className="font-medium text-gray-900">
                       {course?.rating}
                     </span>
-                    <span>({course?.reviews?.toLocaleString()})</span>
+                    <span>({course?.reviews.toLocaleString()})</span>
                   </div>
                 </div>
                 {/* Rating, Students, Level, Duration */}
