@@ -3,8 +3,6 @@ import CourseModuleItem from "./CourseModuleItem";
 import { CourseProgress } from "./CourseProgress";
 
 const WatchingCourseContent = ({ sections, courseId }) => {
-  console.log("section...", sections);
-
   return (
     <div className="md:mt-0 mt-4">
       <div className="flex items-center justify-between w-full">

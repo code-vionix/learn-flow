@@ -129,7 +129,8 @@ import { Button } from "@/components/ui/button";
 import { useCourseContext } from "@/povider/CourseProvider";
 import Image from "next/image";
 import AttachFiles from "./AttachFiles";
-import CourseComment from "./CourseComments";
+
+import CourseComment from "./Components/CourseComment";
 import CourseVideoPlayer from "./CourseVideoPlayer";
 import LecturesInfo from "./LecturesInfo";
 import WatchCourseNavigateBar from "./WatchCourseNavigateBar";

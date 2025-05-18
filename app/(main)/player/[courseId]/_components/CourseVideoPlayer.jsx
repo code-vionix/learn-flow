@@ -12,12 +12,9 @@ const DynamicReactPlayer = dynamic(() => import("react-player"), {
 
 export default function CourseVideoPlayer({ courseId, modules }) {
   const { currentLesson } = useCourseContext(courseId);
-  console.log(currentLesson);
-  console.log("modules", modules);
   // fallback lesson if context not ready yet
   const fallbackLesson = modules?.[0]?.lessons?.[0];
   const lesson = currentLesson || fallbackLesson;
-  console.log(lesson);
   const [url, setUrl] = useState(lesson?.videoUrl || "");
   const [autoPlay, setAutoPlay] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);

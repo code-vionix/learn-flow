@@ -1,10 +1,10 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
+import useDebounce from "@/hooks/useDebounce";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import useDebounce from "@/hooks/useDebounce";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const SearchBar = () => {
     setQuery(value);
     debouncedSearch(value);
   };
-console.log(query)
+
   return (
     <div className="relative">
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
