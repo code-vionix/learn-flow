@@ -16,6 +16,8 @@ export default function CoursesPage() {
   const [status, setStatus] = useState("All Courses");
   const [teacher, setTeacher] = useState("All Teachers");
 
+  console.log(courses);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }

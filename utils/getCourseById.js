@@ -1,6 +1,6 @@
 export const getCourseById = async (id) => {
   const baseUrl = process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
-
+  console.log("Course ID: ", id);
   if (!id) {
     throw new Error("Course ID is required");
   }
@@ -11,6 +11,7 @@ export const getCourseById = async (id) => {
 
     if (!res.ok) {
       const errorData = await res.json();
+      console.log(errorData);
       throw new Error(errorData.message || "Failed to fetch course");
     }
 
