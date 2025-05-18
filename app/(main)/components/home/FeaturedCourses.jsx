@@ -6,7 +6,7 @@ import { Clock, LineChart, Star, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 export default function FeaturedCourses({ courses }) {
-  const FeatusedCourses = courses.slice(0, 4);
+  const FeatusedCourses = courses?.slice(0, 4);
   return (
     <section className="primary-container bg-white mt-[-260px] ">
       <div className="flex justify-between p-5">
@@ -17,7 +17,7 @@ export default function FeaturedCourses({ courses }) {
         </p>
       </div>
       <div className="grid md:grid-cols-2 gap-6">
-        {FeatusedCourses.map((course) => (
+        {FeatusedCourses?.map((course) => (
           <Link key={course.id} href={`/courses/${course.id}`}>
             <Card className="flex  overflow-hidden group">
               {/* Course Image */}
@@ -36,25 +36,25 @@ export default function FeaturedCourses({ courses }) {
                   <span
                     className=" px-2 py-1  text-xs"
                     style={{
-                      backgroundColor: nameToColor(course.category.name, 0.2),
+                      backgroundColor: nameToColor(course?.category?.name, 0.2),
                     }}
                   >
-                    {course.category.name.toUpperCase()}
+                    {course?.category?.name.toUpperCase()}
                   </span>
                   {/* Price */}
                   <div className="flex items-center space-x-2 text-sm mt-1">
                     <span className="font-bold text-gray-900">
-                      ${course.offer_price}
+                      ${course?.offer_price}
                     </span>
                     <span className="text-gray-400 line-through">
-                      ${course.price}
+                      ${course?.price}
                     </span>
                   </div>
                 </div>
 
                 {/* Title */}
                 <h3 className="font-semibold text-sm mt-2 mb-1 line-clamp-2 group-hover:text-primary-500 transition-colors duration-300">
-                  {course.title}
+                  {course?.title}
                 </h3>
                 <div className="flex justify-between items-center">
                   {/* Instructor */}
@@ -71,9 +71,9 @@ export default function FeaturedCourses({ courses }) {
                   <div className="flex items-center space-x-1">
                     <Star className="h-3.5 w-3.5 text-yellow-400 fill-current" />
                     <span className="font-medium text-gray-900">
-                      {course.rating}
+                      {course?.rating}
                     </span>
-                    <span>({course.reviews.toLocaleString()})</span>
+                    <span>({course?.reviews.toLocaleString()})</span>
                   </div>
                 </div>
                 {/* Rating, Students, Level, Duration */}
@@ -81,17 +81,17 @@ export default function FeaturedCourses({ courses }) {
                   <span className="flex items-center space-x-1 gap-2 text-primary">
                     <User className="size-5 text-secondary-500" />{" "}
                     <p>
-                      {course.students}{" "}
+                      {course?.students}{" "}
                       <span className="text-gray-500">Students</span>
                     </p>
                   </span>
                   <span className="flex items-center space-x-1 gap-2 ">
                     <LineChart className="size-5 text-red-500" />
-                    {course.level}
+                    {course?.level}
                   </span>
                   <span className="flex items-center space-x-1 gap-2">
                     <Clock className="size-5 text-success-500" />{" "}
-                    {course.duration}
+                    {course?.duration}
                   </span>
                 </div>
               </div>

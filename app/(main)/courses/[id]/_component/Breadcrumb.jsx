@@ -10,9 +10,9 @@ export default function Breadcrumb({category,subCategory}) {
       <ArrowRight className="w-3 h-3" />
       <span>courses</span>
       <ArrowRight className="w-3 h-3" />
-      <span>{category.name}</span>
+      <span>{category?.name}</span>
       <ArrowRight className="w-3 h-3" />
-      <span>{subCategory.name}</span>
+      <span>{subCategory?.name}</span>
     </nav>
   );
 }
