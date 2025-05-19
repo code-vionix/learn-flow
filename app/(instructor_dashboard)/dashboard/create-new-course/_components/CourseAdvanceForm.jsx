@@ -169,6 +169,7 @@ export default function CourseAdvanceForm() {
           id: courseBasicData?.id,
         }).unwrap();
         dispatch(setCourseAdvancedData(result));
+        dispatch(setActiveTab("curriculum"));
       }
     } catch (err) {
       console.error("Failed to add course:", err);

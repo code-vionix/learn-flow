@@ -27,6 +27,7 @@ import {
   useAddNewCourseMutation,
   useUpdateCourseMutation,
 } from "@/store/api/courseApi";
+import { setCourseId } from "@/store/slice/courseCreateSlice";
 
 export function CourseBasicForm() {
   const basicCourseData = useSelector((state) => state.course.courseBasicData);
@@ -78,10 +79,12 @@ export function CourseBasicForm() {
           course: data,
           id: basicCourseData?.id,
         }).unwrap();
+        dispatch(setCourseId(basicCourseData?.id));
       } else {
         const result = await addNewCourse(data).unwrap();
         if (result?.data) {
           dispatch(setBasicCourse(result?.data));
+          dispatch(setCourseId(result?.data?.id));
           dispatch(setActiveTab("advance"));
         }
       }
