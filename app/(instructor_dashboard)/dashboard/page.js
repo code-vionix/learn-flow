@@ -13,10 +13,6 @@ import {
   useGetAllCourseQuery,
 } from "@/store/api/courseApi";
 import StatsGrid from "./_components/StatsGrid";
-import {
-  useDeleteCourseMutation,
-  useGetAllCourseQuery,
-} from "@/store/api/courseApi";
 
 export default function DashbordPAge() {
   const search = useSelector((state) => state.search);
