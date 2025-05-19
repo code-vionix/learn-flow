@@ -5,6 +5,9 @@ const initialState = {
   courseAdvancedData: {},
   activeTab: "basic",
   category: [],
+  courseId: "",
+  activeLecture: { sectionId: null, lectureId: null, moduleId: null },
+  activeModule: { sectionId: null, moduleId: null },
 };
 
 const courseCreateSlice = createSlice({
@@ -20,9 +23,24 @@ const courseCreateSlice = createSlice({
     setActiveTab: (state, action) => {
       state.activeTab = action.payload;
     },
+    setCourseId: (state, action) => {
+      state.courseId = action.payload;
+    },
+    setActiveLecture: (state, action) => {
+      state.activeLecture = action.payload;
+    },
+    setActiveModule: (state, action) => {
+      state.activeModule = action.payload;
+    },
   },
 });
 
-export const { setBasicCourse, setActiveTab, setCourseAdvancedData } =
-  courseCreateSlice.actions;
+export const {
+  setBasicCourse,
+  setActiveTab,
+  setCourseAdvancedData,
+  setCourseId,
+  setActiveLecture,
+  setActiveModule,
+} = courseCreateSlice.actions;
 export default courseCreateSlice.reducer;
