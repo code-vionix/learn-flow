@@ -1,21 +1,28 @@
 import Image from "next/image";
 
 const AvatarConnector = ({ comment, isNested }) => {
-  const hasReply = comment.replies.length > 0;
-  const firstReply = comment.replies?.[0];
-  const secondLevel = firstReply?.replies?.length > 0;
+  const replies = comment?.replies || [];
+  const hasReply = replies.length > 0;
+
+  const firstReply = replies[0];
+  const secondLevel = (firstReply?.replies || []).length > 0;
 
   const height = hasReply ? "100%" : "0px";
+  const avatarUrl = comment?.author?.imageUrl || "/placeholder.svg";
+  const authorName = `${comment?.author?.name || "User"}'s avatar`;
 
   return (
     <div className="relative flex flex-col items-center">
-      <Image
-        src={comment.author.avatar || "/placeholder.svg"}
-        alt={`${comment.author.name}'s avatar`}
-        width={40}
-        height={40}
-        className="rounded-full"
-      />
+      <div className="w-10 h-10 rounded-full overflow-hidden">
+        <Image
+          src={avatarUrl}
+          alt={authorName}
+          width={40}
+          height={40}
+          className="object-cover"
+        />
+      </div>
+
       {hasReply && (
         <div className="w-[2px] bg-gray-300 mt-1" style={{ height }} />
       )}

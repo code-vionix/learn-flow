@@ -1,124 +1,144 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CommentItem from "./CommentItem";
 import ReplyInput from "./ReplyInput";
 
-// Dummy session to simulate current logged-in user
-const dummySession = {
-  user: {
-    id: "user_demo_123",
-    name: "DemoUser",
-    image: "https://xsgames.co/randomusers/assets/avatars/male/75.jpg",
-    email: "demo@example.com",
-  },
-};
-
-// Initial comments
-const initialComments = [
-  {
-    id: 1,
-    author: {
-      id: "user1",
-      name: "User1",
-      avatar: "https://xsgames.co/randomusers/assets/avatars/male/74.jpg",
-    },
-    text: "Nulla pellentesque leo vitae lorem hendrerit...",
-    timeAgo: "2 hours ago",
-    replies: [
-      {
-        id: 27,
-        author: {
-          id: "user2",
-          name: "User2",
-          avatar: "https://xsgames.co/randomusers/assets/avatars/male/74.jpg",
-        },
-        text: "This is a reply to the first comment.",
-        timeAgo: "1 hour ago",
-        replies: [],
-      },
-    ],
-  },
-];
-
 const CourseComment = () => {
-  const user = dummySession.user;
-  const [comments, setComments] = useState(initialComments);
+  const lessonId = "6826bc13b354b64db00ec91b"; // Use your lessonId here
+
+  const [comments, setComments] = useState([]);
   const [replyText, setReplyText] = useState("");
   const [replyToId, setReplyToId] = useState(null);
   const [showNewCommentInput, setShowNewCommentInput] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const newCommentInputRef = useRef(null);
 
-  const handleAddTopLevelComment = () => {
-    if (!replyText.trim()) return;
+  // Build nested comments tree from flat list
+  const buildNestedComments = (comments) => {
+    const map = {};
+    const roots = [];
 
-    const newComment = {
-      id: Date.now(),
-      author: {
-        id: user.id,
-        name: user.name,
-        avatar: user.image,
-      },
-      text: replyText,
-      timeAgo: "Just now",
-      replies: [],
-    };
+    comments.forEach((comment) => {
+      map[comment.id] = { ...comment, replies: [] };
+    });
 
-    console.log("📝 New Top-Level Comment:", newComment);
+    comments.forEach((comment) => {
+      if (comment.parentId) {
+        if (map[comment.parentId]) {
+          map[comment.parentId].replies.push(map[comment.id]);
+        } else {
+          // If parent not found, treat as root (optional)
+          roots.push(map[comment.id]);
+        }
+      } else {
+        roots.push(map[comment.id]);
+      }
+    });
 
-    setComments([...comments, newComment]);
-    setReplyText("");
-    setShowNewCommentInput(false);
+    return roots;
   };
 
-  const handleReply = (targetId) => {
+  // Fetch comments from API
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(
+          `http://localhost:3000/api/v1/comments?lessonId=${lessonId}`
+        );
+        if (!res.ok) throw new Error("Failed to fetch comments");
+        const data = await res.json();
+
+        const nestedComments = buildNestedComments(data);
+        setComments(nestedComments);
+      } catch (err) {
+        setError(err.message || "Error fetching comments");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchComments();
+  }, [lessonId]);
+
+  // Add new top-level comment
+  const handleAddTopLevelComment = async () => {
     if (!replyText.trim()) return;
 
-    const newReply = {
-      id: Date.now(),
-      author: {
-        id: user.id,
-        name: user.name,
-        avatar: user.image,
-      },
-      text: replyText,
-      timeAgo: "Just now",
-      replies: [],
-    };
-
-    console.log("💬 New Reply to comment ID", targetId, ":", newReply);
-
-    const findTopLevelParentId = (id, list, parent = null) => {
-      for (const comment of list) {
-        if (comment.id === id) return parent ? parent.id : comment.id;
-        const found = findTopLevelParentId(id, comment.replies, comment);
-        if (found) return found;
-      }
-      return null;
-    };
-
-    const topLevelId = findTopLevelParentId(targetId, comments);
-    const replyTargetId = topLevelId ?? targetId;
-
-    const addReplyToTarget = (list) =>
-      list.map((comment) => {
-        if (comment.id === replyTargetId) {
-          return {
-            ...comment,
-            replies: [...comment.replies, newReply],
-          };
-        }
-        return {
-          ...comment,
-          replies: addReplyToTarget(comment.replies),
-        };
+    try {
+      const res = await fetch("http://localhost:3000/api/v1/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: replyText,
+          lessonId,
+          parentId: null,
+        }),
       });
 
-    const updatedComments = addReplyToTarget(comments);
+      if (!res.ok) throw new Error("Failed to add comment");
 
-    setComments(updatedComments);
-    setReplyText("");
-    setReplyToId(null);
+      const newComment = await res.json();
+      newComment.replies = [];
+
+      setComments((prev) => [newComment, ...prev]);
+      setReplyText("");
+      setShowNewCommentInput(false);
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Error adding comment");
+    }
+  };
+
+  // Add reply to comment with id = targetId
+  const handleReply = async (targetId) => {
+    if (!replyText.trim()) return;
+
+    try {
+      const res = await fetch("http://localhost:3000/api/v1/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: replyText,
+          lessonId,
+          parentId: targetId,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to add reply");
+      }
+
+      const newReply = await res.json();
+      newReply.replies = [];
+
+      // Recursively add reply to nested comments tree
+      const addReplyToTarget = (list) =>
+        list.map((comment) => {
+          if (comment.id === targetId) {
+            return {
+              ...comment,
+              replies: [...(comment.replies || []), newReply],
+            };
+          }
+          if (comment.replies && comment.replies.length > 0) {
+            return {
+              ...comment,
+              replies: addReplyToTarget(comment.replies),
+            };
+          }
+          return comment;
+        });
+
+      const updatedComments = addReplyToTarget(comments);
+      setComments(updatedComments);
+      setReplyText("");
+      setReplyToId(null);
+    } catch (error) {
+      console.error(error);
+      alert(error.message || "Failed to add reply");
+    }
   };
 
   const toggleNewCommentInput = () => {
@@ -135,6 +155,9 @@ const CourseComment = () => {
       return newState;
     });
   };
+
+  if (loading) return <p className="p-4">Loading comments...</p>;
+  if (error) return <p className="p-4 text-red-500">Error: {error}</p>;
 
   return (
     <div className="p-4">
