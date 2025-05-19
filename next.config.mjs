@@ -42,6 +42,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        protocol: 'https',
+        hostname: 'images.app.goo.gl',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

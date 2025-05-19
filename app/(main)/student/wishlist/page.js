@@ -7,48 +7,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useGetWishlistQuery } from "@/store/api/wishlistApi";
+// import { useCreateWishlistMutation } from "@/store/api/wishlistApi";
 import { Heart, Star } from "lucide-react";
 import Image from "next/image";
 // import { Heart, Star } from "lucide-react";
 // import Image from "next/image";
 
-const courses = [
-  {
-    id: 1,
-    title: "The Ultimate Drawing Course - Beginner to Advanced",
-    rating: 4.8,
-    reviews: 144,
-    instructors: ["Harry Potter", "John Wick"],
-    originalPrice: 49.0,
-    discountedPrice: 37.0,
-    image:
-      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&auto=format&fit=crop&q=60",
-  },
-  {
-    id: 2,
-    title: "Digital Marketing Masterclass - 23 Courses in 1",
-    rating: 4.8,
-    reviews: 144,
-    instructors: ["Nobody"],
-    originalPrice: 29.99,
-    discountedPrice: 24.0,
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=60",
-  },
-  {
-    id: 3,
-    title: "Angular - The Complete Guide (2021 Edition)",
-    rating: 4.7,
-    reviews: 144,
-    instructors: ["Kevin Gilbert"],
-    originalPrice: 19.99,
-    discountedPrice: 13.0,
-    image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&auto=format&fit=crop&q=60",
-  },
-];
-
 export default function Wishlist() {
+  const { data, isLoading, isError } = useGetWishlistQuery();
+
+  if (isLoading) {
+    return <p>Loading wishlist...</p>;
+  }
+
+  if (isError || !data || !data.wishlist) {
+    return <p>Failed to load wishlist.</p>;
+  }
+
+  const courses = data.wishlist;
+
   return (
     <div className="min-h-screen">
       <div className="container mx-auto">
@@ -71,7 +49,7 @@ export default function Wishlist() {
                   <div className="flex items-center gap-4 ">
                     <div className="relative h-[120px] w-48  overflow-hidden">
                       <Image
-                        src={course.image}
+                        src={course.image ?? ""}
                         alt={course.title}
                         height={120}
                         width={240}
@@ -104,10 +82,16 @@ export default function Wishlist() {
                 </TableCell>
                 <TableCell>
                   <span className="text-xl font-medium text-primary-500">
-                    ${course.discountedPrice.toFixed(2)}
+                    $
+                    {course.discountedPrice
+                      ? course.discountedPrice.toFixed(2)
+                      : "0.00"}
                   </span>
                   <span className="ml-2 text-xl text-gray-500 line-through">
-                    ${course.originalPrice.toFixed(2)}
+                    $
+                    {course.originalPrice
+                      ? course.originalPrice.toFixed(2)
+                      : "0.00"}
                   </span>
                 </TableCell>
                 <TableCell className="pr-4">

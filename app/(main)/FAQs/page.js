@@ -34,7 +34,6 @@ function FAQsPage() {
       'Settings',
     ],
   };
-
   const questions = {
     student: {
       'Getting Started': [

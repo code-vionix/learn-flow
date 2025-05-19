@@ -32,4 +32,5 @@ export const apiSlice = createApi({
     "faq",
   ],
   endpoints: (builder) => ({}),
+
 });
