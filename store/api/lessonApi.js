@@ -19,12 +19,13 @@ export const lessonApi = apiSlice.injectEndpoints({
           body: lesson,
         };
       },
-      invalidatesTags: ["lessons"],
+      // invalidatesTags: ["lessons"],
       async onQueryStarted(
         { courseId, moduleId, title },
         { dispatch, queryFulfilled }
       ) {
         const tempId = `temp-${Date.now()}`;
+
         const patchCourse = dispatch(
           courseApi.util.updateQueryData("getCourseById", courseId, (draft) => {
             draft.modules
@@ -37,19 +38,23 @@ export const lessonApi = apiSlice.injectEndpoints({
               });
           })
         );
-        try {
-          const { data: newModule } = await queryFulfilled;
 
-          // ✅ Commit real data after fulfilled
+        try {
+          const { data: newLesson } = await queryFulfilled;
+
           dispatch(
             courseApi.util.updateQueryData(
               "getCourseById",
               courseId,
               (draft) => {
-                const index = draft.modules.findIndex((m) => m.id === moduleId);
-                if (index !== -1) {
-                  draft.modules[index].lessons[index] = newModule;
-                }
+                const moduleData = draft.modules.find((m) => m.id === moduleId);
+                if (!moduleData) return;
+
+                const lesson = moduleData.lessons.find((l) => l.id === tempId);
+                if (!lesson) return;
+
+                // Overwrite properties
+                Object.assign(lesson, newLesson);
               }
             )
           );
@@ -66,12 +71,11 @@ export const lessonApi = apiSlice.injectEndpoints({
           body: lesson,
         };
       },
-      invalidatesTags: ["lessons", "lesson"],
+      // invalidatesTags: ["lessons", "lesson"],
       async onQueryStarted(
         { courseId, moduleId, title, lessonId },
         { dispatch, queryFulfilled }
       ) {
-        const tempId = `temp-${Date.now()}`;
         const patchCourse = dispatch(
           courseApi.util.updateQueryData("getCourseById", courseId, (draft) => {
             draft.modules
@@ -80,7 +84,7 @@ export const lessonApi = apiSlice.injectEndpoints({
           })
         );
         try {
-          const { data: newModule } = await queryFulfilled;
+          const { data: newLesson } = await queryFulfilled;
 
           // ✅ Commit real data after fulfilled
           dispatch(
@@ -88,10 +92,16 @@ export const lessonApi = apiSlice.injectEndpoints({
               "getCourseById",
               courseId,
               (draft) => {
-                const index = draft.modules.findIndex((m) => m.id === moduleId);
-                if (index !== -1) {
-                  draft.modules[index].lessons[index] = newModule;
-                }
+                const moduleData = draft.modules.find((m) => m.id === moduleId);
+                if (!moduleData) return;
+
+                const lesson = moduleData.lessons.find(
+                  (l) => l.id === lessonId
+                );
+                if (!lesson) return;
+
+                // Overwrite properties
+                Object.assign(lesson, newLesson);
               }
             )
           );
@@ -185,7 +195,12 @@ export const lessonApi = apiSlice.injectEndpoints({
         return {
           url: `/lesson/attachment`,
           method: "POST",
-          body: { file: attachment, moduleId, lessonId, name: "attachment" },
+          body: {
+            attachment,
+            moduleId,
+            lessonId,
+            name: "attachment",
+          },
         };
       },
       invalidatesTags: ["lessons", "lesson"],
@@ -225,14 +240,31 @@ export const lessonApi = apiSlice.injectEndpoints({
       ) {
         const patchCourse = dispatch(
           courseApi.util.updateQueryData("getCourseById", courseId, (draft) => {
-            draft.modules
-              .find((m) => m.id === moduleId)
-              .lessons.find((l) => l.id === lessonId).note.title = title;
-            draft.modules
-              .find((m) => m.id === moduleId)
-              .lessons.find((l) => l.id === lessonId).note.content = note;
+            const moduleData = draft.modules.find((m) => m.id === moduleId);
+            if (!moduleData) return;
+
+            const lesson = moduleData.lessons.find((l) => l.id === lessonId);
+            if (!lesson) return;
+
+            if (!lesson.note) {
+              lesson.note = [];
+            }
+
+            if (lesson.note.length === 0) {
+              // If no note exists, create a new one
+              lesson.note.push({
+                id: `temp-note-${Date.now()}`,
+                title,
+                content: note,
+              });
+            } else {
+              // Otherwise, update the existing note
+              lesson.note[0].title = title;
+              lesson.note[0].content = note;
+            }
           })
         );
+
         try {
           await queryFulfilled;
         } catch {

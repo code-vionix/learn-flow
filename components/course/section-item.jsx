@@ -39,11 +39,11 @@ export function SectionItem({ section }) {
       await createLecture({
         courseId,
         moduleId: section.id,
-        title: "New Lecture",
+        title: "New Lesson",
       }).unwrap();
-      alert("Lecture added successfully");
+      alert("Lesson added successfully");
     } catch (error) {
-      alert("Failed to add lecture");
+      alert("Failed to add lesson");
     }
   };
 
@@ -83,7 +83,7 @@ export function SectionItem({ section }) {
   const isLoading = isCreatingLecture || isUpdatingSection || isDeletingSection;
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-md border bg-gray-50">
       <div className="flex items-center justify-between p-4">
         <div className="flex items-center gap-2">
           <AlignJustify className="h-4 w-4" />
