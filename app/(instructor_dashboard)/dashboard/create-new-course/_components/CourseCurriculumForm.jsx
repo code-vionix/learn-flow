@@ -3,12 +3,7 @@
 import { useState, useEffect } from "react";
 import { Search, Bell, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-// import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks"
-// import { setCourseId } from "@/lib/redux/curriculumSlice"
-// import { SectionItem } from "@/components/section-item"
-// import { CoursePreviewModal } from "@/components/modals/course-preview-modal"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useToast } from "@/hooks/use-toast";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
@@ -17,7 +12,8 @@ import {
 } from "@/store/api/moduleApi";
 import { SectionItem } from "@/components/course/section-item";
 import { useGetCourseByIdQuery } from "@/store/api/courseApi";
-// import { useGetCurriculumQuery, useCreateSectionMutation } from "@/lib/redux/apiSlice"
+import { CoursePreviewModal } from "@/components/modals/course-preview-modal";
+import { setActiveTab } from "@/store/slice/courseCreateSlice";
 
 export default function CourseCurriculumPage() {
   const dispatch = useDispatch();
@@ -41,9 +37,9 @@ export default function CourseCurriculumPage() {
     try {
       const res = await createSection({
         courseId,
-        title: `Section ${
+        title: `Module ${
           courseData?.modules.length ? courseData.modules.length + 1 : 1
-        }: New Section`,
+        }: New Module`,
       }).unwrap();
       // console.log(res);
     } catch (error) {
@@ -59,14 +55,18 @@ export default function CourseCurriculumPage() {
     setIsPreviewModalOpen(false);
   };
 
+  const handleNext = () => {
+    dispatch(setActiveTab("publish"));
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
       {/* Main content */}
       <main className="m-4">
         {/* Progress steps */}
 
         {/* Curriculum builder */}
-        <div className="mx-auto rounded-lg border bg-white p-6">
+        <div className="mx-auto rounded-lg border  p-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold">Course Curriculum</h2>
             <div className="flex gap-2">
@@ -114,8 +114,8 @@ export default function CourseCurriculumPage() {
 
           {/* Sections */}
           {!isLoading && courseData && (
-            <div className="space-y-4">
-              {courseData.modules.map((module) => (
+            <div className="space-y-4 bg-white">
+              {courseData?.modules?.map((module) => (
                 <SectionItem key={module.id} section={module} />
               ))}
 
@@ -131,7 +131,7 @@ export default function CourseCurriculumPage() {
                     Adding...
                   </div>
                 ) : (
-                  "Add Sections"
+                  "Add Modules"
                 )}
               </Button>
             </div>
@@ -145,13 +145,20 @@ export default function CourseCurriculumPage() {
             <Button
               className="bg-orange-500 hover:bg-orange-600"
               disabled={isLoading || isCreatingSection}
+              onClick={handleNext}
             >
               Save & Next
             </Button>
           </div>
         </div>
       </main>
-      {/* {curriculumData && <CoursePreviewModal isOpen={isPreviewModalOpen} onClose={closePreviewModal} />} */}
+      {courseData && (
+        <CoursePreviewModal
+          courseData={courseData}
+          isOpen={isPreviewModalOpen}
+          onClose={closePreviewModal}
+        />
+      )}
     </div>
   );
 }

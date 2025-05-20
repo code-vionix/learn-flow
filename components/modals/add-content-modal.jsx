@@ -73,7 +73,7 @@ export function AddContentModal({
 
         const uploadResult = await uploadFile(formData).unwrap();
         content = uploadResult.url;
-      } else if (multipleFiles.length > 0 && contentType === "file") {
+      } else if (contentType === "file") {
         const formData = new FormData();
 
         multipleFiles.forEach((file) => {
@@ -85,7 +85,6 @@ export function AddContentModal({
         try {
           const result = await uploadFiles(formData).unwrap();
           content2 = result.files.map((item) => item.url);
-          console.log(result);
           // maybe clear files here: setMultipleFiles([]);
         } catch (error) {
           console.error("Upload failed:", error);
@@ -141,7 +140,7 @@ export function AddContentModal({
             courseId,
             moduleId: sectionId,
             lessonId: lectureId,
-            attatchment: content2,
+            attachment: content2.join(", "),
             name: "attachment",
           }).unwrap();
           break;
