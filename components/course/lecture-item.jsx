@@ -20,16 +20,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDispatch, useSelector } from "react-redux";
-// import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks"
-// import { setActiveLecture } from "@/lib/redux/curriculumSlice"
-// import { AddContentModal } from "./modals/add-content-modal"
-// import { useToast } from "@/hooks/use-toast"
 import {
   useDeleteLessonMutation,
   useUpdateLessonMutation,
 } from "@/store/api/lessonApi";
 import { setActiveLecture } from "@/store/slice/courseCreateSlice";
 import { AddContentModal } from "../modals/add-content-modal";
+import RenderBadge from "./RenderBadge";
 
 export function LectureItem({ lesson, sectionId }) {
   const dispatch = useDispatch();
@@ -112,38 +109,43 @@ export function LectureItem({ lesson, sectionId }) {
 
   return (
     <>
-      <div className={`border-t px-4 py-3 ${isActive ? "bg-blue-50" : ""}`}>
+      <div
+        className={`border-t px-6 py-3 ${
+          isActive ? "bg-blue-500" : "bg-white"
+        }`}
+      >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <AlignJustify className="h-4 w-4" />
-            {isEditing ? (
-              <div className="flex items-center gap-2">
-                <Input
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="h-8 w-64"
-                  autoFocus
-                />
-                <Button
-                  size="sm"
-                  onClick={handleSaveTitle}
-                  disabled={isLoading}
-                >
-                  {isUpdatingLecture ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : null}
-                  Save
-                </Button>
-              </div>
-            ) : (
-              <span>{lesson?.title}</span>
-            )}
-            {lesson?.contentType && (
-              <span className="ml-2 rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
-                {lesson?.contentType}
-              </span>
-            )}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <AlignJustify className="h-4 w-4 text-gray-500" />
+              {isEditing ? (
+                <div className="flex items-center gap-2">
+                  <Input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="h-8 w-64"
+                    autoFocus
+                  />
+                  <Button
+                    size="sm"
+                    onClick={handleSaveTitle}
+                    disabled={isLoading}
+                  >
+                    {isUpdatingLecture ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : null}
+                    Save
+                  </Button>
+                </div>
+              ) : (
+                <span>{lesson?.title}</span>
+              )}
+            </div>
+            <div className="flex gap-2 items-center flex-wrap pl-5">
+             <RenderBadge lesson={lesson} />
+            </div>
           </div>
+
           <div className="flex items-center gap-2">
             <DropdownMenu
               open={isContentMenuOpen}
@@ -178,11 +180,11 @@ export function LectureItem({ lesson, sectionId }) {
                 >
                   Attach File
                 </DropdownMenuItem>
-                <DropdownMenuItem
+                {/* <DropdownMenuItem
                   onClick={() => handleOpenContentModal("captions")}
                 >
                   Captions
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem
                   onClick={() => handleOpenContentModal("description")}
                 >
@@ -285,3 +287,4 @@ export function LectureItem({ lesson, sectionId }) {
     </>
   );
 }
+
