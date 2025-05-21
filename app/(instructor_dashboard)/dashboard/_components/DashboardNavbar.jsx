@@ -21,15 +21,15 @@ const links = [
     icon: <CirclePlus />,
     label: "Create New Course",
   },
-  {
-    href: "/dashboard/my-courses",
-    icon: <Layers />,
-    label: "My Courses",
-  },
+  // {
+  //   href: "/dashboard/my-courses",
+  //   icon: <Layers />,
+  //   label: "My Courses",
+  // },
   {
     href: "/dashboard/my-courses-list",
     icon: <Layers />,
-    label: "My Courses List",
+    label: "My Courses",
   },
   {
     href: "/dashboard/earning",
@@ -59,11 +59,10 @@ const DashboardNavbar = () => {
           <Link
             key={href}
             href={href}
-            className={`py-3 text-sm transition-all px-5 w-full flex items-center gap-2 relative ${
-              pathname === href
-                ? "bg-primary-500 text-white"
-                : "hover:bg-primary-500 hover:text-white"
-            }`}
+            className={`py-3 text-sm transition-all px-5 w-full flex items-center gap-2 relative ${pathname === href
+              ? "bg-primary-500 text-white"
+              : "hover:bg-primary-500 hover:text-white"
+              }`}
           >
             {icon}
             {label}
