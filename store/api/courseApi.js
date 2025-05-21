@@ -22,6 +22,10 @@ export const courseApi = apiSlice.injectEndpoints({
       query: (id) => `/courses/${id}`,
       providesTags: ["course"],
     }),
+    getCourseByInstructorId: builder.query({
+      query: (id) => `/courses/instructor/${id}`,
+      providesTags: ["course"],
+    }),
     addNewCourse: builder.mutation({
       query: (course) => {
         return {
@@ -49,7 +53,7 @@ export const courseApi = apiSlice.injectEndpoints({
           method: "DELETE",
         };
       },
-      // invalidatesTags: ['courses']
+      invalidatesTags: ['courses', 'course'],
     }),
   }),
 });
@@ -59,6 +63,7 @@ export const {
   useGetCourseByIdQuery,
   useGetBestSellingCourseQuery,
   useGetFeaturedCourseQuery,
+  useGetCourseByInstructorIdQuery,
   useGetBestSellingCourseByCategoryQuery,
   useAddNewCourseMutation,
   useUpdateCourseMutation,
