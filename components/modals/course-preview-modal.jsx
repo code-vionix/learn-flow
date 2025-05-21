@@ -1,42 +1,62 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { X, Play, FileText, Video, File, AlignLeft, BookOpen } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useAppSelector } from "@/lib/redux/hooks"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useState } from "react";
+import {
+  X,
+  Play,
+  FileText,
+  Video,
+  File,
+  AlignLeft,
+  BookOpen,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Link from "next/link";
+import Image from "next/image";
 
-
-
-export function CoursePreviewModal({ isOpen, onClose }) {
-  const sections = useAppSelector((state) => state.curriculum.sections)
-  const [activeTab, setActiveTab] = useState("curriculum")
-
-  if (!isOpen) return null
+export function CoursePreviewModal({
+  isOpen,
+  onClose,
+  courseData,
+  initialTab = "curriculum",
+}) {
+  const [activeTab, setActiveTab] = useState(initialTab);
+  console.log(courseData);
+  if (!isOpen) return null;
 
   // Calculate total lectures
-  const totalLectures = sections.reduce((total, section) => total + section.lectures.length, 0)
+  const totalLectures = courseData?.modules.reduce(
+    (total, module) => total + (module?.lessons?.length || 0),
+    0
+  );
 
   // Calculate estimated duration (mock data)
-  const estimatedHours = Math.floor(totalLectures * 0.5)
+  const estimatedHours = Math.floor(totalLectures * 0.5);
 
   const getContentIcon = (contentType) => {
     switch (contentType) {
       case "video":
-        return <Video className="h-4 w-4 text-blue-500" />
+        return <Video className="h-4 w-4 text-blue-500" />;
       case "file":
-        return <File className="h-4 w-4 text-green-500" />
+        return <File className="h-4 w-4 text-green-500" />;
       case "captions":
-        return <FileText className="h-4 w-4 text-yellow-500" />
+        return <FileText className="h-4 w-4 text-yellow-500" />;
       case "description":
-        return <AlignLeft className="h-4 w-4 text-purple-500" />
+        return <AlignLeft className="h-4 w-4 text-purple-500" />;
       case "notes":
-        return <BookOpen className="h-4 w-4 text-orange-500" />
+        return <BookOpen className="h-4 w-4 text-orange-500" />;
       default:
-        return <Play className="h-4 w-4 text-gray-500" />
+        return <Play className="h-4 w-4 text-gray-500" />;
     }
-  }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -51,21 +71,21 @@ export function CoursePreviewModal({ isOpen, onClose }) {
           </div>
 
           {/* Content */}
-          <div className="flex h-full flex-col overflow-hidden">
+          <div className="flex h-[90vh] flex-col overflow-y-auto">
             {/* Course Header */}
             <div className="bg-gray-50 p-6">
-              <h1 className="mb-2 text-2xl font-bold">Complete Web Development Course</h1>
-              <p className="mb-4 text-gray-600">
-                Learn web development from scratch with HTML, CSS, JavaScript, React, and Node.js
-              </p>
+              <h1 className="mb-2 text-2xl font-bold">{courseData?.title}</h1>
+              <p className="mb-4 text-gray-600">{courseData?.description}</p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-gray-500" />
-                  <span>{totalLectures} lectures</span>
+                  <span>{totalLectures} Lessons</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Video className="h-5 w-5 text-gray-500" />
-                  <span>Approx. {estimatedHours} hours</span>
+                  <span>
+                    Approx. {courseData?.duration} {courseData?.durationUnit}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <BookOpen className="h-5 w-5 text-gray-500" />
@@ -75,7 +95,11 @@ export function CoursePreviewModal({ isOpen, onClose }) {
             </div>
 
             {/* Tabs */}
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
+            <Tabs
+              value={activeTab}
+              onValueChange={setActiveTab}
+              className="flex-1 overflow-y-auto"
+            >
               <div className="border-b">
                 <TabsList className="mx-6 w-auto">
                   <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
@@ -84,38 +108,117 @@ export function CoursePreviewModal({ isOpen, onClose }) {
                 </TabsList>
               </div>
 
-              <TabsContent value="curriculum" className="flex-1 overflow-auto p-6 data-[state=active]:flex-1">
+              <TabsContent
+                value="curriculum"
+                className="flex-1 overflow-auto p-6 data-[state=active]:flex-1"
+              >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-medium">Course Content</h3>
                     <div className="text-sm text-gray-500">
-                      {sections.length} sections • {totalLectures} lectures • {estimatedHours}h total length
+                      {courseData?.modules?.length} Modules • {totalLectures}{" "}
+                      Lessons • {courseData?.duration}{" "}
+                      {courseData?.durationUnit} total length
                     </div>
                   </div>
 
                   <Accordion type="multiple" className="w-full">
-                    {sections.map((section) => (
-                      <AccordionItem key={section.id} value={section.id}>
+                    {courseData?.modules?.map((module) => (
+                      <AccordionItem key={module.id} value={module.id}>
                         <AccordionTrigger className="hover:bg-gray-50 hover:no-underline">
                           <div className="flex flex-1 items-center justify-between pr-4 text-left">
-                            <span>{section.title}</span>
-                            <span className="text-sm text-gray-500">{section.lectures.length} lectures</span>
+                            <span>{module.title}</span>
+                            <span className="text-sm text-gray-500">
+                              {module?.lessons?.length} Lessons
+                            </span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent>
-                          <ul className="space-y-2 py-2">
-                            {section.lectures.map((lecture) => (
-                              <li key={lecture.id} className="flex items-center gap-3 rounded-md p-2 hover:bg-gray-50">
-                                {getContentIcon(lecture.contentType)}
-                                <span>{lecture.title}</span>
-                                {lecture.contentType && (
-                                  <span className="ml-auto rounded-full bg-gray-100 px-2 py-0.5 text-xs capitalize text-gray-700">
-                                    {lecture.contentType}
-                                  </span>
+                          {module?.lessons?.map((lesson) => (
+                            <AccordionItem key={lesson.id} value={lesson.id}>
+                              <AccordionTrigger className="hover:bg-gray-50 hover:no-underline">
+                                <li className="flex items-center gap-3 rounded-md p-2 hover:bg-gray-50">
+                                  {getContentIcon(
+                                    lesson.contentType || "video"
+                                  )}
+                                  <span>{lesson.title}</span>
+                                  {lesson.contentType && (
+                                    <span className="ml-auto rounded-full bg-gray-100 px-2 py-0.5 text-xs capitalize text-gray-700">
+                                      {lesson.contentType}
+                                    </span>
+                                  )}
+                                </li>
+                              </AccordionTrigger>
+                              <AccordionContent>
+                                {lesson.videoUrl && (
+                                  <div className="aspect-video w-full max-w-2xl mx-auto">
+                                    <iframe
+                                      src={lesson.videoUrl}
+                                      title="Lesson Video"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowFullScreen
+                                      className="w-full h-full rounded-md border"
+                                    />
+                                  </div>
                                 )}
-                              </li>
-                            ))}
-                          </ul>
+                                {lesson.content && (
+                                  <div className="p-4">
+                                    <h3 className="mb-3 text-lg font-medium">
+                                      Content
+                                    </h3>
+                                    <p>{lesson.content}</p>
+                                  </div>
+                                )}
+                                {lesson.caption && (
+                                  <div className="p-4">
+                                    <h3 className="mb-3 text-lg font-medium">
+                                      Caption
+                                    </h3>
+                                    <p>{lesson.caption}</p>
+                                  </div>
+                                )}
+                                {lesson?.note?.length > 0 && (
+                                  <div className="p-4">
+                                    <h3 className="mb-3 text-lg font-medium">
+                                      Note
+                                    </h3>
+                                    <p>{lesson?.note[0]?.title}</p>
+                                    <Link
+                                      href={lesson?.note[0]?.content}
+                                      target="_blank"
+                                      className="text-blue-500 hover:underline mt-2 block py-2 border border-gray-200 rounded-md p-2 w-fit"
+                                    >
+                                      Download
+                                    </Link>
+                                  </div>
+                                )}
+                                {lesson?.attachment?.length > 0 && (
+                                  <div className="p-4">
+                                    <h3 className="mb-3 text-lg font-medium">
+                                      Attachment
+                                    </h3>
+                                    {lesson?.attachment.map((attachment) => (
+                                      <div key={attachment.id}>
+                                        {attachment.url.split(",").map(
+                                          (url) =>
+                                            url && (
+                                              <Link
+                                                key={url}
+                                                href={url}
+                                                target="_blank"
+                                                className="text-blue-500 hover:underline mt-2 block py-2 border border-gray-200 rounded-md p-2 w-fit"
+                                              >
+                                                Download
+                                              </Link>
+                                            )
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
                         </AccordionContent>
                       </AccordionItem>
                     ))}
@@ -123,115 +226,89 @@ export function CoursePreviewModal({ isOpen, onClose }) {
                 </div>
               </TabsContent>
 
-              <TabsContent value="overview" className="overflow-auto p-6 data-[state=active]:flex-1">
+              <TabsContent
+                value="overview"
+                className="overflow-auto p-6 data-[state=active]:flex-1"
+              >
                 <div className="space-y-6">
                   <div>
                     <h3 className="mb-3 text-lg font-medium">Description</h3>
-                    <p className="text-gray-700">
-                      This comprehensive course will take you from beginner to professional web developer.
-                      You&apos;ll learn all the tools and technologies needed to build full-stack web applications.
-                    </p>
+                    <p className="text-gray-700">{courseData?.description}</p>
                   </div>
 
                   <div>
-                    <h3 className="mb-3 text-lg font-medium">What You&apos;ll Learn</h3>
+                    <h3 className="mb-3 text-lg font-medium">
+                      What You&apos;ll Learn
+                    </h3>
                     <ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                      <li className="flex items-start gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5 text-green-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Build responsive websites with HTML, CSS, and JavaScript</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5 text-green-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Create dynamic web applications with React</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5 text-green-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Build RESTful APIs with Node.js and Express</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5 text-green-500"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Work with databases like MongoDB and PostgreSQL</span>
-                      </li>
+                      {courseData?.learnings?.map((item) => (
+                        <li className="flex items-start gap-2" key={item.id}>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5 text-green-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span>{item.description}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
 
                   <div>
                     <h3 className="mb-3 text-lg font-medium">Requirements</h3>
                     <ul className="list-inside list-disc space-y-1 text-gray-700">
-                      <li>Basic computer knowledge</li>
-                      <li>No prior programming experience needed</li>
-                      <li>A computer with internet access</li>
+                      {courseData?.PreRequirement?.map((item) => (
+                        <li key={item.id}>{item.description}</li>
+                      ))}
                     </ul>
                   </div>
 
                   <div>
-                    <h3 className="mb-3 text-lg font-medium">Target Audience</h3>
+                    <h3 className="mb-3 text-lg font-medium">
+                      Target Audience
+                    </h3>
                     <ul className="list-inside list-disc space-y-1 text-gray-700">
-                      <li>Beginners with no coding experience</li>
-                      <li>Students looking to build a portfolio of web projects</li>
-                      <li>Professionals transitioning to web development</li>
+                      {courseData?.targetAudiences?.map((item) => (
+                        <li key={item.id}>{item.description}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
               </TabsContent>
 
-              <TabsContent value="instructor" className="overflow-auto p-6 data-[state=active]:flex-1">
+              <TabsContent
+                value="instructor"
+                className="overflow-auto p-6 data-[state=active]:flex-1"
+              >
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="h-16 w-16 overflow-hidden rounded-full">
-                      <img
-                        src="/placeholder.svg?height=64&width=64"
+                      <Image
+                        src={
+                          courseData?.teacher?.imageUrl || "/placeholder.svg"
+                        }
                         alt="Instructor"
                         className="h-full w-full object-cover"
+                        width={64}
+                        height={64}
                       />
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium">John Doe</h3>
-                      <p className="text-gray-500">Web Development Instructor</p>
+                      <h3 className="text-lg font-medium">
+                        {courseData?.teacher?.firstName +
+                          " " +
+                          courseData?.teacher?.lastName}
+                      </h3>
+                      <p className="text-gray-500">
+                        {courseData?.teacher?.description}
+                      </p>
                       <div className="mt-2 flex items-center gap-4">
                         <div className="flex items-center gap-1">
                           <svg
@@ -272,16 +349,10 @@ export function CoursePreviewModal({ isOpen, onClose }) {
                   </div>
 
                   <div>
-                    <h3 className="mb-3 text-lg font-medium">About the Instructor</h3>
-                    <p className="text-gray-700">
-                      John Doe is a professional web developer with over 10 years of experience in the industry. He has
-                      worked with companies like Google, Facebook, and Amazon, and now focuses on teaching the next
-                      generation of web developers.
-                    </p>
-                    <p className="mt-2 text-gray-700">
-                      His teaching style is practical and project-based, ensuring that students not only learn the
-                      theory but also how to apply it in real-world scenarios.
-                    </p>
+                    <h3 className="mb-3 text-lg font-medium">
+                      About the Instructor
+                    </h3>
+                    <p className="text-gray-700">{courseData?.teacher?.bio}</p>
                   </div>
                 </div>
               </TabsContent>
@@ -290,5 +361,5 @@ export function CoursePreviewModal({ isOpen, onClose }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

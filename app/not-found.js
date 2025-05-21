@@ -28,7 +28,7 @@ function NotFound() {
           Oops! page not found
           </h1>
           <p className="w-full  mb-8  font-normal text-xl text-gray-600">
-          Something went wrong. It’s look that your requested could not be found. It's look like the link is broken or the page is removed.
+          Something went wrong. It&apos; look that your requested could not be found. It&apos; look like the link is broken or the page is removed.
           </p>
           <Button onClick={()=>router.back()} className="px-8 py-6 bg-primary-500 text-white font-semibold text-lg hover:bg-primary-600"> Go Back</Button>
         </div>
