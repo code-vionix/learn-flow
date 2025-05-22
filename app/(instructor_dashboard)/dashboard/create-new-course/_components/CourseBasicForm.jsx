@@ -20,7 +20,11 @@ import {
   useAddNewCourseMutation,
   useUpdateCourseMutation,
 } from "@/store/api/courseApi";
-import { setActiveTab, setBasicCourse } from "@/store/slice/courseCreateSlice";
+import {
+  setActiveTab,
+  setBasicCourse,
+  setCourseId,
+} from "@/store/slice/courseCreateSlice";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -68,6 +72,8 @@ export function CourseBasicForm() {
   };
 
   const handleNext = async (data) => {
+    console.log("data", data);
+
     try {
       if (basicCourseData?.id) {
         // If courseData has an id, update the course
@@ -75,10 +81,12 @@ export function CourseBasicForm() {
           course: data,
           id: basicCourseData?.id,
         }).unwrap();
+        dispatch(setCourseId(basicCourseData?.id));
       } else {
         const result = await addNewCourse(data).unwrap();
         if (result?.data) {
           dispatch(setBasicCourse(result?.data));
+          dispatch(setCourseId(result?.data?.id));
           dispatch(setActiveTab("advance"));
         }
       }

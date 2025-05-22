@@ -6,8 +6,24 @@ export const courseApi = apiSlice.injectEndpoints({
       query: () => `/courses`,
       providesTags: ["courses"],
     }),
+    getBestSellingCourse: builder.query({
+      query: () => `/courses/best-selling`,
+      providesTags: ["courses"],
+    }),
+    getFeaturedCourse: builder.query({
+      query: () => `/courses/featured-course`,
+      providesTags: ["courses"],
+    }),
+    getBestSellingCourseByCategory: builder.query({
+      query: () => `/courses/featured-course`,
+      providesTags: ["courses"],
+    }),
     getCourseById: builder.query({
       query: (id) => `/courses/${id}`,
+      providesTags: ["course"],
+    }),
+    getCourseByInstructorId: builder.query({
+      query: (id) => `/courses/instructor/${id}`,
       providesTags: ["course"],
     }),
     addNewCourse: builder.mutation({
@@ -37,7 +53,7 @@ export const courseApi = apiSlice.injectEndpoints({
           method: "DELETE",
         };
       },
-      // invalidatesTags: ['courses']
+      invalidatesTags: ['courses', 'course'],
     }),
   }),
 });
@@ -45,6 +61,10 @@ export const courseApi = apiSlice.injectEndpoints({
 export const {
   useGetAllCourseQuery,
   useGetCourseByIdQuery,
+  useGetBestSellingCourseQuery,
+  useGetFeaturedCourseQuery,
+  useGetCourseByInstructorIdQuery,
+  useGetBestSellingCourseByCategoryQuery,
   useAddNewCourseMutation,
   useUpdateCourseMutation,
   useDeleteCourseMutation,

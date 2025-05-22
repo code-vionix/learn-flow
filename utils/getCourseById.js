@@ -11,6 +11,7 @@ export const getCourseById = async (id) => {
 
     if (!res.ok) {
       const errorData = await res.json();
+      console.log(errorData);
       throw new Error(errorData.message || "Failed to fetch course");
     }
 

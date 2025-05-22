@@ -1,15 +1,16 @@
 "use client"
 
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QuestionSet from "./components/QuestionSet";
 import CustomBreadcrumb from "@/components/CustomBreadcrumb";
 import QuesAndAns from "./components/QuesAndAns";
 import CustomQuestion from "./components/CustomQuestion";
 import FaqNav from "./components/FaqNav";
+import { useGetAllFaqCategoryQuery, useGetAllFaqQuery, useGetFaqByRoleQuery } from "@/store/api/faqApi";
 
 function FAQsPage() {
- 
+
 
   const topics = {
     student: [
@@ -33,7 +34,6 @@ function FAQsPage() {
       'Settings',
     ],
   };
-  
   const questions = {
     student: {
       'Getting Started': [
@@ -81,17 +81,23 @@ function FAQsPage() {
     },
   };
 
+  // const { data, isLoading, isError } = useGetFaqByRoleQuery("student");
+
 
   const [role, setRole] = useState('student');
-  const [selectedTopic, setSelectedTopic] = useState(topics[role][0]);
   const [expandedQuestion, setExpandedQuestion] = useState(null)
   const [customQuestion, setCustomQuestion] = useState({
     subject: "",
     message: ""
   })
-
+  const { data: faqCategory, isLoading: faqCategoryLoading, isError: faqCategoryError } = useGetFaqByRoleQuery(role);
   
- 
+  const [selectedTopic, setSelectedTopic] = useState(faqCategory?.data[0]?.id);
+  useEffect(() => {
+    setSelectedTopic(faqCategory?.data[0]?.id);
+  }, [faqCategory]);
+
+  console.log("role", role)
 
   return (
     <div>
@@ -99,15 +105,40 @@ function FAQsPage() {
 
       <div className=" px-2 py-2 sm:px-8 md:px-16 lg:px-32 2xl:72  lg:py-12">
         <div className=" mx-auto ">
-         <FaqNav role={role} setRole={setRole} setSelectedTopic={setSelectedTopic} topics={topics} setExpandedQuestion={setExpandedQuestion} />
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-7xl mx-auto">
-            {/* Left sidebar */}
-            <QuestionSet topics={topics} setSelectedTopic={setSelectedTopic} selectedTopic={selectedTopic} role={role}/>
-            {/* Main content */}
-            <QuesAndAns selectedTopic={selectedTopic} role={role} expandedQuestion={expandedQuestion} setExpandedQuestion={setExpandedQuestion} questions={questions} />
-            {/* Right sidebar */}
-            <CustomQuestion customQuestion={customQuestion} setCustomQuestion={setCustomQuestion} />
+          <FaqNav role={role} setRole={setRole} setSelectedTopic={setSelectedTopic} topics={topics} setExpandedQuestion={setExpandedQuestion} />
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="lg:col-span-3 ">
+              {faqCategoryLoading
+                ? (
+                  <div className="bg-gray-50 lg:h-full h-[400px] flex items-center justify-center w-full">
+                    <div className="flex flex-col items-center justify-center h-full">
+                      <div className="w-10 h-10 border-4 border-t-transparent border-primary-500 rounded-full animate-spin mb-2"></div>
+                      <span className="text-lg text-primary-500">Loading</span>
+                    </div>
+                  </div>
+                )
+                : (<div className="grid lg:grid-cols-3 gap-4">
+                  <div className="">
+                    <QuestionSet
+                      setSelectedTopic={setSelectedTopic}
+                      selectedTopic={selectedTopic}
+                      faqCategory={faqCategory}
+                      faqCategoryLoading={faqCategoryLoading}
+                      faqCategoryError={faqCategoryError}
+                    />
+                  </div>
+                  <div className="lg:col-span-2">
+                    <QuesAndAns selectedTopic={selectedTopic}  expandedQuestion={expandedQuestion} setExpandedQuestion={setExpandedQuestion} questions={questions} />
+                  </div>
+                </div>)
+              }
+            </div>
+            <div className="">
+              <CustomQuestion customQuestion={customQuestion} setCustomQuestion={setCustomQuestion} />
+            </div>
+
           </div>
+
         </div>
       </div>
     </div>

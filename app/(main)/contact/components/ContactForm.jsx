@@ -1,7 +1,11 @@
 "use client";
 
+import { useToast } from "@/hooks/use-toast";
+import { useAddNewContactMutation } from "@/store/api/contactApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizontal } from "lucide-react";
+import { set } from "date-fns";
+import { Check, SendHorizontal } from "lucide-react";
+import { useState } from "react";
 
 
 import { useForm } from "react-hook-form";
@@ -17,6 +21,10 @@ const accountSchema = z.object({
 });
 
 function ContactForm() {
+  const [updateInstructor] = useAddNewContactMutation();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,11 +35,27 @@ function ContactForm() {
     resolver: zodResolver(accountSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const response = await updateInstructor(data).unwrap();
+      // console.log('check : : : ', data, response);
 
-    reset();
+      if (response?.data) {
+        setLoading(false);
+        toast({
+          title: "Your message has been sent!",
+          description: "We will get back to you soon.",
+        });
+
+        setShowSuccessMessage(true); // Show success message
+        setTimeout(() => setShowSuccessMessage(false), 4000); // Hide after 4 sec
+        reset(); // Reset form
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      setLoading(false);
+    }
   };
 
   const titleLength = watch("title")?.length || 0;
@@ -115,13 +139,19 @@ function ContactForm() {
             placeholder="Subject Message"
           />
         </div>
+        {showSuccessMessage && (
+          <div className="flex items-center gap-2 text-sm text-success-500">
+            <Check /> Your message has been sent
+          </div>
+        )}
 
         <div className="flex items-center justify-center lg:block">
           <button
+            disabled={loading}
             type="submit"
             className="px-6 py-3 flex gap-3 bg-primary-500 text-white font-semibold rounded-md hover:bg-primary-600"
           >
-            Send Message <SendHorizontal/>
+            {loading ? "Sending..." : "Send Message"} <SendHorizontal />
           </button>
         </div>
       </form>
