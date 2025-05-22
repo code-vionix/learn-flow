@@ -89,6 +89,12 @@ export default function LoginForm() {
           <label htmlFor="remember" className="ml-2 text-sm text-gray-600">
             Remember me
           </label>
+          <a
+            href="/forgot-password"
+            className="ml-2 text-sm text-blue-600 hover:underline"
+          >
+            Forgot password?
+          </a>
         </div>
 
         <SignInButton />
