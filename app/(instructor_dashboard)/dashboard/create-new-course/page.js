@@ -8,6 +8,7 @@ import { setActiveTab } from "@/store/slice/courseCreateSlice";
 import { useDispatch } from "react-redux";
 import CourseAdvanceForm from "./_components/CourseAdvanceForm";
 import CourseCurriculumForm from "./_components/CourseCurriculumForm";
+import PublishCourseForm from "./_components/PublishCourseForm";
 
 export default function CourseForm() {
   const activetab = useSelector((state) => state.course.activeTab);
@@ -68,9 +69,8 @@ export default function CourseForm() {
           <CourseCurriculumForm />
         </TabsContent>
 
-        <TabsContent value="publish" className="p-6">
-          <h2 className="text-xl font-semibold mb-6">Publish Course</h2>
-          <p>Publishing options will go here.</p>
+        <TabsContent value="publish" className="py-6 px-0">
+           <PublishCourseForm />
         </TabsContent>
       </Tabs>
     </div>
