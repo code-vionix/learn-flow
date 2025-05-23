@@ -20,14 +20,16 @@ const handler = NextAuth({
         });
 
         const user = await res.json();
+        console.log(user);
 
         if (res.ok && user?.accessToken) {
           const decoded = jwtDecode(user.accessToken);
 
           return {
-            id: user.id,
-            name: user.name,
+            id: user._id,
             email: user.email,
+            name: user.name,
+            image: user.image,
             role: user.role,
             accessToken: user.accessToken,
             refreshToken: user.refreshToken,
@@ -75,6 +77,9 @@ const handler = NextAuth({
           const decoded = jwtDecode(data.accessToken);
 
           user.id = data.id;
+          user.email = data.email;
+          user.name = data.name;
+          user.image = data.imageUrl;
           user.role = data.role;
           user.accessToken = data.accessToken;
           user.refreshToken = data.refreshToken;
@@ -96,6 +101,9 @@ const handler = NextAuth({
         return {
           ...token,
           id: user.id,
+          email: user.email,
+          name: user.name,
+          image: user.image,
           role: user.role,
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
@@ -128,6 +136,9 @@ const handler = NextAuth({
 
     async session({ session, token }) {
       session.user.id = token.id;
+      session.user.email = token.email;
+      session.user.name = token.name;
+      session.user.image = token.image;
       session.user.role = token.role;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
