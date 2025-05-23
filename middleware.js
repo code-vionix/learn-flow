@@ -8,7 +8,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 const protectedRoutes = ["", "student", "admin"];
 
 // Routes that should not require authentication
-const publicRoutes = ["/dashboard", "/login", "/register", "/api/auth", "/"]; // include `/api/auth` for NextAuth routes
+const publicRoutes = ["/dashboard", "/category", "/login", "/register", "/api/auth", "/"]; // include `/api/auth` for NextAuth routes
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;

@@ -5,8 +5,8 @@ import { getInstructors } from "@/lib/fetchData";
 
 import PopularToolsCarousel from "./_components/PopularTools";
 import CourseListPage from "../courses/page";
-import TopInstructors from "../components/home/TopInstructors ";
-
+import PopularInstructors from "./_components/PopularInstructor";
+ 
 export default async function CategoryList() {
   const instructors = await getInstructors();
 
@@ -22,9 +22,11 @@ export default async function CategoryList() {
           ))}
         </div>
       </div>
-
       <PopularToolsCarousel />
-      <TopInstructors instructors={instructors} />
+
+      <div className="bg-gray-100">
+      <PopularInstructors instructors={instructors} />
+</div>
       <CourseListPage />
     </>
   );
