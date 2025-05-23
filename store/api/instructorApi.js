@@ -6,14 +6,17 @@ export const instructorApi = apiSlice.injectEndpoints({
       query: () => `/instructors`,
       providesTags: ["instructors"],
     }),
-    getInstructorById: builder.query({
-      query: (id) => `/instructors/user/${id}`,
-      providesTags: ["instructor"],
-    }),
-
-    getInstructorList: builder.query({
-      query: () => `/instructors/instructor-list`,
+    getAllInstructorOfTheMonth: builder.query({
+      query: () => `/instructors/top-instructor-of-month`,
       providesTags: ["instructors"],
+    }),
+    getPopularInstructor: builder.query({
+      query: () => `/instructors/popular-instructor`,
+      providesTags: ["instructors"],
+    }),
+    getInstructorById: builder.query({
+      query: (id) => `/instructors/${id}`,
+      providesTags: ["instructor"],
     }),
     addNewInstructor: builder.mutation({
       query: (instructor) => {
@@ -25,19 +28,6 @@ export const instructorApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ["instructors"],
     }),
-
-    // updateInstructor: builder.mutation(
-    //     {
-    //         query: (instructor) => {
-    //             return {
-    //                 url: `/instructors/${instructor?.id}`,
-    //                 method: 'PUT',
-    //                 body: instructor
-    //             }
-    //         },
-    //         invalidatesTags: ['instructors', 'instructor']
-    //     }
-    // ),
 
     updateInstructor: builder.mutation({
       query: ({ id, ...data }) => ({
@@ -62,8 +52,9 @@ export const instructorApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAllInstructorQuery,
+  useGetAllInstructorOfTheMonthQuery,
+  useGetPopularInstructorQuery,
   useGetInstructorByIdQuery,
-  useGetInstructorListQuery,
   useAddNewInstructorMutation,
   useUpdateInstructorMutation,
   useDeleteInstructorMutation,

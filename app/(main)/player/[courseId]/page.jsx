@@ -1,3 +1,4 @@
+import { CourseProvider } from "@/povider/CourseProvider";
 import { getCourseDataByCourseId } from "@/utils/courses";
 import { getCourseById } from "@/utils/getCourseById";
 import CourseContent from "./_components/CourseContent";
@@ -15,18 +16,20 @@ const CourseWatchingPage = async ({ params }) => {
 
   return (
     <div className="bg-white">
-      <WatchingCourseHeader course={course} sections={sections} />
-      <WatchingCourseWrapper>
-        <CourseContent
-          courseId={courseId}
-          data={data}
-          sections={sections}
-          course={course}
-          enrollments={enrollments.data}
-        />
-      </WatchingCourseWrapper>
-      ``
-      <br /> <br />
+      <CourseProvider courseId={courseId}>
+        <WatchingCourseHeader course={course} sections={sections} />
+        <WatchingCourseWrapper>
+          <CourseContent
+            courseId={courseId}
+            data={data}
+            sections={sections}
+            course={course}
+            enrollments={enrollments.data}
+          />
+        </WatchingCourseWrapper>
+        ``
+        <br /> <br />
+      </CourseProvider>
     </div>
   );
 };

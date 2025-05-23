@@ -96,6 +96,7 @@ const useCourseContextInternal = (courseId) => {
   const currentLesson = currentModule?.lessons.find(
     (lesson) => lesson.id === currentLessonId
   );
+
   return {
     courseId,
     currentPlay,

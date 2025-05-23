@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import "../globals.css";
 import Footer from "./components/shared/Footer/Footer";
 import Navbars from "./components/shared/Navbars";
-import Navigation from "./components/shared/Navigation";
+import Navigation from "./components/shared/navigation/Navigation";
 
 export default function MainLayout({ children }) {
   return (
