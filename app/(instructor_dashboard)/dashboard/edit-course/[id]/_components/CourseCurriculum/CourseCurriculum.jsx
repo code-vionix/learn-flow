@@ -14,7 +14,7 @@ import NotesDialog from "./dialogs/NotesDialog";
 import VideoUploadDialog from "./dialogs/VideoUploadDialog";
 import useCurriculumHandlers from "./hooks/useCurriculumHandlers";
 
-export default function CourseCurriculum({ title, onBack, onNext }) {
+export default function CourseCurriculum({ title, okkkkejiknBack, onNext }) {
   const {
     sections,
     setSections,
