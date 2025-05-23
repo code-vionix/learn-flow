@@ -8,6 +8,20 @@ export const instructorApi = apiSlice.injectEndpoints({
                 providesTags: ['instructors']
             }
         ),
+        getAllInstructorOfTheMonth: builder.query(
+            {
+                query: () => `/instructors/top-instructor-of-month`,
+                providesTags: ['instructors']
+            }
+        
+        ),
+        getPopularInstructor: builder.query(
+            {
+                query: () => `/instructors/popular-instructor`,
+                providesTags: ['instructors']
+            }
+        
+        ),
         getInstructorById: builder.query(
             {
                 query: (id) => `/instructors/${id}`,
@@ -27,30 +41,15 @@ export const instructorApi = apiSlice.injectEndpoints({
 
             }
         ),
-        // updateInstructor: builder.mutation(
-        //     {
-        //         query: (instructor) => {
-        //             return {
-        //                 url: `/instructors/${instructor?.id}`,
-        //                 method: 'PUT',
-        //                 body: instructor
-        //             }
-        //         },
-        //         invalidatesTags: ['instructors', 'instructor']
-        //     }
-        // ),
 
-
-updateInstructor: builder.mutation({
-  query: ({ id, ...data }) => ({
-    url: `/instructors/${id}`,
-    method: 'PUT',
-    body: data,
-  }),
-  invalidatesTags: ['instructors', 'instructor'],
-}),
-
-
+        updateInstructor: builder.mutation({
+        query: ({ id, ...data }) => ({
+            url: `/instructors/${id}`,
+            method: 'PUT',
+            body: data,
+        }),
+        invalidatesTags: ['instructors', 'instructor'],
+        }),
 
         deleteInstructor: builder.mutation(
             {
@@ -68,6 +67,8 @@ updateInstructor: builder.mutation({
 
 export const {
     useGetAllInstructorQuery,
+    useGetAllInstructorOfTheMonthQuery,
+    useGetPopularInstructorQuery,
     useGetInstructorByIdQuery,
     useAddNewInstructorMutation,
     useUpdateInstructorMutation,
