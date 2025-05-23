@@ -6,19 +6,34 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import { useUpdateUserPasswordMutation } from "@/store/api/userApi";
 
 export default function ChangePasswordForm() {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [
+    updateUserPassword,
+    {
+      isLoading: isUpdatingPassword,
+      isError: isUpdatePasswordError,
+      isSuccess: isUpdatePasswordSuccess,
+    },
+  ] = useUpdateUserPasswordMutation();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Password change submitted");
+    await updateUserPassword({ currentPassword, newPassword }).unwrap().then(() => {
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      alert("Password updated successfully");
+    }).catch((error) => {
+      alert(error.data.message);
+    });
   };
 
   return (
@@ -104,8 +119,8 @@ export default function ChangePasswordForm() {
               type="submit"
               className="!mt-8 h-[48px] px-8 font-[600] text-[16px] !bg-primary-500"
             >
-              {" "}
-              Change Password
+            
+            {isUpdatingPassword ? "Updating..." : "Change Password"}
             </Button>
           </div>
         </form>

@@ -15,14 +15,15 @@ import { ImageIcon, Play, Plus, Upload, X } from "lucide-react";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { useUpdateCourseMutation } from "@/store/api/courseApi";
+import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
 
-export default function CourseAdvanceForm() {
-  const courseAdvancedData = useSelector(
-    (state) => state.course.courseAdvancedData
-  );
-  const courseBasicData = useSelector((state) => state.course.courseBasicData);
+export default function CourseAdvanceForm({ course }) {
+  console.log(course);
   const [updateCourse] = useUpdateCourseMutation();
-
+const [imagePreview, setImagePreview] = useState(course?.thumbnail ||null);
+  const [videoPreview, setVideoPreview] = useState(null);
+  const [thumbnail, setThumbnail] = useState( null);
+  const [trailer, setTrailer] = useState(null);
   const dispatch = useDispatch();
   const imageInputRef = useRef(null); // create a ref for the file input
   const videoInputRef = useRef(null); // create a ref for the file input
@@ -42,50 +43,40 @@ export default function CourseAdvanceForm() {
     control,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      description: "",
-      whatYouWillLearn: [{ description: "" }],
-      targetAudience: [{ description: "" }],
-      courseRequirements: [{ description: "" }],
+      description: course?.description || "",
+      whatYouWillLearn:
+        course?.learnings?.length > 0
+          ? course.learnings
+          : [{ description: "" }],
+      targetAudience:
+        course?.targetAudiences?.length > 0
+          ? course.targetAudiences
+          : [{ description: "" }],
+      courseRequirements:
+        course?.PreRequirement?.length > 0
+          ? course.PreRequirement
+          : [{ description: "" }],
     },
   });
 
   // Update form values when courseAdvancedData changes
   useEffect(() => {
-    if (courseAdvancedData) {
-      reset({
-        description: courseAdvancedData.description || "",
-        whatYouWillLearn:
-          courseAdvancedData.learnings?.length > 0
-            ? courseAdvancedData.learnings
-            : [{ description: "" }],
-        targetAudience:
-          courseAdvancedData.targetAudiences?.length > 0
-            ? courseAdvancedData.targetAudiences
-            : [{ description: "" }],
-        courseRequirements:
-          courseAdvancedData.PreRequirement?.length > 0
-            ? courseAdvancedData.PreRequirement
-            : [{ description: "" }],
-      });
-    } else {
-      reset({
-        description: "",
-        whatYouWillLearn: [{ description: "" }],
-        targetAudience: [{ description: "" }],
-        courseRequirements: [{ description: "" }],
-      });
-    }
-  }, [courseAdvancedData, reset]);
+    if (course) {
+      setImagePreview(course?.thumbnail || null);
+      setValue("description", course?.description || "");
+      setValue("whatYouWillLearn", course?.learnings || [{ description: "" }]);
+      setValue("targetAudience", course?.targetAudiences || [{ description: "" }]);
+      setValue("courseRequirements", course?.PreRequirement || [{ description: "" }]);
+      setVideoPreview(course?.trailer || null);
 
-  const [imagePreview, setImagePreview] = useState(null);
-  const [videoPreview, setVideoPreview] = useState(null);
-  const [thumbnail, setThumbnail] = useState(
-    courseAdvancedData?.thumbnail || null
-  );
-  const [trailer, setTrailer] = useState(null);
+    }
+  }, [course, setValue]);
+
+  
 
   const {
     fields: whatYouWillLearnFields,
@@ -113,14 +104,6 @@ export default function CourseAdvanceForm() {
     control,
     name: "courseRequirements",
   });
-
-  // Handlers
-  const handleSave = (data) => {
-    dispatch(setCourseAdvancedData(data));
-  };
-  const handleSaveAndPreview = (data) => {
-    dispatch(setCourseAdvancedData(data));
-  };
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -162,14 +145,13 @@ export default function CourseAdvanceForm() {
     /**-------------------------------------------- */
 
     try {
-      if (courseBasicData?.id) {
+      if (course?.id) {
         // If courseData has an id, update the course
         const result = await updateCourse({
           course: formData,
-          id: courseBasicData?.id,
+          id: course?.id,
         }).unwrap();
-        dispatch(setCourseAdvancedData(result));
-        dispatch(setActiveTab("curriculum"));
+        dispatch(setEditActiveTab("curriculum"));
       }
     } catch (err) {
       console.error("Failed to add course:", err);
@@ -196,14 +178,14 @@ export default function CourseAdvanceForm() {
     }
   };
   const handlePrevious = () => {
-    dispatch(setActiveTab("basic"));
+    dispatch(setEditActiveTab("basic"));
   };
 
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Advance Informations</h2>
-        <div className="space-x-2">
+        {/* <div className="space-x-2">
           <Button
             variant="outline"
             className="bg-primary-50 text-primary-500 border-primary-100 hover:bg-primary-100"
@@ -218,7 +200,7 @@ export default function CourseAdvanceForm() {
           >
             Save & Preview
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

@@ -1,46 +1,35 @@
 "use client";
-import { fetchCategories, setActiveTab } from "@/store/slice/courseCreateSlice";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { setBasicCourse } from "@/store/slice/courseCreateSlice";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { ChevronDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
-import { useGetAllCategoryQuery } from "@/store/api/categoryApi";
-import { useRouter } from "next/navigation";
 import {
-  useAddNewCourseMutation,
-  useUpdateCourseMutation,
-} from "@/store/api/courseApi";
-import { setCourseId } from "@/store/slice/courseCreateSlice";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useUpdateCourseMutation } from "@/store/api/courseApi";
+import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
+import { X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
-export function CourseBasicForm() {
-  const basicCourseData = useSelector((state) => state.course.courseBasicData);
-  const [addNewCourse, { isLoading, isSuccess, isError, error }] =
-    useAddNewCourseMutation();
-  const [updateCourse] = useUpdateCourseMutation();
+export function CourseBasicForm({ course }) {
+  const [updateCourse, { isLoading }] = useUpdateCourseMutation();
 
   const router = useRouter();
-  const [sebCat, setSebCat] = useState([]);
+
   const dispatch = useDispatch();
   const subtitleLanguages = ["english", "spanish", "french", "german"];
-  const category = useGetAllCategoryQuery();
-  const courseCategory = category?.data || [];
 
   const {
     register,
@@ -49,7 +38,7 @@ export function CourseBasicForm() {
     watch,
     formState: { errors },
   } = useForm({
-    defaultValues: basicCourseData || {},
+    defaultValues: course,
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -60,33 +49,16 @@ export function CourseBasicForm() {
   const watchTitle = watch("title");
   const watchSubtitle = watch("subtitle");
 
-  const handleSave = (data) => {
-    dispatch(setBasicCourse(data));
-  };
-
-  const handlePreview = (data) => {
-    dispatch(setBasicCourse(data));
-    // add preview logic here
-  };
-
   const handleNext = async (data) => {
     console.log("data", data);
 
     try {
-      if (basicCourseData?.id) {
-        // If courseData has an id, update the course
-        const result = await updateCourse({
-          course: data,
-          id: basicCourseData?.id,
-        }).unwrap();
-        dispatch(setCourseId(basicCourseData?.id));
-      } else {
-        const result = await addNewCourse(data).unwrap();
-        if (result?.data) {
-          dispatch(setBasicCourse(result?.data));
-          dispatch(setCourseId(result?.data?.id));
-          dispatch(setActiveTab("advance"));
-        }
+      const result = await updateCourse({
+        course: data,
+        id: course?.id,
+      }).unwrap();
+      if (result?.id) {
+        dispatch(setEditActiveTab("advance"));
       }
     } catch (err) {
       console.error("Failed to add course:", err);
@@ -95,17 +67,8 @@ export function CourseBasicForm() {
 
   const handleCancel = () => {
     if (confirm("Are you sure you want to cancel?")) {
-      dispatch(setBasicCourse({}));
       router.back();
     }
-  };
-
-  const handelSubCaregory = (value) => {
-    courseCategory.map((category) => {
-      if (category.id == value) {
-        setSebCat(category.SubCategory);
-      }
-    });
   };
 
   if (isLoading) {
@@ -117,24 +80,6 @@ export function CourseBasicForm() {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-semibold">Basic Information</h2>
-        <div className="space-x-2">
-          <Button
-            type="button"
-            variant="outline"
-            className="bg-primary-50 text-primary-500 border-primary-100 hover:bg-primary-100"
-            onClick={() => handleSubmit(handleSave)()}
-          >
-            Save
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            className="bg-primary-50 text-primary-500 border-primary-100 hover:bg-primary-100"
-            onClick={() => handleSubmit(handlePreview)()}
-          >
-            Save & Preview
-          </Button>
-        </div>
       </div>
 
       {/* Form */}
@@ -179,66 +124,6 @@ export function CourseBasicForm() {
           </div>
         </div>
 
-        {/* Category & Sub-category */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label>Course Category</Label>
-            <Controller
-              name="categoryId"
-              control={control}
-              rules={{ required: true }}
-              render={({ field }) => (
-                <Select
-                  onValueChange={(value) => {
-                    field.onChange(value);
-                    handelSubCaregory(value);
-                  }}
-                >
-                  <SelectTrigger
-                    className={errors.category ? "border-red-500" : ""}
-                  >
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {courseCategory?.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            />
-            {errors.categoryId && (
-              <p className="text-sm text-red-500">Category is required.</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
-            <Label>Course Sub-category</Label>
-            <Controller
-              name="subCategoryId"
-              control={control}
-              render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {
-                      sebCat?.map((subCat) => (
-                        <SelectItem key={subCat.id} value={subCat.id}>
-                          {subCat.name}
-                        </SelectItem>
-                      )) /* Render subcategories here */
-                    }
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
-        </div>
-
         {/* Topic */}
         <div className="space-y-2">
           <Label>Course Topic</Label>
@@ -255,6 +140,7 @@ export function CourseBasicForm() {
         {/* Tools */}
         <div className="space-y-2">
           <Label> Course Tools </Label>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
           {fields.map((item, index) => (
             <div key={item.id} className="flex items-center gap-2">
               <Input
@@ -265,15 +151,15 @@ export function CourseBasicForm() {
               <Button
                 type="button"
                 variant="destructive"
-                className="bg-primary-500 hover:bg-primary-600 text-white border-primary-100"
+                className="bg-primary-500 hover:bg-primary-600 h-8 w-8 text-white border-primary-100"
                 size="icon"
                 onClick={() => remove(index)}
               >
-                ✕
+                <X className="h-4 w-4" />
               </Button>
             </div>
           ))}
-
+          </div>
           <Button
             type="button"
             variant="ghost"

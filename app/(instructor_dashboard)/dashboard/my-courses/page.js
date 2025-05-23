@@ -8,6 +8,9 @@ const InstructorPage = () => {
   const { data, isLoading, isError } = useGetInstructorByIdQuery(
     session?.user?.id || ""
   );
+
+
+
   const profile = data?.data?.instructor;
   const courses = profile?.Course;
 

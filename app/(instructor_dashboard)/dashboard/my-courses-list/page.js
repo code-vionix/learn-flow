@@ -8,23 +8,47 @@ import CourseListHeader from "./_components/CourseListHeader";
 import SearchFilter from "./_components/SearchFilter";
 import { useSession } from "next-auth/react";
 import { useGetInstructorByIdQuery } from "@/store/api/instructorApi";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useDeleteCourseMutation } from "@/store/api/courseApi";
+import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 export default function CourseList() {
-  const [editData, setEditData] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [status, setStatus] = useState("all");
   const [category, setCategory] = useState("all");
 
-  const { data: session } = useSession();
-  const { data, isLoading, isError } = useGetInstructorByIdQuery("682ce0eb6da15bfef36678b4");
-  const [deleteCourse, { isLoading: isDeleting, isSuccess: deleteSuccess, isError: deleteError, error: deleteErrorMessage }] = useDeleteCourseMutation(); // Destructure the delete mutation hook
+  const dispatch = useDispatch();
 
+  const router = useRouter();
+
+  const { data: session } = useSession();
+  const { data, isLoading, isError } = useGetInstructorByIdQuery(
+    session?.user?.id || ""
+  );
+  const [
+    deleteCourse,
+    {
+      isLoading: isDeleting,
+      isSuccess: deleteSuccess,
+      isError: deleteError,
+      error: deleteErrorMessage,
+    },
+  ] = useDeleteCourseMutation(); // Destructure the delete mutation hook
 
   const handleDeleteCourse = async (courseId, courseTitle) => {
-    if (window.confirm(`Are you sure you want to delete the course "${courseTitle}"? This action cannot be undone.`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete the course "${courseTitle}"? This action cannot be undone.`
+      )
+    ) {
       try {
         await deleteCourse(courseId).unwrap();
         console.log(`${courseTitle} deleted successfully!`);
@@ -38,7 +62,7 @@ export default function CourseList() {
     }
   };
 
-  const courses = data?.data?.instructor?.Course || [];
+  const courses = data?.data?.myCourses || [];
 
   const filteredCourses = useMemo(() => {
     return courses.filter((course) => {
@@ -86,7 +110,7 @@ export default function CourseList() {
             <div className="flex justify-between items-center px-6 py-4 border-b bg-gray-100">
               <h2 className="text-lg font-semibold">Course List</h2>
               <p className="text-sm text-gray-500">
-                Total: {filteredCourses?.length || 0} courses
+                Total: {data?.data?.totalCourses} courses
               </p>
             </div>
             <div className="overflow-x-auto">
@@ -103,80 +127,107 @@ export default function CourseList() {
                   </tr>
                 </thead>
                 <tbody>
-
                   {isLoading ? (
                     <tr>
-                      <td colSpan="8" className="py-12 text-center text-success-500">
+                      <td
+                        colSpan="8"
+                        className="py-12 text-center text-success-500"
+                      >
                         <div className="flex items-center justify-center space-x-2">
-                          <svg className="animate-spin h-5 w-5 text-success-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          <svg
+                            className="animate-spin h-5 w-5 text-success-500"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                            ></path>
                           </svg>
                           <span>Loading courses...</span>
                         </div>
                       </td>
-                    </tr> 
-                )
-                :  filteredCourses?.map((course) => (
-                    <tr key={course?.id} className="border-b hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="relative h-12 w-20 rounded overflow-hidden border bg-gray-100 flex-shrink-0">
-                            <Image
-                              src={course?.thumbnail || "/placeholder.svg"}
-                              alt={course?.title}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <div>
-                            <div className="font-medium line-clamp-1 max-w-[200px]">
-                              {course?.title}
+                    </tr>
+                  ) : (
+                    filteredCourses?.map((course) => (
+                      <tr
+                        key={course?.id}
+                        className="border-b hover:bg-gray-50"
+                      >
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="relative h-12 w-20 rounded overflow-hidden border bg-gray-100 flex-shrink-0">
+                              <Image
+                                src={course?.thumbnail || "/placeholder.svg"}
+                                alt={course?.title}
+                                fill
+                                className="object-cover"
+                              />
                             </div>
-                            <div className="text-xs text-gray-500 line-clamp-1 max-w-[200px]">
-                              {course?.subtitle}
+                            <div>
+                              <div className="font-medium line-clamp-1 max-w-[200px]">
+                                {course?.title}
+                              </div>
+                              <div className="text-xs text-gray-500 line-clamp-1 max-w-[200px]">
+                                {course?.subtitle}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">{course?.category?.name}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col">
-                          {course?.discountPrice ? (
-                            <>
-                              <span className="font-medium text-green-600">
-                                ${course?.discountPrice}
-                              </span>
-                              <span className="text-xs text-gray-400 line-through">
+                        </td>
+                        <td className="px-6 py-4">{course?.category?.name}</td>
+                        <td className="px-6 py-4">
+                          <div className="flex flex-col">
+                            {course?.discountPrice ? (
+                              <>
+                                <span className="font-medium text-green-600">
+                                  ${course?.discountPrice}
+                                </span>
+                                <span className="text-xs text-gray-400 line-through">
+                                  ${course?.price}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="font-medium">
                                 ${course?.price}
                               </span>
-                            </>
-                          ) : (
-                            <span className="font-medium">${course?.price}</span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex capitalize items-center px-2 py-1 rounded text-xs font-medium ${
-                            course?.status.toLowerCase() === "published"
-                              ? "bg-green-100 text-green-700"
-                              : "bg-gray-100 text-gray-600"
-                          }`}
-                        >
-                          {course?.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">{course?.enrollments.length}</td>
-                      <td className="px-6 py-4">{new Date(course?.updatedAt).toLocaleDateString()}</td>
-                      <td className="!pr-4 py-4 w-[190px] text-right space-x-2">
-                        <Link
-                          href={`/preview?id=${course?.id}`}
-                          className="inline-flex items-center gap-1 px-2 py-1 border rounded hover:bg-gray-100"
-                        >
-                          <Eye className="w-4 h-4" /> Preview
-                      </Link>
-                        <DropdownMenu>
+                            )}
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span
+                            className={`inline-flex capitalize items-center px-2 py-1 rounded text-xs font-medium ${
+                              course?.status.toLowerCase() === "published"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-gray-100 text-gray-600"
+                            }`}
+                          >
+                            {course?.status}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4">
+                          {course?.enrollments.length}
+                        </td>
+                        <td className="px-6 py-4">
+                          {new Date(course?.updatedAt).toLocaleDateString()}
+                        </td>
+                        <td className="!pr-4 py-4 w-[190px] text-right space-x-2">
+                          <Link
+                            href={`/preview?id=${course?.id}`}
+                            className="inline-flex items-center gap-1 px-2 py-1 border rounded hover:bg-gray-100"
+                          >
+                            <Eye className="w-4 h-4" /> Preview
+                          </Link>
+                          <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <button
                                 className="inline-flex items-center gap-1 px-2 py-1 border rounded cursor-pointer hover:bg-gray-100"
@@ -187,34 +238,50 @@ export default function CourseList() {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-48">
                               <DropdownMenuItem asChild>
-                                <Link
-                                  href={`/dashboard/edit-course/${course?.id}`}
+                                <div
+                                  onClick={() => {
+                                    dispatch(setEditActiveTab("basic"));
+                                    router.push(
+                                      `/dashboard/edit-course/${course?.id}`
+                                    );
+                                  }}
                                   className="block cursor-pointer text-success-500 hover:bg-success-100 px-4 py-2 hover:bg-gray-100 w-full text-left"
                                 >
-                                <Pencil />  Edit Course
-                                </Link>
+                                  <Pencil /> Edit Course
+                                </div>
                               </DropdownMenuItem>
+                              <DropdownMenuItem
+                                asChild
+                                onClick={() => {
+                                  dispatch(setEditActiveTab("curriculum"));
+                                  router.push(
+                                    `/dashboard/edit-course/${course?.id}`
+                                  );
+                                }}
+                              >
+                                <div className="block cursor-pointer text-success-500 hover:bg-success-100 px-4 py-2 hover:bg-gray-100 w-full text-left">
+                                  <Pencil /> Edit Curriculum
+                                </div>
+                              </DropdownMenuItem>
+
                               <DropdownMenuItem asChild>
-                                <Link
-                                  href={`/dashboard/edit-course/${course?.id}`}
-                                  className="block cursor-pointer text-success-500 hover:bg-success-100 px-4 py-2 hover:bg-gray-100 w-full text-left"
-                                >
-                                 <Pencil /> Edit Curriculum
-                                </Link>
-                          </DropdownMenuItem>
-                          
-                          <DropdownMenuItem asChild>
-                            <button
+                                <button
                                   disabled={isDeleting}
-                                  onClick={() => handleDeleteCourse(course?.id, course?.title)}
+                                  onClick={() =>
+                                    handleDeleteCourse(
+                                      course?.id,
+                                      course?.title
+                                    )
+                                  }
                                   className="flex cursor-pointer !rounded items-center gap-1 !w-full text-left !px-4 py-2 text-danger-600 hover:bg-danger-100"
                                 >
-                                  <Trash size={20} />{isDeleting ? "Deleting..." : "Delete Course"}
+                                  <Trash size={20} />
+                                  {isDeleting ? "Deleting..." : "Delete Course"}
                                 </button>
                               </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
-{/*                         
+                          {/*                         
                       <details className="inline-block relative">
                           <summary className="list-none px-2 py-1 border rounded cursor-pointer hover:bg-gray-100 inline-flex items-center gap-1">
                             <MoreVertical className="w-4 h-4" /> More
@@ -237,18 +304,19 @@ export default function CourseList() {
                             </button>
                           </div>
                         </details> */}
-                      </td>
-                    </tr>
-                  ))}
-                  {
-                   !isLoading && filteredCourses && filteredCourses.length === 0 && (
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                  {!isLoading &&
+                    filteredCourses &&
+                    filteredCourses.length === 0 && (
                       <tr>
                         <td colSpan="8" className="text-center py-12">
                           No courses found
                         </td>
                       </tr>
-                    )
-}
+                    )}
                 </tbody>
               </table>
             </div>
@@ -257,4 +325,4 @@ export default function CourseList() {
       </main>
     </div>
   );
-};
+}

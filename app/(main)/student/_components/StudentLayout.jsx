@@ -1,5 +1,6 @@
 "use client";
 
+import { useGetUserInfoQuery } from "@/store/api/userApi";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import React from "react";
 
 const StudentLayout = () => {
   const pathname = usePathname();
-
+  const { data } = useGetUserInfoQuery();
   const navLinks = [
     { href: "/student", label: "Dashboard" },
     { href: "/student/courses", label: "Courses" },
@@ -27,18 +28,18 @@ const StudentLayout = () => {
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center gap-4">
               <Image
-                src="https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="Profile picture"
-                width={96}
-                height={96}
+                src={data?.imageUrl}
+                alt={data.firstName}
+                width={400}
+                height={400}
                 className="rounded-full w-20 h-20 object-cover"
               />
               <div>
                 <h1 className="text-2xl font-semibold text-gray-900">
-                  Kevin Gilbert
+                  {data.firstName + " " + data.lastName}
                 </h1>
                 <p className="text-gray-600">
-                  Web Designer & Best-Selling Instructor
+                 {data?.title}
                 </p>
               </div>
             </div>

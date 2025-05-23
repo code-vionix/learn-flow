@@ -58,7 +58,7 @@ const FilterLeftSideBar = ({
     const fetchFilteredCourses = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/v1/courses?${query}`
+          `${process.env.NEXT_PUBLIC_API_ROUTE_URL}/courses?${query}`
         );
         const data = await res.json();
         setFilteredCourses(data);

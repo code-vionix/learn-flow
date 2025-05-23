@@ -15,14 +15,13 @@ import {
   useDeleteModuleMutation,
   useUpdateModuleMutation,
 } from "@/store/api/moduleApi";
-import { setActiveLecture } from "@/store/slice/courseCreateSlice";
+import { setEditActiveLecture } from "@/store/slice/courseUpdateSlice";
 
 
-export function SectionItem({ section }) {
+export function SectionItem({ section, courseId }) {
   const dispatch = useDispatch();
-  const courseId = useSelector((state) => state.course.courseId) || "";
 
-  const activeLecture = useSelector((state) => state.course.activeLecture)
+  const activeLecture = useSelector((state) => state.courseUpdate.activeLecture)
 
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(section.title);
@@ -54,7 +53,7 @@ export function SectionItem({ section }) {
         alert("Section deleted successfully");
         // Clear active lecture if it was in this section
         if (section.lectures.some((lecture) => lecture.id === activeLecture)) {
-          dispatch(setActiveLecture(null));
+          dispatch(setEditActiveLecture(null));
         }
       } catch (error) {
         alert("Failed to delete section");
@@ -144,7 +143,7 @@ export function SectionItem({ section }) {
 
       {/* Lectures */}
       {section.lessons.map((lesson) => (
-        <LectureItem key={lesson.id} lesson={lesson} sectionId={section.id} />
+        <LectureItem key={lesson.id} lesson={lesson} sectionId={section.id} courseId={courseId} />
       ))}
     </div>
   );

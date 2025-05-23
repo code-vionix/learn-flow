@@ -1,3 +1,5 @@
+"use server";
+
 export const getAllCourses = async () => {
   try {
     const baseUrl =
@@ -26,7 +28,7 @@ export const getAllCourses = async () => {
 };
 
 export const getBestSellingCourses = async () => {
-   try {
+  try {
     const baseUrl =
       process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
     const apiUrl = `${baseUrl}/courses/best-selling`;
@@ -58,9 +60,8 @@ export const getBestSellingCourses = async () => {
   }
 };
 
-
 export const getFeaturedCourses = async () => {
-   try {
+  try {
     const baseUrl =
       process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
     const apiUrl = `${baseUrl}/courses/featured-course`;
@@ -91,8 +92,6 @@ export const getFeaturedCourses = async () => {
     return [];
   }
 };
-
-
 
 export const extractCourseFilters = (courses) => {
   const categoryMap = new Map();
@@ -142,6 +141,28 @@ export const getCourseDataByCourseId = async (dataName, courseId) => {
     const baseUrl =
       process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
     const res = await fetch(`${baseUrl}/courses/${courseId}/${dataName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store", // Ensures fresh data for SSR
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Failed to fetch courseData");
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error.massage);
+  }
+};
+
+export const getCourseInstructors = async (courseId) => {
+  try {
+    const baseUrl =
+      process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
+    const res = await fetch(`${baseUrl}/courses/${courseId}/instructor`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

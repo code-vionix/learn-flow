@@ -4,19 +4,24 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Info, FileText, BookOpen, Upload } from "lucide-react";
 import { CourseBasicForm } from "./_components/CourseBasicForm";
 import { useSelector } from "react-redux";
-import { setActiveTab } from "@/store/slice/courseCreateSlice";
+import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
 import { useDispatch } from "react-redux";
 import CourseAdvanceForm from "./_components/CourseAdvanceForm";
 import CourseCurriculumForm from "./_components/CourseCurriculumForm";
 import PublishCourseForm from "./_components/PublishCourseForm";
+import { useParams } from "next/navigation";
+import { useGetCourseByIdQuery } from "@/store/api/courseApi";
 
 export default function CourseForm() {
-  const activetab = useSelector((state) => state.course.activeTab);
+  const activetab = useSelector((state) => state.courseUpdate.activeTab);
   const dispatch = useDispatch();
+  const { id } = useParams();
+
+  const { data: course } = useGetCourseByIdQuery(id);
 
   // for handle tabs
   const handleTabChange = (newValue) => {
-    dispatch(setActiveTab(newValue));
+    dispatch(setEditActiveTab(newValue));
   };
 
   return (
@@ -58,20 +63,19 @@ export default function CourseForm() {
         </TabsList>
 
         <TabsContent value="basic" className="p-6">
-          <CourseBasicForm />
+          <CourseBasicForm course={course} />
         </TabsContent>
 
         <TabsContent value="advance" className="p-6">
-          <CourseAdvanceForm />
+          <CourseAdvanceForm course={course} />
         </TabsContent>
 
         <TabsContent value="curriculum" className="p-6">
-          <CourseCurriculumForm />
+          <CourseCurriculumForm course={course} />
         </TabsContent>
 
         <TabsContent value="publish" className="p-6">
-          {/* <PublishCourseForm />   */}
-        hello js
+          <PublishCourseForm course={course} />
         </TabsContent>
       </Tabs>
     </div>

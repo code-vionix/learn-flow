@@ -24,15 +24,14 @@ import {
   useDeleteLessonMutation,
   useUpdateLessonMutation,
 } from "@/store/api/lessonApi";
-import { setActiveLecture } from "@/store/slice/courseCreateSlice";
+import { setEditActiveLecture } from "@/store/slice/courseUpdateSlice";
 import { AddContentModal } from "../modals/add-content-modal";
 import RenderBadge from "./RenderBadge";
 
-export function LectureItem({ lesson, sectionId }) {
+export function LectureItem({ lesson, sectionId, courseId }) {
   const dispatch = useDispatch();
   const activeLecture =
-    useSelector((state) => state.course.activeLecture) || {};
-  const courseId = useSelector((state) => state.course.courseId) || "";
+    useSelector((state) => state.courseUpdate.activeLecture) || {};
 
   const isActive = activeLecture?.lessonId === lesson?.id;
 
@@ -58,7 +57,7 @@ export function LectureItem({ lesson, sectionId }) {
 
         // Clear active lecture if it was this one
         if (activeLecture.lessonId === lesson?.id) {
-          dispatch(setActiveLecture(null));
+          dispatch(setEditActiveLecture(null));
         }
 
         alert("Lecture deleted successfully");
@@ -90,9 +89,9 @@ export function LectureItem({ lesson, sectionId }) {
 
   const handleToggleActive = () => {
     if (isActive) {
-      dispatch(setActiveLecture(null));
+      dispatch(setEditActiveLecture(null));
     } else {
-      dispatch(setActiveLecture({ moduleId: sectionId, lessonId: lesson?.id }));
+      dispatch(setEditActiveLecture({ moduleId: sectionId, lessonId: lesson?.id }));
     }
   };
 
@@ -281,6 +280,7 @@ export function LectureItem({ lesson, sectionId }) {
           onClose={handleCloseContentModal}
           sectionId={sectionId}
           lectureId={lesson.id}
+          courseId={courseId}
           contentType={contentModalType}
         />
       )}

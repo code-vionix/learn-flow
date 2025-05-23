@@ -23,9 +23,8 @@ export function AddContentModal({
   sectionId,
   lectureId,
   contentType,
+  courseId,
 }) {
-  const courseId = useSelector((state) => state.course.courseId) || "";
-
   const [videoUrl, setVideoUrl] = useState("");
   const [videoFile, setVideoFile] = useState(null);
   const [captionsFile, setCaptionsFile] = useState(null);

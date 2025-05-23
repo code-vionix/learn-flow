@@ -2,14 +2,6 @@
 import { BarChart, Check, Clock, ShoppingCart } from "lucide-react";
 
 const CourseHoverCard = ({ course }) => {
-  const calculateDiscount = (originalPrice, offerPrice) => {
-    return ((originalPrice - offerPrice) / originalPrice) * 100;
-  };
-
-  const originalPrice = course?.price;
-  const offerPrice = course?.offer_price;
-  const discountPercentage = calculateDiscount(originalPrice, offerPrice);
-
   return (
     <div className="z-10 flex items-start justify-start">
       <div className="bg-white border border-gray-200 shadow-lg  lg:w-[424px] p-5">
@@ -17,7 +9,7 @@ const CourseHoverCard = ({ course }) => {
           {/* Instructor Section */}
           <div className="flex items-center gap-3">
             <img
-              src={course?.imageUrl}
+              src={course?.thumbnail}
               alt={course?.title}
               className="w-12 h-12 rounded-full object-scale-down"
             />
@@ -44,13 +36,13 @@ const CourseHoverCard = ({ course }) => {
           {/* Pricing Section */}
           <div className="flex items-center gap-2">
             <span className="text-xl font-semibold text-gray-900">
-              ${course?.offer_price}
+              ${course?.discountPrice.toFixed(0)}
             </span>
             <span className="text-sm text-gray-500 line-through">
               ${course?.price}
             </span>
             <span className="text-xs text-white bg-[#FF6636] px-2 py-1 rounded">
-              {`${discountPercentage.toFixed(1)}`}% OFF
+              {`${course.discountPercentage.toFixed(0)}`}% OFF
             </span>
           </div>
 
