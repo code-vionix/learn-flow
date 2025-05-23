@@ -1,18 +1,24 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useGetUserInfoQuery, useUpdateUserInfoMutation } from "@/store/api/userApi";
+import {
+  useGetUserInfoQuery,
+  useUpdateUserInfoMutation,
+} from "@/store/api/userApi";
 import { useEffect, useState } from "react";
 
 const ProfileForm = () => {
   const [titleCount, setTitleCount] = useState("");
   const { data, isLoading, isError } = useGetUserInfoQuery();
-  const [updateUserInfo, { isLoading: isUpdating, isError: isUpdateError, isSuccess }] = useUpdateUserInfoMutation()
+  const [
+    updateUserInfo,
+    { isLoading: isUpdating, isError: isUpdateError, isSuccess },
+  ] = useUpdateUserInfoMutation();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    // username: "",
+    username: "",
     email: "",
-    // title: "",
+    title: "",
   });
 
   useEffect(() => {
@@ -20,9 +26,9 @@ const ProfileForm = () => {
       setFormData({
         firstName: data.firstName || "",
         lastName: data.lastName || "",
-        // username: data.username || "",
+        username: data.username || "",
         email: data.email || "",
-        // title: data.title || ""
+        title: data.title || "",
       });
     }
   }, [data]);
@@ -30,7 +36,7 @@ const ProfileForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // if (name === "title" && value.length > 50) return;
+    if (name === "title" && value.length > 50) return;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -110,12 +116,12 @@ const ProfileForm = () => {
         <h4 className="text-[14px] text-gray-900">Title</h4>
         <div className="space-x-2 h-[48px] focus-within:border-primary-500 border px-3 flex items-center gap-2">
           <input
-            // onChange={handleTitleChange}
+            onChange={handleChange}
             // value={titleCount}
             type="text"
             name="title"
             id="title"
-            // value={formData.title}
+            value={formData.title}
             placeholder="Your title, profession or small biography"
             className="h-full w-full text-[16px] focus:outline-none bg-transparent text-gray-500"
           />

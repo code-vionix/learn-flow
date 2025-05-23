@@ -53,7 +53,7 @@ export default function UserDropdown({ session, onClose }) {
 
       <Link
         href={
-          userRole === "INSTRUCTOR"
+          userRole === "TEACHER"
             ? "/dashboard"
             : userRole === "STUDENT"
               ? "/student"
@@ -68,7 +68,7 @@ export default function UserDropdown({ session, onClose }) {
 
       <Link
         href={
-          userRole === "INSTRUCTOR"
+          userRole === "TEACHER"
             ? "/settings"
             : userRole === "STUDENT"
               ? "/student/settings"

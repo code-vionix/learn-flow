@@ -52,8 +52,8 @@ export default async function Home({ params }) {
             </section>
 
             <section id="review">
-              <CourseRating reviews={reviews} />
-              <StudentFeedback reviews={reviews} />
+              {/* <CourseRating reviews={reviews} /> */}
+              {/* <StudentFeedback reviews={reviews} /> */}
             </section>
           </div>
           <CourseSidebar course={course} />

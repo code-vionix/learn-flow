@@ -8,8 +8,8 @@ const CourseInstructor = ({ instructor }) => {
       <div className="flex items-start bg-white shadow-sm p-6 mb-4 border w-full ">
         {/* Profile Image */}
         <Image
-          src={instructor?.user?.imageUrl}
-          alt={instructor?.user?.fullName}
+          src={instructor?.imageUrl|| "https://avatar.iran.liara.run/public"}
+          alt={instructor?.fullName}
           width={80}
           height={80}
           className="rounded-full object-cover border-4 border-white shadow-md w-[136px] h-[136px]"
@@ -18,7 +18,7 @@ const CourseInstructor = ({ instructor }) => {
         {/* Instructor Details */}
         <div className="ml-6 flex-1">
           <h3 className="text-lg font-semibold">
-            {instructor?.user?.fullName}
+            {instructor?.fullName}
           </h3>
           <p className="text-gray-600 text-sm">{instructor.title}</p>
           <div className="flex items-center mt-2 text-gray-700 text-sm">
