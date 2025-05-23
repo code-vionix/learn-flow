@@ -1,28 +1,29 @@
 // src/utils/axios.js
 
- import axios from "axios";
+import axios from "axios";
 
-const {baseUrl} = process.env.NEXT_PUBLIC_API_ROUTE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_API_ROUTE_URL;
+
 const axiosInstance = axios.create({
   baseURL: baseUrl,
-  timeout: 10000, // সর্বোচ্চ 10 সেকেন্ড অপেক্ষা করবে
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken"); 
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem("accessToken")
+        : null;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default axiosInstance;
