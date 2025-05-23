@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const CourseContext = createContext(null);
 
 export const CourseProvider = ({ children, courseId }) => {
-  const contextValue = useCourseContextInternal(courseId);
+  const contextValue = useCourseContextInternal();
   return (
     <CourseContext.Provider value={contextValue}>
       {children}

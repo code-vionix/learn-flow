@@ -149,7 +149,7 @@ const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
   const moduleData = sections?.[0];
   const lectureData = moduleData?.lessons?.[0]; // lessons = lectures
 
-  const { currentPlay, currentLesson } = useCourseContext(courseId);
+  const { currentPlay, currentLesson } = useCourseContext();
 
   return (
     <div>
