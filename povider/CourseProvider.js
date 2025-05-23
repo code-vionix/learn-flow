@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const CourseContext = createContext(null);
 
 export const CourseProvider = ({ children, courseId }) => {
-  const contextValue = useCourseContextInternal();
+  const contextValue = useCourseContextInternal(courseId);
   return (
     <CourseContext.Provider value={contextValue}>
       {children}
@@ -96,6 +96,7 @@ const useCourseContextInternal = (courseId) => {
   const currentLesson = currentModule?.lessons.find(
     (lesson) => lesson.id === currentLessonId
   );
+
   return {
     courseId,
     currentPlay,
