@@ -1,29 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Search, Bell, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { useState } from "react";
 // import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks"
 // import { setCourseId } from "@/lib/redux/curriculumSlice"
 // import { SectionItem } from "@/components/section-item"
 // import { CoursePreviewModal } from "@/components/modals/course-preview-modal"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useToast } from "@/hooks/use-toast";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import {
-  useAddNewModuleMutation,
-  useGetModuleByCourseIdQuery,
-} from "@/store/api/moduleApi";
 import { SectionItem } from "@/components/course/section-item";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useGetCourseByIdQuery } from "@/store/api/courseApi";
+import { useAddNewModuleMutation } from "@/store/api/moduleApi";
+import { useDispatch } from "react-redux";
+import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
 // import { useGetCurriculumQuery, useCreateSectionMutation } from "@/lib/redux/apiSlice"
 
-export default function CourseCurriculumPage() {
+export default function CourseCurriculumPage({ course }) {
   const dispatch = useDispatch();
-  const courseId = useSelector((state) => state.course.courseId);
-  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
-  console.log(courseId);
 
   // RTK Query hooks
   const {
@@ -31,7 +24,7 @@ export default function CourseCurriculumPage() {
     isLoading,
     isError,
     error,
-  } = useGetCourseByIdQuery(courseId);
+  } = useGetCourseByIdQuery(course?.id);
   // console.log(courseData);
 
   const [createSection, { isLoading: isCreatingSection }] =
@@ -40,7 +33,7 @@ export default function CourseCurriculumPage() {
   const handleAddSection = async () => {
     try {
       const res = await createSection({
-        courseId,
+        courseId: course?.id,
         title: `Section ${
           courseData?.modules.length ? courseData.modules.length + 1 : 1
         }: New Section`,
@@ -51,12 +44,12 @@ export default function CourseCurriculumPage() {
     }
   };
 
-  const openPreviewModal = () => {
-    setIsPreviewModalOpen(true);
+  const handleNext = () => {
+    dispatch(setEditActiveTab("publish"));
   };
 
-  const closePreviewModal = () => {
-    setIsPreviewModalOpen(false);
+  const handlePrevious = () => {
+    dispatch(setEditActiveTab("advance"));
   };
 
   return (
@@ -69,24 +62,6 @@ export default function CourseCurriculumPage() {
         <div className="mx-auto rounded-lg border bg-white p-6">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-xl font-bold">Course Curriculum</h2>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                //  disabled={isLoading || isCreatingSection}
-              >
-                Save
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="bg-orange-50 text-orange-500 hover:bg-orange-100 hover:text-orange-600"
-                onClick={openPreviewModal}
-                // disabled={isLoading || isCreatingSection}
-              >
-                Save & Preview
-              </Button>
-            </div>
           </div>
 
           {/* Error message */}
@@ -115,8 +90,12 @@ export default function CourseCurriculumPage() {
           {/* Sections */}
           {!isLoading && courseData && (
             <div className="space-y-4">
-              {courseData.modules.map((module) => (
-                <SectionItem key={module.id} section={module} />
+              {courseData?.modules?.map((module) => (
+                <SectionItem
+                  key={module.id}
+                  section={module}
+                  courseId={course?.id}
+                />
               ))}
 
               <Button
@@ -139,12 +118,17 @@ export default function CourseCurriculumPage() {
 
           {/* Navigation buttons */}
           <div className="mt-8 flex items-center justify-between">
-            <Button variant="outline" disabled={isLoading || isCreatingSection}>
+            <Button
+              variant="outline"
+              disabled={isLoading || isCreatingSection}
+              onClick={handlePrevious}
+            >
               Previous
             </Button>
             <Button
               className="bg-orange-500 hover:bg-orange-600"
               disabled={isLoading || isCreatingSection}
+              onClick={handleNext}
             >
               Save & Next
             </Button>

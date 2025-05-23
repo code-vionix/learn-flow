@@ -8,10 +8,11 @@ export default function CourseCard({
   id,
   title,
   category,
+  discountPrice,
   price,
   rating = 5,
   students,
-  image,
+  thumbnail,
 }) {
   return (
     <Link href={`/courses/${id}`}>
@@ -19,7 +20,7 @@ export default function CourseCard({
         {/* Top Image */}
         <div className="relative">
           <Image
-            src={image}
+            src={thumbnail}
             alt={title}
             className="w-full h-40 object-cover"
             width={400}
@@ -36,7 +37,11 @@ export default function CourseCard({
             >
               {category?.name}
             </span>
-            <span className="font-bold text-primary-500 text-md">${price}</span>
+            <div className="space-x-2">
+
+            <span className="font-bold text-primary-500 text-md">${discountPrice}</span>
+            <span className="text-gray-400 text-sm line-through">${price}</span>
+            </div>
           </div>
           {/* Category Tag */}
 

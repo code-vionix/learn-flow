@@ -32,6 +32,19 @@ const courseCreateSlice = createSlice({
     setActiveModule: (state, action) => {
       state.activeModule = action.payload;
     },
+    setCourseData: (state) => {
+      state.courseBasicData = {};
+      state.courseAdvancedData = {};
+      state.activeTab = "basic";
+      state.category = [];
+      state.courseId = "";
+      state.activeLecture = {
+        sectionId: null,
+        lectureId: null,
+        moduleId: null,
+      };
+      state.activeModule = { sectionId: null, moduleId: null };
+    },
   },
 });
 
@@ -42,5 +55,6 @@ export const {
   setCourseId,
   setActiveLecture,
   setActiveModule,
+  setCourseData,
 } = courseCreateSlice.actions;
 export default courseCreateSlice.reducer;

@@ -80,8 +80,12 @@ export default function CourseAdvanceForm() {
     }
   }, [courseAdvancedData, reset]);
 
-  const [imagePreview, setImagePreview] = useState(null);
-  const [videoPreview, setVideoPreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(
+    courseAdvancedData?.thumbnail || null
+  );
+  const [videoPreview, setVideoPreview] = useState(
+    courseAdvancedData?.trailer || null
+  );
   const [thumbnail, setThumbnail] = useState(
     courseAdvancedData?.thumbnail || null
   );

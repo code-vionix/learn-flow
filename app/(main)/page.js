@@ -8,33 +8,35 @@ import RecentAddedCourseList from "./components/home/RecentAddedCourse/RecentAdd
 import TopInstructors from "./components/home/TopInstructors ";
 import TrustedCompanies from "./components/home/TrustedCompanies";
 import JoinCourse from "./components/shared/JoinCourse";
-import { getAllCourses, getBestSellingCourses, getFeaturedCourses } from "@/utils/courses";
+import {
+  getAllCourses,
+  getBestSellingCourses,
+  getFeaturedCourses,
+} from "@/utils/courses";
 export default async function Home() {
   const courses = await getAllCourses();
   const bestSellingCourses = await getBestSellingCourses();
   const featuredCourses = await getFeaturedCourses();
   const instructors = await getInstructors();
 
-   return (
+  return (
     <div className="bg-background text-primary">
       <Hero />
       <CategoriesSection />
       <div className="relative ">
         <BestSellingSection courses={bestSellingCourses?.data} />
-          <FeaturedCourses courses={featuredCourses?.data} />
-      <RecentAddedCourseList courses={courses} />
+        <FeaturedCourses courses={featuredCourses?.data} />
+        <RecentAddedCourseList courses={courses} />
         <InstructorCard />
-          <TopInstructors instructors={instructors} />
+        <TopInstructors instructors={instructors} />
         <TrustedCompanies />
-      <JoinCourse />
+        <JoinCourse />
       </div>
 
       <div className="relative ">
-        <div className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        </div>
+        <div className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16"></div>
       </div>
-      <section className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16 ">
-      </section>
+      <section className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16 "></section>
     </div>
   );
 }

@@ -23,9 +23,9 @@ const CourseCard = ({ course }) => {
       {/* Course Card */}
       <div className="bg-white border border-gray-200 flex flex-col">
         <img
-          src={course?.imageUrl}
+          src={course?.thumbnail}
           alt={course.title}
-          className="w-full h-[234px] object-cover border-b border-gray-200"
+          className="w-full h-[234px] p-1  object-cover border-b border-gray-200"
         />
 
         <div className=" flex flex-col gap-2">
@@ -36,12 +36,19 @@ const CourseCard = ({ course }) => {
             >
               {course?.category?.name.toUpperCase()}
             </span>
-            <span className="text-lg font-medium text-[#FF6636]">
+            {/* <span className="text-lg font-medium text-[#FF6636]">
               ${course?.price}
+            </span> */}
+            {/* add discounted price also */}
+            <div className="space-x-2">
+            <span className="text-lg font-medium text-[#FF6636]">
+              ${course.discountPrice.toFixed(0)}
             </span>
+            <span className="line-through text-gray-500">${course.price}</span>
+            </div>
           </div>
 
-          <h3 className=" px-4 text-base font-medium text-gray-900 ">
+          <h3 className=" px-4 text-base font-medium text-gray-900 line-clamp-3 h-20">
             {course?.title}
           </h3>
 
@@ -49,14 +56,14 @@ const CourseCard = ({ course }) => {
             <div className=" px-4 py-3 flex justify-between items-center">
               <div className="flex items-center gap-1">
                 <Star className="w-5 h-5 text-[#FD8E1F] fill-[#FD8E1F]" />
-                {/* <span className="text-sm text-gray-700">{reviews}</span> */}
+                <span className="text-sm text-gray-700">{reviews.length || 0}</span>
               </div>
               <div className="flex items-center gap-1 px-4 ">
                 <User className="w-5 h-5 text-[#564FFD]" />
                 <span className="text-sm text-gray-700">
                   {course?.enrollments &&
                     (course?.enrollments.length / 10).toFixed(1)}
-                  K students
+                  {" "}students
                 </span>
               </div>
             </div>

@@ -8,7 +8,7 @@ export default function CourseInfo({ course, instructor }) {
         <div className="relative">
           <Image
             src={instructor?.user?.imageUrl}
-            alt={instructor?.user?.fullName}
+            alt={instructor?.user?.firstName}
             width={50}
             height={50}
             className="rounded-full w-[50px] h-[50px] border-2 border-white"

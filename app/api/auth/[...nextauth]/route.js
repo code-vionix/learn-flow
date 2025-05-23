@@ -13,11 +13,14 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch("http://localhost:3000/api/v1/users/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(credentials),
-        });
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_API_ROUTE_URL + "/users/login",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials),
+          }
+        );
 
         const user = await res.json();
 
@@ -54,7 +57,7 @@ const handler = NextAuth({
       if (account?.provider === "google") {
         try {
           const res = await fetch(
-            "http://localhost:3000/api/v1/users/oauth-login",
+            process.env.NEXT_PUBLIC_API_ROUTE_URL + "/users/oauth-login",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -91,6 +94,7 @@ const handler = NextAuth({
     },
 
     async jwt({ token, user }) {
+      console.log("user jwt", user);
       // Initial login
       if (user) {
         return {
@@ -105,12 +109,15 @@ const handler = NextAuth({
 
       // Token still valid
       if (Date.now() < token.accessTokenExpires) {
+        console.log("token still valid");
         return token;
       }
 
       // Token expired → refresh it
       try {
         const refreshed = await refreshAccessToken(token);
+
+        console.log("refreshed", refreshed);
 
         return {
           ...token,
@@ -119,6 +126,7 @@ const handler = NextAuth({
           accessTokenExpires: refreshed.accessTokenExpires,
         };
       } catch (error) {
+        console.log("error", error);
         return {
           ...token,
           error: "AccessTokenRefreshFailed",
@@ -127,6 +135,8 @@ const handler = NextAuth({
     },
 
     async session({ session, token }) {
+      console.log("session", session);
+      console.log("token", token);
       session.user.id = token.id;
       session.user.role = token.role;
       session.accessToken = token.accessToken;

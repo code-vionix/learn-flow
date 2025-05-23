@@ -18,6 +18,7 @@ import {
 import { useGetAllCategoryQuery } from "@/store/api/categoryApi";
 import {
   useAddNewCourseMutation,
+  useGetCourseByIdQuery,
   useUpdateCourseMutation,
 } from "@/store/api/courseApi";
 import {
@@ -25,14 +26,16 @@ import {
   setBasicCourse,
   setCourseId,
 } from "@/store/slice/courseCreateSlice";
+import { X } from "lucide-react";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
 export function CourseBasicForm() {
   const basicCourseData = useSelector((state) => state.course.courseBasicData);
+  // const { data: basicCourseData } = useGetCourseByIdQuery(courseId);
   const [addNewCourse, { isLoading, isSuccess, isError, error }] =
     useAddNewCourseMutation();
   const [updateCourse] = useUpdateCourseMutation();
@@ -41,13 +44,13 @@ export function CourseBasicForm() {
   const [sebCat, setSebCat] = useState([]);
   const dispatch = useDispatch();
   const subtitleLanguages = ["english", "spanish", "french", "german"];
-  const category = useGetAllCategoryQuery();
-  const courseCategory = category?.data || [];
+  const courseCategory = useGetAllCategoryQuery().data;
 
   const {
     register,
     control,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm({
@@ -82,6 +85,7 @@ export function CourseBasicForm() {
           id: basicCourseData?.id,
         }).unwrap();
         dispatch(setCourseId(basicCourseData?.id));
+        dispatch(setActiveTab("advance"));
       } else {
         const result = await addNewCourse(data).unwrap();
         if (result?.data) {
@@ -101,6 +105,20 @@ export function CourseBasicForm() {
       router.back();
     }
   };
+
+  useEffect(() => {
+    if (basicCourseData && courseCategory?.length > 0) {
+
+      setSebCat(
+        courseCategory?.find(
+          (category) => category.id == basicCourseData?.categoryId
+        )?.SubCategory
+      );
+      setValue("subCategoryId", basicCourseData?.subCategoryId);
+
+
+    }
+  }, [basicCourseData, setValue, courseCategory]);
 
   const handelSubCaregory = (value) => {
     courseCategory.map((category) => {
@@ -191,6 +209,7 @@ export function CourseBasicForm() {
               rules={{ required: true }}
               render={({ field }) => (
                 <Select
+                  value={field.value}
                   onValueChange={(value) => {
                     field.onChange(value);
                     handelSubCaregory(value);
@@ -222,7 +241,11 @@ export function CourseBasicForm() {
               name="subCategoryId"
               control={control}
               render={({ field }) => (
-                <Select onValueChange={field.onChange} value={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  className={errors.subCategory ? "border-red-500" : ""}
+                >
                   <SelectTrigger>
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
@@ -257,6 +280,7 @@ export function CourseBasicForm() {
         {/* Tools */}
         <div className="space-y-2">
           <Label> Course Tools </Label>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {fields.map((item, index) => (
             <div key={item.id} className="flex items-center gap-2">
               <Input
@@ -267,15 +291,15 @@ export function CourseBasicForm() {
               <Button
                 type="button"
                 variant="destructive"
-                className="bg-primary-500 hover:bg-primary-600 text-white border-primary-100"
+                className="bg-primary-500 hover:bg-primary-600 h-8 w-8 text-white border-primary-100"
                 size="icon"
                 onClick={() => remove(index)}
               >
-                ✕
+                <X className="h-4 w-4" />
               </Button>
             </div>
           ))}
-
+          </div>  
           <Button
             type="button"
             variant="ghost"
