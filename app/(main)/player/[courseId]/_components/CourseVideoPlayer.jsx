@@ -1,29 +1,40 @@
 "use client";
-import Plyr from "plyr";
 import "plyr/dist/plyr.css";
 import { useEffect, useRef, useState } from "react";
 
 import { useCourseContext } from "@/povider/CourseProvider";
 import { Play } from "lucide-react";
 import dynamic from "next/dynamic";
-import { courseData } from "../data/coursesData";
+
 const DynamicReactPlayer = dynamic(() => import("react-player"), {
   ssr: false,
 });
 
-export default function CourseVideoPlayer() {
-  const moduleData = courseData[0]?.modules[0]?.lectures[0];
-  const { currentLecture } = useCourseContext();
-
-  const [url, setUrl] = useState(currentLecture?.video_url);
+export default function CourseVideoPlayer({ courseId, modules }) {
+  const { currentLesson } = useCourseContext(courseId);
+  // fallback lesson if context not ready yet
+  const fallbackLesson = modules?.[0]?.lessons?.[0];
+  const lesson = currentLesson || fallbackLesson;
+  const [url, setUrl] = useState(lesson?.videoUrl || "");
   const [autoPlay, setAutoPlay] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const videoRef = useRef(null);
 
   useEffect(() => {
-    new Plyr(videoRef.current);
-    setUrl(currentLecture?.video_url);
-  }, [currentLecture]);
+    let player;
+    import("plyr").then((module) => {
+      const Plyr = module.default;
+      if (videoRef.current) {
+        player = new Plyr(videoRef.current);
+      }
+    });
+
+    return () => {
+      if (player && typeof player.destroy === "function") {
+        player.destroy();
+      }
+    };
+  }, [lesson]);
 
   const handlePlayButtonClick = () => {
     setShowPlayButton(false);
@@ -36,6 +47,7 @@ export default function CourseVideoPlayer() {
     setUrl(form.link.value);
     form.reset();
   };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -45,8 +57,19 @@ export default function CourseVideoPlayer() {
       setUrl(dataUrl);
     };
 
-    reader.readAsDataURL(file);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
+
+  // fallback rendering if lesson is not yet loaded
+  if (!lesson) {
+    return (
+      <div className="w-full h-[300px] flex items-center justify-center bg-gray-100">
+        <p className="text-gray-600">Loading video...</p>
+      </div>
+    );
+  }
 
   return (
     <main className="">
@@ -59,21 +82,21 @@ export default function CourseVideoPlayer() {
             name="link"
             className="bg-[#0d3b4745] border border-[#12618b] px-3 py-1 w-[270px]"
             placeholder="video URL..."
-          />{" "}
+          />
           <input
             type="submit"
             value="preview"
             className="px-3 py-1 border border-[#0786c1] cursor-pointer bg-[#0786c1]"
           />
         </form>
-      </div>{" "}
+      </div>
       <br />
       <div className="w-[100%] m-auto !px-0">
         <div className="relative">
           {!autoPlay && showPlayButton && (
             <button
               onClick={handlePlayButtonClick}
-              className="absolute inset-0 flex items-center justify-center !bg-white  rounded-full md:w-[80px] md:h-[80px] w-[70px] h-[70px] m-auto text-black"
+              className="absolute inset-0 flex items-center justify-center !bg-white rounded-full md:w-[80px] md:h-[80px] w-[70px] h-[70px] m-auto text-black z-10"
             >
               <Play />
             </button>

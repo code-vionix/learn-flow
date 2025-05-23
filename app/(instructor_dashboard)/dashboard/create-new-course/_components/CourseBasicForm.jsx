@@ -1,33 +1,35 @@
 "use client";
-import { fetchCategories, setActiveTab } from "@/store/slice/courseCreateSlice";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { setBasicCourse } from "@/store/slice/courseCreateSlice";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { ChevronDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useGetAllCategoryQuery } from "@/store/api/categoryApi";
-import { useRouter } from "next/navigation";
 import {
   useAddNewCourseMutation,
   useUpdateCourseMutation,
 } from "@/store/api/courseApi";
-import { setCourseId } from "@/store/slice/courseCreateSlice";
+import {
+  setActiveTab,
+  setBasicCourse,
+  setCourseId,
+} from "@/store/slice/courseCreateSlice";
+import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 export function CourseBasicForm() {
   const basicCourseData = useSelector((state) => state.course.courseBasicData);

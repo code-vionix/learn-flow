@@ -7,8 +7,7 @@ import {
 } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import React from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const FilterCategoryLists = ({ category, onFilterChange }) => {
   const searchParams = useSearchParams();
@@ -16,7 +15,8 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
   const router = useRouter();
 
   const selectedCategories = searchParams.get("category")?.split(",") || [];
-  const selectedSubcategories = searchParams.get("subcategory")?.split(",") || [];
+  const selectedSubcategories =
+    searchParams.get("subcategory")?.split(",") || [];
 
   const toggleCategory = (cat, subCat) => {
     const isCategoryChecked = !selectedCategories.includes(cat);
@@ -36,7 +36,9 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
     if (isSubcategoryChecked) {
       newSelectedSubcategories.push(subCat);
     } else {
-      newSelectedSubcategories = newSelectedSubcategories.filter((s) => s !== subCat);
+      newSelectedSubcategories = newSelectedSubcategories.filter(
+        (s) => s !== subCat
+      );
     }
 
     const params = new URLSearchParams(searchParams);
@@ -55,7 +57,6 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
     const newUrl = `${pathname}?${params.toString()}`;
 
     // Log the updated URL to console
-    console.log("Updated URL query:", newUrl);
 
     router.push(newUrl, { scroll: false });
 
@@ -74,7 +75,9 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
         <AccordionContent>
           <div>
             {category?.SubCategory?.map((item) => {
-              const isSubcategoryChecked = selectedSubcategories.includes(item.name);
+              const isSubcategoryChecked = selectedSubcategories.includes(
+                item.name
+              );
 
               return (
                 <div
@@ -85,13 +88,17 @@ const FilterCategoryLists = ({ category, onFilterChange }) => {
                     <Checkbox
                       id={item.name}
                       checked={isSubcategoryChecked}
-                      onCheckedChange={() => toggleCategory(category.name, item.name)}
+                      onCheckedChange={() =>
+                        toggleCategory(category.name, item.name)
+                      }
                       className="h-4 w-4 rounded border-gray-300 data-[state=checked]:bg-primary-500 data-[state=checked]:border-primary-500"
                     />
                     <Label
                       htmlFor={item.name}
                       className={`${
-                        isSubcategoryChecked ? "text-primary-500" : "text-gray-700"
+                        isSubcategoryChecked
+                          ? "text-primary-500"
+                          : "text-gray-700"
                       } ml-2 text-sm cursor-pointer`}
                     >
                       {item.name}

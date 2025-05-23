@@ -8,7 +8,13 @@ export default function CourseSidebar({ course }) {
   
   return (
     <div className="w-[424px] h-fit bg-white border border-gray-200  shadow-lg p-6 space-y-6">
-      <CoursePrice offer_price={course?.offer_price} price={course?.price} />
+      <CoursePrice
+        offer_price={course?.discountPrice}
+        price={course?.price}
+        discountPercentage={course?.discountPercentage}
+        startDate={course?.startDate}
+        endDate={course?.endDate}
+      />
       <SidebarCourseInfo course={course} />
       <CourseActions course={course} />
       <CourseFeatures course={course} />

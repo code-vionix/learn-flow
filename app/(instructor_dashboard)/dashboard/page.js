@@ -25,7 +25,6 @@ export default function DashbordPAge() {
       error: deleteCourseError,
     },
   ] = useDeleteCourseMutation();
-  console.log(error);
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>{error?.data?.message}</div>;
   return (

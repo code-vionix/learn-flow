@@ -5,7 +5,7 @@ export default function CoursePreview({ course }) {
   return (
     <div className="relative w-full h-[492px] bg-gray-200 rounded-lg">
       <Image
-        src={course.image}
+        src={course?.thumbnail}
         alt="Course preview"
         fill
         className="object-cover"

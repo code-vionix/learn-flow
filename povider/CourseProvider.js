@@ -1,84 +1,125 @@
 "use client";
 
-import { courseData } from "@/app/(main)/player/[courseId]/data/coursesData";
-// import { courseData } from "@/app/course/[courseId]/data/coursesData";
-import { createContext, useContext, useState } from "react";
+import { getCourseDataByCourseId } from "@/utils/courses";
+import { createContext, useContext, useEffect, useState } from "react";
 
-const CourseContext = createContext();
+const CourseContext = createContext(null);
 
-export const CourseProvider = ({ children }) => {
-  const [currentPlay, setCurrentPlay] = useState(null);
-  const [currentModuleId, setCurrentModuleId] = useState(
-    courseData[0].modules[0].moduleId
-  );
-  const [currentLectureId, setCurrentLectureId] = useState(
-    courseData[0].modules[0].lectures[0].lectureId
-  );
-
-  const handleNextClick = () => {
-    const currentModuleIndex = courseData[0].modules.findIndex(
-      (module) => module.moduleId === currentModuleId
-    );
-    const currentLectureIndex = courseData[0].modules[
-      currentModuleIndex
-    ].lectures.findIndex((lecture) => lecture.lectureId === currentLectureId);
-    const isLastLectureInModule =
-      currentLectureIndex ===
-      courseData[0].modules[currentModuleIndex].lectures.length - 1;
-
-    if (isLastLectureInModule) {
-      const isLastModule =
-        currentModuleIndex === courseData[0].modules.length - 1;
-      if (!isLastModule) {
-        setCurrentModuleId(
-          courseData[0].modules[currentModuleIndex + 1].moduleId
-        );
-        setCurrentLectureId(
-          courseData[0].modules[currentModuleIndex + 1].lectures[0].lectureId
-        );
-      }
-    } else {
-      setCurrentLectureId(
-        courseData[0].modules[currentModuleIndex].lectures[
-          currentLectureIndex + 1
-        ].lectureId
-      );
-    }
-  };
-
-  const handleLectureClick = (moduleId, lectureId) => {
-    setCurrentModuleId(moduleId);
-    setCurrentLectureId(lectureId);
-    const selectedLecture = courseData[0].modules
-      .find((module) => module.moduleId === moduleId)
-      .lectures.find((lecture) => lecture.lectureId === lectureId);
-    selectedLecture.isFinished = true;
-    setCurrentPlay(selectedLecture);
-  };
-
-  const currentModule = courseData[0].modules.find(
-    (module) => module.moduleId === currentModuleId
-  );
-  const currentLecture = currentModule.lectures.find(
-    (lecture) => lecture.lectureId === currentLectureId
-  );
-
+export const CourseProvider = ({ children, courseId }) => {
+  const contextValue = useCourseContextInternal(courseId);
   return (
-    <CourseContext.Provider
-      value={{
-        currentPlay,
-        setCurrentPlay,
-        handleNextClick,
-        handleLectureClick,
-        currentModule,
-        currentLecture,
-      }}
-    >
+    <CourseContext.Provider value={contextValue}>
       {children}
     </CourseContext.Provider>
   );
 };
 
-export const useCourseContext = () => {
-  return useContext(CourseContext);
+// Internal logic (used by Provider or fallback hook)
+const useCourseContextInternal = (courseId) => {
+  const [modules, setModules] = useState([]);
+  const [currentModuleId, setCurrentModuleId] = useState(null);
+  const [currentLessonId, setCurrentLessonId] = useState(null);
+  const [currentPlay, setCurrentPlay] = useState(null);
+
+  useEffect(() => {
+    async function fetchModules() {
+      try {
+        const response = await getCourseDataByCourseId("modules", courseId);
+        const fetchedModules = response.data || [];
+
+        setModules(fetchedModules);
+
+        if (fetchedModules.length > 0) {
+          setCurrentModuleId(fetchedModules[0].id);
+          if (fetchedModules[0].lessons.length > 0) {
+            setCurrentLessonId(fetchedModules[0].lessons[0].id);
+            setCurrentPlay(fetchedModules[0].lessons[0]);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch modules:", error);
+      }
+    }
+
+    if (courseId) fetchModules();
+  }, [courseId]);
+
+  const handleNextClick = () => {
+    if (!modules.length || !currentModuleId || !currentLessonId) return;
+
+    const currentModuleIndex = modules.findIndex(
+      (module) => module.id === currentModuleId
+    );
+    if (currentModuleIndex === -1) return;
+
+    const currentLessonIndex = modules[currentModuleIndex].lessons.findIndex(
+      (lesson) => lesson.id === currentLessonId
+    );
+    if (currentLessonIndex === -1) return;
+
+    const isLastLessonInModule =
+      currentLessonIndex === modules[currentModuleIndex].lessons.length - 1;
+
+    if (isLastLessonInModule) {
+      const isLastModule = currentModuleIndex === modules.length - 1;
+      if (!isLastModule) {
+        const nextModule = modules[currentModuleIndex + 1];
+        setCurrentModuleId(nextModule.id);
+        setCurrentLessonId(nextModule.lessons[0].id);
+        setCurrentPlay(nextModule.lessons[0]);
+      }
+    } else {
+      const nextLesson =
+        modules[currentModuleIndex].lessons[currentLessonIndex + 1];
+      setCurrentLessonId(nextLesson.id);
+      setCurrentPlay(nextLesson);
+    }
+  };
+
+  const handleLessonClick = (moduleId, lessonId) => {
+    const selectedModule = modules.find((module) => module.id === moduleId);
+    if (!selectedModule) return;
+
+    const selectedLesson = selectedModule.lessons.find(
+      (lesson) => lesson.id === lessonId
+    );
+    if (!selectedLesson) return;
+
+    selectedLesson.isFinished = true;
+
+    setCurrentModuleId(moduleId);
+    setCurrentLessonId(lessonId);
+    setCurrentPlay(selectedLesson);
+  };
+
+  const currentModule = modules.find((module) => module.id === currentModuleId);
+  const currentLesson = currentModule?.lessons.find(
+    (lesson) => lesson.id === currentLessonId
+  );
+  return {
+    courseId,
+    currentPlay,
+    setCurrentPlay,
+    handleNextClick,
+    handleLessonClick,
+    currentModule,
+    currentLesson,
+    modules,
+  };
+};
+
+// Safe hook usage
+export const useCourseContext = (courseId) => {
+  const context = useContext(CourseContext);
+  const internal = useCourseContextInternal(courseId); // always called
+
+  if (context) return context;
+
+  if (!courseId) {
+    throw new Error(
+      "useCourseContext: courseId is required if not inside a CourseProvider"
+    );
+  }
+
+  return internal;
 };

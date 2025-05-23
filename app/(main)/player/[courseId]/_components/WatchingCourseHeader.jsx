@@ -7,7 +7,7 @@ import { useState } from "react";
 import ReviewModal from "./ReviewModal";
 import WatchingCourseWrapper from "./WatchingCourseWrapper";
 
-const WatchingCourseHeader = ({ data }) => {
+const WatchingCourseHeader = ({ course, sections }) => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const { handleNextClick } = useCourseContext();
   const handleReviewSubmit = (rating, feedback) => {};
@@ -26,7 +26,7 @@ const WatchingCourseHeader = ({ data }) => {
 
             <div className="">
               <h3 className="font-semibold text-[18px] lg:w-auto w-auto md:w-[400px]">
-                {data?.courseName}
+                {course?.title}
               </h3>
 
               <div className="flex items-center gap-3 text-sm mt-1">
@@ -36,7 +36,7 @@ const WatchingCourseHeader = ({ data }) => {
                     className="h-4 w-4 text-primary-500"
                   />
                   <span className="text-sm text-gray-600">
-                    {data?.sections} Sections
+                    {sections?.totalModules} Sections
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -45,7 +45,7 @@ const WatchingCourseHeader = ({ data }) => {
                     className="h-4 w-4 text-secondary-500"
                   />
                   <span className="text-sm text-gray-600">
-                    {data?.lectures} lectures
+                    {sections?.totalLessons} lectures
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -54,7 +54,7 @@ const WatchingCourseHeader = ({ data }) => {
                     className="h-4 w-4 text-warning-500"
                   />
                   <span className="text-sm text-gray-600">
-                    {data?.courseDuration}
+                    {sections?.totalEstimatedTime}
                   </span>
                 </div>
               </div>

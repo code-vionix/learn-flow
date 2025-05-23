@@ -1,10 +1,15 @@
 "use client";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useState, useEffect } from "react";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useEffect, useState } from "react";
 import PaymentCard from "./PaymentCard";
 import PaymentCourseCard from "./PaymentCourseCard";
-import { XCircle } from "lucide-react";
 
 function ShoppingCart() {
   const [wishlist, setWishlist] = useState([]);
@@ -50,7 +55,7 @@ function ShoppingCart() {
 
   useEffect(() => {
     // Load wishlist from local storage (example)
-    const storedWishlist = localStorage.getItem('wishlist');
+    const storedWishlist = localStorage.getItem("wishlist");
     if (storedWishlist) {
       setWishlist(JSON.parse(storedWishlist));
     }
@@ -93,7 +98,9 @@ function ShoppingCart() {
         <Table className="border">
           <TableHeader>
             <TableRow className="w-full text-lg p-2 flex items-center justify-between  lg:gap-10 ">
-              <TableHead className="w-2/3 flex justify-evenly ">Course</TableHead>
+              <TableHead className="w-2/3 flex justify-evenly ">
+                Course
+              </TableHead>
               <TableHead className="hidden lg:block ">Price</TableHead>
               <TableHead className=" hidden lg:block ">Action</TableHead>
             </TableRow>
@@ -101,7 +108,12 @@ function ShoppingCart() {
 
           <TableBody>
             {courses?.map((course, i) => (
-              <PaymentCourseCard key={course?.id || i} course={course} wishlist={wishlist} setWishlist={setWishlist} />
+              <PaymentCourseCard
+                key={course?.id || i}
+                course={course}
+                wishlist={wishlist}
+                setWishlist={setWishlist}
+              />
             ))}
           </TableBody>
         </Table>

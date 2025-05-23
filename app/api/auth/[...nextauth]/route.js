@@ -1,4 +1,5 @@
 import { refreshAccessToken } from "@/lib/refreshAccessToken";
+import { jwtDecode } from "jwt-decode";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -19,7 +20,10 @@ const handler = NextAuth({
         });
 
         const user = await res.json();
+
         if (res.ok && user?.accessToken) {
+          const decoded = jwtDecode(user.accessToken);
+
           return {
             id: user.id,
             name: user.name,
@@ -27,6 +31,7 @@ const handler = NextAuth({
             role: user.role,
             accessToken: user.accessToken,
             refreshToken: user.refreshToken,
+            accessTokenExpires: decoded.exp * 1000, // convert to ms
           };
         }
 
@@ -62,13 +67,18 @@ const handler = NextAuth({
           );
 
           const data = await res.json();
-          if (!res.ok || !data?.accessToken)
+
+          if (!res.ok || !data?.accessToken) {
             throw new Error("OAuth login failed");
+          }
+
+          const decoded = jwtDecode(data.accessToken);
 
           user.id = data.id;
           user.role = data.role;
           user.accessToken = data.accessToken;
           user.refreshToken = data.refreshToken;
+          user.accessTokenExpires = decoded.exp * 1000;
 
           return true;
         } catch (err) {
@@ -81,6 +91,7 @@ const handler = NextAuth({
     },
 
     async jwt({ token, user }) {
+      // Initial login
       if (user) {
         return {
           ...token,
@@ -88,12 +99,31 @@ const handler = NextAuth({
           role: user.role,
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
-          accessTokenExpires: Date.now() + 15 * 60 * 1000,
+          accessTokenExpires: user.accessTokenExpires,
         };
       }
 
-      if (Date.now() < token.accessTokenExpires) return token;
-      return await refreshAccessToken(token);
+      // Token still valid
+      if (Date.now() < token.accessTokenExpires) {
+        return token;
+      }
+
+      // Token expired → refresh it
+      try {
+        const refreshed = await refreshAccessToken(token);
+
+        return {
+          ...token,
+          accessToken: refreshed.accessToken,
+          refreshToken: refreshed.refreshToken ?? token.refreshToken,
+          accessTokenExpires: refreshed.accessTokenExpires,
+        };
+      } catch (error) {
+        return {
+          ...token,
+          error: "AccessTokenRefreshFailed",
+        };
+      }
     },
 
     async session({ session, token }) {
@@ -106,7 +136,7 @@ const handler = NextAuth({
     },
 
     async redirect({ baseUrl }) {
-      return `${baseUrl}`;
+      return baseUrl;
     },
   },
 

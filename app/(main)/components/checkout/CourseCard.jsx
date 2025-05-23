@@ -8,8 +8,9 @@ function CourseCard({ onSubmit }) {
       title: "Graphic Design Masterclass - Learn GREAT Design",
       instructor: "Courtney Henry",
       price: 13.0,
-      image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    }
+      image:
+        "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+    },
     // ,
     // {
     //   id: 2,
@@ -40,16 +41,18 @@ function CourseCard({ onSubmit }) {
   // Calculate Total Price After Discount
   const totalPrice = subtotal - discountAmount;
 
-  // console.log("Subtotal:", subtotal.toFixed(2));
-  // console.log("Discount (" + discountPercentage + "%):", discountAmount.toFixed(2));
-
   return (
     <div className="border-[1px] border-gray-100 p-4 gap-6 w-[536px]  ">
-      <div className="text-base  text-gray-900">Course {courses.length >1 && courses.length}</div>
+      <div className="text-base  text-gray-900">
+        Course {courses.length > 1 && courses.length}
+      </div>
       <div className="w-full flex-col flex gap-3 py-4  ">
         {courses.map((course) => {
           return (
-            <div className="flex flex-row gap-3 border-b-[1px] pb-3" key={course.id}>
+            <div
+              className="flex flex-row gap-3 border-b-[1px] pb-3"
+              key={course.id}
+            >
               <Image
                 src={course.image}
                 alt={course.title}
@@ -63,10 +66,10 @@ function CourseCard({ onSubmit }) {
                   </span>
                   {course.instructor}
                 </h4>
-                <h5 className="text-sm text-gray-900">
-                 {course.title}
-                </h5>
-                <p className="text-primary-500 font-medium mt-5">${course.price}</p>
+                <h5 className="text-sm text-gray-900">{course.title}</h5>
+                <p className="text-primary-500 font-medium mt-5">
+                  ${course.price}
+                </p>
               </div>
             </div>
           );
@@ -80,12 +83,16 @@ function CourseCard({ onSubmit }) {
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Coupon Discount</p>
-          <p className="text-gray-900 font-semibold mb-2">{discountPercentage}%</p>
+          <p className="text-gray-900 font-semibold mb-2">
+            {discountPercentage}%
+          </p>
         </div>
       </div>
       <div className="flex justify-between my-4">
         <p className="text-[#202029] font-normal  text-xl">Total</p>
-        <h1 className="text-[#202029] font-semibold text-2xl">{totalPrice} USD</h1>
+        <h1 className="text-[#202029] font-semibold text-2xl">
+          {totalPrice} USD
+        </h1>
       </div>
       <Button
         onClick={() => onSubmit(totalPrice)}

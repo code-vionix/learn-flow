@@ -1,12 +1,20 @@
 import { BarChart2, Clock, FileText, Users } from "lucide-react";
 
 export default function SidebarCourseInfo({ course }) {
+  const subtitleLanguages = course?.subtitleLanguages?.length
+    ? course.subtitleLanguages.join(", ")
+    : "N/A";
+
   const infoItems = [
-    { icon: Clock, label: "Course Duration", value: course.duration },
-    { icon: BarChart2, label: "Course Level", value: course.level },
-    { icon: Users, label: "Students Enrolled", value: course.students },
-    { icon: FileText, label: "Language", value: "Emgilsh" },
-    { icon: FileText, label: "Subtitle Language", value: "English" },
+    { icon: Clock, label: "Course Duration", value: course?.duration || "N/A" },
+    { icon: BarChart2, label: "Course Level", value: course?.level || "N/A" },
+    {
+      icon: Users,
+      label: "Students Enrolled",
+      value: course?.enrollmentCount || 0,
+    },
+    { icon: FileText, label: "Language", value: course?.language || "N/A" },
+    { icon: FileText, label: "Subtitle Language", value: subtitleLanguages },
   ];
 
   return (

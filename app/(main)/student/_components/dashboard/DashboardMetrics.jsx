@@ -4,17 +4,20 @@ import { Flag, Play, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardMetrics({ courses }) {
-
-  const total_enrolled = courses.length
+  const total_enrolled = courses.length;
 
   const getCourseStatus = (progress) => {
     return progress === 100 ? "Completed" : "Active";
   };
 
   // Calculate active and completed courses
-  const activeCourses = courses.filter(course => getCourseStatus(course.progress) === "Active").length;
-  const completedCourses = courses.filter(course => getCourseStatus(course.progress) === "Completed").length;
-  console.log('object', activeCourses);
+  const activeCourses = courses.filter(
+    (course) => getCourseStatus(course.progress) === "Active"
+  ).length;
+  const completedCourses = courses.filter(
+    (course) => getCourseStatus(course.progress) === "Completed"
+  ).length;
+
   const metrics = [
     {
       label: "Enrolled Courses",
