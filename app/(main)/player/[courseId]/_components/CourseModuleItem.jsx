@@ -10,9 +10,7 @@ import { CheckCheck, CirclePlay, FolderOpen, Pause, Play } from "lucide-react";
 import { useState } from "react";
 
 const CourseModuleItem = ({ module }) => {
-  const { currentLecture, handleLessonClick } = useCourseContext(
-    module.courseId
-  );
+  const { currentLecture, handleLessonClick } = useCourseContext();
   const [playingId, setPlayingId] = useState(null);
 
   // Calculate completion percentage of lessons in this module
