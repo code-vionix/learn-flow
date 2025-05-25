@@ -1,4 +1,10 @@
-import { fetchCourses, getInstructors } from "@/lib/fetchData";
+import { auth } from "@/auth";
+import { getInstructors } from "@/lib/fetchData";
+import {
+  getAllCourses,
+  getBestSellingCourses,
+  getFeaturedCourses,
+} from "@/utils/courses";
 import BestSellingSection from "./components/home/BestSellingSection";
 import CategoriesSection from "./components/home/CategoriesSection";
 import FeaturedCourses from "./components/home/FeaturedCourses";
@@ -8,12 +14,8 @@ import RecentAddedCourseList from "./components/home/RecentAddedCourse/RecentAdd
 import TopInstructors from "./components/home/TopInstructors ";
 import TrustedCompanies from "./components/home/TrustedCompanies";
 import JoinCourse from "./components/shared/JoinCourse";
-import {
-  getAllCourses,
-  getBestSellingCourses,
-  getFeaturedCourses,
-} from "@/utils/courses";
 export default async function Home() {
+  const session = await auth();
   const courses = await getAllCourses();
   const bestSellingCourses = await getBestSellingCourses();
   const featuredCourses = await getFeaturedCourses();
