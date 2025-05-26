@@ -28,15 +28,15 @@ const StudentLayout = () => {
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center gap-4">
               <Image
-                src={data?.imageUrl}
-                alt={data.firstName}
+                src={data?.imageUrl || ""}
+                alt={data?.firstName || ""}
                 width={400}
                 height={400}
                 className="rounded-full w-20 h-20 object-cover"
               />
               <div>
                 <h1 className="text-2xl font-semibold text-gray-900">
-                  {data.firstName + " " + data.lastName}
+                  {data?.firstName + " " + data?.lastName}
                 </h1>
                 <p className="text-gray-600">
                  {data?.title}
