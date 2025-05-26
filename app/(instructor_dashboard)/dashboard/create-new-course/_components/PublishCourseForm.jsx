@@ -2,19 +2,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useGetInstructorListQuery } from "@/store/api/instructorApi";
 import { useGetCourseByIdQuery } from "@/store/api/courseApi";
+import { useGetInstructorListQuery } from "@/store/api/instructorApi";
 import { Search, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react"; // Import useEffect
 import { useSelector } from "react-redux"; // useDispatch was imported but not used
 
 // Import useForm and other necessary functions from react-hook-form
-import { useForm } from "react-hook-form";
 import { useUpdateCourseMutation } from "@/store/api/courseApi";
 import { setCourseData } from "@/store/slice/courseCreateSlice";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const PublishCourseForm = () => {
   // Local state for search input and selected users display
@@ -49,7 +49,6 @@ const PublishCourseForm = () => {
     },
   });
   useEffect(() => {
-    console.log("courseData", courseData);
     setValue("welcomeMessage", courseData?.welcomeMessage);
     setValue("congratulationsMessage", courseData?.congratulationsMessage);
 
@@ -66,7 +65,6 @@ const PublishCourseForm = () => {
         (instructor) =>
           data?.data?.find((item) => item.id === instructor.instructorId)
       );
-      console.log("selectedUsersData", selectedUsersData);
       setSelectedUsers(selectedUsersData);
     }
   }, [courseData, setValue, data]);
@@ -117,18 +115,16 @@ const PublishCourseForm = () => {
   };
 
   const onSubmit = async (formData) => {
-    console.log("Form Data Submitted:", formData);
     await updateCourse({
       id: courseId,
       course: formData,
     }).unwrap();
 
     dispatch(setCourseData());
-    router.push("/my-courses-list");
+    router.push("/dashboard/my-courses-list");
   };
 
   const handleSaveAndPreview = (formData) => {
-    console.log("Form Data Submitted:", formData);
     updateCourse({
       id: courseId,
       course: formData,
@@ -136,7 +132,6 @@ const PublishCourseForm = () => {
   };
 
   const handleSave = (formData) => {
-    console.log("Form Data Submitted:", formData);
     updateCourse({
       id: courseId,
       course: formData,

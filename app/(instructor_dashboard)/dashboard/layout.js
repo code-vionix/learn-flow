@@ -1,14 +1,13 @@
 "use client";
-import React from "react";
-import "../../globals.css";
-import Logo from "./_components/Logo";
-import DashboardNavbar from "./_components/DashboardNavbar";
-import DashboardHeader from "./_components/DashboardHeader";
-import DashboardFooter from "./_components/DashboardFooter";
-import { PersistGate } from "redux-persist/integration/react";
-import { Provider } from "react-redux";
-import { persistor, store } from "@/store/store";
 import { AuthProvider } from "@/components/AuthProvider";
+import { persistor, store } from "@/store/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import "../../globals.css";
+import DashboardFooter from "./_components/DashboardFooter";
+import DashboardHeader from "./_components/DashboardHeader";
+import DashboardNavbar from "./_components/DashboardNavbar";
+import Logo from "./_components/Logo";
 
 const InstructorDashboardLayout = ({ children }) => {
   return (

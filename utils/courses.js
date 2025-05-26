@@ -17,7 +17,6 @@ export const getAllCourses = async () => {
     }
 
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.error("Fetch error:", error.message);
@@ -26,7 +25,7 @@ export const getAllCourses = async () => {
 };
 
 export const getBestSellingCourses = async () => {
-   try {
+  try {
     const baseUrl =
       process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
     const apiUrl = `${baseUrl}/courses/best-selling`;
@@ -58,9 +57,8 @@ export const getBestSellingCourses = async () => {
   }
 };
 
-
 export const getFeaturedCourses = async () => {
-   try {
+  try {
     const baseUrl =
       process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
     const apiUrl = `${baseUrl}/courses/featured-course`;
@@ -91,8 +89,6 @@ export const getFeaturedCourses = async () => {
     return [];
   }
 };
-
-
 
 export const extractCourseFilters = (courses) => {
   const categoryMap = new Map();

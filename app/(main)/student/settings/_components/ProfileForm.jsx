@@ -32,7 +32,6 @@ const ProfileForm = () => {
       });
     }
   }, [data]);
-  console.log(data);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

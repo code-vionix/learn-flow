@@ -1,25 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Search, Bell, AlertCircle, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import {
-  useAddNewModuleMutation,
-  useGetModuleByCourseIdQuery,
-} from "@/store/api/moduleApi";
 import { SectionItem } from "@/components/course/section-item";
-import { useGetCourseByIdQuery } from "@/store/api/courseApi";
 import { CoursePreviewModal } from "@/components/modals/course-preview-modal";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { useGetCourseByIdQuery } from "@/store/api/courseApi";
+import { useAddNewModuleMutation } from "@/store/api/moduleApi";
 import { setActiveTab } from "@/store/slice/courseCreateSlice";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CourseCurriculumPage() {
   const dispatch = useDispatch();
   const courseId = useSelector((state) => state.course.courseId);
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
-  console.log(courseId);
 
   // RTK Query hooks
   const {
@@ -28,8 +23,6 @@ export default function CourseCurriculumPage() {
     isError,
     error,
   } = useGetCourseByIdQuery(courseId);
-  // console.log(courseData);
-
   const [createSection, { isLoading: isCreatingSection }] =
     useAddNewModuleMutation();
 
@@ -41,7 +34,6 @@ export default function CourseCurriculumPage() {
           courseData?.modules.length ? courseData.modules.length + 1 : 1
         }: New Module`,
       }).unwrap();
-      // console.log(res);
     } catch (error) {
       console.error(error);
     }

@@ -1,24 +1,23 @@
 "use client";
 
-import { Eye, MoreVertical, Pencil, Trash } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useMemo, useState } from "react";
-import CourseListHeader from "./_components/CourseListHeader";
-import SearchFilter from "./_components/SearchFilter";
-import { useSession } from "next-auth/react";
-import { useGetInstructorByIdQuery } from "@/store/api/instructorApi";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { useDeleteCourseMutation } from "@/store/api/courseApi";
+import { useGetInstructorByIdQuery } from "@/store/api/instructorApi";
 import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
-import { useDispatch } from "react-redux";
+import { Eye, MoreVertical, Pencil, Trash } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import CourseListHeader from "./_components/CourseListHeader";
+import SearchFilter from "./_components/SearchFilter";
 
 export default function CourseList() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -51,7 +50,6 @@ export default function CourseList() {
     ) {
       try {
         await deleteCourse(courseId).unwrap();
-        console.log(`${courseTitle} deleted successfully!`);
         // RTK Query's `invalidatesTags: ["courses"]` in courseApi should automatically re-fetch
         // the list. If not, you might need to manually refetch:
         // refetch();
@@ -89,8 +87,6 @@ export default function CourseList() {
       </div>
     );
   }
-
-  console.log("test", filteredCourses);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">

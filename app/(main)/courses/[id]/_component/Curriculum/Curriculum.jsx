@@ -24,7 +24,7 @@ export default async function Curriculum({ id }) {
         </div>
       </div>
 
-      <CurriculumAccordion sections={modules.data} id={id} />
+      <CurriculumAccordion sections={modules?.data} id={id} />
     </div>
   );
 }
