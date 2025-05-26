@@ -24,7 +24,7 @@ const CourseWatchingPage = async ({ params }) => {
             data={data}
             sections={sections}
             course={course}
-            enrollments={enrollments.data}
+            enrollments={enrollments?.data}
           />
         </WatchingCourseWrapper>
         ``

@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { useState } from "react";
 // import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks"
 // import { setCourseId } from "@/lib/redux/curriculumSlice"
 // import { SectionItem } from "@/components/section-item"
@@ -11,8 +10,8 @@ import { SectionItem } from "@/components/course/section-item";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useGetCourseByIdQuery } from "@/store/api/courseApi";
 import { useAddNewModuleMutation } from "@/store/api/moduleApi";
-import { useDispatch } from "react-redux";
 import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
+import { useDispatch } from "react-redux";
 // import { useGetCurriculumQuery, useCreateSectionMutation } from "@/lib/redux/apiSlice"
 
 export default function CourseCurriculumPage({ course }) {
@@ -25,7 +24,6 @@ export default function CourseCurriculumPage({ course }) {
     isError,
     error,
   } = useGetCourseByIdQuery(course?.id);
-  // console.log(courseData);
 
   const [createSection, { isLoading: isCreatingSection }] =
     useAddNewModuleMutation();
@@ -38,7 +36,6 @@ export default function CourseCurriculumPage({ course }) {
           courseData?.modules.length ? courseData.modules.length + 1 : 1
         }: New Section`,
       }).unwrap();
-      // console.log(res);
     } catch (error) {
       console.error(error);
     }

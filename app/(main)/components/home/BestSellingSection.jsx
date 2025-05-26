@@ -1,8 +1,7 @@
-'use client';
+"use client";
 import CourseCard from "../cards/CourseCard";
 
 export default function BestSellingSection({ courses }) {
-  console.log("object", courses);
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 py-16  bg-gray-100 h-[1179px]">
       <h2 className="text-3xl font-bold text-center mb-12">

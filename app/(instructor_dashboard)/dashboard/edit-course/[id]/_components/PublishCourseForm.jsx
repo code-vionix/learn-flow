@@ -8,11 +8,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react"; // Import useEffect
 
 // Import useForm and other necessary functions from react-hook-form
-import { useForm } from "react-hook-form";
 import { useUpdateCourseMutation } from "@/store/api/courseApi";
 import { setEditCourseData } from "@/store/slice/courseUpdateSlice";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const PublishCourseForm = ({ course }) => {
   // Local state for search input and selected users display
@@ -47,7 +47,6 @@ const PublishCourseForm = ({ course }) => {
     },
   });
   useEffect(() => {
-    console.log("courseData", course);
     setValue("welcomeMessage", course?.welcomeMessage);
     setValue("congratulationsMessage", course?.congratulationsMessage);
 
@@ -61,7 +60,6 @@ const PublishCourseForm = ({ course }) => {
       const selectedUsersData = course?.CourseInstructor?.map((instructor) =>
         data?.data?.find((item) => item.id === instructor.instructorId)
       );
-      console.log("selectedUsersData", selectedUsersData);
       setSelectedUsers(selectedUsersData);
     }
   }, [course, setValue, data]);
@@ -112,7 +110,6 @@ const PublishCourseForm = ({ course }) => {
   };
 
   const onSubmit = async (formData) => {
-    console.log("Form Data Submitted:", formData);
     await updateCourse({
       id: courseId,
       course: formData,

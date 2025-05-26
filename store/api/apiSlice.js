@@ -6,7 +6,6 @@ export const apiSlice = createApi({
     baseUrl: process.env.NEXT_PUBLIC_API_ROUTE_URL,
     prepareHeaders: async (headers, { getState }) => {
       const token = await getSession();
-      console.log("token", token);
 
       if (token) {
         headers.set("authorization", `Bearer ${token?.accessToken}`);
@@ -32,5 +31,4 @@ export const apiSlice = createApi({
     "faq",
   ],
   endpoints: (builder) => ({}),
-
 });
