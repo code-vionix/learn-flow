@@ -8,12 +8,14 @@ import BrowseSelect from "./BrowseSelect";
 import NavIcons from "./NavIcons";
 import SearchBar from "./SearchBar";
 import UserDropdown from "./UserDropdown";
+import { data } from "autoprefixer";
 
 export default function Navigation() {
   const [isSticky, setIsSticky] = useState(false);
   const { data: session } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  
+  console.log(session);
   // Scroll handler for sticky nav
   useEffect(() => {
     function handleScroll() {
