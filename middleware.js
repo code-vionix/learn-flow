@@ -8,7 +8,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 const protectedRoutes = ["/dashboard", "student", "admin"];
 
 // Routes that should not require authentication
-const publicRoutes = [ "/login", "/register", "/api/auth", "/"]; // include `/api/auth` for NextAuth routes
+const publicRoutes = ["/login", "/register", "/api/auth", "/"]; // include `/api/auth` for NextAuth routes
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
@@ -22,13 +22,9 @@ export async function middleware(req) {
   const isProtected = protectedRoutes.some((route) =>
     pathname.startsWith(`${route}`)
   );
-console.log("isProtected", isProtected);
-console.log("pathname", pathname);
   const token = await getToken({ req, secret });
-  console.log("Auth Token:", token);
 
   if (isProtected && !token) {
-    console.log("Unauthorized");
     const loginUrl = new URL("/login", req.url); // or `/api/auth/signin` if using NextAuth's default
     return NextResponse.redirect(loginUrl);
   }

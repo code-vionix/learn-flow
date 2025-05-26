@@ -1,26 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import {
-  X,
-  Play,
-  FileText,
-  Video,
-  File,
-  AlignLeft,
-  BookOpen,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useSelector } from "react-redux";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+import {
+  AlignLeft,
+  BookOpen,
+  File,
+  FileText,
+  Play,
+  Video,
+  X,
+} from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export function CoursePreviewModal({
   isOpen,
@@ -29,7 +28,6 @@ export function CoursePreviewModal({
   initialTab = "curriculum",
 }) {
   const [activeTab, setActiveTab] = useState(initialTab);
-  console.log(courseData);
   if (!isOpen) return null;
 
   // Calculate total lectures

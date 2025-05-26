@@ -27,7 +27,6 @@ export default function CourseActions({ course }) {
       // Redirect to Stripe Checkout
       await stripe.redirectToCheckout({ sessionId });
     } catch (error) {
-      console.log("Stripe Checkout Error:", error);
       alert("Payment failed. Please try again.");
     } finally {
       setLoading(false);

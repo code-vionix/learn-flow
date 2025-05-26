@@ -17,8 +17,7 @@ import {
 } from "@/components/ui/select";
 import { useUpdateCourseMutation } from "@/store/api/courseApi";
 import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
-import { X } from "lucide-react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -50,8 +49,6 @@ export function CourseBasicForm({ course }) {
   const watchSubtitle = watch("subtitle");
 
   const handleNext = async (data) => {
-    console.log("data", data);
-
     try {
       const result = await updateCourse({
         course: data,
@@ -141,24 +138,24 @@ export function CourseBasicForm({ course }) {
         <div className="space-y-2">
           <Label> Course Tools </Label>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
-          {fields.map((item, index) => (
-            <div key={item.id} className="flex items-center gap-2">
-              <Input
-                placeholder="Tool name"
-                {...register(`tools.${index}`)}
-                className="flex-1"
-              />
-              <Button
-                type="button"
-                variant="destructive"
-                className="bg-primary-500 hover:bg-primary-600 h-8 w-8 text-white border-primary-100"
-                size="icon"
-                onClick={() => remove(index)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
+            {fields.map((item, index) => (
+              <div key={item.id} className="flex items-center gap-2">
+                <Input
+                  placeholder="Tool name"
+                  {...register(`tools.${index}`)}
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="bg-primary-500 hover:bg-primary-600 h-8 w-8 text-white border-primary-100"
+                  size="icon"
+                  onClick={() => remove(index)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
           </div>
           <Button
             type="button"

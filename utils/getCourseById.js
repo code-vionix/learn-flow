@@ -1,5 +1,6 @@
 export const getCourseById = async (id) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
+  const baseUrl =
+    process.env.NEXT_PUBLIC_API_ROUTE_URL || "http://localhost:3000";
 
   if (!id) {
     throw new Error("Course ID is required");
