@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { BarChart, Check, Clock, ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 const CourseHoverCard = ({ course }) => {
   return (
@@ -69,9 +70,9 @@ const CourseHoverCard = ({ course }) => {
               <ShoppingCart className="w-6 h-6" />
               <span>Add to Cart</span>
             </button>
-            <button className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
+            <Link href={`/courses/${course?.id}`} className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
               Course Detail
-            </button>
+            </Link>
           </div>
         </div>
       </div>
