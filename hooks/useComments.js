@@ -1,4 +1,4 @@
-import axiosInstance from "@/utils/axios"; // তুমি যেই ফাইলে axiosInstance export করেছো
+import { createAxiosInstance } from "@/utils/axios"; // updated import
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 
@@ -54,6 +54,10 @@ const useComments = (lessonId, newCommentInputRef) => {
   }, []);
 
   const fetchComments = useCallback(async () => {
+    if (!session?.accessToken) return;
+
+    const axiosInstance = createAxiosInstance(session.accessToken);
+
     try {
       setLoading(true);
       const res = await axiosInstance.get(`/comments?lessonId=${lessonId}`);
@@ -65,14 +69,16 @@ const useComments = (lessonId, newCommentInputRef) => {
     } finally {
       setLoading(false);
     }
-  }, [lessonId, buildFlatComments]);
+  }, [lessonId, buildFlatComments, session]);
 
   useEffect(() => {
     fetchComments();
   }, [fetchComments]);
 
   const handleAddTopLevelComment = async () => {
-    if (!replyText.trim()) return;
+    if (!replyText.trim() || !session?.accessToken) return;
+
+    const axiosInstance = createAxiosInstance(session.accessToken);
 
     try {
       const res = await axiosInstance.post("/comments", {
@@ -94,7 +100,9 @@ const useComments = (lessonId, newCommentInputRef) => {
   };
 
   const handleReply = async (targetId) => {
-    if (!replyText.trim()) return;
+    if (!replyText.trim() || !session?.accessToken) return;
+
+    const axiosInstance = createAxiosInstance(session.accessToken);
 
     try {
       const parentMap = buildParentMap(

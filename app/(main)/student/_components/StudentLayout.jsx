@@ -6,8 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import React from "react";
-
 const StudentLayout = () => {
   const pathname = usePathname();
   const { data } = useGetUserInfoQuery();
@@ -38,9 +36,7 @@ const StudentLayout = () => {
                 <h1 className="text-2xl font-semibold text-gray-900">
                   {data?.firstName + " " + data?.lastName}
                 </h1>
-                <p className="text-gray-600">
-                 {data?.title}
-                </p>
+                <p className="text-gray-600">{data?.title}</p>
               </div>
             </div>
             <Link

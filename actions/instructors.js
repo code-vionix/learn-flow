@@ -18,7 +18,6 @@ export const popularInstructors = async () => {
     }
 
     const data = await res.json();
-    console.log(data);
     return formatResponse(data);
   } catch (error) {
     console.error("Fetch error:", error.message);
@@ -42,7 +41,6 @@ export const topInstructors = async () => {
     }
 
     const data = await res.json();
-    console.log(data);
     return formatResponse(data);
   } catch (error) {
     console.error("Fetch error:", error.message);
@@ -66,7 +64,6 @@ export const instructorsOfThisMonth = async () => {
     }
 
     const data = await res.json();
-    console.log(data);
     return formatResponse(data);
   } catch (error) {
     console.error("Fetch error:", error.message);

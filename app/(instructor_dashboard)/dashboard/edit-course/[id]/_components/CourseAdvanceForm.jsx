@@ -1,28 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import {
-  setActiveTab,
-  setCourseAdvancedData,
-} from "@/store/slice/courseCreateSlice";
-import { useForm, useFieldArray } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ImageIcon, Play, Plus, Upload, X } from "lucide-react";
-import { useSelector } from "react-redux";
-import Image from "next/image";
 import { useUpdateCourseMutation } from "@/store/api/courseApi";
 import { setEditActiveTab } from "@/store/slice/courseUpdateSlice";
+import { ImageIcon, Play, Plus, Upload, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 export default function CourseAdvanceForm({ course }) {
-  console.log(course);
   const [updateCourse] = useUpdateCourseMutation();
-const [imagePreview, setImagePreview] = useState(course?.thumbnail ||null);
+  const [imagePreview, setImagePreview] = useState(course?.thumbnail || null);
   const [videoPreview, setVideoPreview] = useState(null);
-  const [thumbnail, setThumbnail] = useState( null);
+  const [thumbnail, setThumbnail] = useState(null);
   const [trailer, setTrailer] = useState(null);
   const dispatch = useDispatch();
   const imageInputRef = useRef(null); // create a ref for the file input
@@ -69,14 +63,17 @@ const [imagePreview, setImagePreview] = useState(course?.thumbnail ||null);
       setImagePreview(course?.thumbnail || null);
       setValue("description", course?.description || "");
       setValue("whatYouWillLearn", course?.learnings || [{ description: "" }]);
-      setValue("targetAudience", course?.targetAudiences || [{ description: "" }]);
-      setValue("courseRequirements", course?.PreRequirement || [{ description: "" }]);
+      setValue(
+        "targetAudience",
+        course?.targetAudiences || [{ description: "" }]
+      );
+      setValue(
+        "courseRequirements",
+        course?.PreRequirement || [{ description: "" }]
+      );
       setVideoPreview(course?.trailer || null);
-
     }
   }, [course, setValue]);
-
-  
 
   const {
     fields: whatYouWillLearnFields,
@@ -405,8 +402,8 @@ function FormListSection({
                 name === "whatYouWillLearn"
                   ? "What will students learn in this course?"
                   : name === "targetAudience"
-                  ? "Who is this course for?"
-                  : "What do students need to know?"
+                    ? "Who is this course for?"
+                    : "What do students need to know?"
               }
               {...register(`${name}.${index}.description`)}
               className="border-gray-300"

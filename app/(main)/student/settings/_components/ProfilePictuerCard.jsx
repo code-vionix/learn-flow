@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Upload, Trash2, Loader2 } from "lucide-react"; // Added Loader2 for spinner
+import { Button } from "@/components/ui/button"; // Assuming you have a Button component
 import { Card } from "@/components/ui/card";
-import Image from "next/image";
-import { useDropzone } from "react-dropzone";
 import { useUploadFileMutation } from "@/store/api/lessonApi"; // Assuming this uploads a file and returns a URL
 import {
   useGetUserInfoQuery,
   useUpdateUserInfoMutation,
 } from "@/store/api/userApi";
-import { Button } from "@/components/ui/button"; // Assuming you have a Button component
+import { Loader2, Trash2, Upload } from "lucide-react"; // Added Loader2 for spinner
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 
 export default function ProfilePictureCard({ initialImageUrl }) {
   const { data } = useGetUserInfoQuery();
@@ -114,8 +114,6 @@ export default function ProfilePictureCard({ initialImageUrl }) {
       }
 
       await updateUser({ imageUrl: uploadedImageUrl }).unwrap();
-
-      console.log("Profile picture updated successfully!");
 
       setSelectedFile(null);
     } catch (err) {

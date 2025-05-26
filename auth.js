@@ -23,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
 
         const user = await res.json();
-        console.log(user);
 
         if (res.ok && user?.accessToken) {
           const decoded = jwtDecode(user.accessToken);
@@ -99,7 +98,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async jwt({ token, user }) {
-      console.log("user jwt", user);
       // Initial login
       if (user) {
         return {
@@ -117,16 +115,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       // Token still valid
       if (Date.now() < token.accessTokenExpires) {
-        console.log("token still valid");
         return token;
       }
 
       // Token expired → refresh it
       try {
         const refreshed = await refreshAccessToken(token);
-
-        console.log("refreshed", refreshed);
-
         return {
           ...token,
           accessToken: refreshed.accessToken,
@@ -143,8 +137,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async session({ session, token }) {
-      console.log("session", session);
-      console.log("token", token);
       session.user.id = token.id;
       session.user.email = token.email;
       session.user.name = token.name;

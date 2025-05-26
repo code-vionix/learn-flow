@@ -3,10 +3,8 @@
 import { useToast } from "@/hooks/use-toast";
 import { useAddNewContactMutation } from "@/store/api/contactApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { set } from "date-fns";
 import { Check, SendHorizontal } from "lucide-react";
 import { useState } from "react";
-
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -39,7 +37,6 @@ function ContactForm() {
     setLoading(true);
     try {
       const response = await updateInstructor(data).unwrap();
-      // console.log('check : : : ', data, response);
 
       if (response?.data) {
         setLoading(false);
