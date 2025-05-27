@@ -1,5 +1,6 @@
 // CourseHoverCard.jsx
 /* eslint-disable @next/next/no-img-element */
+
 import { nameToColor } from "@/lib/utils";
 import {
   BarChart,
@@ -139,14 +140,17 @@ const CourseHoverCard = ({ course, position = "right" }) => {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-3 mt-2">
-          <button className="w-full flex items-center justify-center gap-2 bg-[#FF6636] text-white py-3 rounded">
-            <ShoppingCart className="w-6 h-6" />
-            <span>Add to Cart</span>
-          </button>
-          <button className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
-            Course Detail
-          </button>
+          {/* Buttons */}
+          <div className="flex flex-col gap-3 mt-2">
+            <button className="w-full flex items-center justify-center gap-2 bg-[#FF6636] text-white py-3 rounded">
+              <ShoppingCart className="w-6 h-6" />
+              <span>Add to Cart</span>
+            </button>
+            <Link href={`/courses/${course?.id}`} className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
+              Course Detail
+            </Link>
+          </div>
+
         </div>
       </div>
     </div>
