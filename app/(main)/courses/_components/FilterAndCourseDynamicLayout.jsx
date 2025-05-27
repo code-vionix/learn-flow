@@ -18,6 +18,8 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
     const fetchData = async () => {
       try {
         const fetchedCourses = await getAllCourses();
+        console.log(fetchedCourses);
+        
         setCourses(fetchedCourses);
       } catch (err) {
         setError("Failed to load data.");

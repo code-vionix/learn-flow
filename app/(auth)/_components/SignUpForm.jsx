@@ -4,6 +4,7 @@ import { Eye, EyeOff, MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import {config} from "@/config"
 export default function SignUpForm() {
   const router = useRouter();
 
@@ -36,7 +37,7 @@ export default function SignUpForm() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/v1/users/register", {
+      const res = await fetch(`${config.baseUrl}/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

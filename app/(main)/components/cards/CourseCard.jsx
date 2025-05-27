@@ -20,7 +20,7 @@ export default function CourseCard({
         {/* Top Image */}
         <div className="relative">
           <Image
-            src={thumbnail}
+            src={thumbnail || ""}
             alt={title}
             className="w-full h-40 object-cover"
             width={400}
