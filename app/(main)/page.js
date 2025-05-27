@@ -1,3 +1,4 @@
+
 import { auth } from "@/auth";
 import { getInstructors } from "@/lib/fetchData";
 import {
@@ -5,6 +6,7 @@ import {
   getBestSellingCourses,
   getFeaturedCourses,
 } from "@/utils/courses";
+
 import BestSellingSection from "./components/home/BestSellingSection";
 import CategoriesSection from "./components/home/CategoriesSection";
 import FeaturedCourses from "./components/home/FeaturedCourses";
@@ -21,6 +23,7 @@ export default async function Home() {
   const featuredCourses = await getFeaturedCourses();
   const instructors = await getInstructors();
 
+  
   return (
     <div className="bg-background text-primary">
       <Hero />
@@ -30,7 +33,7 @@ export default async function Home() {
         <FeaturedCourses courses={featuredCourses?.data} />
         <RecentAddedCourseList courses={courses} />
         <InstructorCard />
-        <TopInstructors instructors={instructors} />
+        <TopInstructors />
         <TrustedCompanies />
         <JoinCourse />
       </div>

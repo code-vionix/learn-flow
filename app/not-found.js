@@ -11,13 +11,16 @@ import Navbars from "./(main)/components/shared/Navbars";
 import { Button } from "@/components/ui/button";
 import DashboardFooter from "./(instructor_dashboard)/dashboard/_components/DashboardFooter";
 import Navigation from "./(main)/components/shared/navigation/Navigation";
+import { SessionProvider } from "next-auth/react";
 
 function NotFound() {
   const router = useRouter();
   return (
     <>
       <Navbars />
-      <Navigation />
+      <SessionProvider>
+      <Navigation />  
+      </SessionProvider>
       <div className="w-full flex items-center justify-center  gap-28 px-72 py-32">
         <div className="w-[33.4375rem] flex-none mb-4">
           <h1 className="w-full  text-gray-100 font-semibold text-7xl">
