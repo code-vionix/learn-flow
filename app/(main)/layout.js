@@ -9,6 +9,7 @@ import "../globals.css";
 import Footer from "./components/shared/Footer/Footer";
 import Navbars from "./components/shared/Navbars";
 import Navigation from "./components/shared/navigation/Navigation";
+import { ToastContainer } from "react-toastify";
 
 export default function MainLayout({ children }) {
   return (
@@ -19,6 +20,7 @@ export default function MainLayout({ children }) {
           <Navigation />
           <CourseProvider>
             <main>{children}</main>
+            <ToastContainer />
           </CourseProvider>
           <Footer />
         </Provider>
