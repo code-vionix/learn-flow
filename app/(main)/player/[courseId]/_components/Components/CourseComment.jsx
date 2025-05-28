@@ -6,7 +6,6 @@ import CommentList from "./CommentList";
 import ReplyInput from "./ReplyInput";
 
 const CourseComment = ({lessonId}) => {
-  console.log("lessonId,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,", lessonId);
   const newCommentInputRef = useRef(null);
 
   const {
