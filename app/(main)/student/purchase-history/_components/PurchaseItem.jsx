@@ -10,7 +10,7 @@ const PurchaseItem = ({ course, date }) => {
             <Link href={`#`} className="flex p-4 duration-300 lg:pr-20 hover:bg-orange-50 md:flex-row flex-col gap-4">
                 <div className="md:w-32 w-full h-[12rem] md:h-24 relative flex-shrink-0">
                     <Image
-                        src={course.image}
+                        src={course.thumbnail}
                         alt={course.title}
                         fill
                         className="object-cover rounded-md w-full"

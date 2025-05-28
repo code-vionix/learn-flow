@@ -49,10 +49,10 @@ const CourseCard = ({ course }) => {
             </span>
             <div className="space-x-2">
               <span className="text-lg font-medium text-[#FF6636]">
-                ${course.discountPrice.toFixed(0)}
+                ${course?.discountPrice?.toFixed(0)}
               </span>
               <span className="line-through text-gray-500">
-                ${course.price}
+                ${course?.price}
               </span>
             </div>
           </div>

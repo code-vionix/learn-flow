@@ -2,20 +2,22 @@
 import { useGetAllInstructorOfTheMonthQuery } from "@/store/api/instructorApi";
 import TopInstructorCard from "./TopInstructorCard";
 import CourseSkaliton from "../cards/CourseSkaliton";
+import Image from "next/image";
 
 
 export default function TopInstructors() {
   const { data: topInstructors, isLoading, isError } = useGetAllInstructorOfTheMonthQuery();
+
   return (
     <section className="mt-[-260px]">
       <div className="primary-container bg-white border">
         <h2 className="text-4xl font-semibold text-center text-[#1D2026] mb-10 leading-[48px] tracking-[-0.01em]">
           Top instructor of the month
         </h2>
-        {topInstructors && topInstructors.length === 0
+        {!isLoading && !topInstructors?.length
           ? (<div>
             <div className="h-full flex flex-col items-center justify-center ">
-              <img
+              <Image
                 src="/images/no-item-found.png"
                 alt="No instructors available"
                 width={500}

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Flag, Play, Trophy, Users } from "lucide-react";
 import Link from "next/link";
 
-export default function DashboardMetrics({ courses }) {
+export default function DashboardMetrics({ courses, instructors = [] }) {
   const total_enrolled = courses.length;
 
   const getCourseStatus = (progress) => {
@@ -42,7 +42,7 @@ export default function DashboardMetrics({ courses }) {
     },
     {
       label: "Course Instructors",
-      value: "241",
+      value: instructors?.length,
       icon: Users,
       className: "bg-orange-100",
       iconClassName: "text-orange-500",
