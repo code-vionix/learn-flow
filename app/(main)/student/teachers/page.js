@@ -1,10 +1,19 @@
-import { getInstructors } from "@/lib/fetchData";
+"use client";
+import { useGetAllEnrolledCoursesTeacherQuery } from "@/store/api/enrolledTeacher";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import FilterSection from "./_components/filter";
 import InstructorList from "./_components/instructors";
 
-export default async function Teachers() {
-  const instructors = await getInstructors();
+export default function Teachers() {
+  // const instructors = await getInstructors();
+  const {
+    data: instructors = [],
+    isLoading,
+    isError,
+  } = useGetAllEnrolledCoursesTeacherQuery();
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Something went wrong!</p>;
   return (
     <main className="min-h-screen">
       <div className="container mx-auto ">

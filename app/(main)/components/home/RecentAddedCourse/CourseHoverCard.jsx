@@ -155,7 +155,7 @@ const CourseHoverCard = ({ course, position = "right" }) => {
           </Link>
         </div>
       </div>
-    </div>
+    
   );
 };
 
