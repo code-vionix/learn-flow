@@ -9,8 +9,9 @@ const DynamicReactPlayer = dynamic(() => import("react-player"), {
   ssr: false,
 });
 
-export default function CourseVideoPlayer({ courseId, modules }) {
+export default function CourseVideoPlayer({ modules }) {
   const { currentLesson } = useCourseContext();
+  console.log("currentLesson", currentLesson);
 
   const lesson = useMemo(
     () => currentLesson || modules?.[0]?.lessons?.[0],
@@ -32,24 +33,6 @@ export default function CourseVideoPlayer({ courseId, modules }) {
     setAutoPlay(true);
   };
 
-  const updateUrl = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    setUrl(form.link.value);
-    form.reset();
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      setUrl(e.target.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
   if (!lesson) {
     return (
       <div className="w-full h-[300px] flex items-center justify-center bg-gray-100 animate-pulse">
@@ -60,26 +43,6 @@ export default function CourseVideoPlayer({ courseId, modules }) {
 
   return (
     <main className="w-full">
-      {/* Instructor tools - show only in development mode */}
-      {process.env.NODE_ENV === "development" && (
-        <div className="flex items-center justify-between border-b border-gray-400 pb-2">
-          <input type="file" onChange={handleFileChange} />
-          <form onSubmit={updateUrl} className="flex items-center gap-2">
-            <input
-              type="text"
-              name="link"
-              className="bg-[#0d3b4745] border border-[#12618b] px-3 py-1 w-[270px] rounded"
-              placeholder="Enter video URL..."
-            />
-            <input
-              type="submit"
-              value="Preview"
-              className="px-3 py-1 border border-[#0786c1] cursor-pointer bg-[#0786c1] text-white rounded"
-            />
-          </form>
-        </div>
-      )}
-
       <div className="relative w-full my-4">
         {!autoPlay && showPlayButton && (
           <button

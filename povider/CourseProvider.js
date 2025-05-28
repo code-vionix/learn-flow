@@ -1,7 +1,8 @@
-"use client";
+/* eslint-disable @next/next/no-assign-module-variable */
+'use client';
 
-import { getCourseDataByCourseId } from "@/utils/courses";
-import { createContext, useContext, useEffect, useState } from "react";
+import { getCourseDataByCourseId } from '@/utils/courses';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const CourseContext = createContext(null);
 
@@ -14,7 +15,6 @@ export const CourseProvider = ({ children, courseId }) => {
   );
 };
 
-// Internal logic (used by Provider or fallback hook)
 const useCourseContextInternal = (courseId) => {
   const [modules, setModules] = useState([]);
   const [currentModuleId, setCurrentModuleId] = useState(null);
@@ -24,25 +24,48 @@ const useCourseContextInternal = (courseId) => {
   useEffect(() => {
     async function fetchModules() {
       try {
-        const response = await getCourseDataByCourseId("modules", courseId);
+        const response = await getCourseDataByCourseId('modules', courseId);
         const fetchedModules = response.data || [];
 
         setModules(fetchedModules);
 
         if (fetchedModules.length > 0) {
-          setCurrentModuleId(fetchedModules[0].id);
-          if (fetchedModules[0].lessons.length > 0) {
-            setCurrentLessonId(fetchedModules[0].lessons[0].id);
-            setCurrentPlay(fetchedModules[0].lessons[0]);
+          // Try to get saved values from localStorage
+          const savedModuleId = localStorage.getItem(`currentModuleId-${courseId}`);
+          const savedLessonId = localStorage.getItem(`currentLessonId-${courseId}`);
+
+          let initialModule = fetchedModules[0];
+          let initialLesson = initialModule.lessons[0];
+
+          if (savedModuleId && savedLessonId) {
+            const module = fetchedModules.find((mod) => mod.id === savedModuleId);
+            const lesson = module?.lessons.find((les) => les.id === savedLessonId);
+
+            if (module && lesson) {
+              initialModule = module;
+              initialLesson = lesson;
+            }
           }
+
+          setCurrentModuleId(initialModule.id);
+          setCurrentLessonId(initialLesson.id);
+          setCurrentPlay(initialLesson);
         }
       } catch (error) {
-        console.error("Failed to fetch modules:", error);
+        console.error('Failed to fetch modules:', error);
       }
     }
 
     if (courseId) fetchModules();
   }, [courseId]);
+
+  // Save current lesson/module to localStorage
+  useEffect(() => {
+    if (currentModuleId && currentLessonId) {
+      localStorage.setItem(`currentModuleId-${courseId}`, currentModuleId);
+      localStorage.setItem(`currentLessonId-${courseId}`, currentLessonId);
+    }
+  }, [currentModuleId, currentLessonId, courseId]);
 
   const handleNextClick = () => {
     if (!modules.length || !currentModuleId || !currentLessonId) return;
@@ -64,13 +87,13 @@ const useCourseContextInternal = (courseId) => {
       const isLastModule = currentModuleIndex === modules.length - 1;
       if (!isLastModule) {
         const nextModule = modules[currentModuleIndex + 1];
+        const nextLesson = nextModule.lessons[0];
         setCurrentModuleId(nextModule.id);
-        setCurrentLessonId(nextModule.lessons[0].id);
-        setCurrentPlay(nextModule.lessons[0]);
+        setCurrentLessonId(nextLesson.id);
+        setCurrentPlay(nextLesson);
       }
     } else {
-      const nextLesson =
-        modules[currentModuleIndex].lessons[currentLessonIndex + 1];
+      const nextLesson = modules[currentModuleIndex].lessons[currentLessonIndex + 1];
       setCurrentLessonId(nextLesson.id);
       setCurrentPlay(nextLesson);
     }
@@ -109,16 +132,15 @@ const useCourseContextInternal = (courseId) => {
   };
 };
 
-// Safe hook usage
 export const useCourseContext = (courseId) => {
   const context = useContext(CourseContext);
-  const internal = useCourseContextInternal(courseId); // always called
+  const internal = useCourseContextInternal(courseId);
 
   if (context) return context;
 
   if (!courseId) {
     throw new Error(
-      "useCourseContext: courseId is required if not inside a CourseProvider"
+      'useCourseContext: courseId is required if not inside a CourseProvider'
     );
   }
 
