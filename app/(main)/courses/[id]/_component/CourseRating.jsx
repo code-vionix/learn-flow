@@ -1,6 +1,6 @@
 import { Progress } from "@/components/ui/progress";
 const CourseRating = ({ reviews }) => {
-  const { averageRating, breakdown } = reviews;
+  const { averageRating = 0, breakdown = {} } = reviews || {};
 
   const ratingData = [5, 4, 3, 2, 1].map((star) => ({
     stars: star,

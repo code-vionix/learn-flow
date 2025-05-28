@@ -1,8 +1,12 @@
 'use client';
+import useComments from '@/hooks/useComments';
+import { useCourseContext } from '@/povider/CourseProvider';
 import React, { useEffect, useState } from 'react';
 
-const WatchCourseNavigateBar = () => {
+const WatchCourseNavigateBar = ({lessonId }) => {
     const [activeLink, setActiveLink] = useState('');
+    const { currentLesson } = useCourseContext();
+    const {comments}=useComments(lessonId)
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -35,6 +39,9 @@ const WatchCourseNavigateBar = () => {
                     className={`relative !text-[16px] hover:text-primary-400 py-4 text-sm font-medium transition-colors duration-200 text-gray-900 ${activeLink === '#LecturesNotes' ? 'border-b-2 border-orange-400' : ''}`}
                 >
                     Lectures Notes
+                    <span className="ml-2 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium rounded-md bg-orange-100 text-orange-500">
+                        {currentLesson?.note?.length || 0}
+                    </span>
                 </a>
 
                 <a
@@ -44,7 +51,7 @@ const WatchCourseNavigateBar = () => {
                 >
                     Attach File
                     <span className="ml-2 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium rounded-md bg-orange-100 text-orange-500">
-                        3
+                        {currentLesson?.attachment?.length || 0}
                     </span>
                 </a>
 
@@ -54,6 +61,9 @@ const WatchCourseNavigateBar = () => {
                     className={`relative !text-[16px] hover:text-primary-400 py-4 text-sm font-medium transition-colors duration-200 text-gray-900 ${activeLink === '#comments' ? 'border-b-2 border-orange-400' : ''}`}
                 >
                     Comments
+                    <span className="ml-2 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium rounded-md bg-orange-100 text-orange-500">
+                        {comments.length}
+                    </span>
                 </a>
             </div>
         </div>

@@ -7,11 +7,9 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCourseContext } from "@/povider/CourseProvider";
 import { CheckCheck, CirclePlay, FolderOpen, Pause, Play } from "lucide-react";
-import { useState } from "react";
 
-const CourseModuleItem = ({ module }) => {
-  const { currentLecture, handleLessonClick } = useCourseContext();
-  const [playingId, setPlayingId] = useState(null);
+const CourseModuleItem = ({ module, value }) => {
+  const { currentLesson, handleLessonClick } = useCourseContext();
 
   // Calculate completion percentage of lessons in this module
   const calculateCompletionPercentage = (module) => {
@@ -24,42 +22,23 @@ const CourseModuleItem = ({ module }) => {
       : "0%";
   };
 
-  // Toggle play/pause icon for lesson
-  const handlePlayPause = (id) => {
-    setPlayingId((prev) => (prev === id ? null : id));
-  };
-
   return (
-    <AccordionItem2 className="border-b" value={module?.title}>
+    <AccordionItem2 className="border-b" value={value}>
       <AccordionTrigger2 className="px-2 flex !justify-between ">
-        <div className="items-center text-sm">
-          {module?.title.slice(0, 60)} ...
-        </div>
+        <div className="items-center text-sm">{module?.title.slice(0, 60)} ...</div>
 
         <div className="md:flex hidden ml-auto items-center gap-2 !text-[14px] mt-1 pr-1">
           <div className="flex items-center gap-1">
-            <CirclePlay
-              strokeWidth={1.5}
-              className="h-4 w-4 text-secondary-500"
-            />
-            <span className="text-gray-600">
-              {module?.lessons?.length} lectures
-            </span>
+            <CirclePlay strokeWidth={1.5} className="h-4 w-4 text-secondary-500" />
+            <span className="text-gray-600">{module?.lessons?.length} lectures</span>
           </div>
           <div className="flex items-center gap-1">
-            <FolderOpen
-              strokeWidth={1.5}
-              className="h-4 w-4 text-primary-500"
-            />
+            <FolderOpen strokeWidth={1.5} className="h-4 w-4 text-primary-500" />
             <span className="text-gray-600">5 Sections</span>
           </div>
-          {/* Show finished percentage if any lesson is finished */}
           {module?.lessons?.some((lesson) => lesson.isFinished) && (
             <div className="flex items-center gap-1">
-              <CheckCheck
-                strokeWidth={1.5}
-                className="h-4 w-4 text-success-500"
-              />
+              <CheckCheck strokeWidth={1.5} className="h-4 w-4 text-success-500" />
               <span className="text-gray-600">
                 {calculateCompletionPercentage(module)} Finished
               </span>
@@ -75,7 +54,7 @@ const CourseModuleItem = ({ module }) => {
               key={lesson?.id}
               onClick={() => handleLessonClick(module?.id, lesson?.id)}
               className={`flex items-center gap-2 px-4 py-2 duration-300 cursor-pointer hover:bg-warning-100 ${
-                currentLecture?.lectureId === lesson?.id ? "bg-warning-100" : ""
+                currentLesson?.id === lesson?.id ? "bg-warning-100" : ""
               }`}
             >
               <div className="flex text-gray-500 hover:text-gray-800 duration-300 justify-between w-full items-center gap-2">
@@ -90,13 +69,19 @@ const CourseModuleItem = ({ module }) => {
                   {lesson?.title}
                 </span>
                 <span
-                  className="flex items-center gap-2 text-[12px] cursor-pointer"
+                  className="flex items-center gap-2 text-[12px]"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handlePlayPause(lesson?.id);
+                    // Use currentLecture to show play/pause icon instead of local state
+                    if (currentLesson?.id === lesson?.id) {
+                      // You might want to implement pause/play toggle globally if you have it
+                      // For now, just ignoring toggle here
+                      return;
+                    }
+                    handleLessonClick(module?.id, lesson?.id);
                   }}
                 >
-                  {playingId === lesson?.id ? (
+                  {currentLesson?.id === lesson?.id ? (
                     <Pause size={12} />
                   ) : (
                     <Play size={12} />

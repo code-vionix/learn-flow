@@ -1,7 +1,9 @@
+"use client"
 import { timeAgo } from "@/utils/timeAgo";
 import { MessageCircle } from "lucide-react";
 import AvatarConnector from "./AvatarConnector";
 import ReplyInput from "./ReplyInput";
+import { useSession } from "next-auth/react";
 
 const CommentItem = ({
   comment,
@@ -12,6 +14,8 @@ const CommentItem = ({
   handleReply,
   isNested,
 }) => {
+  console.log("comment.author,,,,,,,,,,,,,,,,",comment.author)
+  const {data:session}=useSession()
   const getUserFullName = (author) =>
     author
       ? [author.firstName, author.lastName].filter(Boolean).join(" ")
@@ -22,7 +26,12 @@ const CommentItem = ({
       <AvatarConnector comment={comment} isNested={isNested} />
       <div className="flex flex-col flex-1">
         <div className="flex items-center gap-2 mb-1">
-          <span className="font-medium">{getUserFullName(comment.author)}</span>
+        <span className="font-medium">
+  {comment.author
+    ? getUserFullName(comment.author)
+    : session?.user?.name || "Unknown"}
+</span>
+
           <span className="text-gray-500 text-sm">
             • {timeAgo(comment.createdAt)}
           </span>
