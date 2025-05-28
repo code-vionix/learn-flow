@@ -5,8 +5,7 @@ import { useRef } from "react";
 import CommentList from "./CommentList";
 import ReplyInput from "./ReplyInput";
 
-const CourseComment = () => {
-  const lessonId = "6826bc13b354b64db00ec91b";
+const CourseComment = ({lessonId}) => {
   const newCommentInputRef = useRef(null);
 
   const {
@@ -29,7 +28,7 @@ const CourseComment = () => {
   return (
     <div className="p-4">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold">Comments</h2>
+        <h2 className="text-2xl font-bold">Comments({comments?.length})</h2>
         <Button
           onClick={toggleNewCommentInput}
           className="bg-primary-500 hover:bg-primary-600 rounded"

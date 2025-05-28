@@ -6,20 +6,23 @@ import { ArrowLeft, CirclePlay, Clock, FolderOpen } from "lucide-react";
 import { useState } from "react";
 import ReviewModal from "./ReviewModal";
 import WatchingCourseWrapper from "./WatchingCourseWrapper";
+import { useRouter } from "next/navigation";
 
 const WatchingCourseHeader = ({ course, sections }) => {
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const { handleNextClick } = useCourseContext();
   const handleReviewSubmit = (rating, feedback) => {};
-
+  const router = useRouter();
+console.log(course)
   return (
     <div className="bg-[#F5F7FA]">
       <WatchingCourseWrapper className={"py-3"}>
         <div className="flex md:flex-row flex-col lg:items-center justify-between gap-3">
           <div className="flex lg:items-center gap-3">
-            <Button
+            <Button 
               variant="ghost"
-              className="p-2 !bg-white md:flex hidden rounded-full duration-300 hover:border-gray-500 border border-transparent"
+              className="w-10 h-10 !bg-white md:flex hidden items-center justify-center rounded-full duration-300 hover:border-gray-500 border border-transparent"
+              onClick={() => router.back('/student')}
             >
               <ArrowLeft strokeWidth={1} className="h-5 w-5" />
             </Button>
@@ -62,14 +65,14 @@ const WatchingCourseHeader = ({ course, sections }) => {
           </div>
           <div className="md:flex hidden md:items-center items-start gap-3">
             <Button
-              className="bg-white text-sm text-black px-6 duration-300 hover:bg-primary-50 shadow-none font-[400]"
+              className="bg-white text-sm text-black px-6 duration-300 rounded-none hover:bg-primary-100 shadow-none font-[400]"
               onClick={() => setIsReviewModalOpen(true)}
             >
               Write a Review
             </Button>
             <Button
               onClick={handleNextClick}
-              className="bg-primary-500 text-sm text-white px-6 duration-300 hover:bg-primary-400 shadow-none font-[400]"
+              className="bg-primary-500 text-sm text-white px-6 duration-300 hover:bg-primary-600 shadow-none rounded-none font-[400]"
             >
               Next lecture
             </Button>

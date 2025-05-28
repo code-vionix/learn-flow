@@ -1,9 +1,10 @@
-import { createAxiosInstance } from "@/utils/axios"; // updated import
+import { fetchWithAuth } from "@/lib/fetchWithAuth";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_ROUTE_URL;
 
 const useComments = (lessonId, newCommentInputRef) => {
-  const { data: session } = useSession();
+  const { data: session } = useSession(); // Still needed for client-side conditionals
   const [comments, setComments] = useState([]);
   const [replyText, setReplyText] = useState("");
   const [replyToId, setReplyToId] = useState(null);
@@ -54,55 +55,49 @@ const useComments = (lessonId, newCommentInputRef) => {
   }, []);
 
   const fetchComments = useCallback(async () => {
-    if (!session?.accessToken) return;
-
-    const axiosInstance = createAxiosInstance(session.accessToken);
-
     try {
       setLoading(true);
-      const res = await axiosInstance.get(`/comments?lessonId=${lessonId}`);
-      setComments(buildFlatComments(res.data));
-    } catch (err) {
-      setError(
-        err.response?.data?.message || err.message || "Error fetching comments"
+      const res = await fetchWithAuth(
+        `${API_BASE_URL}/comments?lessonId=${lessonId}`
       );
+      const data = await res.json();
+      setComments(buildFlatComments(data));
+    } catch (err) {
+      setError(err.message || "Error fetching comments");
     } finally {
       setLoading(false);
     }
-  }, [lessonId, buildFlatComments, session]);
+  }, [lessonId, buildFlatComments]);
 
   useEffect(() => {
     fetchComments();
   }, [fetchComments]);
 
   const handleAddTopLevelComment = async () => {
-    if (!replyText.trim() || !session?.accessToken) return;
-
-    const axiosInstance = createAxiosInstance(session.accessToken);
+    if (!replyText.trim()) return;
 
     try {
-      const res = await axiosInstance.post("/comments", {
-        text: replyText,
-        lessonId,
-        parentId: null,
+      const res = await fetchWithAuth(`${API_BASE_URL}/comments`, {
+        method: "POST",
+        body: JSON.stringify({
+          text: replyText,
+          lessonId,
+          parentId: null,
+        }),
       });
 
-      const newComment = res.data;
+      const newComment = await res.json();
       newComment.replies = [];
       setComments((prev) => [newComment, ...prev]);
       setReplyText("");
       setShowNewCommentInput(false);
     } catch (err) {
-      setError(
-        err.response?.data?.message || err.message || "Error adding comment"
-      );
+      setError(err.message || "Error adding comment");
     }
   };
 
   const handleReply = async (targetId) => {
-    if (!replyText.trim() || !session?.accessToken) return;
-
-    const axiosInstance = createAxiosInstance(session.accessToken);
+    if (!replyText.trim()) return;
 
     try {
       const parentMap = buildParentMap(
@@ -110,13 +105,16 @@ const useComments = (lessonId, newCommentInputRef) => {
       );
       const rootParentId = findRootParentId(parentMap, targetId);
 
-      const res = await axiosInstance.post("/comments", {
-        text: replyText,
-        lessonId,
-        parentId: rootParentId,
+      const res = await fetchWithAuth(`${API_BASE_URL}/comments`, {
+        method: "POST",
+        body: JSON.stringify({
+          text: replyText,
+          lessonId,
+          parentId: rootParentId,
+        }),
       });
 
-      const newReply = res.data;
+      const newReply = await res.json();
       newReply.replies = [];
 
       setComments((prev) =>
@@ -131,9 +129,7 @@ const useComments = (lessonId, newCommentInputRef) => {
       setReplyText("");
       setReplyToId(null);
     } catch (err) {
-      setError(
-        err.response?.data?.message || err.message || "Error adding reply"
-      );
+      setError(err.message || "Error adding reply");
     }
   };
 

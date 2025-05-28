@@ -1,54 +1,72 @@
-'use client';
-import { Download, FileText } from 'lucide-react';
-import React from 'react';
+"use client";
 
-const AttachFiles = ({ data }) => {
-    const handleDownload = () => {
-        const fileUrl = data?.file || '';
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = 'Create account on webflow.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+import { FileText, Download } from "lucide-react";
 
-    return (
-        <div id='attach-files' className='mt-8'>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Attach Files ({data?.length})</h2>
+export default function AttachFiles({ attachments = [] }) {
+  const handleDownload = (file) => {
+    const link = document.createElement("a");
+    link.href = file.url;
+    link.download = file.name || "attachment";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
-            <div className="space-y-3">
-                {
-                    data?.map(itm => <div key={itm?.name} className="bg-[#F5F7FA] p-4 ">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-start gap-3">
-                                <div className="text-orange-500 mt-1">
-                                    <FileText
-                                        className=" stroke-orange-500 fill-none"
-                                        size={47}
-                                        strokeWidth={1} />
-                                </div>
+  return (
+    <div className="bg-white mt-6">
+      {/* Header */}
+      <div className="mb-6">
+        <h2 className="text-xl font-semibold text-gray-900">
+          Attach Files ({attachments.length.toString().padStart(2, "0")})
+        </h2>
+      </div>
 
-                                <div>
-                                    <p className="font-medium md:text-md text-xs text-gray-800">Create account on webflow.pdf</p>
-                                    <p className="text-sm text-gray-500">12.6 MB</p>
-                                </div>
-                            </div>
+      {/* Files List */}
+      <div className="space-y-3">
+        {attachments.map((file) => (
+          <div
+            key={file.id}
+            className="flex items-center justify-between p-4 border border-gray-200 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              {/* File Icon */}
+              <div className="flex-shrink-0">
+                <div className="w-10 h-12 bg-orange-500 rounded flex items-center justify-center">
+                  <FileText className="h-6 w-6 text-white" />
+                </div>
+              </div>
 
-                            <button
-                                className="md:bg-orange-500 hover:bg-orange-600 md:text-white px-4 py-2 transition-colors"
-                                onClick={handleDownload}
-                            >
-                                <span className="md:block hidden">Download File</span>
-                                <span className="md:hidden block"><Download size={26} /></span>
-                            </button>
-                        </div>
-                    </div>)
-                }
+              {/* File Info */}
+              <div className="flex flex-col">
+                <span className="text-gray-900 font-medium text-sm">
+                  {file.name || "Unnamed Attachment"}
+                </span>
+                <span className="text-gray-500 text-sm">
+                  {/* File type from URL extension */}
+                  {file.url.split(".").pop()?.toUpperCase()}
+                </span>
+              </div>
             </div>
 
-        </div>
-    );
-};
+            {/* Download Button */}
+            <button
+              onClick={() => handleDownload(file)}
+              className="flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-4 py-2 transition-colors text-sm font-medium"
+            >
+              <Download className="h-4 w-4" />
+              Download File
+            </button>
+          </div>
+        ))}
+      </div>
 
-export default AttachFiles;
+      {/* Empty State */}
+      {attachments.length === 0 && (
+        <div className="text-center py-8 text-gray-500">
+          <FileText className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+          <p>No files attached</p>
+        </div>
+      )}
+    </div>
+  );
+}

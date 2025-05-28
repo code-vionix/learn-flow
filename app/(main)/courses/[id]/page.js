@@ -17,10 +17,14 @@ import Curriculum from "./_component/Curriculum/Curriculum";
 import RelatedCourses from "./_component/RelatedCourses";
 import { StudentFeedback } from "./_component/StudentFeedback";
 
+
+
 export default async function Home({ params }) {
   const { id } = params;
   const course = await getCourseById(id);
+  console.log(course)
   const instructor = await getCourseDataByCourseId("instructor", id);
+  console.log("instructor,,,,,,,,,,,,,,,",instructor)
   const reviews = await getCourseDataByCourseId("reviews", id);
 
   return (
@@ -52,8 +56,8 @@ export default async function Home({ params }) {
             </section>
 
             <section id="review">
-              {/* <CourseRating reviews={reviews} /> */}
-              {/* <StudentFeedback reviews={reviews} /> */}
+               <CourseRating reviews={reviews} />
+               <StudentFeedback reviews={reviews} />
             </section>
           </div>
           <CourseSidebar course={course} />

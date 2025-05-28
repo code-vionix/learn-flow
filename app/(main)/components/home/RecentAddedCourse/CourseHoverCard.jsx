@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const CourseHoverCard = ({ course, position = "right" }) => {
   return (
@@ -140,17 +141,18 @@ const CourseHoverCard = ({ course, position = "right" }) => {
           </ul>
         </div>
 
-          {/* Buttons */}
-          <div className="flex flex-col gap-3 mt-2">
-            <button className="w-full flex items-center justify-center gap-2 bg-[#FF6636] text-white py-3 rounded">
-              <ShoppingCart className="w-6 h-6" />
-              <span>Add to Cart</span>
-            </button>
-            <Link href={`/courses/${course?.id}`} className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded">
-              Course Detail
-            </Link>
-          </div>
-
+        {/* Buttons */}
+        <div className="flex flex-col gap-3 mt-2">
+          <button className="w-full flex items-center justify-center gap-2 bg-[#FF6636] text-white py-3 rounded">
+            <ShoppingCart className="w-6 h-6" />
+            <span>Add to Cart</span>
+          </button>
+          <Link
+            href={`/courses/${course?.id}`}
+            className="w-full flex items-center justify-center gap-2 bg-[#FFEEE8] text-[#FF6636] py-3 rounded"
+          >
+            Course Detail
+          </Link>
         </div>
       </div>
     </div>

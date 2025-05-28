@@ -1,26 +1,28 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import searchReducer from "./slice/searchSlice";
-import filterReducer from "./slice/filterSlice";
-import courseReducer from "./slice/courseCreateSlice";
-import courseUpdateReducer from "./slice/courseUpdateSlice";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice";
+import courseReducer from "./slice/courseCreateSlice";
+import coursePlayerReducer from "./slice/coursePlayerSlice"; // নতুন slice import
+import courseUpdateReducer from "./slice/courseUpdateSlice";
+import filterReducer from "./slice/filterSlice";
+import searchReducer from "./slice/searchSlice";
 
-import { persistStore, persistReducer } from "redux-persist";
+import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 // Persist config
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: [apiSlice.reducerPath, "courseUpdate"],
+  blacklist: [apiSlice.reducerPath, "courseUpdate"], // blacklist-এ apiSlice আর courseUpdate আছে, ঠিক আছে
 };
 
-// Combine reducers
+// Combine reducers - এখানে নতুন reducer যোগ করলাম
 const rootReducer = combineReducers({
   search: searchReducer,
   filter: filterReducer,
   course: courseReducer,
   courseUpdate: courseUpdateReducer,
+  coursePlayer: coursePlayerReducer, // এখানে যোগ করো
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
