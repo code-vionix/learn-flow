@@ -9,7 +9,7 @@ import { useCourseContext } from "@/povider/CourseProvider";
 import { CheckCheck, CirclePlay, FolderOpen, Pause, Play } from "lucide-react";
 
 const CourseModuleItem = ({ module, value }) => {
-  const { currentLecture, handleLessonClick } = useCourseContext();
+  const { currentLesson, handleLessonClick } = useCourseContext();
 
   // Calculate completion percentage of lessons in this module
   const calculateCompletionPercentage = (module) => {
@@ -54,7 +54,7 @@ const CourseModuleItem = ({ module, value }) => {
               key={lesson?.id}
               onClick={() => handleLessonClick(module?.id, lesson?.id)}
               className={`flex items-center gap-2 px-4 py-2 duration-300 cursor-pointer hover:bg-warning-100 ${
-                currentLecture?.lectureId === lesson?.id ? "bg-warning-100" : ""
+                currentLesson?.id === lesson?.id ? "bg-warning-100" : ""
               }`}
             >
               <div className="flex text-gray-500 hover:text-gray-800 duration-300 justify-between w-full items-center gap-2">
@@ -73,7 +73,7 @@ const CourseModuleItem = ({ module, value }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     // Use currentLecture to show play/pause icon instead of local state
-                    if (currentLecture?.lectureId === lesson?.id) {
+                    if (currentLesson?.id === lesson?.id) {
                       // You might want to implement pause/play toggle globally if you have it
                       // For now, just ignoring toggle here
                       return;
@@ -81,7 +81,7 @@ const CourseModuleItem = ({ module, value }) => {
                     handleLessonClick(module?.id, lesson?.id);
                   }}
                 >
-                  {currentLecture?.lectureId === lesson?.id ? (
+                  {currentLesson?.id === lesson?.id ? (
                     <Pause size={12} />
                   ) : (
                     <Play size={12} />
