@@ -1,27 +1,29 @@
-"use client"
+"use client";
+
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useSession } from 'next-auth/react';
+
+const DEFAULT_AVATAR = "/avatar.jpg";
+const DEFAULT_NAME = "Anonymous";
 
 const AvatarConnector = ({ comment, isNested }) => {
-  const {data:session}=useSession()
-  console.log(session)
+  const { data: session } = useSession();
   const replies = comment?.replies ?? [];
   const hasReply = replies.length > 0;
   const showVerticalLine = hasReply;
 
-  const avatarUrl = comment?.author?.imageUrl ||session?.user?.image;
-  const authorName = comment?.author?.name || session?.user?.name;
+  // Fallback logic
+  const avatarUrl =
+    comment?.author?.imageUrl || session?.user?.image || DEFAULT_AVATAR;
+
+  const authorName =
+    comment?.author?.name || session?.user?.name || DEFAULT_NAME;
 
   return (
     <div className="relative flex flex-col items-center">
       <div className="w-10 h-10 rounded-full overflow-hidden relative">
-  <Image
-    src={avatarUrl}
-    alt={authorName}
-    fill
-    className="object-cover"
-  />
-</div>
+        <Image src={avatarUrl} alt={authorName} fill className="object-cover" />
+      </div>
 
       {/* Vertical connector line if replies exist */}
       {showVerticalLine && (
