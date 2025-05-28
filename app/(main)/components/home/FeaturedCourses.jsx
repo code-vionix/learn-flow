@@ -21,7 +21,7 @@ export default function FeaturedCourses({ courses }) {
         </p>
       </div>
       {
-        courses.length === 0
+        courses?.length === 0
           ? (
             <div className="h-full flex flex-col items-center justify-center ">
               <Image src="/images/no-item-found.png" alt="No courses available" width={500} height={300} className="mx-auto opacity-[0.5]" />

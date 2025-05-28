@@ -11,7 +11,8 @@ const PurchaseHistory = () => {
     data = [],
     isLoading,
     isError,
-  } = useGetPurchesHistoryQuery("67e3de89529e63530afa1c88");
+  } = useGetPurchesHistoryQuery();
+  console.log(data);
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Something went wrong!</p>;
   const publishedData = viewAll ? data : data.slice(0, 4);

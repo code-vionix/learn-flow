@@ -13,9 +13,9 @@ export default function InstractorCards({ instructor }) {
       <div className="flex flex-col items-center mt-4 w-full">
         <div className="text-center mb-4">
           <h3 className="text-2xl font-medium text-[#1D2026] mb-1">
-            {instructor.name}
+            {instructor?.name}
           </h3>
-          <p className="text-md text-[#8C94A3]">{instructor.role}</p>
+          <p className="text-md text-[#8C94A3]">{instructor?.title}</p>
         </div>
 
         {/* Divider */}
@@ -25,12 +25,12 @@ export default function InstractorCards({ instructor }) {
           <div className="flex items-center gap-1">
             <Star className="w-5 h-5 text-[#FD8E1F] fill-[#FD8E1F]" />
             <span className="text-md font-medium text-[#4E5566]">
-              {instructor.rating}
+              {instructor?.rating}
             </span>
           </div>
           <div className="flex items-center">
             <span className="text-md font-medium text-[#4E5566]">
-              {instructor.students}
+              {instructor?.students}
             </span>
             <span className="text-md text-[#8C94A3] ml-1">students</span>
           </div>
