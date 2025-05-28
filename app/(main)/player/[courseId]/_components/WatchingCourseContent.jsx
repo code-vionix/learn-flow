@@ -2,7 +2,7 @@ import { Accordion2 } from "@/components/ui/accordion2.";
 import CourseModuleItem from "./CourseModuleItem";
 import { CourseProgress } from "./CourseProgress";
 
-const WatchingCourseContent = ({ sections, courseId }) => {
+const WatchingCourseContent = ({ sections }) => {
   return (
     <div className="md:mt-0 mt-4">
       <div className="flex items-center justify-between w-full">

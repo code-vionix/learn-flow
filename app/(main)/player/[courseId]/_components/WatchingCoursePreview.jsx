@@ -10,6 +10,7 @@ import CourseVideoPlayer from "./CourseVideoPlayer";
 import LecturesInfo from "./LecturesInfo";
 import WatchCourseNavigateBar from "./WatchCourseNavigateBar";
 import WatchingCourseContent from "./WatchingCourseContent";
+import LectureNotes from "./LectureNotes";
 
 // const CourseVideoPlayer = dynamic(() => import("./CourseVideoPlayer"), {
 //   ssr: false,
@@ -20,7 +21,7 @@ import WatchingCourseContent from "./WatchingCourseContent";
 //   ),
 // });
 
-const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
+const WatchingCoursePreview = ({ course, sections, enrollments }) => {
   const moduleData = sections?.[0];
   const lectureData = moduleData?.lessons?.[0]; // lessons = lectures
 
@@ -28,7 +29,7 @@ const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
 
   return (
     <div>
-      <CourseVideoPlayer courseId={courseId} modules={sections.data} />
+      <CourseVideoPlayer modules={sections.data} />
 
       {/* Mobile Buttons
       <div className="md:hidden mt-3 mb-2 justify-end flex md:items-center items-start gap-3">
@@ -74,7 +75,7 @@ const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
 
           <div className="flex items-center text-[#6E7485] font-[400] gap-3">
             <p>
-              Last updated:{" "}
+              Last updated:
               <span className="text-[#1D2026]">
                 {new Date(course?.updatedAt).toLocaleDateString("en-US", {
                   month: "short",
@@ -84,7 +85,7 @@ const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
               </span>
             </p>
             <p>
-              Comments: <span className="text-[#1D2026]">12</span>
+              Comments: <span className="text-[#1D2026]">{currentLesson?.comment?.length || 0}</span>
             </p>
           </div>
         </div>
@@ -100,9 +101,9 @@ const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
           key="description"
           id="LecturesDescription"
           title="Lectures Description"
-          description={lectureData?.description || "No description provided."}
+          description={currentLesson?.content || "No description provided."}
         />
-
+{/* 
         <LecturesInfo
           key="notes"
           id="LecturesNotes"
@@ -110,7 +111,8 @@ const WatchingCoursePreview = ({ course, sections, enrollments, courseId }) => {
           description={lectureData?.notes?.details || "No notes available."}
           isDownloadable={!!lectureData?.notes?.file}
           downloadUrl={lectureData?.notes?.file}
-        />
+        /> */}
+        <LectureNotes note={currentLesson?.note}/>
 
         <AttachFiles data={lectureData?.attachments || []} />
 
