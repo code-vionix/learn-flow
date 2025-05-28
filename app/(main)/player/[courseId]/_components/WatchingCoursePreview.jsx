@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useCourseContext } from "@/povider/CourseProvider";
 import Image from "next/image";
 import AttachFiles from "./AttachFiles";
-
 import CourseComment from "./Components/CourseComment";
 import CourseVideoPlayer from "./CourseVideoPlayer";
 import LecturesInfo from "./LecturesInfo";
@@ -12,44 +11,27 @@ import WatchCourseNavigateBar from "./WatchCourseNavigateBar";
 import WatchingCourseContent from "./WatchingCourseContent";
 import LectureNotes from "./LectureNotes";
 
-// const CourseVideoPlayer = dynamic(() => import("./CourseVideoPlayer"), {
-//   ssr: false,
-//   loading: () => (
-//     <div className="w-full h-[500px] flex items-center justify-center bg-gray-100">
-//       <span className="text-gray-500">Loading...</span>
-//     </div>
-//   ),
-// });
-
 const WatchingCoursePreview = ({ course, sections, enrollments }) => {
-  const moduleData = sections?.[0];
-  const lectureData = moduleData?.lessons?.[0]; // lessons = lectures
-
   const { currentPlay, currentLesson } = useCourseContext();
+  const moduleData = sections?.data[0];
+  const lectureData = moduleData?.lessons?.[0];
+
+  const title = currentLesson?.title || lectureData?.title || "Lecture Title";
+  const description = currentLesson?.content || "No description provided.";
+  const note = currentLesson?.note;
+  const attachments = currentLesson?.attachment || [];
+  const lessonId = currentLesson?.id ||lectureData?.id;
 
   return (
     <div>
       <CourseVideoPlayer modules={sections.data} />
 
-      {/* Mobile Buttons
-      <div className="md:hidden mt-3 mb-2 justify-end flex md:items-center items-start gap-3">
-        <Button className="bg-white border w-full text-sm text-black px-6 duration-300 hover:bg-primary-50 shadow-none font-[400]">
-          Write a Review
-        </Button>
-        <Button className="bg-primary-500 w-full text-sm text-white px-6 duration-300 hover:bg-primary-400 shadow-none font-[400]">
-          Next lecture
-        </Button>
-      </div> */}
-
       <div className="mt-2">
-        <h1 className="md:text-[32px] text-[25px] font-semibold">
-          {currentLesson?.title || lectureData?.title || "Lecture Title"}
-        </h1>
+        <h1 className="md:text-[32px] text-[25px] font-semibold">{title}</h1>
 
-        <div className="md:flex items-center justify-between md:border-none md:mt-0 mt-4 border-t ">
+        <div className="md:flex items-center justify-between md:mt-0 mt-4 border-t">
           <div className="md:flex items-center gap-3">
             <div className="flex mt-3 -space-x-2 overflow-hidden">
-              {/* Display student avatars */}
               {enrollments?.slice(0, 4).map((enrollment, idx) => (
                 <Image
                   key={idx}
@@ -66,16 +48,16 @@ const WatchingCoursePreview = ({ course, sections, enrollments }) => {
             </div>
 
             <div className="md:block flex gap-2 items-center">
-              <h2 className=" font-semibold !text-[16px]">
+              <h2 className="font-semibold text-[16px]">
                 {enrollments?.length || 0}
               </h2>
-              <h3 className=" text-gray-500 !text-[14px]">Students watching</h3>
+              <h3 className="text-gray-500 text-[14px]">Students watching</h3>
             </div>
           </div>
 
           <div className="flex items-center text-[#6E7485] font-[400] gap-3">
             <p>
-              Last updated:
+              Last updated:{" "}
               <span className="text-[#1D2026]">
                 {new Date(course?.updatedAt).toLocaleDateString("en-US", {
                   month: "short",
@@ -90,34 +72,25 @@ const WatchingCoursePreview = ({ course, sections, enrollments }) => {
           </div>
         </div>
 
-        {/* Mobile sidebar toggle */}
         <div className="md:hidden block">
           <WatchingCourseContent />
         </div>
 
-        <WatchCourseNavigateBar />
+        <WatchCourseNavigateBar lessonId={lessonId} />
 
         <LecturesInfo
           key="description"
           id="LecturesDescription"
           title="Lectures Description"
-          description={currentLesson?.content || "No description provided."}
+          description={description}
         />
-{/* 
-        <LecturesInfo
-          key="notes"
-          id="LecturesNotes"
-          title="Lectures Notes"
-          description={lectureData?.notes?.details || "No notes available."}
-          isDownloadable={!!lectureData?.notes?.file}
-          downloadUrl={lectureData?.notes?.file}
-        /> */}
-        <LectureNotes note={currentLesson?.note}/>
 
-        <AttachFiles attachments={currentLesson?.attachment || []} />
+        <LectureNotes note={note} />
+
+        <AttachFiles attachments={attachments} />
 
         <div id="comments">
-          <CourseComment />
+          <CourseComment lessonId={lessonId} />
         </div>
       </div>
     </div>

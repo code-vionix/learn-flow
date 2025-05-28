@@ -1,10 +1,12 @@
 'use client';
+import useComments from '@/hooks/useComments';
 import { useCourseContext } from '@/povider/CourseProvider';
 import React, { useEffect, useState } from 'react';
 
-const WatchCourseNavigateBar = () => {
+const WatchCourseNavigateBar = ({lessonId }) => {
     const [activeLink, setActiveLink] = useState('');
     const { currentLesson } = useCourseContext();
+    const {comments}=useComments(lessonId)
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -60,7 +62,7 @@ const WatchCourseNavigateBar = () => {
                 >
                     Comments
                     <span className="ml-2 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-medium rounded-md bg-orange-100 text-orange-500">
-                        {currentLesson?.comment?.length || 0}
+                        {comments.length}
                     </span>
                 </a>
             </div>

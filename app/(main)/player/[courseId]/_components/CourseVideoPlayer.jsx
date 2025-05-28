@@ -11,7 +11,6 @@ const DynamicReactPlayer = dynamic(() => import("react-player"), {
 
 export default function CourseVideoPlayer({ modules }) {
   const { currentLesson } = useCourseContext();
-  console.log("currentLesson", currentLesson);
 
   const lesson = useMemo(
     () => currentLesson || modules?.[0]?.lessons?.[0],
