@@ -114,7 +114,7 @@ const WatchingCoursePreview = ({ course, sections, enrollments }) => {
         /> */}
         <LectureNotes note={currentLesson?.note}/>
 
-        <AttachFiles data={lectureData?.attachments || []} />
+        <AttachFiles attachments={currentLesson?.attachment || []} />
 
         <div id="comments">
           <CourseComment />
