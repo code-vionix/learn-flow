@@ -13,7 +13,7 @@ const WatchingCourseHeader = ({ course, sections }) => {
   const { handleNextClick } = useCourseContext();
   const handleReviewSubmit = (rating, feedback) => {};
   const router = useRouter();
-
+console.log(course)
   return (
     <div className="bg-[#F5F7FA]">
       <WatchingCourseWrapper className={"py-3"}>
