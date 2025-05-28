@@ -9,7 +9,7 @@ export default function HomePage() {
     data: courses,
     isLoading,
     isError,
-  } = useGetAllEnrollCoursesQuery("67e3de89529e63530afa1c88");
+  } = useGetAllEnrollCoursesQuery();
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Something went wrong!</p>;
