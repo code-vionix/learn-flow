@@ -1,31 +1,33 @@
-// middleware.js
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
 // Routes that need authentication
-const protectedRoutes = ["/dashboard", "student", "admin"];
+const protectedRoutes = ["/dashboard", "/student", "/admin", "/player"];
 
 // Routes that should not require authentication
-const publicRoutes = ["/login", "/register", "/api/auth", "/"]; // include `/api/auth` for NextAuth routes
+const publicRoutes = ["/login", "/register", "/api/auth", "/"];
 
 export async function middleware(req) {
   const { pathname } = req.nextUrl;
 
-  // Skip public routes
+  // Allow public routes through
   const isPublic = publicRoutes.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`)
   );
   if (isPublic) return NextResponse.next();
 
+  // Check if the route is protected
   const isProtected = protectedRoutes.some((route) =>
-    pathname.startsWith(`${route}`)
+    pathname.startsWith(route)
   );
+
   const token = await getToken({ req, secret });
 
+  // Redirect to login if trying to access protected route without a token
   if (isProtected && !token) {
-    const loginUrl = new URL("/login", req.url); // or `/api/auth/signin` if using NextAuth's default
+    const loginUrl = new URL("/login", req.url);
     return NextResponse.redirect(loginUrl);
   }
 
@@ -33,5 +35,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|images|css|js).*)"], // Run middleware for all non-static paths
+  matcher: ["/((?!_next|favicon.ico|images|css|js).*)"],
 };
