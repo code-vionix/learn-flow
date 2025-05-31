@@ -15,7 +15,7 @@ const ReplyInput = ({ replyText, setReplyText, onReply }) => (
     </div>
     <Button
       onClick={onReply}
-      className="bg-orange-500 hover:bg-orange-600 px-6 h-[40px]"
+      className="bg-primary-500 hover:bg-primary-600 px-6 h-[40px] rounded-none"
     >
       Post
     </Button>

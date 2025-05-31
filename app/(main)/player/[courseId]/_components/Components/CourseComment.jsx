@@ -1,23 +1,22 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import useComments from "@/hooks/useComments";
 import { useRef } from "react";
+import useComments from "@/hooks/useComments";
 import CommentList from "./CommentList";
 import ReplyInput from "./ReplyInput";
 
-const CourseComment = ({lessonId}) => {
+const CourseComment = ({ lessonId }) => {
   const newCommentInputRef = useRef(null);
 
   const {
     comments,
-    replyText,
+    newCommentText, // ⬅️ for top-level
+    setNewCommentText,
+    replyText,       // ⬅️ for replies
     setReplyText,
     replyToId,
     setReplyToId,
     loading,
     error,
-    showNewCommentInput,
-    toggleNewCommentInput,
     handleAddTopLevelComment,
     handleReply,
   } = useComments(lessonId, newCommentInputRef);
@@ -27,14 +26,17 @@ const CourseComment = ({lessonId}) => {
 
   return (
     <div className="p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold">Comments({comments?.length})</h2>
-        <Button
-          onClick={toggleNewCommentInput}
-          className="bg-primary-500 hover:bg-primary-600 rounded"
-        >
-          Write Comment
-        </Button>
+      <h2 className="text-2xl font-bold mb-4">
+        Comments ({comments?.length})
+      </h2>
+
+      {/* ✅ Fixed: Use newCommentText for top-level input */}
+      <div ref={newCommentInputRef} className="mb-6">
+        <ReplyInput
+          replyText={newCommentText}
+          setReplyText={setNewCommentText}
+          onReply={handleAddTopLevelComment}
+        />
       </div>
 
       <CommentList
@@ -45,16 +47,6 @@ const CourseComment = ({lessonId}) => {
         setReplyToId={setReplyToId}
         handleReply={handleReply}
       />
-
-      {showNewCommentInput && (
-        <div ref={newCommentInputRef} className="mt-6 ml-12">
-          <ReplyInput
-            replyText={replyText}
-            setReplyText={setReplyText}
-            onReply={handleAddTopLevelComment}
-          />
-        </div>
-      )}
     </div>
   );
 };
