@@ -17,8 +17,8 @@ function NotFound() {
   const router = useRouter();
   return (
     <>
-      <Navbars />
       <SessionProvider>
+      <Navbars />
       <Navigation />  
       </SessionProvider>
       <div className="w-full flex items-center justify-center  gap-28 px-72 py-32">

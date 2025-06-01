@@ -80,20 +80,19 @@ export default function UserDropdown({ session, onClose }) {
         <SettingsIcon className="mr-2 h-4 w-4" />
         Settings
       </Link>
-
       <button
-        className="flex items-center w-full justify-center px-4 py-2 text-primary-500 hover:bg-primary-100 font-semibold"
-        onClick={() => {
-          onClose();
-          signOut({
-            redirect: true,
-            callbackUrl: "http://localhost:3001",
-          });
-        }}
-      >
-        <LogOut className="mr-2 h-4 w-4" />
-        Logout
-      </button>
+  className="flex items-center w-full justify-center px-4 py-2 text-primary-500 hover:bg-primary-100 font-semibold"
+  onClick={() => {
+    onClose();
+    signOut({
+      redirect: true,
+      callbackUrl: "/", // Redirects to the homepage
+    });
+  }}
+>
+  <LogOut className="mr-2 h-4 w-4" />
+  Logout
+</button>
     </div>
   );
 }

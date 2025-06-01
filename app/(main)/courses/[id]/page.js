@@ -14,10 +14,10 @@ import CourseTabs from "./_component/CourseTabs";
 import CourseTitle from "./_component/CourseTitle";
 
 import { auth } from "@/auth";
+import { notFound, redirect } from "next/navigation";
 import Curriculum from "./_component/Curriculum/Curriculum";
 import RelatedCourses from "./_component/RelatedCourses";
 import { StudentFeedback } from "./_component/StudentFeedback";
-import { notFound, redirect } from "next/navigation";
 
 export default async function CourseDetailsPage({ params }) {
   const session = await auth();
