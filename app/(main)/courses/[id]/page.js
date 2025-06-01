@@ -16,16 +16,36 @@ import CourseTitle from "./_component/CourseTitle";
 import Curriculum from "./_component/Curriculum/Curriculum";
 import RelatedCourses from "./_component/RelatedCourses";
 import { StudentFeedback } from "./_component/StudentFeedback";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 
 
 export default async function Home({ params }) {
   const { id } = params;
-  const course = await getCourseById(id);
-  console.log(course)
+  const session = await auth();
+  const userId = session?.user?.id;
+    let course;
+  try {
+    course = await getCourseById(id);
+  } catch (error) {
+    return notFound();
+  }
+
+  if (!course) {
+    return notFound();
+  }
   const instructor = await getCourseDataByCourseId("instructor", id);
-  console.log("instructor,,,,,,,,,,,,,,,",instructor)
+  console.log(JSON.stringify(instructor, null, 2));
   const reviews = await getCourseDataByCourseId("reviews", id);
+
+    const isEnrolled = course?.enrollments?.some(
+    (enrollment) => enrollment.userId === userId
+  );
+
+  if (isEnrolled) {
+    redirect(`/player/${id}`);
+  }
 
   return (
     <div className="h-full w-full">

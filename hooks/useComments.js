@@ -4,9 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_ROUTE_URL;
 
 const useComments = (lessonId, newCommentInputRef) => {
-  const { data: session } = useSession(); // Still needed for client-side conditionals
+  const { data: session } = useSession();
+
   const [comments, setComments] = useState([]);
-  const [replyText, setReplyText] = useState("");
+  const [newCommentText, setNewCommentText] = useState(""); // ⬅️ for top-level comments
+  const [replyText, setReplyText] = useState("");            // ⬅️ for replies
   const [replyToId, setReplyToId] = useState(null);
   const [showNewCommentInput, setShowNewCommentInput] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -22,10 +24,7 @@ const useComments = (lessonId, newCommentInputRef) => {
 
   const findRootParentId = (parentMap, commentId) => {
     let currentId = commentId;
-    while (
-      parentMap[currentId] !== null &&
-      parentMap[currentId] !== undefined
-    ) {
+    while (parentMap[currentId] !== null && parentMap[currentId] !== undefined) {
       currentId = parentMap[currentId];
     }
     return currentId;
@@ -57,9 +56,7 @@ const useComments = (lessonId, newCommentInputRef) => {
   const fetchComments = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetchWithAuth(
-        `${API_BASE_URL}/comments?lessonId=${lessonId}`
-      );
+      const res = await fetchWithAuth(`${API_BASE_URL}/comments?lessonId=${lessonId}`);
       const data = await res.json();
       setComments(buildFlatComments(data));
     } catch (err) {
@@ -74,13 +71,13 @@ const useComments = (lessonId, newCommentInputRef) => {
   }, [fetchComments]);
 
   const handleAddTopLevelComment = async () => {
-    if (!replyText.trim()) return;
+    if (!newCommentText.trim()) return;
 
     try {
       const res = await fetchWithAuth(`${API_BASE_URL}/comments`, {
         method: "POST",
         body: JSON.stringify({
-          text: replyText,
+          text: newCommentText,
           lessonId,
           parentId: null,
         }),
@@ -89,7 +86,7 @@ const useComments = (lessonId, newCommentInputRef) => {
       const newComment = await res.json();
       newComment.replies = [];
       setComments((prev) => [newComment, ...prev]);
-      setReplyText("");
+      setNewCommentText(""); // clear input
       setShowNewCommentInput(false);
     } catch (err) {
       setError(err.message || "Error adding comment");
@@ -152,6 +149,8 @@ const useComments = (lessonId, newCommentInputRef) => {
     comments,
     replyText,
     setReplyText,
+    newCommentText,
+    setNewCommentText,
     replyToId,
     setReplyToId,
     showNewCommentInput,

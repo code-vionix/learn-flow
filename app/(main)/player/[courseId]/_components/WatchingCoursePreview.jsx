@@ -85,9 +85,9 @@ const WatchingCoursePreview = ({ course, sections, enrollments }) => {
           description={description}
         />
 
-        <LectureNotes note={note} />
+        <LectureNotes note={note} id="LecturesNotes" />
 
-        <AttachFiles attachments={attachments} />
+        <AttachFiles attachments={attachments} id="attach-files" />
 
         <div id="comments">
           <CourseComment lessonId={lessonId} />

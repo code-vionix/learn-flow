@@ -19,8 +19,14 @@ const WatchCourseNavigateBar = ({lessonId }) => {
 
     const handleLinkClick = (link) => {
         setActiveLink(link);
-        window.location.hash = link;
+        
+        const target = document.querySelector(link);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            history.replaceState(null, null, link); // update the hash without scrolling again
+        }
     };
+    
 
     return (
         <div className="w-full md:block hidden border-b border-gray-200 mt-6 border-t">

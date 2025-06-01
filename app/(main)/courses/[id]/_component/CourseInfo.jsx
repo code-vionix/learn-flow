@@ -7,23 +7,23 @@ export default function CourseInfo({ course, instructor }) {
       <div className="flex items-center gap-3">
         <div className="relative">
           <Image
-            src={instructor?.user?.imageUrl}
-            alt={instructor?.user?.firstName}
+            src={instructor?.imageUrl}
+            alt={instructor?.fulltName}
             width={50}
             height={50}
             className="rounded-full w-[50px] h-[50px] border-2 border-white"
           />
-          <Image
+          {/* <Image
             src={instructor?.user?.imageUrl}
             alt={instructor?.user?.fullName}
             width={50}
             height={50}
             className="rounded-full absolute -right-6 top-0 border-2  border-white w-[50px] h-[50px]"
-          />
+          /> */}
         </div>
         <div className="ml-8">
           <p className="text-sm text-gray-600">Created by:</p>
-          <p className="text-base font-medium">{instructor?.user?.fullName}</p>
+          <p className="text-base font-medium">{instructor?.fullName}</p>
         </div>
       </div>
       <div className="flex items-center gap-2">

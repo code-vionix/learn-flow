@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion2.";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCourseContext } from "@/povider/CourseProvider";
-import { CheckCheck, CirclePlay, FolderOpen, Pause, Play } from "lucide-react";
+import { CheckCheck, CirclePlay, FolderOpen, Pause, Play, Video, Youtube } from "lucide-react";
 
 const CourseModuleItem = ({ module, value }) => {
   const { currentLesson, handleLessonClick } = useCourseContext();
@@ -32,13 +32,13 @@ const CourseModuleItem = ({ module, value }) => {
             <CirclePlay strokeWidth={1.5} className="h-4 w-4 text-secondary-500" />
             <span className="text-gray-600">{module?.lessons?.length} lectures</span>
           </div>
-          <div className="flex items-center gap-1">
+          {/* <div className="flex items-center gap-1">
             <FolderOpen strokeWidth={1.5} className="h-4 w-4 text-primary-500" />
             <span className="text-gray-600">5 Sections</span>
-          </div>
+          </div> */}
           {module?.lessons?.some((lesson) => lesson.isFinished) && (
             <div className="flex items-center gap-1">
-              <CheckCheck strokeWidth={1.5} className="h-4 w-4 text-success-500" />
+              <CirclePlay strokeWidth={1.5} className="h-4 w-4 border-none" />
               <span className="text-gray-600">
                 {calculateCompletionPercentage(module)} Finished
               </span>
@@ -59,7 +59,7 @@ const CourseModuleItem = ({ module, value }) => {
             >
               <div className="flex text-gray-500 hover:text-gray-800 duration-300 justify-between w-full items-center gap-2">
                 <span className="text-sm flex items-center gap-1">
-                  <Checkbox
+                  <CirclePlay
                     className={`border-gray-400 !border !rounded-none w-5 h-5 ${
                       lesson?.isFinished ? "!bg-primary-500 !border-none" : ""
                     }`}
@@ -86,7 +86,7 @@ const CourseModuleItem = ({ module, value }) => {
                   ) : (
                     <Play size={12} />
                   )}{" "}
-                  {lesson?.estimatedTime} min
+                  {lesson?.estimatedTime}
                 </span>
               </div>
             </li>
