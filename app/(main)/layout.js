@@ -13,6 +13,7 @@ import Navigation from "./components/shared/navigation/Navigation";
 import { ToastContainer } from "react-toastify";
 
 import { SessionProvider } from "next-auth/react";
+import NextTopLoader from "nextjs-toploader";
 
 
 export default function MainLayout({ children }) {
@@ -24,7 +25,10 @@ export default function MainLayout({ children }) {
           <Navbars />
           <Navigation />
           <CourseProvider>
-            <main>{children}</main>
+              <main>
+              <NextTopLoader color="#FF6738"  height={3} showSpinner={false} />
+                {children}
+              </main>
             <ToastContainer />
           </CourseProvider>
           <Footer />

@@ -1,20 +1,29 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import { useAddNewInstructorMutation } from "@/store/api/instructorApi";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import { useAddNewInstructorMutation } from "@/store/api/instructorApi";
+
 export default function InstructorModal() {
     const { data: session } = useSession();
-
-    const [open, setOpen] = useState(false); // ✅ modal open/close state
+    const [open, setOpen] = useState(false);
+    const [addNewInstructor, { isLoading }] = useAddNewInstructorMutation();
 
     const [form, setForm] = useState({
         bio: "",
@@ -27,8 +36,6 @@ export default function InstructorModal() {
         whatsapp: "",
         youtube: "",
     });
-
-    const [addNewInstructor, { isLoading }] = useAddNewInstructorMutation(); // ✅ use loading state
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -49,11 +56,11 @@ export default function InstructorModal() {
                 whatsapp: "",
                 youtube: "",
             });
-            setOpen(false); // ✅ close modal
+            setOpen(false);
         } catch (error) {
             toast.error("Something went wrong!");
-            console.error("Error submitting form:", error);
-            setOpen(false); // ✅ also close on error (optional)
+            console.error("Error:", error);
+            setOpen(false);
         }
     };
 
@@ -64,46 +71,164 @@ export default function InstructorModal() {
                     GET START
                 </button>
             </DialogTrigger>
-            <DialogContent className="max-w-xl">
+            <DialogContent className="max-w-3xl h-[600px] rounded-lg overflow-y-auto">
                 <DialogHeader>
-                    <DialogTitle>Instructor Info</DialogTitle>
+                    <div className="w-full flex items-center space-x-4 p-4 bg-gray-50 ">
+                        <Avatar className="h-16 w-16">
+                            <AvatarImage
+                                src={session?.user?.image || "https://avatar.iran.liara.run/public/28"}
+                                alt="user avatar"
+                            />
+                            <AvatarFallback className="text-lg">
+                                {session?.user?.name?.slice(0, 1)}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                            <h3 className="text-lg font-semibold text-gray-900">
+                                {session?.user?.name}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                                {session?.user?.email}
+                            </p>
+                        </div>
+                    </div>
                 </DialogHeader>
+
                 <form
                     onSubmit={(e) => {
                         e.preventDefault();
                         handleSubmit();
                     }}
                 >
-                    <div className="grid gap-4 md:grid-cols-2 py-4">
-                        {Object.keys(form).map((key) => (
-                            <div key={key} className="md:col-span-1 space-y-1">
-                                <Label htmlFor={key} className="capitalize">
-                                    {key}
-                                </Label>
-                                {key === "bio" || key === "about" ? (
-                                    <Textarea
-                                        id={key}
-                                        name={key}
-                                        value={form[key]}
-                                        onChange={handleChange}
-                                        className="border border-gray-300 focus:border-primary-500 focus:ring-primary-500 h-24"
-                                    />
-                                ) : (
-                                    <Input
-                                        className="border border-gray-300 focus:border-primary-500 focus:ring-primary-500"
-                                        id={key}
-                                        name={key}
-                                        value={form[key]}
-                                        onChange={handleChange}
-                                    />
-                                )}
+                    <div className="space-y-4 py-4">
+                        {/* Bio */}
+                        <div className="space-y-1">
+                            <Label htmlFor="bio">Bio</Label>
+                            <Textarea
+                                id="bio"
+                                name="bio"
+                                value={form.bio}
+                                onChange={handleChange}
+                                className="border border-gray-300 h-24"
+                                placeholder="Enter your bio"
+                            />
+                        </div>
+
+                        {/* About */}
+                        <div className="space-y-1">
+                            <Label htmlFor="about">About</Label>
+                            <Textarea
+                                id="about"
+                                name="about"
+                                value={form.about}
+                                onChange={handleChange}
+                                className="border border-gray-300 h-24"
+                                placeholder="Tell us about yourself"
+                            />
+                        </div>
+
+
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {/* Website */}
+                            <div className="space-y-1">
+                                <Label htmlFor="website">Website</Label>
+                                <Input
+                                    id="website"
+                                    name="website"
+                                    value={form.website}
+                                    onChange={handleChange}
+                                    className="border border-gray-300"
+                                    placeholder="Enter your website"
+                                />
                             </div>
-                        ))}
-                        <div className="md:col-span-2">
+
+                            {/* Facebook */}
+                            <div className="space-y-1">
+                                <Label htmlFor="facebook">Facebook</Label>
+                                <Input
+                                    id="facebook"
+                                    name="facebook"
+                                    value={form.facebook}
+                                    onChange={handleChange}
+                                    className="border border-gray-300"
+                                    placeholder="Facebook profile link"
+                                />
+                            </div>
+
+                            {/* Instagram */}
+                            <div className="space-y-1">
+                                <Label htmlFor="instagram">Instagram</Label>
+                                <Input
+                                    id="instagram"
+                                    name="instagram"
+                                    value={form.instagram}
+                                    onChange={handleChange}
+                                    className="border border-gray-300"
+                                    placeholder="Instagram profile link"
+                                />
+                            </div>
+
+                            {/* LinkedIn */}
+                            <div className="space-y-1">
+                                <Label htmlFor="linkedin">LinkedIn</Label>
+                                <Input
+                                    id="linkedin"
+                                    name="linkedin"
+                                    value={form.linkedin}
+                                    onChange={handleChange}
+                                    className="border border-gray-300"
+                                    placeholder="LinkedIn profile link"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {/* Twitter */}
+                            <div className="space-y-1">
+                                <Label htmlFor="twitter">Twitter</Label>
+                                <Input
+                                    id="twitter"
+                                    name="twitter"
+                                    value={form.twitter}
+                                    onChange={handleChange}
+                                    className="border border-gray-300"
+                                    placeholder="Twitter profile link"
+                                />
+                            </div>
+
+                            {/* WhatsApp */}
+                            <div className="space-y-1">
+                                <Label htmlFor="whatsapp">WhatsApp</Label>
+                                <Input
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    value={form.whatsapp}
+                                    onChange={handleChange}
+                                    className="border border-gray-300"
+                                    placeholder="WhatsApp number or link"
+                                />
+                            </div>
+                        </div>
+
+                        {/* YouTube */}
+                        <div className="space-y-1">
+                            <Label htmlFor="youtube">YouTube</Label>
+                            <Input
+                                id="youtube"
+                                name="youtube"
+                                value={form.youtube}
+                                onChange={handleChange}
+                                className="border border-gray-300"
+                                placeholder="YouTube channel link"
+                            />
+                        </div>
+
+                        {/* Submit */}
+                        <div>
                             <Button
                                 type="submit"
                                 className="w-full bg-primary-500 hover:bg-primary-600 text-white mt-2"
-                                disabled={isLoading} // ✅ disable button when loading
+                                disabled={isLoading}
                             >
                                 {isLoading ? "Submitting..." : "Submit"}
                             </Button>
