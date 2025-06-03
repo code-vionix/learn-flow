@@ -33,7 +33,7 @@ const InstructorDisplayInfo = ({ color }) => {
     ]
     return (
         <div className={`${color} || bg-primary-100`}>
-            <div className="grid grid-cols-5 gap-2 lg:gap-4 ">
+            <div className="grid grid-cols-5 gap-2 lg:gap-4 md:py-6 py-2">
                 {
                     displayInfo?.map(itm => <div key={itm?.id} className="  flex gap-2 lg:gap-4 items-center justify-center">
                         <Image

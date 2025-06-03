@@ -14,7 +14,6 @@ export default function Navigation() {
   const [isSticky, setIsSticky] = useState(false);
   const { data: session } = useSession();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  console.log('test...', session);
 
   // Scroll handler for sticky nav
   useEffect(() => {
