@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { verifyOtp } from "./action/VerifyOTP";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { verifyOtp } from "./action/VerifyOTP";
 
 export function OtpVerificationForm() {
   const [otpValues, setOtpValues] = useState(Array(6).fill(""));
@@ -90,7 +90,8 @@ export function OtpVerificationForm() {
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">Verify your email</h1>
           <p className="text-muted-foreground">
-            We've sent a verification code to your email address. Please enter the code below.
+            We&apos;ve sent a verification code to your email address. Please
+            enter the code below.
           </p>
         </div>
         <div className="space-y-4">
@@ -126,7 +127,9 @@ export function OtpVerificationForm() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <div className="text-center space-y-2">
-            <p className="text-sm text-muted-foreground">Didn't receive a code?</p>
+            <p className="text-sm text-muted-foreground">
+              Didn&apos;t receive a code?
+            </p>
             <Button variant="link" className="text-red-500 hover:text-red-600">
               Resend Code
             </Button>

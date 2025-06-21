@@ -1,17 +1,16 @@
-'use client';
+"use client";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { GraduationCap, User } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { GraduationCap, User } from 'lucide-react';
 
 export default function BrowseSelect() {
   const { data: session } = useSession();
-  console.log('test...', session);
 
   return (
     <>
@@ -40,10 +39,7 @@ export default function BrowseSelect() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link
-                href="/student"
-                className="w-full flex items-center gap-2"
-              >
+              <Link href="/student" className="w-full flex items-center gap-2">
                 <GraduationCap className="w-4 h-4" strokeWidth={1.5} />
                 Student Profile
               </Link>
