@@ -4,7 +4,7 @@ const companies = [
     id: 1,
     name: "Netflix",
     imageUrl:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netflix/netflix-original.svg",
+      "/images/Netflix.png",
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const companies = [
     id: 4,
     name: "Lenovo",
     imageUrl:
-      "https://logos-world.net/wp-content/uploads/2020/07/Lenovo-Logo.png",
+      "/images/Lenovo.png",
   },
   {
     id: 5,
@@ -33,19 +33,19 @@ const companies = [
     id: 6,
     name: "Verizon",
     imageUrl:
-      "https://logos-world.net/wp-content/uploads/2020/09/Verizon-Logo.png",
+      "/images/Verizon.png",
   },
   {
     id: 7,
     name: "Lexmark",
     imageUrl:
-      "https://logos-world.net/wp-content/uploads/2021/08/Lexmark-Logo.png",
+      "/images/Lexmark.png",
   },
   {
     id: 8,
     name: "Microsoft",
     imageUrl:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoft/microsoft-original.svg",
+      "/images/Microsoft.png",
   },
 ];
 

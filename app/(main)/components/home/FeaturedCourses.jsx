@@ -10,7 +10,6 @@ import { SingleStarRating } from "../shared/SingleStarRating";
 export default function FeaturedCourses({ courses }) {
   const FeatusedCourses = courses?.slice(0, 4);
 
-  console.log("FeaturedCourses", FeatusedCourses);
   return (
     <section className="primary-container bg-white mt-[-130px] ">
       <div className="flex justify-between p-5">
@@ -36,7 +35,6 @@ export default function FeaturedCourses({ courses }) {
                   ? course?.reviews.reduce((acc, r) => acc + r.rating, 0) / course?.reviews.length
                   : 0;
 
-              console.log("----", course, averageRating);
               return (
                 <Link key={course.id} href={`/courses/${course.id}`}>
                   <Card className="flex border hover:border-transparent border-gray-200 hover:shadow-lg duration-200 overflow-hidden group">

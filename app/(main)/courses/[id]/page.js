@@ -36,7 +36,6 @@ export default async function Home({ params }) {
     return notFound();
   }
   const instructor = await getCourseDataByCourseId("instructor", id);
-  console.log(JSON.stringify(instructor, null, 2));
   const reviews = await getCourseDataByCourseId("reviews", id);
 
     const isEnrolled = course?.enrollments?.some(

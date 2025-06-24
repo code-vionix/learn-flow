@@ -5,14 +5,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
+import Copyright from "./Copyright";
 
 export default function FooterBottom() {
   return (
     <div className="mt-12 flex justify-between items-center">
-      <p className="text-center text-gray-500 text-sm mt-8">
-        © 2021 - LearnFlow. Designed by{" "}
-        <span className="text-white">Lws-Coders</span>. All rights reserved.
-      </p>
+      <Copyright />
       <div>
         <Select>
           <SelectTrigger className="w-36 border-gray-600">

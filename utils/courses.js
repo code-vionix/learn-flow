@@ -151,6 +151,6 @@ export const getCourseDataByCourseId = async (dataName, courseId) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.log(error.massage);
+    // console.log(error.massage);
   }
 };

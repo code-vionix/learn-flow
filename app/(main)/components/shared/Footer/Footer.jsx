@@ -1,6 +1,6 @@
 import FooterBottom from "./FooterBottom";
 import FooterBrand from "./FooterBrand";
-import FooterDownload from "./FooterDownload";
+// import FooterDownload from "./FooterDownload";
 import FooterLinks from "./FooterLinks";
 
 export default function Footer() {
@@ -11,7 +11,7 @@ export default function Footer() {
           <FooterBrand />
           <div className="w-4/6 flex justify-between">
             <FooterLinks />
-            <FooterDownload />
+            {/* <FooterDownload /> */}
           </div>
         </div>
       </div>

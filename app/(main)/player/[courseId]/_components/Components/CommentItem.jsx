@@ -14,7 +14,6 @@ const CommentItem = ({
   handleReply,
   isNested,
 }) => {
-  console.log("comment.author,,,,,,,,,,,,,,,,",comment.author)
   const {data:session}=useSession()
   const getUserFullName = (author) =>
     author

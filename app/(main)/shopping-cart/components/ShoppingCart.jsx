@@ -81,7 +81,7 @@ function ShoppingCart() {
   const totalPrice = subtotal + taxes - discountAmount;
 
   function handleOnPayment(value) {
-    console.log(value.toFixed(2));
+    // console.log(value.toFixed(2));
   }
 
   if (!hydrated) {

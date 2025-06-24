@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import CourseCard from "../../components/cards/CourseCard";
 import FilterLeftSideBar from "./FilterLeftSideBar";
 
-const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
+const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount, setCourseCount }) => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,7 +18,8 @@ const FilterAndCourseDynamicLayout = ({ showFilters, setHasCount }) => {
     const fetchData = async () => {
       try {
         const fetchedCourses = await getAllCourses();
-        console.log(fetchedCourses);
+
+        setCourseCount(fetchedCourses.length);
         
         setCourses(fetchedCourses);
       } catch (err) {

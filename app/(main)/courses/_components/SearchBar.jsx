@@ -34,10 +34,10 @@ const SearchBar = () => {
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
       <Input
         type="text"
-        placeholder="UI/UX Design"
+        placeholder="Search..."
         value={query}
         onChange={handleSearch}
-        className="pl-10 w-72 border-gray-300 placeholder:text-black"
+        className="pl-10 w-72 border-gray-300"
       />
     </div>
   );

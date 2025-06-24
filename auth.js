@@ -128,7 +128,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           accessTokenExpires: refreshed.accessTokenExpires,
         };
       } catch (error) {
-        console.log("error", error);
         return {
           ...token,
           error: "AccessTokenRefreshFailed",

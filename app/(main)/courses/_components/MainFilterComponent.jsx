@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 const MainFilterComponent = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [hasCount ,setHasCount]=useState(0)
+  const [courseCount, setCourseCount] = useState(0);
 
   return (
     <div className="max-w-[1280px] mx-auto">
@@ -24,10 +25,10 @@ const MainFilterComponent = () => {
           </div>
           <SortCourse />
         </div>
-        <CourseSuggestionSection />
+        <CourseSuggestionSection courseCount={courseCount} />
       </div>
       {/* Dynamic Layout - Filters & Courses */}
-      <FilterAndCourseDynamicLayout showFilters={showFilters} setHasCount={setHasCount} />
+      <FilterAndCourseDynamicLayout showFilters={showFilters} setHasCount={setHasCount} setCourseCount={setCourseCount} />
     </div>
   );
 };

@@ -9,6 +9,7 @@ import NavIcons from "./NavIcons";
 import SearchBar from "./SearchBar";
 import UserDropdown from "./UserDropdown";
 import { data } from "autoprefixer";
+import Logo from "@/components/Logo";
 
 export default function Navigation() {
   const [isSticky, setIsSticky] = useState(false);
@@ -35,17 +36,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center">
           {/* Left: Logo + Browse + Search */}
           <div className="flex items-center">
-            <h3 className="text-2xl font-semibold flex items-center">
-              <span className="mr-2">
-                <Image
-                  src="/images/logo.png"
-                  alt="Logo"
-                  width={40}
-                  height={40}
-                />
-              </span>
-              E-tutor
-            </h3>
+            <Logo targetLink="/" className="text-black p-0" />
 
             <div className="ml-10">
               <BrowseSelect />

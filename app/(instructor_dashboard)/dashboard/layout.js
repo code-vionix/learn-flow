@@ -7,7 +7,7 @@ import "../../globals.css";
 import DashboardFooter from "./_components/DashboardFooter";
 import DashboardHeader from "./_components/DashboardHeader";
 import DashboardNavbar from "./_components/DashboardNavbar";
-import Logo from "./_components/Logo";
+import Logo from "@/components/Logo"
 
 const InstructorDashboardLayout = ({ children }) => {
   return (
@@ -17,7 +17,7 @@ const InstructorDashboardLayout = ({ children }) => {
           <div className="min-h-screen bg-gray-50 flex">
             <aside className="w-72 bg-gray-900 fixed h-full z-50 flex flex-col">
               <div className="w-full h-[1px] top-20 left-0 bg-white/30 absolute"></div>
-              <Logo />
+              <Logo targetLink="/dashboard" />
               <DashboardNavbar />
             </aside>
             <div className="flex flex-col w-full pl-72 overflow-hidden">
