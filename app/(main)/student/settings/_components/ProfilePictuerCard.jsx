@@ -17,6 +17,7 @@ export default function ProfilePictureCard({ initialImageUrl }) {
   // Accept initial image URL as prop
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(data?.imageUrl || ""); // Use initialImageUrl
+
   const [localError, setLocalError] = useState(null); // State for local validation errors
 
   // Mutations
@@ -129,7 +130,10 @@ export default function ProfilePictureCard({ initialImageUrl }) {
   };
 
   // Determine what image to display
-  const displayImageUrl = previewUrl || initialImageUrl || "/placeholder.svg"; // Fallback placeholder
+  const displayImageUrl =
+    previewUrl || initialImageUrl || "/images/default-avatar.png"; // Fallback placeholder
+
+  console.log(displayImageUrl);
 
   const isSaveDisabled =
     isLoading || (!selectedFile && previewUrl === (initialImageUrl || ""));

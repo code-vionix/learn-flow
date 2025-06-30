@@ -7,13 +7,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useSession } from "next-auth/react";
 import CourseCard from "../shared/CourseCard";
 
 export function CourseCarousel({ courses }) {
+  const session = useSession();
+
   return (
     <div className="w-full px-6 py-8 mt-20 relative">
       <h1 className="text-3xl font-bold mb-8">
-        Let&apos;s start learning, Kevin
+        Let&apos;s start learning, {session?.data?.user?.name}
       </h1>
 
       <Carousel

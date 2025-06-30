@@ -27,23 +27,15 @@ export default function UserDropdown({ session, onClose }) {
       className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-4 z-50 ring-1 ring-black ring-opacity-5 text-center"
     >
       <div className="flex justify-center mb-2">
-        {session.user.image ? (
-          <div className="w-16 h-16 rounded-full overflow-hidden">
-            <Image
-              src={session.user.image}
-              alt="User"
-              width={64}
-              height={64}
-              className="object-cover"
-            />
-          </div>
-        ) : (
-          <div className="w-16 h-16 rounded-full bg-primary-500 text-white flex items-center justify-center text-2xl font-bold">
-            {session.user.name
-              ? session.user.name.charAt(0).toUpperCase()
-              : session.user.email.charAt(0).toUpperCase()}
-          </div>
-        )}
+        <div className="w-16 h-16 rounded-full overflow-hidden">
+          <Image
+            src={session.user.image || "/images/default-avatar.png"}
+            alt={session.user.name || session.user.email}
+            width={64}
+            height={64}
+            className="object-cover"
+          />
+        </div>
       </div>
 
       <p className="mb-4 font-semibold text-gray-800">
@@ -56,8 +48,8 @@ export default function UserDropdown({ session, onClose }) {
           userRole === "TEACHER"
             ? "/dashboard"
             : userRole === "STUDENT"
-              ? "/student"
-              : "/"
+            ? "/student"
+            : "/"
         }
         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition"
         onClick={onClose}
@@ -71,8 +63,8 @@ export default function UserDropdown({ session, onClose }) {
           userRole === "TEACHER"
             ? "/settings"
             : userRole === "STUDENT"
-              ? "/student/settings"
-              : "/settings"
+            ? "/student/settings"
+            : "/settings"
         }
         className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
         onClick={onClose}
@@ -81,18 +73,18 @@ export default function UserDropdown({ session, onClose }) {
         Settings
       </Link>
       <button
-  className="flex items-center w-full justify-center px-4 py-2 text-primary-500 hover:bg-primary-100 font-semibold"
-  onClick={() => {
-    onClose();
-    signOut({
-      redirect: true,
-      callbackUrl: "/", // Redirects to the homepage
-    });
-  }}
->
-  <LogOut className="mr-2 h-4 w-4" />
-  Logout
-</button>
+        className="flex items-center w-full justify-center px-4 py-2 text-primary-500 hover:bg-primary-100 font-semibold"
+        onClick={() => {
+          onClose();
+          signOut({
+            redirect: true,
+            callbackUrl: "/", // Redirects to the homepage
+          });
+        }}
+      >
+        <LogOut className="mr-2 h-4 w-4" />
+        Logout
+      </button>
     </div>
   );
 }

@@ -26,8 +26,8 @@ const StudentLayout = () => {
           <div className="py-6 px-4 md:px-6 flex flex-col md:flex-row items-start md:items-center justify-between">
             <div className="flex items-center gap-4">
               <Image
-                src={data?.imageUrl || ""}
-                alt={data?.firstName || ""}
+                src={data?.imageUrl || "/images/default-avatar.png"}
+                alt={data?.firstName || "User"}
                 width={400}
                 height={400}
                 className="rounded-full w-20 h-20 object-cover"

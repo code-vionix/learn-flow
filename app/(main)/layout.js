@@ -10,31 +10,27 @@ import Footer from "./components/shared/Footer/Footer";
 import Navbars from "./components/shared/Navbars";
 import Navigation from "./components/shared/navigation/Navigation";
 
-import { ToastContainer } from "react-toastify";
-
 import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
-
 
 export default function MainLayout({ children }) {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <SessionProvider>
-      <AuthProvider>
-        <Provider store={store}>
-          <Navbars />
-          <Navigation />
-          <CourseProvider>
+      <SessionProvider>
+        <AuthProvider>
+          <Provider store={store}>
+            <Navbars />
+            <Navigation />
+            <CourseProvider>
               <main>
-              <NextTopLoader color="#FF6738"  height={3} showSpinner={false} />
+                <NextTopLoader color="#FF6738" height={3} showSpinner={false} />
                 {children}
               </main>
-            <ToastContainer />
-          </CourseProvider>
-          <Footer />
-        </Provider>
-      </AuthProvider>
-     </SessionProvider>
+            </CourseProvider>
+            <Footer />
+          </Provider>
+        </AuthProvider>
+      </SessionProvider>
     </Suspense>
   );
 }
