@@ -1,5 +1,6 @@
 "use client";
 
+import Logo from "@/components/Logo";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -8,8 +9,6 @@ import BrowseSelect from "./BrowseSelect";
 import NavIcons from "./NavIcons";
 import SearchBar from "./SearchBar";
 import UserDropdown from "./UserDropdown";
-import { data } from "autoprefixer";
-import Logo from "@/components/Logo";
 
 export default function Navigation() {
   const [isSticky, setIsSticky] = useState(false);
@@ -27,10 +26,11 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`w-full z-50 transition-all duration-300 ${isSticky
-        ? "fixed top-0 bg-white shadow-md py-3"
-        : "relative bg-transparent py-5"
-        }`}
+      className={`w-full z-50 transition-all duration-300 ${
+        isSticky
+          ? "fixed top-0 bg-white shadow-md py-3"
+          : "relative bg-transparent py-5"
+      }`}
     >
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
@@ -47,30 +47,32 @@ export default function Navigation() {
 
           {/* Right: Icons + Auth / User Dropdown */}
           <div className="flex items-center space-x-4 relative">
-            <NavIcons />
-
             {session?.user ? (
-              <div className="relative">
-                <button
-                  onClick={() => setDropdownOpen((prev) => !prev)}
-                  className="focus:outline-none"
-                >
-                  <Image
-                    src={session.user.image || "/images/default-avatar.png"}
-                    alt="User"
-                    width={32}
-                    height={32}
-                    className="w-8 h-8 rounded-full object-cover cursor-pointer"
-                  />
-                </button>
+              <>
+                <NavIcons />
 
-                {dropdownOpen && (
-                  <UserDropdown
-                    session={session}
-                    onClose={() => setDropdownOpen(false)}
-                  />
-                )}
-              </div>
+                <div className="relative">
+                  <button
+                    onClick={() => setDropdownOpen((prev) => !prev)}
+                    className="focus:outline-none"
+                  >
+                    <Image
+                      src={session.user.image || "/images/default-avatar.png"}
+                      alt={session.user.name || session.user.email}
+                      width={32}
+                      height={32}
+                      className="w-8 h-8 rounded-full object-cover cursor-pointer"
+                    />
+                  </button>
+
+                  {dropdownOpen && (
+                    <UserDropdown
+                      session={session}
+                      onClose={() => setDropdownOpen(false)}
+                    />
+                  )}
+                </div>
+              </>
             ) : (
               <AuthButtons />
             )}

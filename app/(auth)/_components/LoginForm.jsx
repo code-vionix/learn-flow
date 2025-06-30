@@ -1,9 +1,10 @@
 "use client";
 
+import { login } from "@/actions/user";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import SignInButton from "./SignInButton";
 
 export default function LoginForm() {
@@ -24,15 +25,20 @@ export default function LoginForm() {
     e.preventDefault();
     setError("");
 
-    const res = await signIn("credentials", {
-      email: form.email,
-      password: form.password,
-      redirect: false,
-    });
-    if (res?.ok) {
-      router.push("/");
-    } else {
-      setError("Invalid email or password");
+    try {
+      const res = await login(form);
+
+      if (res) {
+        router.push("/");
+        toast.success("Login successful");
+      }
+
+      if (res.error) {
+        console.log(res.error);
+        toast.error(res.error);
+      }
+    } catch (err) {
+      setError(err.error);
     }
   };
 

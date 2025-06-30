@@ -52,12 +52,9 @@ export default function DashboardMetrics({ courses, instructors = [] }) {
   return (
     <>
       {metrics.map((mat, index) => (
-        <Link href="#" key={index}>
+        <Link href="#" key={index} className="w-full">
           <Card
-            className={cn(
-              "flex items-center h-[108px] w-[312px] gap-5 p-5",
-              mat.className
-            )}
+            className={cn("flex items-center gap-5 p-7 px-10", mat.className)}
           >
             <div className="p-3 bg-white rounded-full">
               <mat.icon className={`w-6 h-6 ${mat.iconClassName}`} />
