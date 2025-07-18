@@ -30,12 +30,16 @@ export default function LoginForm() {
 
       if (res) {
         router.push("/");
-        toast.success("Login successful");
+        if (typeof window !== "undefined") {
+          toast.success("Login successful");
+        }
       }
 
       if (res.error) {
         console.log(res.error);
-        toast.error(res.error);
+        if (typeof window !== "undefined") {
+          toast.error(res.error);
+        }
       }
     } catch (err) {
       setError(err.error);

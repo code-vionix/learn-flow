@@ -1,15 +1,19 @@
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 
-const secret = process.env.NEXTAUTH_SECRET;
+// const secret = process.env.NEXTAUTH_SECRET;
 
 // Routes that need authentication
-const protectedRoutes = ["/dashboard", "/student", "/admin", "/player"];
+// const protectedRoutes = ["/dashboard", "/student", "/admin", "/player"];
 
 // Routes that should not require authentication
-const publicRoutes = ["/login", "/register", "/api/auth", "/"];
+// const publicRoutes = ["/login", "/register", "/api/auth", "/"];
 
 export async function middleware(req) {
+  // Temporarily allow all routes
+  return NextResponse.next();
+  
+  /* Authentication system commented out
   const { pathname } = req.nextUrl;
 
   // Allow public routes through
@@ -30,8 +34,7 @@ export async function middleware(req) {
     const loginUrl = new URL("/login", req.url);
     return NextResponse.redirect(loginUrl);
   }
-
-  return NextResponse.next();
+  */
 }
 
 export const config = {

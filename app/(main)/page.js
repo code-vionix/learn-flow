@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth";
 import { getInstructors } from "@/lib/fetchData";
 import {
@@ -7,6 +6,7 @@ import {
   getFeaturedCourses,
 } from "@/utils/courses";
 
+import NextTopLoader from "nextjs-toploader";
 import BestSellingSection from "./components/home/BestSellingSection";
 import CategoriesSection from "./components/home/CategoriesSection";
 import FeaturedCourses from "./components/home/FeaturedCourses";
@@ -16,7 +16,6 @@ import RecentAddedCourseList from "./components/home/RecentAddedCourse/RecentAdd
 import TopInstructors from "./components/home/TopInstructors ";
 import TrustedCompanies from "./components/home/TrustedCompanies";
 import JoinCourse from "./components/shared/JoinCourse";
-import NextTopLoader from "nextjs-toploader";
 export default async function Home() {
   const session = await auth();
   const courses = await getAllCourses();
@@ -24,28 +23,27 @@ export default async function Home() {
   const featuredCourses = await getFeaturedCourses();
   const instructors = await getInstructors();
 
-  
   return (
     <div>
-<NextTopLoader color="#FF6738"  height={3} showSpinner={false} />
-    <div className="bg-background text-primary">
-      <Hero />
-      <CategoriesSection />
-      <div className="relative ">
-        <BestSellingSection courses={bestSellingCourses?.data} />
-        <FeaturedCourses courses={featuredCourses?.data} />
-        <RecentAddedCourseList courses={courses} />
-        <InstructorCard />
-        <TopInstructors />
-        <TrustedCompanies />
-        <JoinCourse />
-      </div>
+      <NextTopLoader color="#FF6738" height={3} showSpinner={false} />
+      <div className="bg-background text-primary">
+        <Hero />
+        <CategoriesSection />
+        <div className="relative ">
+          <BestSellingSection courses={bestSellingCourses?.data} />
+          <FeaturedCourses courses={featuredCourses?.data} />
+          <RecentAddedCourseList courses={courses} />
+          <InstructorCard />
+          <TopInstructors />
+          <TrustedCompanies />
+          <JoinCourse />
+        </div>
 
-      <div className="relative ">
+        {/* <div className="relative ">
         <div className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16"></div>
       </div>
-      <section className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16 "></section>
-    </div>
+      <section className="lg:w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 py-16 "></section> */}
+      </div>
     </div>
   );
 }
